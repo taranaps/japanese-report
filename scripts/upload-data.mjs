@@ -1,6 +1,8 @@
 import { db } from "./firebaseConfig.mjs";
 import { collection, addDoc, doc, getDoc, updateDoc, setDoc, arrayUnion, arrayRemove, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import * as XLSX from '../node_modules/xlsx/xlsx.mjs';
+
+
+console.log("XLSX library loaded", XLSX);
 
 // DOM Elements
 const openUploadModal = document.getElementById('openUploadModal');
@@ -30,6 +32,8 @@ closeMessageModal.addEventListener('click', () => {
     messageModal.style.display = 'none';
 });
 
+
+
 // Handle file upload and process the Excel data
 uploadButton.addEventListener('click', async () => {
     const file = fileInput.files[0];
@@ -45,6 +49,10 @@ uploadButton.addEventListener('click', async () => {
     }
 
     try {
+        console.log("inside xlsx", XLSX.utils); // Check if utils are accessible
+        console.log("inside xlsx methods", Object.keys(XLSX));  // List available methods to see if `read` exists
+
+
         const data = await file.arrayBuffer();
         const workbook = XLSX.read(data, { type: 'array' });
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -52,13 +60,13 @@ uploadButton.addEventListener('click', async () => {
 
         console.log("jsonData ka trainees:", jsonData); // View initial parsed data
 
-         // Preliminary validation for merged cell fields
+        // Preliminary validation for merged cell fields
         //  const rawValidationResult = validateRawData(jsonData);
         //  if (!rawValidationResult.isValid) {
         //      showMessageModal(rawValidationResult.errorMessage, 'error');
         //      return;
         //  }
- 
+
 
         // Process data into structured format
         const trainees = processTraineeData(sheet, jsonData);
@@ -239,7 +247,7 @@ function processTraineeData(sheet, data) {
         if (row["Number of Sessions (Month)"]) nOfSessionsMonth = row["Number of Sessions (Month)"];
         if (row["Batch Duration Till Date"]) batchDurTillDate = row["Batch Duration Till Date"];
         if (row["Batch Duration (Month)"]) batchDurMonth = row["Batch Duration (Month)"];
-        if (!row["Trainee Name"]) return; 
+        if (!row["Trainee Name"]) return;
 
         const trainee = {
             traineeName: row["Trainee Name"] || "",
@@ -248,18 +256,18 @@ function processTraineeData(sheet, data) {
             month: month || "",
             du: row["DU"] || "",
             avgAttendance: row["Avg Attendance Percentage"] || 0,
-            trainerName: trainerNames || "", 
+            trainerName: trainerNames || "",
             numberOfSessionsTillDate: parseInt(nOfSessionsTillDate) || 0,
             numberOfSessionsMonth: parseInt(nOfSessionsMonth) || 0,
             batchDurationTillDate: parseFloat(batchDurTillDate) || 0,
             batchDurationMonth: parseFloat(batchDurMonth) || 0,
-            evaluations: extractEvaluations(row, evalNumbers, evalNames) 
+            evaluations: extractEvaluations(row, evalNumbers, evalNames)
         };
 
         trainees.push(trainee);
     });
 
-    console.log("processTraineeData ka trainees:", trainees); 
+    console.log("processTraineeData ka trainees:", trainees);
 
     return trainees;
 }
@@ -269,11 +277,11 @@ function locateEvaluationRows(data) {
 
     data.forEach((row, index) => {
         const rowValues = Object.values(row)
-            .map(val => val.toString().trim().toLowerCase()); 
+            .map(val => val.toString().trim().toLowerCase());
 
         if (rowValues.some(val => val.includes("evaluation no"))) {
             evalNumbers = row;
-        } 
+        }
         else if (rowValues.some(val => val.includes("evaluation name"))) {
             evalNames = row;
         }
