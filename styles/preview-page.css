@@ -21,7 +21,7 @@
 }
 
 .preview-popup .preview {
-    position: absolute;
+    position: fixed;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
@@ -29,6 +29,7 @@
     width: 450px;
     height: 10px;
     z-index: 2;
+   
 }
 
 .preview-popup.active .popup-overlay {
@@ -53,6 +54,7 @@
     color: black;
     margin-top: 10px;
     margin-left: 30px;
+    
 }
 
 
@@ -62,7 +64,7 @@
     grid-template-columns: auto auto;
     gap: 1px;
 
-    grid-template-columns: 450px 400px;
+    grid-template-columns: 450px 200px;
     grid-template-rows: 40px 450px;
 
     justify-content: center;
@@ -71,7 +73,7 @@
 }
 
 .preview-report {
-    background-color: beige;
+    background-color: white;
    overflow: scroll;
     grid-column: 1/2;
     grid-row: 2/-1;
@@ -80,6 +82,10 @@
 
 
 
+}
+
+body.no-scroll {
+    overflow: hidden;
 }
 
 
@@ -95,9 +101,11 @@
 }
 
 .dropdown {
-    min-width: 10em;
+    min-width: 60px;
     position: relative;
     margin-top: 5px;
+    min-height: 60px;
+    margin-left: -10px;
 
 }
 
@@ -111,27 +119,32 @@
 .select {
     background: white;
     display: flex;
-    border: 2px black solid;
+    /* border: 2px black solid; */
     border-width: 1px;
     border-radius: 0.5em;
     padding: 0.5em;
     cursor: pointer;
     transition: background 0.3s;
     height: 25px;
-    width: 250px;
-
+    width: 180px;
+    /* font-weight: 200; */
+    font-size: x-small;
 
 
 }
 
 .select-clicked {
-    border: 2px black solid;
-    box-shadow: 0 0 0.8em black;
+    /* border: 2px black solid; */
+    /* box-shadow: 0 0 0.8em black; */
 }
 
 .select:hover {
     background: #f3eeee;
 
+}
+.selected{
+    font-size: larger;
+    
 }
 
 .caret {
@@ -142,29 +155,36 @@
     border-top: 6px solid black;
     transition: 0.3s;
     align-self: center;
-    margin-left: 200px;
+    margin-left: 150px;
+    position: fixed;
 }
 
 .caret-rotate {
     transform: rotate(180deg);
+    margin-left: 150px;
+    /* position: inherit; */
+    position: fixed;
+
 }
 
 .menu {
     list-style: none;
     padding: 0.2em 0.5em;
     background: white;
-    border: 1px black solid;
-    box-shadow: 2px 2px 5px black;
+    /* border: 1px black solid; */
+    /* box-shadow: 2px 2px 5px black; */
     border-radius: 0.5em;
     position: absolute;
-    top: 2em;
-    left: 50%;
+    top: 3em;
+    left: 24.5%;
     width: 100%;
     transform: translateX(-50%);
     opacity: 0;
     display: none;
     transition: 0.2s;
     z-index: 1;
+    max-width: 180px;
+    margin-left: 47px;
 
 }
 
@@ -173,6 +193,7 @@
     margin: 0.3em 0;
     border-radius: 0.5em;
     cursor: pointer;
+    font-size: larger;
 }
 
 .menu li:hover {
@@ -190,16 +211,31 @@
 
 .download {
     margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    margin-left: -15px;
+    /* margin-top: 300px; */
 }
 
 .download button {
     border-radius: 10px;
     border-width: 1px;
-    height: 25px;
-    width: 80px;
-    background-color: white;
+    height: 55px;
+    width: 70px;
+    background-color:#dc143c01;
     cursor: pointer;
+    padding: 0px;
+    font-size: 18px;
+   
 }
+.download button i{
+    color: white;
+
+
+   
+}
+
 
 .cancel {
     display: flex;
@@ -351,6 +387,9 @@ textarea {
 #file-input{
     color: black;
 }
+
+
+
 
 
 
