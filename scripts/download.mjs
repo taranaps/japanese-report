@@ -1,10 +1,12 @@
-import { db } from "./firebaseConfig.mjs"; // Your Firebase config import
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; // Firestore functions to retrieve documents
+import { db, storage } from "./firebaseConfig.mjs"; // Your Firebase config import
+import { collection, getDocs, getStorage, ref, deleteObject } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; // Firestore functions to retrieve documents
 
 // Global variables to hold selected image data
 document.addEventListener("DOMContentLoaded", async function () {
     await retrieveImages();
+    
 });
+let url;
 
 async function retrieveImages() {
     const imagesContainer = document.getElementById("imagesContainer");
@@ -57,6 +59,7 @@ document.getElementById("copyUrlBtn").onclick = function() {
     const imageUrl = document.getElementById("fullSizeImage").src;
 
     // Use the Clipboard API to copy the image URL to the clipboard
+    url=navigator.clipboard.writeText(imageUrl);
     navigator.clipboard.writeText(imageUrl).then(function() {
         alert("Image URL copied to clipboard!");
     }).catch(function(err) {
@@ -64,6 +67,24 @@ document.getElementById("copyUrlBtn").onclick = function() {
     });
 };
 
+document.getElementById("deleteTemplate").onclick = async function() {
+    try {
+       
+            // Extract storage path from the image URL
+            const storagePath = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
+    
+            // Create a reference to the file in Firebase Storage
+            const storage = getStorage();
+            const imageRef = ref(storage, storagePath);
+    
+            // Delete the file
+            await deleteObject(imageRef);
+            alert("Image file successfully deleted from Firebase Storage!");
+        } catch (error) {
+            console.error("Error deleting image file:", error);
+            alert("Failed to delete the image file from Firebase Storage.");
+        }
+}
 
 
 

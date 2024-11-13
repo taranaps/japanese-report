@@ -1,16 +1,54 @@
 
 function preview_togglepopup() {
+  let  previewPopup=document.getElementById("preview-popup");
+  let generateButton=document.getElementById("generate-report");
+  let preview=document.getElementById("preview");
+  
+
   document.getElementById("preview-popup").classList.toggle("active");
+  previewPopup.classList.add('active');
+            document.body.classList.add('no-scroll');
+            window.scrollTo(0, 0); // Scroll to top
+            generateButton.style.display='none';
+            // preview.style.overflow='hidden'
+           
+
+            
 }
 
-function share_togglepopup() {
-  document.getElementById("share-popup").classList.toggle("active");
-}
+// function share_togglepopup() {
+//   document.getElementById("share-popup").classList.toggle("active");
+// }
+ 
+
+document.getElementById('cancel-button').addEventListener('click', function () {
+  let  previewPopup=document.getElementById("preview-popup");
+  // let generateButton=document.getElementById("generate-report");
+  document.getElementById("preview-popup").classList.toggle("active");
+  previewPopup.classList.remove('active');
+  let generateButton=document.getElementById("generate-report");
+  generateButton.style.display='block';
+
+
+})
 
 
 
-const images = document.querySelectorAll('.image-container img');
-const templates = document.querySelectorAll('.workspace > div');
+
+
+document.getElementById('composeEmailButton').addEventListener('click', function () {
+  const email = 'hisham.e@experionglobal.com';
+  const subject = 'japanese training report';
+  const body = 'Hello, this is a sample email body.';
+  
+  window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+
+
+
+
+let images = document.querySelectorAll('.image-container img');
+let templates = document.querySelectorAll('.workspace > div');
 let selectTemplate;
 
 
@@ -229,57 +267,43 @@ function copyHtml(selectTemplate) {
     // Create a new image element
     var img = document.createElement("img");
     img.src = imgData;
-    if (selectTemplate === 'template1') {
-      img.style.marginLeft = "10px";
-      img.style.marginTop = "-20px";
-    } else if (selectTemplate === 'template2') {
-      img.style.marginLeft = "100px";
-    } else if (selectTemplate === 'template3') {
-      img.style.marginLeft = "0px";
-    } else {
-      img.style.marginLeft = "40px";
-    }
 
-    // Get the dimensions of the wrapper div
-    var targetWidth = wrapperDiv.offsetWidth;
-    var targetHeight = wrapperDiv.offsetHeight;
+    // Set margins based on the selected template if necessary
+    // if (selectTemplate === 'template1') {
+    //   img.style.marginLeft = "10px";
+    //   img.style.marginTop = "-20px";
+    // } else if (selectTemplate === 'template2') {
+    //   img.style.marginLeft = "100px";
+    // } else if (selectTemplate === 'template3') {
+    //   img.style.marginLeft = "0px";
+    // } else {
+    //   img.style.marginLeft = "40px";
+    // }
 
-    // Set the image dimensions to fit the wrapper div while maintaining aspect ratio
-    img.onload = function () {
-      // Calculate the aspect ratios
-      var imgAspectRatio = img.naturalWidth / img.naturalHeight;
-      var targetAspectRatio = targetWidth / targetHeight;
+    // Ensure the image fully covers the width of the wrapper and allow scrolling for height
+    img.style.width = "100%";      // Cover the entire width
+    img.style.height = "auto";     // Maintain aspect ratio
+    wrapperDiv.style.overflowY = "auto";  // Enable vertical scrolling
+    wrapperDiv.style.height = "450px";    // Set preview container height to viewport height
 
-      if (imgAspectRatio > targetAspectRatio) {
-        // Image is wider relative to the target div
-        img.style.width = targetWidth + "px";
-        img.style.height = (targetWidth / imgAspectRatio) + "px";
-      } else {
-        // Image is taller relative to the target div
-        img.style.height = targetHeight + "px";
-        img.style.width = (targetHeight * imgAspectRatio) + "px";
-      }
+    // Append the image to the wrapper div
+    wrapperDiv.appendChild(img);
 
-      // Append the image to the wrapper div
-      wrapperDiv.appendChild(img);
+    // Convert image to a file for file input handling
+    fetch(imgData)
+      .then(res => res.blob())
+      .then(blob => {
+        // Generate a unique filename based on current date and time
+        const now = new Date();
+        const formattedDate = now.toISOString().replace(/[:.]/g, '-');
+        const fileName = `captured_image_${formattedDate}.png`;
+        const file = new File([blob], fileName, { type: "image/png" });
 
-      fetch(imgData)
-        .then(res => res.blob())
-        .then(blob => {
-          // Get the current date and time for a unique filename
-          const now = new Date();
-          const formattedDate = now.toISOString().replace(/[:.]/g, '-'); // Format YYYY-MM-DDTHH-MM-SS
-
-          // Create a unique file name using the timestamp
-          const fileName = `captured_image_${formattedDate}.png`;
-          const file = new File([blob], fileName, { type: "image/png" });
-
-          // Assign this file to the file input element's `files` property
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(file);
-          fileInputButton.files = dataTransfer.files;
-        });
-    };
+        // Assign this file to the file input element’s `files` property
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInputButton.files = dataTransfer.files;
+      });
   });
 }
 
@@ -320,6 +344,7 @@ dropdown.forEach(dropdown => {
     downloadButton.replaceWith(newButton);
     downloadButton = document.getElementById('download-button');
   }
+   
 
   options.forEach(option => {
     option.addEventListener('click', () => {
@@ -335,15 +360,24 @@ dropdown.forEach(dropdown => {
       downloadButton.disabled = false;
       console.log(selected.innerText)
 
-      if (selected.innerText === 'pdf') {
+
+      
+      
+  if(selected.innerText === 'File Type'){
+    downloadButton.addEventListener('click',errorMessage() );
+    
+  }
+
+      else if (selected.innerText === 'pdf') {
         downloadButton.addEventListener('click', downloadPDF);
       } else if (selected.innerText === 'jpg') {
         downloadButton.addEventListener('click', downloadJPG);
       } else {
         downloadButton.addEventListener('click', downloadPNG);
       }
-
-
+      
+     
+      
       options.forEach(option => {
         option.classList.remove('active');
         option.style.backgroundColor = '';
@@ -351,9 +385,15 @@ dropdown.forEach(dropdown => {
       option.classList.add('active');
       option.style.backgroundColor = '#dc143cfa';
     });
+   
   });
+  
+  
+ function errorMessage(){
+  alert("Please select a file format before downloading.");
 
-
+ }
+ 
 
 
   function downloadPDF() {
@@ -432,36 +472,88 @@ dropdown.forEach(dropdown => {
   }
 
 
+  // function downloadJPG() {
+  //   const element = document.getElementById(selectTemplate);
+
+  //   // Use html2canvas to capture the div
+  //   html2canvas(element).then((canvas) => {
+  //     // Convert the canvas to JPEG
+  //     canvas.toBlob((blob) => {
+  //       // Use FileSaver.js to save the blob directly without an anchor tag
+  //       saveAs(blob, 'report.jpeg'); // Specify the file name
+  //     }, 'image/jpeg'); // Specify the image format
+  //   });
+  // }
+
   function downloadJPG() {
     const element = document.getElementById(selectTemplate);
 
-    // Use html2canvas to capture the div
-    html2canvas(element).then((canvas) => {
-      // Convert the canvas to JPEG
-      canvas.toBlob((blob) => {
-        // Use FileSaver.js to save the blob directly without an anchor tag
-        saveAs(blob, 'report.jpeg'); // Specify the file name
-      }, 'image/jpeg'); // Specify the image format
+    // Get the width and height of the element to match its size
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
+
+    // Use html2canvas with specified width and height
+    html2canvas(element, {
+        width: width,
+        height: height,
+        scale: 1, // Ensures 1:1 scale for exact sizing
+    }).then((canvas) => {
+        // Convert the canvas to JPEG
+        canvas.toBlob((blob) => {
+            // Use FileSaver.js to save the blob directly without an anchor tag
+            saveAs(blob, 'report.jpeg'); // Specify the file name
+        }, 'image/jpeg'); // Specify the image format
     });
-  }
+}
 
 
 
 
 
+
+  // function downloadPNG() {
+  //   const element = document.getElementById(selectTemplate);
+
+  //   // Use html2canvas to capture the div
+  //   html2canvas(element).then((canvas) => {
+  //     // Convert the canvas to PNG
+  //     canvas.toBlob((blob) => {
+  //       // Use FileSaver.js to save the blob directly without an anchor tag
+  //       saveAs(blob, 'report.png'); // Specify the file name
+  //     }, 'image/png'); // Specify the image format
+  //   });
+  // }
 
   function downloadPNG() {
     const element = document.getElementById(selectTemplate);
 
-    // Use html2canvas to capture the div
-    html2canvas(element).then((canvas) => {
-      // Convert the canvas to PNG
-      canvas.toBlob((blob) => {
-        // Use FileSaver.js to save the blob directly without an anchor tag
-        saveAs(blob, 'report.png'); // Specify the file name
-      }, 'image/png'); // Specify the image format
+    // Get the exact width and height of the element
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
+
+    // Use html2canvas with specified width, height, and scale options
+    html2canvas(element, {
+        width: width,
+        height: height,
+        scale: 1, // Set scale to 1 for an exact-size capture
+    }).then((canvas) => {
+        // Convert the canvas to PNG
+        canvas.toBlob((blob) => {
+            // Use FileSaver.js to save the blob as PNG without needing an anchor tag
+            saveAs(blob, 'report.png'); // Specify the file name
+        }, 'image/png'); // Specify the image format
     });
+}
+
+
+downloadButton.addEventListener('click', () => {
+  if (selected.innerText==='File Type') {
+    alert("Please select a format before downloading.");
   }
+});
+
+
+ 
 });
 
 
@@ -517,6 +609,7 @@ dropdown.forEach(dropdown => {
 
 
 let tableContainer;
+let tableId;
 let toolbarId;
 let mergeRowIndex;
 let startColumnIndex;
@@ -529,6 +622,7 @@ let textColorPicker;
 let highlightColorPicker;
 let imageToolbar;
 let hideImage;
+let borderColorPicker=null;
 images.forEach(image => {
   image.addEventListener('click', function () {
     hideAllTemplates()
@@ -542,6 +636,7 @@ images.forEach(image => {
 
       if (templateKey === "template2") {
         tableContainer = document.getElementById('tableContent2')
+        tableId = 'tablecontainer2'
         toolbarId = 'toolbar2'
         mergeRowIndex = 'mergeRowIndex2'
         startColumnIndex = 'startColumnIndex2'
@@ -554,11 +649,13 @@ images.forEach(image => {
         highlightColorPicker = 'highlightColorPicker2'
         imageToolbar = 'imageToolbar2'
         hideImage = '#tableContent2 img'
+        borderColorPicker='borderColorPicker2'
 
 
       }
       else if (templateKey === "template5") {
         tableContainer = document.getElementById('tableContent4')
+        tableId = 'tablecontainer4'
         toolbarId = 'toolbar4'
         mergeRowIndex = 'mergeRowIndex4'
         startColumnIndex = 'startColumnIndex4'
@@ -571,10 +668,12 @@ images.forEach(image => {
         highlightColorPicker = 'highlightColorPicker4'
         imageToolbar = 'imageToolbar4'
         hideImage = '#tableContent4 img'
+         borderColorPicker='borderColorPicker4'
 
       }
       else if (templateKey === "template3") {
         tableContainer = document.getElementById('tableContent3')
+        tableId = 'tablecontainer3'
         toolbarId = 'toolbar3'
         mergeRowIndex = 'mergeRowIndex3'
         startColumnIndex = 'startColumnIndex3'
@@ -587,6 +686,7 @@ images.forEach(image => {
         highlightColorPicker = 'highlightColorPicker3'
         imageToolbar = 'imageToolbar3'
         hideImage = '#tableContent3 img'
+         borderColorPicker='borderColorPicker3'
 
       }
       else {
@@ -604,6 +704,7 @@ images.forEach(image => {
         highlightColorPicker = 'highlightColorPicker1'
         imageToolbar = 'imageToolbar1'
         hideImage = '#tableContent1 img'
+         borderColorPicker='borderColorPicker1'
 
 
       }
@@ -835,16 +936,19 @@ function decreaseTableSize() {
 
 function changeCellBackground() {
   if (selectedCell) {
-    // Create a color picker dynamically
+    // Create a color picker with the last chosen color as the default
     const colorPicker = document.createElement('input');
     colorPicker.type = 'color';
-    colorPicker.style.position = 'relative';
+    colorPicker.style.position = 'absolute';
     colorPicker.style.zIndex = '1000';
-    //   colorPicker.style.opacity = '0'; // Hide the picker but keep it clickable
+    colorPicker.style.opacity = '0';
+
+    // Get the row of the selected cell
+    const row = selectedCell;
 
     // Add event listener to apply color on change
     colorPicker.addEventListener('input', (event) => {
-      selectedCell.style.backgroundColor = event.target.value;
+      row.style.backgroundColor = event.target.value; // Change the background color of the entire row
     });
 
     // Append to body and click to open the picker
@@ -859,22 +963,23 @@ function changeCellBackground() {
 }
 
 
-let defaultTextColor = '#000000'; // Initial default text color (black)
+// let defaultTextColor = '#000000'; // Initial default text color (black)
 
 function changeTextColorTable() {
   if (selectedCell) {
     // Create a color picker with the last chosen color as the default
     const colorPicker = document.createElement('input');
     colorPicker.type = 'color';
-    // colorPicker.value = defaultTextColor; // Set the default text color
     colorPicker.style.position = 'absolute';
     colorPicker.style.zIndex = '1000';
     colorPicker.style.opacity = '0';
 
+    // Get the row of the selected cell
+    const row = selectedCell;
+
     // Add event listener to apply color on change
     colorPicker.addEventListener('input', (event) => {
-      selectedCell.style.color = event.target.value;
-      defaultTextColor = event.target.value; // Update default text color
+      row.style.color = event.target.value; // Change the text color of the entire row
     });
 
     // Append to body and click to open the picker
@@ -1110,6 +1215,33 @@ function deleteCell() {
 }
 
 
+  function moveTableDown(){
+    if (selectedTable){
+      // Adjust the margin-top to move the table down by 20px each click
+    const currentMarginTop = parseInt(window.getComputedStyle(selectedTable).marginTop, 10);
+    selectedTable.style.marginTop = (currentMarginTop + 10) + "px";
+  
+  
+    }
+
+  }
+
+  
+
+  function moveTableUp(){
+    if (selectedTable){
+      // Adjust the margin-top to move the table down by 20px each click
+    const currentMarginTop = parseInt(window.getComputedStyle(selectedTable).marginTop, 10);
+    selectedTable.style.marginTop = (currentMarginTop - 10) + "px";
+  
+  
+    }
+
+  }
+  
+  
+
+
 
 
 
@@ -1318,7 +1450,7 @@ function indentImageRight() {
 
 function setImageBorderColor() {
   if (selectedImageElement) {
-    const color = document.getElementById("borderColorPicker").value;
+    const color = document.getElementById(borderColorPicker).value;
     selectedImageElement.style.border = `2px solid ${color}`; // Apply border with the selected color
   }
 }
@@ -1345,6 +1477,18 @@ document.addEventListener("click", function (event) {
   }
 });
 
+document.getElementById('save-button').addEventListener('click', function () {
+  var wrapperDiv = document.getElementById('preview-report');
+
+  // Check if the div is null or has no <img> elements
+  if (wrapperDiv === null || wrapperDiv.getElementsByTagName('img').length === 0) {
+      alert("Please Choose a Template ");
+  } else {
+     
+      alert("Saved Successfully ");
+     
+  }
+});
 
 
 

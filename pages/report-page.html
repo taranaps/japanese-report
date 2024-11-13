@@ -27,6 +27,7 @@
           <div class="side-bar">
             <div class="arrow" id="arrow-up">&#9650;</div>
             <div class="image-container" id="image-scroll">
+              
               <img
                 src="../assets/images/template-three.png"
                 alt="Template1"
@@ -51,7 +52,7 @@
                 data-template="template3"
               />
               <img
-                src="../assets/images/template-four.png"
+                src="../assets/images/template-five.png"
                 alt="Template5"
                 data-template="template5"
               />
@@ -67,7 +68,7 @@
 		  
 		
           </div>
-          <div class="workspace">
+          <div class="workspace" id="workspace">
             <div id="editor"><h2>Please select the batch and a template to start editing!</h2></div>
              
             
@@ -128,6 +129,145 @@
                 </div>
                 <div id="bottum-cutoff-template1">
                 
+              </div>
+
+              <div id="toolbar1" class="toolbar" style="display: none;">
+                <button onclick="makeBold()" title="Bold">
+                  <i class="fas fa-bold"></i>
+                </button>
+                <button onclick="increaseTextSize()" title="Increase Font Size">
+                  <i class="fas fa-text-height"></i>
+                </button>
+                <button onclick="decreaseTextSize()" title="Decrease Font Size">
+                  <i class="fas fa-text-width"></i>
+                </button>
+                <button onclick="increaseIndent()" title="Increase Indent">
+                  <i class="fas fa-indent"></i>
+                </button>
+                <button onclick="decreaseIndent()" title="Decrease Indent">
+                  <i class="fas fa-outdent"></i>
+                </button>
+                <button onclick="increaseTableSize()" title="Increase Table Size">
+                  <i class="fas fa-expand"></i>
+                </button>
+                <button onclick="decreaseTableSize()" title="Decrease Table Size">
+                  <i class="fas fa-compress"></i>
+                </button>
+                <button onclick="changeCellBackground()" title="Change Background Color">
+                  <i class="fa-solid fa-fill"></i>
+                </button>
+                <button onclick="changeTextColorTable()" title="Change Text Color">
+                  <i class="fa-solid fa-paintbrush"></i>
+                </button>
+                <button onclick="changeRowBackground()" title="Change Row Background Color">
+                  <i class="fas fa-layer-group"></i>
+                </button>
+                <button onclick="changeColumnBackground()" title="Change Column Background Color">
+                  <i class="fas fa-columns"></i>
+                </button>
+                <button onclick="toggleTableBorder()" title="Toggle Borders">
+                  <i class="fas fa-border-all"></i> 
+              </button>
+    
+              <button onclick="addRow()"  title="Add Row">
+                <i class="fa-solid fa-table-list"></i>
+              </button>
+    
+              <button onclick="addColumn()" title="Add Column">
+                <i class="fa-solid fa-table-cells"></i> 
+              </button>
+    
+              <button onclick="setUniformSize()" title="Set Cell Size">
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+              </button>
+              <button onclick="moveTableDown()" title="Move Table Down">
+                <i class="fa-solid fa-arrow-down"></i> 
+            </button>
+            <button onclick="moveTableUp()" title="Move table Up">
+              <i class="fa-solid fa-arrow-up"></i> 
+          </button>
+             
+              <button onclick="deleteTable()">
+                <i class="fas fa-trash"></i> Delete Table
+              </button>
+              <button onclick="deleteCell()">
+                <i class="fas fa-trash"></i> Delete Cell
+              </button>
+              <br>
+                <input type="number" id="mergeRowIndex1" min="1" placeholder="Row to Merge" required>
+                <input type="number" id="startColumnIndex1" min="1" placeholder="Start Column" required>
+                <input type="number" id="endColumnIndex1" min="1" placeholder="End Column" required>
+                <button onclick="mergeRowCells()" title="Merge Cells">
+                  <i class="fa-solid fa-arrows-left-right"></i>
+                </button>
+                <br>
+                <input type="number" id="mergeColIndex1" min="1" placeholder="Column to Merge" required>
+        <input type="number" id="startRowIndex1" min="1" placeholder="Start Row" required>
+        <input type="number" id="endRowIndex1" min="1" placeholder="End Row" required>
+        <button onclick="mergeColumnCells()" title="Merge Column Cells">
+            <i class="fas fa-arrows-alt-v"></i>
+        </button>
+        
+              </div>
+    
+              <div id="toolbar-text1"class="toolbar" style="display: none;">
+                <button onclick="makeBold()" title="Bold"><i class="fas fa-bold"></i></button>
+                <button onclick="makeItalic()" title="Italic"><i class="fas fa-italic"></i></button>
+                <button onclick="makeUnderline()" title="Underline"><i class="fas fa-underline"></i></button>
+                <button onclick="increaseFontSize()" title="Increase Font Size"><i class="fas fa-plus"></i></button>
+                <button onclick="decreaseFontSize()" title="Decrease Font Size"><i class="fas fa-minus"></i></button>
+                
+                  <button onclick="toggleBulletPoints()" title="Bullet Points">
+                      <i class="fas fa-list-ul"></i>
+                  </button>
+                  <button onclick="applyIndent()" title="Increase Indent">
+                    <i class="fas fa-indent"></i>
+                </button>
+                <button onclick="applyOutdent()" title="Decrease Indent">
+                  <i class="fas fa-outdent"></i>
+              </button>
+              <input type="color" id="textColorPicker1" title="Pick a Color">
+                <button onclick="changeTextColor()" title="Change Text Color">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <input type="color" id="highlightColorPicker1" title="Pick a Highlight Color">
+                <button onclick="highlightText()" title="Highlight Text">
+                    <i class="fas fa-highlighter"></i>
+                </button>
+    
+    
+            </div>
+            <div class="toolbar" id="imageToolbar1">
+              <button onclick="reduceImageSize()">
+                <i class="fas fa-minus"></i> 
+              </button>
+              <button onclick="increaseImageSize()">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button onclick="indentImageLeft()">
+                <i class="fas fa-arrow-left"></i> 
+              </button>
+              <button onclick="indentImageRight()">
+                <i class="fas fa-arrow-right"></i> 
+              </button>
+              <button id="addMarginTopBtn" onclick="addMarginTop()">
+                <i class="fas fa-arrow-down"></i> 
+            </button>
+            <button id="addMarginBottomBtn" onclick="addMarginBottom()">
+              <i class="fas fa-arrow-up"></i> 
+          </button>
+              <input type="color" id="borderColorPicker" />
+              <button onclick="setImageBorderColor()">
+                <i class="fas fa-border-all"></i> 
+              </button>
+             
+              
+            </div>
+    
+    
+              <div class="tablecontainer1" id="tablecontainer1">
+                <div id="tableContent1"><p>asdfghjk</p></div>
+    
               </div>
                 
               </div>
@@ -247,6 +387,12 @@
           <button onclick="setUniformSize()" title="Set Cell Size">
             <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
           </button>
+          <button onclick="moveTableDown()" title="Move Table Down">
+            <i class="fa-solid fa-arrow-down"></i> 
+        </button>
+        <button onclick="moveTableUp()" title="Move table Up">
+          <i class="fa-solid fa-arrow-up"></i> 
+      </button>
          
           <button onclick="deleteTable()">
             <i class="fas fa-trash"></i> Delete Table
@@ -317,7 +463,7 @@
         <button id="addMarginBottomBtn" onclick="addMarginBottom()">
           <i class="fas fa-arrow-up"></i> 
       </button>
-          <input type="color" id="borderColorPicker" />
+          <input type="color" id="borderColorPicker2" />
           <button onclick="setImageBorderColor()">
             <i class="fas fa-border-all"></i> 
           </button>
@@ -326,7 +472,7 @@
         </div>
 
 
-          <div class="tablecontainer2">
+          <div class="tablecontainer2" id="tablecontainer2">
             <div id="tableContent2"><p>asdfghjk</p></div>
 
           </div>
@@ -457,6 +603,12 @@
     <button onclick="setUniformSize()" title="Set Cell Size">
       <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
     </button>
+    <button onclick="moveTableDown()" title="Move Table Down">
+      <i class="fa-solid fa-arrow-down"></i> 
+  </button>
+  <button onclick="moveTableUp()" title="Move table Up">
+    <i class="fa-solid fa-arrow-up"></i> 
+</button>
    
     <button onclick="deleteTable()">
       <i class="fas fa-trash"></i> Delete Table
@@ -527,7 +679,7 @@
   <button id="addMarginBottomBtn" onclick="addMarginBottom()">
     <i class="fas fa-arrow-up"></i> 
 </button>
-    <input type="color" id="borderColorPicker" />
+    <input type="color" id="borderColorPicker3" />
     <button onclick="setImageBorderColor()">
       <i class="fas fa-border-all"></i> 
     </button>
@@ -535,7 +687,7 @@
     
   </div>
 
-    <div class="tablecontainer3">
+    <div class="tablecontainer3" id="tablecontainer3">
       <div id="tableContent3"><p>asdfghjk</p></div>
 
     </div>
@@ -858,6 +1010,12 @@
               <button onclick="setUniformSize()" title="Set Cell Size">
                 <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
               </button>
+              <button onclick="moveTableDown()" title="Move Table Down">
+                <i class="fa-solid fa-arrow-down"></i> 
+            </button>
+            <button onclick="moveTableUp()" title="Move table Up">
+              <i class="fa-solid fa-arrow-up"></i> 
+          </button>
              
               <button onclick="deleteTable()">
                 <i class="fas fa-trash"></i> Delete Table
@@ -929,7 +1087,7 @@
             <button id="addMarginBottomBtn" onclick="addMarginBottom()">
               <i class="fas fa-arrow-up"></i> 
           </button>
-              <input type="color" id="borderColorPicker" />
+              <input type="color" id="borderColorPicker4" />
               <button onclick="setImageBorderColor()">
                 <i class="fas fa-border-all"></i> 
               </button>
@@ -938,7 +1096,7 @@
             </div>
     
               
-              <div class="tablecontainer4">
+              <div class="tablecontainer4" id="tablecontainer4">
                 
                 <div id="tableContent4"></div>
           
@@ -960,8 +1118,10 @@
                   <option value="">Select Batch</option>
                 </select>
                 </div>
-                <h2>select theme</h2>
+                <div class="themes">
+                  <h2>Themes</h2>
                 <div class="sidebar-theme">
+                  
                   <div class="theme-color-dark-blue" id="theme-color-dark-blue"></div>
                   <div class="theme-color-violet" id="theme-color-violet"></div>
                   <div class="theme-color-red" id="theme-color-red"></div>
@@ -970,114 +1130,126 @@
                   <div class="theme-color-orange" id="theme-color-orange"></div>
 
                 </div>
-                <div class="toggle-learners">
-                  <h2>No. of Learners</h2>
-				  <div class="chart-toggle">
-					<select id="chartTypeDropdown">
-					  <option value="pie">Pie Chart</option>
-					  <option value="bar">Bar Chart</option>
-					  <option value="line">Line Chart</option>
-					  <option value="doughnut">Doughnut Chart</option>
-					  <option value="radar">Radar</option>
-					  <option value="polarArea">Polar Area</option>
-					</select>
-				  </div>
-                  
-
 
                 </div>
-                <div class="toggle-certification">
-                  <h2>Current Level</h2>
-                  <div class="learners">
-                    <select id="chartType-dropdown-certification">
-						<option value="line">Line</option>
-						<option value="bar">Bar</option>
-						<option value="pie">Pie</option>
-						<option value="doughnut">Doughnut</option>
-						<option value="radar">Radar</option>
-						<option value="polarArea">Polar Area</option>
-					</select>
-                    </div>
-                  
-
-
-                </div>
-
-                <div class="toggle-sessions-till-date">
-                  <h2>Total Sessions Till Date</h2>
-                  <div class="learners">
-                    <select id="chartType-dropdown-session-tilldate">
-						<option value="line">Line</option>
-						<option value="bar">Bar</option>
-						<option value="pie">Pie</option>
-						<option value="doughnut">Doughnut</option>
-						<option value="radar">Radar</option>
-						<option value="polarArea">Polar Area</option>
-					</select>
-                    </div>
-                </div>
-
-                <div class="toggle-duration-till-date">
-                  <h2>Total Duration Till Date</h2>
-                  <div class="learners">
-                    <select id="chartType-dropdown-duration-tilldate">
-						<option value="line">Line</option>
-						<option value="bar">Bar</option>
-						<option value="pie">Pie</option>
-						<option value="doughnut">Doughnut</option>
-						<option value="radar">Radar</option>
-						<option value="polarArea">Polar Area</option>
-					</select>
-                    </div>
-                </div>
-
-
                 
-
-
-
-
-                <div class="toggle-attendence">
-                  <h2>Average Attendence</h2>
-                  <div class="learners">
-					<select id="chartTypeDropdownAttendance">
-						<option value="line">Line</option>
-						<option value="bar">Bar</option>
-						<option value="pie">Pie</option>
-						<option value="doughnut">Doughnut</option>
-						<option value="radar">Radar</option>
-						<option value="polarArea">Polar Area</option>
-					</select>
-                    </div>
+                <div class="toggleChart">
+                  <div class="toggle-learners">
+                    <h2>No. of Learners</h2>
+            <div class="chart-toggle">
+            <select id="chartTypeDropdown">
+              <option value="pie">Pie Chart</option>
+              <option value="bar">Bar Chart</option>
+              <option value="line">Line Chart</option>
+              <option value="doughnut">Doughnut Chart</option>
+              <option value="radar">Radar</option>
+              <option value="polarArea">Polar Area</option>
+            </select>
+            </div>
+                    
+  
+  
+                  </div>
+                  <div class="toggle-certification">
+                    <h2>Current Level</h2>
+                    <div class="learners">
+                      <select id="chartType-dropdown-certification">
+              <option value="line">Line</option>
+              <option value="bar">Bar</option>
+              <option value="pie">Pie</option>
+              <option value="doughnut">Doughnut</option>
+              <option value="radar">Radar</option>
+              <option value="polarArea">Polar Area</option>
+            </select>
+                      </div>
+                    
+  
+  
+                  </div>
+  
+                  <div class="toggle-sessions-till-date">
+                    <h2>Total Sessions Till Date</h2>
+                    <div class="learners">
+                      <select id="chartType-dropdown-session-tilldate">
+              <option value="line">Line</option>
+              <option value="bar">Bar</option>
+              <option value="pie">Pie</option>
+              <option value="doughnut">Doughnut</option>
+              <option value="radar">Radar</option>
+              <option value="polarArea">Polar Area</option>
+            </select>
+                      </div>
+                  </div>
+  
+                  <div class="toggle-duration-till-date">
+                    <h2>Total Duration Till Date</h2>
+                    <div class="learners">
+                      <select id="chartType-dropdown-duration-tilldate">
+              <option value="line">Line</option>
+              <option value="bar">Bar</option>
+              <option value="pie">Pie</option>
+              <option value="doughnut">Doughnut</option>
+              <option value="radar">Radar</option>
+              <option value="polarArea">Polar Area</option>
+            </select>
+                      </div>
+                  </div>
+  
+  
                   
+  
+  
+  
+  
+                  <div class="toggle-attendence">
+                    <h2>Average Attendence</h2>
+                    <div class="learners">
+            <select id="chartTypeDropdownAttendance">
+              <option value="line">Line</option>
+              <option value="bar">Bar</option>
+              <option value="pie">Pie</option>
+              <option value="doughnut">Doughnut</option>
+              <option value="radar">Radar</option>
+              <option value="polarArea">Polar Area</option>
+            </select>
+                      </div>
+                    
+  
+  
+                  </div>
+
+                </div>
+                
+                <div class="addSection">
+                  <div class="table-options">
+                    <h3>Add Tables</h3>
+                    <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
+                    <label>Columns: <input type="number" id="colCount" min="1" value="2"></label>
+                    <button onclick="createTable()">Add Table</button> 
+                </div>
+                <!-- <div class="controls">
+                  <h3>Merging cells</h3>
+                  <label>Merge From Row: <input type="number" id="mergeRowStart" min="1"></label>
+                  <label>To Row: <input type="number" id="mergeRowEnd" min="1"></label>
+                  <label>From Column: <input type="number" id="mergeColStart" min="1"></label>
+                  <label>To Column: <input type="number" id="mergeColEnd" min="1"></label>
+                  <button onclick="mergeCells()">Merge Cells</button>
+                  </div> -->
+                  <div id="textareaInsert">
+                    <button onclick="createTextarea()">Add Text</button>
+                </div>
+                 <div id="imageuploads">
+                  <input type="file" accept="image/*" id="uploadImage">
+  
+  <!-- Button to display the uploaded image -->
+                <button onclick="displayUploadedPhotos()">Add Image</button>
+  
+                 </div>
 
 
                 </div>
 
-                <div class="table-options">
-                  <h3>Add Tables</h3>
-                  <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
-                  <label>Columns: <input type="number" id="colCount" min="1" value="2"></label>
-                  <button onclick="createTable()">Add Table</button> 
-              </div>
-              <!-- <div class="controls">
-                <h3>Merging cells</h3>
-                <label>Merge From Row: <input type="number" id="mergeRowStart" min="1"></label>
-                <label>To Row: <input type="number" id="mergeRowEnd" min="1"></label>
-                <label>From Column: <input type="number" id="mergeColStart" min="1"></label>
-                <label>To Column: <input type="number" id="mergeColEnd" min="1"></label>
-                <button onclick="mergeCells()">Merge Cells</button>
-                </div> -->
-                <div id="textareaInsert">
-                  <button onclick="createTextarea()">Add Text</button>
-              </div>
-               <div id="imageuploads">
-                <input type="file" accept="image/*" id="uploadImage">
-
-<!-- Button to display the uploaded image -->
-              <button onclick="displayUploadedPhotos()">Add Image</button>
-
-               </div>
+               
 
             <div class="table-spacing">
               <h3>Spacing Between Tables</h3>
@@ -1085,8 +1257,10 @@
               <button onclick="setTableSpacing()">Set Spacing</button>
           </div>
           <div class="edit-div">
-            <button id="increaseMarginBtn">increase div</button>
-            <button id="decreaseMarginBtn">decrease div</button>
+            <h3>Move Section Up</h3><br>
+            <button id="increaseMarginBtn">Move Up</button><br>
+            <h3>Move Section Down</h3><br>
+            <button id="decreaseMarginBtn">Move Down</button>
           </div>
 
             </div>
@@ -1106,12 +1280,12 @@
 				<div class="preview">
 					<div class="preview-top">
 						<div>
-							<h1>Create Document</h1>
+							<h1>Preview</h1>
 	
 						</div>
 						
 						<div>
-							<a href="../pages/report-page.html"><button id="cancel-button">✕</button></a>
+							<button id="cancel-button">✕</button>
 	
 						</div>
 						
@@ -1124,10 +1298,9 @@
 				  
 				  <div class="sidebar">
 					<div class="sidebar-container">
-					  <p>File Type</p>
 					  <div class="dropdown">
 						<div class="select">
-						  <span class="selected">Select</span>
+						  <span class="selected">File Type</span>
 						  <div class="caret"></div>
 						</div>
 						<ul class="menu">
@@ -1138,13 +1311,14 @@
 					  </div>
 		  
 					  <div class="download">
-						<button  id="download-button">Download</button>
-						<button  id="share-button" onclick="share_togglepopup()">Share</button>
+						<button  id="download-button" title="Download"><i class="fa-solid fa-download"></i></button>
+						<button  id="composeEmailButton" title="Share"><i class="fa-solid fa-share-from-square"></i></button>
+           
+            <button  id="save-button" title="Save" ><i class="fa-solid fa-floppy-disk"></i></button>
             <input id="img-input" type="file" style="display: none;"><br><br>
-            <button  id="save-button" >save</button>
 						
 						
-						<div class="share-popup" id="share-popup">
+						<!-- <div class="share-popup" id="share-popup">
 							<div class="share-overley"></div>
 							<div class="share-email" id="share-email">
 								<form id="email-form" enctype="multipart/form-data">
@@ -1163,12 +1337,12 @@
           
                   <button id="send-email" type="button" onclick="sendEmail()">Send Email</button>
                   <button id="cancel-email" >Cancel</button>
-              </form>
+              </form> -->
 
 
 							
 
-						</div>
+						<!-- </div> -->
 						
 						</div>
 						
