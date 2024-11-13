@@ -2978,7 +2978,7 @@ const commonclass=[
    "card-title",
    "graph-title-trainee",
    "graph-title-attendance",
-   "table-title"
+   "table-title",
 
   
 ]
@@ -3106,6 +3106,10 @@ commonsecondarycolorclass.forEach(id => {
   t3trainers.forEach(e => e.style.color = color.bg);
   const t3batchcard = document.querySelectorAll(".batch-card h1");
   t3batchcard.forEach(e => e.style.color = color.bg);
+  const t3batchcard1 = document.querySelectorAll(".duration-sessions-body-template1 h2");
+  t3batchcard1.forEach(e => e.style.color = color.bg);
+  
+
   // const t3batchesh1 = document.querySelectorAll(".t3sessions");
   // t3batchesh1.forEach(e => e.style.color = white);
 
