@@ -2312,6 +2312,7 @@ text-align: center;
   padding-left: 10px;
   background-color: white;
   padding-bottom: 10px;
+  background-color:  #f8edef;
 
 
     
@@ -2385,13 +2386,38 @@ text-align: center;
   gap: 5px;
  /* padding: 10px; */
  width: 170px;
- margin-left: 10px;
+ /* margin-left: 10px; */
+ background-color: white;
+ padding-left: 30px;
+ padding-top: 10px;
+ padding-bottom: 10px;
+ border-radius: 10px;
+ /* border: 1px solid #dc143c ; */
+ margin-top: -10px;
+ width: 150px;
+
 
 
 
   }
+
+  .themes{
+    background-color: white;
+    /* padding-left: 20px; */
+    /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    border-radius: 10px;
+    border: 1px solid #dc143c ;
+    margin-top: -10px;
+    margin-top: 10px;
+    width: 170px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: -3px;
+
+  }
   .right-sidebar h2{
-    margin-top: 25px;
+    /* margin-top: 25px; */
     margin-bottom: 10px;
     margin-left: px;
 
@@ -2709,15 +2735,25 @@ margin-bottom: 10px;
 }
 
 .select-batch{
-  margin-left: 20px;
-  margin-top: 50px;
-  background-color: white;
+  
+  margin-top: 40px;
+  /* background-color: white; */
   /* padding: 10px; */
   width: 170px;
+  background-color: white;
+  border: 1px solid #dc143c;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: -3px;
+
   
 }
 .chart-toggle,.learners{
   margin-left: 10px;
+}
+.select-batch h2{
+  margin-left: 15px;
 }
 
 
@@ -2750,6 +2786,8 @@ margin-bottom: 10px;
   margin-left: 30px;
   margin-top: 30px;
   padding: 10px;
+  
+ 
   
 }
 .tablecontainer2{
@@ -2788,12 +2826,13 @@ margin-bottom: 10px;
   padding: 10px;
   /* margin-left: 10px; */
   
+  
 }
 .table-options input{
   border-radius: 10px;
   width: 150px;
   height: 30px;
-  border: 1px solid black;
+  border: 1px solid #dc143c;
   /* margin-left: 10px; */
 }
 
@@ -2804,6 +2843,7 @@ margin-bottom: 10px;
   width: 150px;
   height: 20px;
   /* margin-left: 10px; */
+  color: white;
  
 
 }
@@ -2852,10 +2892,16 @@ margin-bottom: 10px;
 
 .table-spacing{
   margin-top: 10px;
-  background-color: white;
+  /* background-color: white; */
   padding-left: 15px;
   width: 170px;
   margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid #dc143c ;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: -3px;
 
 }
 
@@ -2866,6 +2912,7 @@ margin-bottom: 10px;
   height: 20px;
   margin-top: 5px;
   margin-left: -8px;
+  color: white;
   
 
 }
@@ -2873,7 +2920,7 @@ margin-bottom: 10px;
   border-radius: 10px;
   width: 150px;
   height: 30px;
-  border: 1px solid black;
+  border: 1px solid #dc143c;
   margin-left:-8px;
 
 }
@@ -2990,11 +3037,13 @@ table.custom-table td {
 }
 #imageuploads{
   width: 170px;
+  
 }
 #imageuploads input{
   width: 150px;
   /* margin-left: 10px; */
   margin-top: 20px;
+  
 }
 
 #imageuploads button{
@@ -3005,6 +3054,7 @@ table.custom-table td {
   border-radius: 10px;
   margin-top: 10px;
   margin-left: 10px;
+  color: white;
   
 
 }
@@ -3017,14 +3067,80 @@ table.custom-table td {
   background-color: #dc143c;
   border-radius: 10px;
   margin-left: 10px;
+  color: white;
 
 
 }
 .edit-div button{
+  width: 150px;
+  height: 20px;
   background-color: #dc143c;
-  margin-left: 10px;
   border-radius: 10px;
+  margin-left: 10px;
+  color: white;
 }
+
+
+.edit-div {
+  margin-top: 10px;
+  background-color: white;
+ 
+  width: 170px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+  border: 1px solid #dc143c;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-left: -3px;
+  
+    
+}
+.edit-div h3{
+   padding-left: 10px;
+   margin-top: 10px;
+
+}
+
+.toggleChart{
+  background-color: white;
+  padding-top: 5px;
+  width: 170px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+  border: 1px solid #dc143c;
+  margin-left: -3px;
+}
+.addSection{
+  background-color: white;
+  padding-top: 5px;
+  width: 170px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+  border: 1px solid #dc143c;
+  margin-left: -3px;
+
+}
+.toggle-learners h2,.toggle-certification,.toggle-sessions-till-date,.toggle-duration-till-date,.toggle-attendence{
+  margin-top: 10px;
+
+}
+#chartTypeDropdown,#chartType-dropdown-certification,#chartType-dropdown-session-tilldate,#chartType-dropdown-duration-tilldate,#chartTypeDropdownAttendance,#batchSelect{
+  border: 1px solid #dc143c ;
+  border-radius: 10px;
+  width: 150px;
+  height: 20px;
+
+}
+#batchSelect{
+  margin-left: 10px;
+}
+
+
 
 
 
