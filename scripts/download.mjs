@@ -1,5 +1,16 @@
+import { checkAuth, logout } from "./auth.js";
 import { db, storage } from "./firebaseConfig.mjs"; // Your Firebase config import
-import { collection, getDocs, getStorage, ref, deleteObject } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; // Firestore functions to retrieve documents
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; // Firestore functions to retrieve documents
+import { getStorage, ref, deleteObject } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-storage.js';
+
+
+// Check authentication status
+checkAuth();
+
+// Attach logout function to the logout button
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#logout").addEventListener("click", logout);
+});
 
 // Global variables to hold selected image data
 document.addEventListener("DOMContentLoaded", async function () {
