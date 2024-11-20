@@ -255,6 +255,9 @@
             <button id="addMarginBottomBtn" onclick="addMarginBottom()">
               <i class="fas fa-arrow-up"></i> 
           </button>
+          <button id="deleteBtn" class="delete-btn" onclick="deleteImage()">
+            <i class="fas fa-trash"></i> 
+        </button>
               <input type="color" id="borderColorPicker" />
               <button onclick="setImageBorderColor()">
                 <i class="fas fa-border-all"></i> 
@@ -462,6 +465,9 @@
         <button id="addMarginBottomBtn" onclick="addMarginBottom()">
           <i class="fas fa-arrow-up"></i> 
       </button>
+      <button id="deleteBtn" class="delete-btn" onclick="deleteImage()">
+        <i class="fas fa-trash"></i> 
+    </button>
           <input type="color" id="borderColorPicker2" />
           <button onclick="setImageBorderColor()">
             <i class="fas fa-border-all"></i> 
@@ -677,6 +683,9 @@
   </button>
   <button id="addMarginBottomBtn" onclick="addMarginBottom()">
     <i class="fas fa-arrow-up"></i> 
+</button>
+<button id="deleteBtn" class="delete-btn" onclick="deleteImage()">
+  <i class="fas fa-trash"></i> 
 </button>
     <input type="color" id="borderColorPicker3" />
     <button onclick="setImageBorderColor()">
@@ -1086,6 +1095,9 @@
             <button id="addMarginBottomBtn" onclick="addMarginBottom()">
               <i class="fas fa-arrow-up"></i> 
           </button>
+          <button id="deleteBtn" class="delete-btn" onclick="deleteImage()">
+            <i class="fas fa-trash"></i> 
+        </button>
               <input type="color" id="borderColorPicker4" />
               <button onclick="setImageBorderColor()">
                 <i class="fas fa-border-all"></i> 
@@ -1277,6 +1289,7 @@
       <div class="preview-popup" id="preview-popup">
 				<div class="popup-overlay"></div>
 				<div class="preview">
+         
 					<div class="preview-top">
 						<div>
 							<h1>Preview</h1>
@@ -1366,6 +1379,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="../scripts/preview-page.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
