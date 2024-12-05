@@ -407,71 +407,144 @@ document.addEventListener("DOMContentLoaded", async () => {
       return null;
     }
   }
-  async function createEvaluationTable(data, id) {
-    const tablePosition = document.getElementById(id);
-    tablePosition.innerHTML = "";
-    const table = document.createElement("table");
-    const headerRow = table.insertRow();
+//   async function createEvaluationTable(data, id) {
+//     const tablePosition = document.getElementById(id);
+//     tablePosition.innerHTML = "";
+//     const table = document.createElement("table");
+//     const headerRow = table.insertRow();
 
-    // Standard headers
-    ["Trainee Name", "DU"].forEach((headerText) => {
-        const th = document.createElement("th");
-        th.textContent = headerText;
-        headerRow.appendChild(th);
-    });
+//     // Standard headers
+//     ["Trainee Name", "DU","Avg.Attendance"].forEach((headerText) => {
+//         const th = document.createElement("th");
+//         th.textContent = headerText;
+//         headerRow.appendChild(th);
+//     });
 
-    // Collect unique evaluations without "N/A" names or scores
-    const uniqueEvaluations = new Set();
-    data.forEach((item) => {
-        item.evaluations.forEach((evaluation) => {
-            if (evaluation.evaluationName !== "" && evaluation.evaluationScore !== "N/A") {
-                uniqueEvaluations.add(evaluation.evaluationName);
-            }
-        });
-    });
+//     // Collect unique evaluations without "N/A" names or scores
+//     const uniqueEvaluations = new Set();
+//     data.forEach((item) => {
+//         item.evaluations.forEach((evaluation) => {
+//             if (evaluation.evaluationName !== "" && evaluation.evaluationScore !== "N/A") {
+//                 uniqueEvaluations.add(evaluation.evaluationName);
+//             }
+//         });
+//     });
 
-    // Create headers for each valid evaluation
-    const evaluationHeaders = Array.from(uniqueEvaluations);
-    evaluationHeaders.forEach((header) => {
-        const th = document.createElement("th");
-        th.textContent = header;
-        headerRow.appendChild(th);
-    });
+//     // Create headers for each valid evaluation
+//     const evaluationHeaders = Array.from(uniqueEvaluations);
+//     evaluationHeaders.forEach((header) => {
+//         const th = document.createElement("th");
+//         th.textContent = header;
+//         headerRow.appendChild(th);
+//     });
 
-    // Populate table rows
-    data.forEach((item) => {
-        const row = table.insertRow();
-        row.insertCell().textContent = item.traineeName;
-        row.insertCell().textContent = item.du;
+//     // Populate table rows
+//     data.forEach((item) => {
+//         const row = table.insertRow();
+//         row.insertCell().textContent = item.traineeName;
+//         row.insertCell().textContent = item.du;
+//         row.insertCell().textContent = item.avgAttendance;
 
-        // Map valid evaluations to their scores
-        const evaluationMap = {};
-        item.evaluations.forEach((evaluation) => {
-            if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
-                evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
-            }
-        });
+//         // Map valid evaluations to their scores
+//         const evaluationMap = {};
+//         item.evaluations.forEach((evaluation) => {
+//             if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
+//                 evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
+//             }
+//         });
 
-        // Insert cells for each evaluation header, showing score or blank if missing
-        evaluationHeaders.forEach((header) => {
-            const cell = row.insertCell();
-            const score = evaluationMap[header] || "";
+//         // Insert cells for each evaluation header, showing score or blank if missing
+//         evaluationHeaders.forEach((header) => {
+//             const cell = row.insertCell();
+//             const score = evaluationMap[header] || "";
 
-            // Set cell background color to red if score is 'F'
-            if (score === 'F') {
-                cell.style.backgroundColor = "red";
-                cell.style.color = "white"; // Optional: set text color to white for better contrast
-            }
-            else if (score.toLowerCase() === 'absent') {
+//             // Set cell background color to red if score is 'F'
+//             if (score === 'F') {
+//                 cell.style.backgroundColor = "red";
+//                 cell.style.color = "white"; // Optional: set text color to white for better contrast
+//             }
+//             else if (score.toLowerCase() === 'absent') {
+//               cell.style.backgroundColor = "yellow";
+//               cell.style.color = "black"; // Optional: set text color to black for contrast
+//           }
+            
+//             cell.textContent = score;
+//         });
+//     });
+
+//     return table;
+// }
+
+async function createEvaluationTable(data, id) {
+  const tablePosition = document.getElementById(id);
+  tablePosition.innerHTML = "";
+  const table = document.createElement("table");
+  const headerRow = table.insertRow();
+
+  // Add the "SI No" column header
+  ["SI No", "Trainee Name", "DU", "Avg.Attendance"].forEach((headerText) => {
+      const th = document.createElement("th");
+      th.textContent = headerText;
+      headerRow.appendChild(th);
+  });
+
+  // Collect unique evaluations without "N/A" names or scores
+  const uniqueEvaluations = new Set();
+  data.forEach((item) => {
+      item.evaluations.forEach((evaluation) => {
+          if (evaluation.evaluationName !== "" && evaluation.evaluationScore !== "N/A") {
+              uniqueEvaluations.add(evaluation.evaluationName);
+          }
+      });
+  });
+
+  // Create headers for each valid evaluation
+  const evaluationHeaders = Array.from(uniqueEvaluations);
+  evaluationHeaders.forEach((header) => {
+      const th = document.createElement("th");
+      th.textContent = header;
+      headerRow.appendChild(th);
+  });
+
+  // Populate table rows
+  data.forEach((item, index) => {
+      const row = table.insertRow();
+
+      // Add the serial number (index + 1) as the first cell
+      row.insertCell().textContent = index + 1;
+
+      // Add the other standard columns
+      row.insertCell().textContent = item.traineeName;
+      row.insertCell().textContent = item.du;
+      row.insertCell().textContent = item.avgAttendance;
+
+      // Map valid evaluations to their scores
+      const evaluationMap = {};
+      item.evaluations.forEach((evaluation) => {
+          if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
+              evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
+          }
+      });
+
+      // Insert cells for each evaluation header, showing score or blank if missing
+      evaluationHeaders.forEach((header) => {
+          const cell = row.insertCell();
+          const score = evaluationMap[header] || "";
+
+          // Set cell background color to red if score is 'F'
+          if (score === 'F') {
+              cell.style.backgroundColor = "red";
+              cell.style.color = "white"; // Optional: set text color to white for better contrast
+          } else if (score.toLowerCase() === 'absent') {
               cell.style.backgroundColor = "yellow";
               cell.style.color = "black"; // Optional: set text color to black for contrast
           }
-            
-            cell.textContent = score;
-        });
-    });
 
-    return table;
+          cell.textContent = score;
+      });
+  });
+
+  return table;
 }
 
   
@@ -891,7 +964,7 @@ async function generateSessionDurationChart(data, id, chartType) {
                 },
                 x: {
                     title: {
-                        display: true,
+                        display: false,
                         text: "Batch Name",
                         color: "#333",
                     },
@@ -899,7 +972,7 @@ async function generateSessionDurationChart(data, id, chartType) {
             },
             plugins: {
                 legend: {
-                    display: true,
+                    display: false,
                     position: "top",
                 },
                 datalabels: {
@@ -1455,27 +1528,17 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
 
       batchContainer.innerHTML = `
             <div class="batch-info">
+            <p>Total Sessions: ${numberOfSessionsMonth} </p>
                 <h1>${batchName}</h1>
+            <p>Total Duration: ${batchDurationMonth}</p>    
             </div>
-            <div class="details-template2">
-                <div class="trainee-list-template2">
-                    <h3>Trainee Details</h3>
-                    <div id="trainee-details-${batchName}"></div>
-                </div>
-                <div class="details-right-template2">
-                    <div class="batch-duration-template2">
-                        
-                        <div id="durationChart-${batchName}">
-                            <h1>Total Sessions: ${numberOfSessionsMonth} </h1>
-                            <h1>Total Duration: ${batchDurationMonth} </h1>                                                    
-                        </div>
-                    </div>
+       
+                   
                     <div class="attendance-template2">
                         <h3>Attendance</h3>
-                        <canvas id="attendanceChart-${batchName}" width="200" height="200"></canvas>
+                        <canvas id="attendanceChart-${batchName}" width="250" height="70"></canvas>
                     </div>
-                </div>
-            </div>
+           
             <div class="trainee-evaluation-template2">
             <h3>Evaluation Details</h3>
                 <div id="evaluation-table-${batchName}"></div>
@@ -1501,14 +1564,14 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                         
         });
 
-      const traineeDetailsTemplate2 = document.getElementById(
-        `trainee-details-${batchName}`
-      );
-      const traineeTable2 = await getTraineeDetails(
-        filteredData,
-        `trainee-details-${batchName}`
-      ); // Call your attendance data function
-      traineeDetailsTemplate2.appendChild(traineeTable2);
+      // const traineeDetailsTemplate2 = document.getElementById(
+      //   `trainee-details-${batchName}`
+      // );
+      // const traineeTable2 = await getTraineeDetails(
+      //   filteredData,
+      //   `trainee-details-${batchName}`
+      // ); // Call your attendance data function
+      // traineeDetailsTemplate2.appendChild(traineeTable2);
 
     
     }
@@ -1645,21 +1708,21 @@ async function generateSessionChart(data, id, chartType) {
                   },
               },
               x: {
-                  title: {
-                      display: true,
-                      text: "Batch Name",
-                      color: "#333",
-                  },
+                  // title: {
+                  //     display: true,
+                  //     text: "Batch Name",
+                  //     color: "#333",
+                  // },
               },
           },
           plugins: {
               legend: {
-                  display: true,
-                  position: "top",
+                  display: false,
+                  position: "bottom",
               },
               datalabels: {
                   display: true,
-                  align: 'top',
+                  align: 'bottom',
                   anchor: 'end',
                   color: '#333',
                   formatter: function (value) {
@@ -2005,18 +2068,11 @@ async function generateSessionChart(data, id, chartType) {
         </div>
         <div class="traneediv">
             <div class="democheck">
-            <div class="t3graphtraine">
-                <div class="graph-title-trainee">Trainee Details</div>
-                <div class="t3graph-trainee">
-                    <div id="t3graph-trainee-${batchName}">
-                
-                </div>
-                </div>
-            </div>
+        
             <div class="t3traineeatt">
                 <div class="graph-title-attendance">Trainee Attendance</div>
                 <div class="t3graph-attendance">
-                <canvas id="t3graph-attendance-${batchName}" width="200" height="260" ></canvas>
+                <canvas id="t3graph-attendance-${batchName}" width="300" height="100" ></canvas>
 
                 </div
             </div>
@@ -2025,7 +2081,7 @@ async function generateSessionChart(data, id, chartType) {
         <div class="eval-table">
             <div class="table-title">Trainee Evaluation</div>
             <div class="table-section">
-                <div id="evaluation-table-${batchName}" style="width:100%;"></div>
+                <div id="evaluation-table-${batchName}" style="width:100%; padding-left:60px;"></div>
             </div>
         </div>
         `;
@@ -2274,28 +2330,22 @@ async function generateSessionChart(data, id, chartType) {
     const mainContainer = document.getElementById("batchwise-data-template2");
     mainContainer.innerHTML = "";
     mainContainer.innerHTML = `<div class="batch-info">
+     <p id="batch-sessions-month-template2"></p>
                             <h1 id="batch-name-template2"></h1>
+                           
+                                    <p id="batch-duration-month-template2"></p>
                         </div>
                 
-                        <div class="details-template2">
-                            <div class="trainee-list-template2">
-								<h3>Trainee Details</h3>
-								<div id="trainee-details-template2"></div>
-                            </div>
-                            <div class="details-right-template2">
-                                <div class="batch-duration-template2">
-					
-                                    <div id="durationChart">
-                                    <h1 id="batch-sessions-month-template2"></h1>
-                                    <h1 id="batch-duration-month-template2"></h1>
-                                    </div>
-                                </div>
+                       
+                           
+                         
+                              
                                 <div class="attendance-template2">
                                     <h3>Attendance</h3>
-                                    <canvas id="attendanceChart" width="200" height="200"></canvas>
+                                    <canvas id="attendanceChart" width="250" height="70"></canvas>
                                 </div>
-                            </div>
-                        </div>
+                            
+                        
 						<div class="trainee-evaluation-template2">
 							<h3>Evaluation Details</h3>
 							<div id="evaluation-table-template2"></div>
@@ -2331,9 +2381,9 @@ async function generateSessionChart(data, id, chartType) {
                     
     });
 
-    const traineeDetailsTemplate2 = document.getElementById("trainee-details-template2");
-    const traineeTable2 = await getTraineeDetails(filteredData,"trainee-details-template2"); 
-    traineeDetailsTemplate2.appendChild(traineeTable2);
+    // const traineeDetailsTemplate2 = document.getElementById("trainee-details-template2");
+    // const traineeTable2 = await getTraineeDetails(filteredData,"trainee-details-template2"); 
+    // traineeDetailsTemplate2.appendChild(traineeTable2);
 
     
 
@@ -2420,13 +2470,10 @@ async function generateSessionChart(data, id, chartType) {
           		
             <div class="traneediv">
 				<div class="trainee-attendance-template3">
-                <div class="t3graphtraine">
-					<div class="graph-title-trainee">Trainee Details</div>
-                 	<div class="t3graph-trainee" id="t3graph-trainee"> </div>
-				</div> 
+             
        			<div class="t3traineeatt">
 					<div class="graph-title-attendance">Trainee Attendence</div>
-       				<canvas id="t3graph-attendance" width="200" height="260"> </canvas>
+       				<canvas id="t3graph-attendance" width="300" height="100"> </canvas>
              	</div>
 			</div>
            </div>
@@ -2465,12 +2512,12 @@ async function generateSessionChart(data, id, chartType) {
     const template1Header = document.getElementById("subtitle");
     template1Header.textContent = formatCollectionName(currentDate);
 
-    const traineeDetailsTemplate1 = document.getElementById("t3graph-trainee");
-    const traineeTable1 = await getTraineeDetails(
-      filteredData,
-      "t3graph-trainee"
-    ); 
-    traineeDetailsTemplate1.appendChild(traineeTable1);
+    // const traineeDetailsTemplate1 = document.getElementById("t3graph-trainee");
+    // const traineeTable1 = await getTraineeDetails(
+    //   filteredData,
+    //   "t3graph-trainee"
+    // ); 
+    // traineeDetailsTemplate1.appendChild(traineeTable1);
 
     const evaluationTable1 = document.getElementById("table-section");
     const table1 = await createEvaluationTable(filteredData, "table-section");

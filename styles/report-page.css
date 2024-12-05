@@ -1289,12 +1289,26 @@ margin-top: 30px;
   border-radius: 8px;
   margin: 30px;
   height: auto;
+
+  
+}
+#trainer-name-template2{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.box-template2-trainer-name{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
 }
 #trainer-name-template2 h3{
   color: #59e952;
   font-size: 2.5rem;
   text-align: center;
 margin: 30px;  
+
 
   
 }
@@ -1372,15 +1386,23 @@ margin: 30px;
 
 .batch-info p{
 align-self: flex-end;
-margin-top: 6px;
-padding: 1px;
+margin-bottom: 15px;
+/* padding: 1px; */
 font-size: 20px;
+color: #333;
 }
+ .batch-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+ }
 .batch-info h1{
   text-align: center;
   padding: auto;
   color: #333;
   font-size: 3rem;
+  margin-top: 5px;
 }
 .batchwise-data-template2 h3{
   margin: 10px;
@@ -1533,7 +1555,7 @@ font-size: 20px;
   color: #333;
 }
 .details-right-template2{
-  width: 50%;
+  width: 100%;
 }
 .attendance-template2 {
   border: solid 1px rgb(8, 241, 144);
@@ -1541,6 +1563,7 @@ font-size: 20px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
+  margin-top: 20px;
   background-color: #ffffff
 }
 .attendance-template2 h3{
@@ -1619,12 +1642,10 @@ text-align: center;
 #batchDurationChart label{
   color: #000000;
 }
-/* #sessionsChart{
-  width: 90%;
-  margin-left: 10px;
-  margin-top: 50px; 
+#sessionsChart{
+  padding: 10px;
   
-} */
+}
 #sessionsChart .progress-bar{
   width: 100%;
   height: 30px;
@@ -2086,11 +2107,12 @@ text-align: center;
     text-align: center;
     padding: 6px;
     font-size: 16px;
-    /* border-radius: 20px; */
+ 
     margin-bottom: 15px;
-    margin-left: 240px;
+    /* margin-left: 300px; */
     width: fit-content;
     position: absolute;
+    left: 42%;
     margin-top: -10px;
   }
   .table-section {
@@ -2134,7 +2156,7 @@ text-align: center;
     justify-content: space-between;
   }
   .t3traineeatt{
-    width: 47%;
+    width: 100%;
     height: auto;
     border: 2px solid black;
     margin-left: 0px;
@@ -2179,13 +2201,16 @@ text-align: center;
     text-align: center;
     padding: 6px;
     font-size: 16px;
-    /* border-radius: 20px; */
     margin-bottom: 15px;
     margin-left: 80px;
+    text-align: center;
+    line-height: auto; 
+    left: 37%;
     width: fit-content;
     position: absolute;
     margin-top: -36px;
-  
+    
+
   
   }
   .graph-title{
@@ -2710,16 +2735,16 @@ margin-bottom: 10px;
 
 
 /* #levelChart, */
-#batchDurationChart,
+/* #batchDurationChart,
 #sessionsChart,
 #durationChart
 #attendanceChart {
   width: 100%;
   max-height: 250px;
-  padding: 5px;
+  padding: 5px; */
   /* background-color: #f0f4c3; Soft lime color */
   /* border-radius: 8px; */
-}
+/* } */
 
 .progress-bar {
   width: 100%;
