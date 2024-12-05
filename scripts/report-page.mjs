@@ -2107,14 +2107,14 @@ async function generateSessionChart(data, id, chartType) {
                         
         });
 
-      const traineeDetailsTemplate2 = document.getElementById(
-        `t3graph-trainee-${batchName}`
-      );
-      const traineeTable2 = await getTraineeDetails(
-        filteredData,
-        `t3graph-trainee-${batchName}`
-      );
-      traineeDetailsTemplate2.appendChild(traineeTable2);
+      // const traineeDetailsTemplate2 = document.getElementById(
+      //   `t3graph-trainee-${batchName}`
+      // );
+      // const traineeTable2 = await getTraineeDetails(
+      //   filteredData,
+      //   `t3graph-trainee-${batchName}`
+      // );
+      // traineeDetailsTemplate2.appendChild(traineeTable2);
     }
   }
 
