@@ -2645,10 +2645,28 @@ color: #333;
 
 }
 
+.box-template5-5{
+  background-color: #fafbfc;
+  padding: 20px;
+  text-align: center;
+  border: solid 2px #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  height: 190px;
+  width: 370px;
+  margin-top: 10px;
+}
+.box-template5-3{
+  background-color: #fafbfc;
+  padding: 20px;
+  text-align: center;
+  border: solid 2px #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  height: 240px;
+  width: 370px;
+  margin-top: 10px;
+}
 
-
-
-.box-template5-1 ,.box-template5-2,.box-template5-3,.box-template5-4,.box-template5-5{
+.box-template5-1 ,.box-template5-2,.box-template5-4{
   background-color: #fafbfc;
  
   padding: 20px;
