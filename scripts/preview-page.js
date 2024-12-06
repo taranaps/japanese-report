@@ -473,52 +473,41 @@ dropdown.forEach(dropdown => {
   }
 
 
-  // function downloadJPG() {
-  //   const element = document.getElementById(selectTemplate);
+  
 
-  //   // Use html2canvas to capture the div
-  //   html2canvas(element).then((canvas) => {
-  //     // Convert the canvas to JPEG
-  //     canvas.toBlob((blob) => {
-  //       // Use FileSaver.js to save the blob directly without an anchor tag
-  //       saveAs(blob, 'report.jpeg'); // Specify the file name
-  //     }, 'image/jpeg'); // Specify the image format
-  //   });
-  // }
+  function downloadJPG()  {
+    const element = document.getElementById(selectTemplate); // Get the div element by ID
 
-  function downloadJPG() {
-    const element = document.getElementById('myImageID'); // Get the image element by ID
-
-    // Create a new image element to ensure we use the natural size (original image size)
-    const img = new Image();
-    img.src = element.src; // Set the source to the image source of the element
-
-    img.onload = function() {
-        // Create a canvas to draw the image at its natural (original) size
+    // Use html2canvas to render the div as a canvas
+    html2canvas(element, {
+        scale: 5, // Higher scale for improved clarity
+        allowTaint: true,
+        useCORS: true // Enable cross-origin resource sharing for external images
+    }).then((originalCanvas) => {
+        // Calculate the new dimensions with an additional 80px
+        const newWidth = originalCanvas.width + 120;
+        const newHeight = originalCanvas.height + 120;
+  
+        // Create a new canvas with the increased dimensions
         const canvas = document.createElement('canvas');
+        canvas.width = newWidth;
+        canvas.height = newHeight;
         const ctx = canvas.getContext('2d');
-
-        // Set the canvas dimensions to the natural width and height of the image
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-
-        // Draw the image on the canvas
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        // Convert the canvas to a data URL in JPG format
-        const imgData = canvas.toDataURL('image/jpeg', 1.0);
-
+  
+        // Scale the original content to fit the new dimensions
+        ctx.drawImage(originalCanvas, 0, 0, newWidth, newHeight);
+  
+        // Convert the new canvas to a data URL in PNG format
+        const imgData = canvas.toDataURL('image/jpg');
+  
         // Create a temporary <a> element to trigger the download
         const link = document.createElement('a');
-        link.href = imgData;  // Set the image data URL as the href
-        link.download = 'report.jpg';  // Set the download filename
-        link.click();  // Trigger the download
-    };
-
-    
-     
-
-
+        link.href = imgData; // Set the image data URL as the href
+        link.download = 'report.jpg'; // Set the download filename
+        link.click(); // Trigger the download
+    }).catch((error) => {
+        console.error('Error generating JPG:', error);
+    });
 }
 
 
@@ -527,216 +516,41 @@ dropdown.forEach(dropdown => {
 
 
 
-  // function downloadPNG() {
-  //   const element = document.getElementById(selectTemplate);
+ 
+function downloadPNG() {
+  const element = document.getElementById(selectTemplate); // Get the div element by ID
 
-  //   // Use html2canvas to capture the div
-  //   html2canvas(element).then((canvas) => {
-  //     // Convert the canvas to PNG
-  //     canvas.toBlob((blob) => {
-  //       // Use FileSaver.js to save the blob directly without an anchor tag
-  //       saveAs(blob, 'report.png'); // Specify the file name
-  //     }, 'image/png'); // Specify the image format
-  //   });
-  // }
+  // Use html2canvas to render the div as a canvas
+  html2canvas(element, {
+      scale: 5, // Higher scale for improved clarity
+      allowTaint: true,
+      useCORS: true // Enable cross-origin resource sharing for external images
+  }).then((originalCanvas) => {
+      // Calculate the new dimensions with an additional 80px
+      const newWidth = originalCanvas.width + 120;
+      const newHeight = originalCanvas.height + 120;
 
-  function downloadPNG() {
-    const element = document.getElementById('myImageID'); // Get the image element by ID
+      // Create a new canvas with the increased dimensions
+      const canvas = document.createElement('canvas');
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      const ctx = canvas.getContext('2d');
 
-    // Create a new image element to ensure we use the natural size (original image size)
-    const img = new Image();
-    img.src = element.src; // Set the source to the image source of the element
+      // Scale the original content to fit the new dimensions
+      ctx.drawImage(originalCanvas, 0, 0, newWidth, newHeight);
 
-    img.onload = function() {
-        // Create a canvas to draw the image at its natural (original) size
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+      // Convert the new canvas to a data URL in PNG format
+      const imgData = canvas.toDataURL('image/png');
 
-        // Set the canvas dimensions to the natural width and height of the image
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-
-        // Draw the image on the canvas
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        // Convert the canvas to a data URL in JPG format
-        const imgData = canvas.toDataURL('image/png', 1.0);
-
-        // Create a temporary <a> element to trigger the download
-        const link = document.createElement('a');
-        link.href = imgData;  // Set the image data URL as the href
-        link.download = 'report.png';  // Set the download filename
-        link.click();  // Trigger the download
-    };
+      // Create a temporary <a> element to trigger the download
+      const link = document.createElement('a');
+      link.href = imgData; // Set the image data URL as the href
+      link.download = 'report.png'; // Set the download filename
+      link.click(); // Trigger the download
+  }).catch((error) => {
+      console.error('Error generating PNG:', error);
+  });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function downloadPNG() {
-//   const element = document.getElementById(selectTemplate);
-
-//   // Get the exact width and height of the element
-//   const width = element.offsetWidth;
-//   const height = element.offsetHeight;
-
-//   // Use html2canvas to capture the element with scale 1
-//   html2canvas(element, {
-//       width: width,
-//       height: height,
-//       scale: 1, // Set scale to 1 for exact-size capture
-//   }).then((canvas) => {
-//       // Create a new high-resolution canvas for better clarity
-//       const highResCanvas = document.createElement('canvas');
-//       const highResContext = highResCanvas.getContext('2d');
-
-//       // Increase the resolution (e.g., 2x for better clarity, adjust as needed)
-//       const highResWidth = width * 1;  // Double the resolution (adjust as needed)
-//       const highResHeight = height * 1;
-
-//       // Set the new canvas dimensions to higher resolution
-//       highResCanvas.width = highResWidth;
-//       highResCanvas.height = highResHeight;
-
-//       // Draw the content onto the new high-resolution canvas
-//       highResContext.drawImage(canvas, 0, 0, highResWidth, highResHeight);
-
-//       // Enhance the color and sharpen the image
-//       enhanceImage(highResContext, highResCanvas, highResWidth, highResHeight);
-
-//       // Convert the high-resolution canvas to PNG
-//       highResCanvas.toBlob((blob) => {
-//           // Use FileSaver.js to save the blob as PNG without needing an anchor tag
-//           saveAs(blob, 'report_high_res_enhanced.png');  // Specify the file name
-//       }, 'image/png');  // Specify the image format
-//   });
-// }
-
-// function enhanceImage(context, canvas, width, height) {
-//   // Apply color enhancement (e.g., increasing brightness, contrast, or saturation)
-//   const imageData = ctx.getImageData(0, 0, width, height);
-//   const data = imageData.data;
-
-//   const brightnessFactor = 1.1;  // +10% brightness
-//   const saturationFactor = 1.3;  // +30% saturation
-//   const contrastFactor = 1.2;    // +20% contrast
-
-//   for (let i = 0; i < data.length; i += 4) {
-//       // Convert RGB to HSV for saturation adjustment
-//       let [h, s, v] = rgbToHsv(data[i], data[i + 1], data[i + 2]);
-
-//       // Apply saturation
-//       s = Math.min(s * saturationFactor, 1);
-
-//       // Convert back to RGB
-//       let [r, g, b] = hsvToRgb(h, s, v);
-
-//       // Apply brightness and contrast
-//       r = contrastFactor * (r - 128) + 128 + brightnessFactor * 128;
-//       g = contrastFactor * (g - 128) + 128 + brightnessFactor * 128;
-//       b = contrastFactor * (b - 128) + 128 + brightnessFactor * 128;
-
-//       // Assign back to data
-//       data[i] = Math.min(255, Math.max(0, r));
-//       data[i + 1] = Math.min(255, Math.max(0, g));
-//       data[i + 2] = Math.min(255, Math.max(0, b));
-//   }
-
-//   // Put adjusted data back on the canvas
-//   ctx.putImageData(imageData, 0, 0);
-//   // Sharpen the image by using a sharpen filter (custom method)
-//   sharpenImage(context, canvas, width, height);
-
-//   // After applying the filters, reset the context filter
-//   context.filter = 'none';  // Reset filter for future use
-// }
-
-// // function sharpenImage(context, canvas, width, height) {
-// //   // Apply sharpening filter to improve clarity (using a convolution matrix)
-// //   const sharpenKernel = [
-// //       [0, -1, 0],
-// //       [-1, 5,-1],
-// //       [0, -1, 0]
-// //   ];
-
-// //   // Get image data
-// //   const imageData = context.getImageData(0, 0, width, height);
-// //   const data = imageData.data;
-
-// //   // Apply sharpen filter (convolution)
-// //   for (let i = 1; i < height - 1; i++) {
-// //       for (let j = 1; j < width - 1; j++) {
-// //           let r = 0, g = 0, b = 0;
-// //           for (let ky = -1; ky <= 1; ky++) {
-// //               for (let kx = -1; kx <= 1; kx++) {
-// //                   const pixelIndex = ((i + ky) * width + (j + kx)) * 4;
-// //                   r += data[pixelIndex] * sharpenKernel[ky + 1][kx + 1];
-// //                   g += data[pixelIndex + 1] * sharpenKernel[ky + 1][kx + 1];
-// //                   b += data[pixelIndex + 2] * sharpenKernel[ky + 1][kx + 1];
-// //               }
-// //           }
-
-// //           // Set the new pixel value
-// //           const pixelIndex = (i * width + j) * 4;
-// //           data[pixelIndex] = Math.min(255, Math.max(0, r));
-// //           data[pixelIndex + 1] = Math.min(255, Math.max(0, g));
-// //           data[pixelIndex + 2] = Math.min(255, Math.max(0, b));
-// //       }
-// //   }
-
-// //   // Put the modified image data back to the canvas
-// //   context.putImageData(imageData, 0, 0);
-// // }
-
-
-// function sharpenImage(context, canvas, width, height) {
-//   // Apply a mild sharpening filter (using a convolution matrix)
-//   const sharpenKernel = [
-//       [0, -0.5, 0],
-//       [-0.5, 3, -0.5],
-//       [0, -0.5, 0]
-//   ];
-
-//   // Get image data
-//   const imageData = context.getImageData(0, 0, width, height);
-//   const data = imageData.data;
-
-//   // Apply sharpen filter (convolution)
-//   for (let i = 1; i < height - 1; i++) {
-//       for (let j = 1; j < width - 1; j++) {
-//           let r = 0, g = 0, b = 0;
-//           for (let ky = -1; ky <= 1; ky++) {
-//               for (let kx = -1; kx <= 1; kx++) {
-//                   const pixelIndex = ((i + ky) * width + (j + kx)) * 4;
-//                   r += data[pixelIndex] * sharpenKernel[ky + 1][kx + 1];
-//                   g += data[pixelIndex + 1] * sharpenKernel[ky + 1][kx + 1];
-//                   b += data[pixelIndex + 2] * sharpenKernel[ky + 1][kx + 1];
-//               }
-//           }
-
-//           // Set the new pixel value with bounds check to avoid overflow
-//           const pixelIndex = (i * width + j) * 4;
-//           data[pixelIndex] = Math.min(255, Math.max(0, r));
-//           data[pixelIndex + 1] = Math.min(255, Math.max(0, g));
-//           data[pixelIndex + 2] = Math.min(255, Math.max(0, b));
-//       }
-//   }
-
-//   // Put the modified image data back to the canvas
-//   context.putImageData(imageData, 0, 0);
-// }
-
-
 
 
 
@@ -752,45 +566,7 @@ downloadButton.addEventListener('click', () => {
 
 
 
-// const learner = document.querySelectorAll('.learners');
 
-// learner.forEach(learner => {
-//     const select = learner.querySelector('.select-learner');
-//     const caret = learner.querySelector('.ccaret');
-//     const menu = learner.querySelector('.menu-learner');
-//     const options = learner.querySelectorAll('.menu-learner li');
-//     const selected = learner.querySelector('.selected-learner');
-
-//     // Toggle the dropdown on select click
-//     select.addEventListener('click', () => {
-//         select.classList.toggle('select-clicked-lerner');
-//         caret.classList.toggle('caret-rotate-lerner');
-//         menu.classList.toggle('menu-open-lerner');
-//     });
-
-//     // Handle option selection
-//     options.forEach(option => {
-//         option.addEventListener('click', () => {
-//             // Update the selected text
-//             selected.innerText = option.innerText;
-
-//             // Close the dropdown
-//             select.classList.remove('select-clicked-lerner');
-//             caret.classList.remove('caret-rotate-lerner');
-//             menu.classList.remove('menu-open-lerner');
-
-//             // Remove active class and styles from all options
-//             options.forEach(opt => {
-//                 opt.classList.remove('active-learner');
-//                 opt.style.backgroundColor = '';
-//             });
-
-//             // Set the clicked option as active
-//             option.classList.add('active-learner');
-//             option.style.backgroundColor = '#dc143cfa'; // Optional color change
-//         });
-//     });
-// });
 
 
 

@@ -6,6 +6,7 @@
   border: none;
   outline: none;
   scroll-behavior: smooth;
+  /* font-weight: bold; */
 }
 html {
   font-size: 62.5%;
@@ -74,6 +75,7 @@ body {
 
 .workspace {
   grid-column: 2; /* Fills remaining space */
+  /* font-weight: bold; */
 }
 
 .right-sidebar {
@@ -3141,6 +3143,51 @@ table.custom-table td {
   margin-left: 10px;
 }
 
+
+
+
+
+
+
+/* @media(min-width: 768px) {
+  .right-sidebar{
+    display: flex;
+    margin-left: -150px;
+    margin-top: 40px;
+    
+    width: 180px;
+    
+    justify-content: center;
+    align-items: center;
+    
+    border: 2px solid #dc143c;
+    border-radius: 10px;
+    height: calc(100vh - 150px);
+   
+    padding-bottom: 10px;
+    position: fixed;
+   overflow-y: auto;
+   overflow-x: hidden;
+  top: 50px;
+  left: 1220px;
+  padding-left: 10px;
+  background-color: white;
+  padding-bottom: 10px;
+  background-color:  #f8edef;
+
+  }
+  #generate-report {
+    background-color: #dc143c;
+  color: white;
+  padding: 10px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+} */
 
 
 
