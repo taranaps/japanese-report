@@ -2680,7 +2680,7 @@ async function generateSessionChart(data, id, chartType) {
                    
                     <div class="attendance-template5">
                       <h2>Attendance</h2>
-                      <canvas id="attendanceChart-t5-${batchName}" width="50" height="50"></canvas>
+                      <canvas id="attendanceChart-t5-${batchName}" width="300" height="100"></canvas>
                     </div>
                   </div>
                 </div>
@@ -2735,16 +2735,13 @@ async function generateSessionChart(data, id, chartType) {
                   <h4 id="batch-sessions-template5"></h4>
                 </div>
       
-                <div class="details-template5">
-                  
-                  <div class="details-right-template5">
+                
                     
                     <div class="attendance-template5">
                       <h2>Attendance</h2>
-                      <canvas id="attendanceChart-t5" width="50" height="50" ></canvas>
+                      <canvas id="attendanceChart-t5" width="300" height="100" ></canvas>
                     </div>
-                  </div>
-                </div>
+             
                 <div class="trainee-evaluation-template5">
                   <h2>Evaluation Details</h2>
                   <div id="evaluation-table-template5"></div>
