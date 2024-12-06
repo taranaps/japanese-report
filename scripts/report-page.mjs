@@ -1472,7 +1472,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                     </div>
                     <div class="attendance-template2">
                         <h3>Attendance</h3>
-                        <canvas id="attendanceChart-${batchName}" ></canvas>
+                        <canvas id="attendanceChart-${batchName}" width="200" height="200"></canvas>
                     </div>
                 </div>
             </div>
@@ -2292,7 +2292,7 @@ async function generateSessionChart(data, id, chartType) {
                                 </div>
                                 <div class="attendance-template2">
                                     <h3>Attendance</h3>
-                                    <canvas id="attendanceChart"></canvas>
+                                    <canvas id="attendanceChart" width="200" height="200"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -2644,7 +2644,7 @@ async function generateSessionChart(data, id, chartType) {
                     </div>
                     <div class="attendance-template5">
                       <h2>Attendance</h2>
-                      <canvas id="attendanceChart-t5-${batchName}"></canvas>
+                      <canvas id="attendanceChart-t5-${batchName}" width="200" height="260"></canvas>
                     </div>
                   </div>
                 </div>
@@ -2716,7 +2716,7 @@ async function generateSessionChart(data, id, chartType) {
                     </div>
                     <div class="attendance-template5">
                       <h2>Attendance</h2>
-                      <canvas id="attendanceChart-t5" ></canvas>
+                      <canvas id="attendanceChart-t5" width="200" height="260" ></canvas>
                     </div>
                   </div>
                 </div>
@@ -2978,7 +2978,7 @@ const commonclass=[
    "card-title",
    "graph-title-trainee",
    "graph-title-attendance",
-   "table-title"
+   "table-title",
 
   
 ]
@@ -3106,6 +3106,10 @@ commonsecondarycolorclass.forEach(id => {
   t3trainers.forEach(e => e.style.color = color.bg);
   const t3batchcard = document.querySelectorAll(".batch-card h1");
   t3batchcard.forEach(e => e.style.color = color.bg);
+  const t3batchcard1 = document.querySelectorAll(".duration-sessions-body-template1 h2");
+  t3batchcard1.forEach(e => e.style.color = color.bg);
+  
+
   // const t3batchesh1 = document.querySelectorAll(".t3sessions");
   // t3batchesh1.forEach(e => e.style.color = white);
 

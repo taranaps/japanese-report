@@ -155,7 +155,7 @@ function validateData(trainees) {
         // Check for empty fields (other than evaluations)
         if (trainee.traineeName) {
             for (const field of requiredHeaders) {
-                if (!trainee[field] && field !== 'evaluations') {
+                if (!trainee[field] && field !== 'evaluations' && field !== 'avgAttendance') {
                     return { isValid: false, errorMessage: `Field ${field} cannot be empty for trainee: ${trainee.traineeName}` };
                 }
             }
@@ -189,7 +189,7 @@ function validateData(trainees) {
             return { isValid: false, errorMessage: `Invalid DU format: '${trainee.du}'. Expected format: 'DU [num]' where num is from 1 to 6.` };
         }
 
-        if (trainee.avgAttendance < 1 || trainee.avgAttendance > 100) {
+        if (trainee.avgAttendance == null || trainee.avgAttendance < 0 || trainee.avgAttendance > 100) {
             return { isValid: false, errorMessage: `Avg Attendance Percentage must be between 1 and 100.` };
         }
 
