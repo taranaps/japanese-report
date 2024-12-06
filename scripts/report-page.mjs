@@ -2668,30 +2668,19 @@ async function generateSessionChart(data, id, chartType) {
         continue; // Skip this iteration
       }
       batchContainer.innerHTML = `
-            <div class="batch-info">
+            <div class="batch-info-template5">
+             <h2>Total Sessions: ${numberOfSessionsMonth}</h2>
                   <h1 id="batch-name-t5-${batchName}">${batchName}</h1>
+                  <h2>Total Duration: ${batchDurationMonth}</h2>
                 </div>
       
                 <div class="details-template5">
-                  <div class="trainee-list-template5">
-                    <h2>Trainee Details</h2>
-                    <div id="trainee-details-template5-${batchName}"></div>
-                  </div>
+               
                   <div class="details-right-template5">
-                    <div class="batch-duration-template5">
-                      <div class="sessions-temp5">
-                        
-                        <h3 id="batch-sessions-template5-${batchName}">Total Sessions: ${numberOfSessionsMonth}</h3>
-                      </div>
-                      <div class="sessions-temp5">
-                        
-                        <h3 id="batch-duration-template5-${batchName}">Total Duration: ${batchDurationMonth}</h3>
-                      </div>
-                      <div id="durationChart-t5-${batchName}"></div>
-                    </div>
+                   
                     <div class="attendance-template5">
                       <h2>Attendance</h2>
-                      <canvas id="attendanceChart-t5-${batchName}" width="200" height="260"></canvas>
+                      <canvas id="attendanceChart-t5-${batchName}" width="50" height="50"></canvas>
                     </div>
                   </div>
                 </div>
@@ -2710,12 +2699,12 @@ async function generateSessionChart(data, id, chartType) {
     // await getAttendanceData(filteredData, "attendanceChart-t5");
       await generateChartToggle(filteredData, `attendanceChart-t5-${batchName}`, 'bar');
 
-    const traineeDetailsTemplate1 = document.getElementById(`trainee-details-template5-${batchName}`);
-    const traineeTable1 = await getTraineeDetails(
-      filteredData,
-      `trainee-details-template5-${batchName}`
-    ); 
-    traineeDetailsTemplate1.appendChild(traineeTable1);
+    // const traineeDetailsTemplate1 = document.getElementById(`trainee-details-template5-${batchName}`);
+    // const traineeTable1 = await getTraineeDetails(
+    //   filteredData,
+    //   `trainee-details-template5-${batchName}`
+    // ); 
+    // traineeDetailsTemplate1.appendChild(traineeTable1);
 
     const evaluationTable1 = document.getElementById(`evaluation-table-template5-${batchName}`);
     const table1 = await createEvaluationTable(filteredData, `evaluation-table-template5-${batchName}`);
@@ -2741,29 +2730,18 @@ async function generateSessionChart(data, id, chartType) {
     const mainContainer = document.getElementById("batchwise-data-template5");
     mainContainer.innerHTML = ""; 
     mainContainer.innerHTML=`<div class="batch-info">
+                <h4 id="batch-duration-template5"></h4>
                   <h1 id="batch-name-t5"></h1>
+                  <h4 id="batch-sessions-template5"></h4>
                 </div>
       
                 <div class="details-template5">
-                  <div class="trainee-list-template5">
-                    <h2>Trainee Details</h2>
-                    <div id="trainee-details-template5"></div>
-                  </div>
+                  
                   <div class="details-right-template5">
-                    <div class="batch-duration-template5">
-                      <div class="sessions-temp5">
-                        <!-- <h2>Total Sessions</h2> -->
-                        <h3 id="batch-sessions-template5"></h3>
-                      </div>
-                      <div class="sessions-temp5">
-                        <!-- <h2>Total Duration</h2> -->
-                        <h3 id="batch-duration-template5"></h3>
-                      </div>
-                      <div id="durationChart-t5"></div>
-                    </div>
+                    
                     <div class="attendance-template5">
                       <h2>Attendance</h2>
-                      <canvas id="attendanceChart-t5" width="200" height="260" ></canvas>
+                      <canvas id="attendanceChart-t5" width="50" height="50" ></canvas>
                     </div>
                   </div>
                 </div>
@@ -2808,12 +2786,12 @@ async function generateSessionChart(data, id, chartType) {
     // await getAttendanceData(filteredData, "attendanceChart-t5");
     await generateChartToggle(filteredData, 'attendanceChart-t5', 'bar');
 
-    const traineeDetailsTemplate1 = document.getElementById("trainee-details-template5");
-    const traineeTable1 = await getTraineeDetails(
-      filteredData,
-      "trainee-details-template5"
-    ); 
-    traineeDetailsTemplate1.appendChild(traineeTable1);
+    // const traineeDetailsTemplate1 = document.getElementById("trainee-details-template5");
+    // const traineeTable1 = await getTraineeDetails(
+    //   filteredData,
+    //   "trainee-details-template5"
+    // ); 
+    // traineeDetailsTemplate1.appendChild(traineeTable1);
 
     const evaluationTable1 = document.getElementById("evaluation-table-template5");
     const table1 = await createEvaluationTable(filteredData, "evaluation-table-template5");
