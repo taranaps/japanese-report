@@ -693,7 +693,7 @@ async function generateTraineePieChart(id, chartType = "line", backgroundColor =
     // Get the context of the canvas element
     const canvas = document.getElementById(id);
     const ctx = canvas.getContext("2d");
-
+    const sequentialNumbers = batchNames.map((_, index) => index + 1);
     // Destroy the previous chart instance if it exists to avoid overlap
     if (currentChartInstance) {
       console.log("Destroying previous chart instance.");
@@ -704,9 +704,9 @@ async function generateTraineePieChart(id, chartType = "line", backgroundColor =
     currentChartInstance = new Chart(ctx, {
       type: chartType, // Use specified chart type
       data: {
-        labels: batchNames,
+        labels: sequentialNumbers,
         datasets: [{
-          label: "Number of Trainees",
+          label: "No of Trainees",
           data: traineeCounts,
           backgroundColor: backgroundColor,
           borderColor: borderColor,
@@ -729,7 +729,7 @@ async function generateTraineePieChart(id, chartType = "line", backgroundColor =
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Number of Trainees',
+              text: 'No of Trainees',
               color: "#333",
               font: { size: 12, weight: "bold" },
             },
@@ -1486,7 +1486,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                     
       });
     
-    generateSessionChart(batchDetailsData, 'sessionsChart','line');
+    generateSessionChart(batchDetailsData, 'sessionsChart','bar');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart',selectedChartType);
@@ -1664,9 +1664,9 @@ async function generateSessionChart(data, id, chartType) {
   // Prepare data for chart
   const batchNames = Object.keys(data);
   const batchDurations = batchNames.map((batch) => data[batch].numberOfSessionsTillDate);
-
+  const sequentialNumbers = batchNames.map((_, index) => index + 1);
   const chartData = {
-      labels: batchNames,
+      labels: sequentialNumbers,
       datasets: [
           {
               label: "Total Sessions",
@@ -1709,11 +1709,11 @@ async function generateSessionChart(data, id, chartType) {
                   },
               },
               x: {
-                  // title: {
-                  //     display: true,
-                  //     text: "Batch Name",
-                  //     color: "#333",
-                  // },
+                  title: {
+                      display: true,
+                      text: "Batch Name",
+                      color: "#333",
+                  },
               },
           },
           plugins: {
@@ -1839,7 +1839,7 @@ async function generateSessionChart(data, id, chartType) {
       generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','line');
+    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','bar');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1',selectedChartType);
@@ -2017,7 +2017,7 @@ async function generateSessionChart(data, id, chartType) {
         generateSessionDurationChart(batchDetailsData,'card-content-duration',selectedChartType);
                       
         });
-      generateSessionChart(batchDetailsData, 'card-content-sessions','line');
+      generateSessionChart(batchDetailsData, 'card-content-sessions','bar');
       document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
         const selectedChartType = event.target.value;
         generateSessionChart(batchDetailsData, 'card-content-sessions',selectedChartType);
@@ -2277,7 +2277,7 @@ async function generateSessionChart(data, id, chartType) {
       generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','line');
+    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','bar');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1',selectedChartType);
@@ -2435,7 +2435,7 @@ async function generateSessionChart(data, id, chartType) {
       generateSessionDurationChart(batchDetailsData,'batchDurationChart',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'sessionsChart','line');
+    generateSessionChart(batchDetailsData, 'sessionsChart','bar');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart',selectedChartType);
@@ -2548,7 +2548,7 @@ async function generateSessionChart(data, id, chartType) {
         generateSessionDurationChart(batchDetailsData,'card-content-duration',selectedChartType);
                       
         });
-      generateSessionChart(batchDetailsData, 'card-content-sessions','line');
+      generateSessionChart(batchDetailsData, 'card-content-sessions','bar');
       document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
         const selectedChartType = event.target.value;
         generateSessionChart(batchDetailsData, 'card-content-sessions',selectedChartType);
@@ -2643,7 +2643,7 @@ async function generateSessionChart(data, id, chartType) {
       generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'sessionsChart-t5','line');
+    generateSessionChart(batchDetailsData, 'sessionsChart-t5','bar');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart-t5',selectedChartType);
@@ -2821,7 +2821,7 @@ async function generateSessionChart(data, id, chartType) {
       generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'sessionsChart-t5','line');
+    generateSessionChart(batchDetailsData, 'sessionsChart-t5','bar');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart-t5',selectedChartType);
