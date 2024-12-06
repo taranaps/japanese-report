@@ -1239,6 +1239,7 @@ function renderCertificationLevelChart(
       datasets: [
         {
           label: "Certification Level",
+          font: { size: 13, weight: "bold" },
           data: certificationLevels,
           backgroundColor: backgroundColor,
           borderColor: borderColor,
@@ -1262,15 +1263,15 @@ function renderCertificationLevelChart(
             color: "#333",
           },
           title: {
-            display: true,
+            display: false,
             text: "Certification Level",
             color: "#333",
-            font: { size: 8, weight: "bold" },
+            font: { size: 10, weight: "bold" },
           },
         },
         x: {
           title: {
-            display: true,
+            display: false,
             text: "Batch Name",
             color: "#333",
             font: { size: 8, weight: "bold" },
@@ -1469,7 +1470,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
     const diaplayBatch = document.getElementById("batch-number");
     diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
 
-    numberOfTrainees.textContent = generateTraineePieChart("learnersChart", "pie",backgroundColor, borderColor);
+    numberOfTrainees.textContent = generateTraineePieChart("learnersChart", "line",backgroundColor, borderColor);
   
 
     initCertificationChart("levelChart",backgroundColor,borderColor,'bar');
@@ -1477,7 +1478,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
     // loadSessionsAndDurationWholeBatch("sessionsChart","batchDurationChart");
     const batchDetailsData = await getBatchDetailsFromLatestCollection();
 
-    generateSessionDurationChart(batchDetailsData,'batchDurationChart','bar');
+    generateSessionDurationChart(batchDetailsData,'batchDurationChart','pie');
     
     document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
@@ -1777,7 +1778,7 @@ async function generateSessionChart(data, id, chartType) {
      
       numberOfTrainees.textContent = generateTraineePieChart(
         "trainee-piechart-template1",
-        "pie",
+        "line",
         backgroundColor,
         borderColor
       );
@@ -1832,7 +1833,7 @@ async function generateSessionChart(data, id, chartType) {
                 </div>
             </div>`;
     }
-    generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1','bar');
+    generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1','pie');
     document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1',selectedChartType);
@@ -2001,7 +2002,7 @@ async function generateSessionChart(data, id, chartType) {
      
       numberOfTrainees.textContent = generateTraineePieChart(
         "card-content",
-        "pie",
+        "line",
         backgroundColor,
         borderColor
       );
@@ -2010,7 +2011,7 @@ async function generateSessionChart(data, id, chartType) {
       //   "card-content-duration"
       // );
       const batchDetailsData = await getBatchDetailsFromLatestCollection();
-      generateSessionDurationChart(batchDetailsData,'card-content-duration','bar');
+      generateSessionDurationChart(batchDetailsData,'card-content-duration','pie');
       document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
         const selectedChartType = event.target.value;
         generateSessionDurationChart(batchDetailsData,'card-content-duration',selectedChartType);
@@ -2237,7 +2238,7 @@ async function generateSessionChart(data, id, chartType) {
     ];
     numberOfTrainees.textContent = generateTraineePieChart(
       "trainee-piechart-template1",
-      "pie",
+      "line",
       backgroundColor,
       borderColor
     );
@@ -2270,7 +2271,7 @@ async function generateSessionChart(data, id, chartType) {
 
     const batchDetailsData = await getBatchDetailsFromLatestCollection();
 
-    generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1','bar');
+    generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1','pie');
     document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1',selectedChartType);
@@ -2404,7 +2405,7 @@ async function generateSessionChart(data, id, chartType) {
                   'rgba(153, 102, 255, 1)',
                   'rgba(255, 159, 64, 1)'
                 ];
-    numberOfTrainees.textContent = generateTraineePieChart("learnersChart","pie",backgroundColor,borderColor);
+    numberOfTrainees.textContent = generateTraineePieChart("learnersChart","line",backgroundColor,borderColor);
 
     const batchCountDisplay = document.getElementById("number");
     batchCountDisplay.textContent = await getNofBatches();
@@ -2428,7 +2429,7 @@ async function generateSessionChart(data, id, chartType) {
     // loadAndDisplayBatchDetails("sessionsChart","batchDurationChart","durationChart",selectedBatch);
     const batchDetailsData = await getBatchDetailsFromLatestCollection();
 
-    generateSessionDurationChart(batchDetailsData,'batchDurationChart','bar');
+    generateSessionDurationChart(batchDetailsData,'batchDurationChart','pie');
     document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionDurationChart(batchDetailsData,'batchDurationChart',selectedChartType);
@@ -2535,13 +2536,13 @@ async function generateSessionChart(data, id, chartType) {
    
     numberOfTrainees.textContent = generateTraineePieChart(
       "card-content",
-      "pie",
+      "line",
       backgroundColor,
       borderColor
     );
    
     const batchDetailsData = await getBatchDetailsFromLatestCollection();
-      generateSessionDurationChart(batchDetailsData,'card-content-duration','bar');
+      generateSessionDurationChart(batchDetailsData,'card-content-duration','pie');
       document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
         const selectedChartType = event.target.value;
         generateSessionDurationChart(batchDetailsData,'card-content-duration',selectedChartType);
@@ -2621,7 +2622,7 @@ async function generateSessionChart(data, id, chartType) {
 
     numberOfTrainees.textContent = generateTraineePieChart(
       "learners-chart-template5",
-      "pie",
+      "line",
       backgroundColor,
       borderColor
     );
@@ -2636,7 +2637,7 @@ async function generateSessionChart(data, id, chartType) {
                     
       });
     const batchDetailsData = await getBatchDetailsFromLatestCollection();
-    generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5','bar');
+    generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5','pie');
     document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5',selectedChartType);
@@ -2807,13 +2808,13 @@ async function generateSessionChart(data, id, chartType) {
 
     numberOfTrainees.textContent = generateTraineePieChart(
       "learners-chart-template5",
-      "pie",
+      "line",
       backgroundColor,
       borderColor
     );
 
     const batchDetailsData = await getBatchDetailsFromLatestCollection();
-    generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5','bar');
+    generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5','pie');
     
     document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
