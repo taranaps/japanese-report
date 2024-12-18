@@ -1709,6 +1709,7 @@ async function generateSessionChart(data, id, chartType) {
                       text: "Sessions",
                       color: "#000000",
                   },
+                  font: { size: 10, weight: "bold" },
               },
               x: {
                   title: {
@@ -1716,6 +1717,7 @@ async function generateSessionChart(data, id, chartType) {
                       text: "Batch Name",
                       color: "#000000",
                   },
+                  font: { size: 10, weight: "bold" },
               },
           },
           plugins: {
