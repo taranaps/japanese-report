@@ -631,7 +631,7 @@ async function createEvaluationTable(data, id) {
                       beginAtZero: true, // Start the y-axis at zero
                       title: {
                           display: true,
-                          text: 'Number of Trainees', // Y-axis title
+                          text: 'No of Trainees', // Y-axis title
                           color: "#333",
                           font: { size: 12, weight: "bold" },
                       },
@@ -960,6 +960,7 @@ async function generateSessionDurationChart(data, id, chartType) {
                         display: true,
                         text: "Duration (Days)",
                         color: "#333",
+                        font: { size: 12, weight: "bold" },
                     },
                 },
                 x: {
@@ -967,6 +968,7 @@ async function generateSessionDurationChart(data, id, chartType) {
                         display: false,
                         text: "Batch Name",
                         color: "#333",
+                        font: { size: 12, weight: "bold" }
                     },
                 },
             },
@@ -1467,8 +1469,8 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                   'rgba(255, 159, 64, 1)'
                 ];
 
-    const diaplayBatch = document.getElementById("batch-number");
-    diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
+    // const diaplayBatch = document.getElementById("batch-number");
+    // diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
 
     numberOfTrainees.textContent = generateTraineePieChart("learnersChart", "line",backgroundColor, borderColor);
   
@@ -1727,7 +1729,7 @@ async function generateSessionChart(data, id, chartType) {
                   display: true,
                   align: 'bottom',
                   anchor: 'end',
-                  color: '#333',
+                  color: '#000000',
                   formatter: function (value) {
                       return value;
                   }
@@ -2412,8 +2414,8 @@ async function generateSessionChart(data, id, chartType) {
     const batchCountDisplay = document.getElementById("number");
     batchCountDisplay.textContent = await getNofBatches();
 
-    const diaplayBatch = document.getElementById("batch-number");
-    diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
+    // const diaplayBatch = document.getElementById("batch-number");
+    // diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
 
     // const backgroundColor2 = 'rgba(153, 102, 255, 0.2)';
     // const borderColor2 = 'rgba(153, 102, 255, 1)';
@@ -2983,15 +2985,15 @@ const commonElements = [
 ];
 
 const commonsecondarycolor =[
-  "header-template5",
-  "header-template2"
+  // "header-template5"
+  // "header-template2"
 ]
 
-const commonsecondarycolorclass=[
-  "batch-info",
+// const commonsecondarycolorclass=[
+//   "batch-info",
   
 
-]
+// ]
 
 const commonclass=[
   "single-batch-sessionDuration-heading-template1",
@@ -3044,12 +3046,12 @@ commonclass.forEach(id => {
     element.style.backgroundColor = color.bg;
   });
 });
-commonsecondarycolorclass.forEach(id => {
-  const elements = document.getElementsByClassName(id); 
-  Array.from(elements).forEach(element => {
-    element.style.backgroundColor = color.accent;
-  });
-});
+// commonsecondarycolorclass.forEach(id => {
+//   const elements = document.getElementsByClassName(id); 
+//   Array.from(elements).forEach(element => {
+//     element.style.backgroundColor = color.accent;
+//   });
+// });
 
 
 
@@ -3119,6 +3121,10 @@ commonsecondarycolorclass.forEach(id => {
    // Change text color for trainer names
   const trainerNamest1 = document.querySelectorAll("#trainer-name-template1 h3");
   trainerNamest1.forEach(e => e.style.color = color.bg);
+  const NumberofBatchesTwo = document.querySelectorAll("#number");
+  NumberofBatchesTwo.forEach(e => e.style.color = color.bg);
+  const BatchesTextTwo = document.querySelectorAll("#batch-number");
+  BatchesTextTwo.forEach(e => e.style.color = color.bg);
   const trainerNamest2 = document.querySelectorAll("#trainer-name-template2 h3");
   trainerNamest2.forEach(e => e.style.color = color.bg);
   const t1singlebatch = document.querySelectorAll(".single-batch-sessionDuration-body-template1 h2");
