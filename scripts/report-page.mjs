@@ -1705,15 +1705,17 @@ async function generateSessionChart(data, id, chartType) {
                   title: {
                       display: true,
                       text: "Sessions",
-                      color: "#333",
+                      color: "#000000",
                   },
+                  font: { size: 10, weight: "bold" },
               },
               x: {
                   title: {
                       display: true,
                       text: "Batch Name",
-                      color: "#333",
+                      color: "#000000",
                   },
+                  font: { size: 10, weight: "bold" },
               },
           },
           plugins: {
