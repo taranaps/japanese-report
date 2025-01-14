@@ -104,7 +104,7 @@
                         <canvas id="progressBarsContainer-templae1" width="200" height="220"></canvas>
                       </div>
                     </div>
-                    <div id="whole-batch-cutoff-container">
+                    <div id="whole-batch-cutoff-container" >
                     <!-- <div class="current-level-template1">
                       <div class="level-heading" id="level-heading">
                         <p>Current Level</p>
@@ -317,7 +317,7 @@
                                 
                             </div>
                         <!-- </div> -->
-						<div id="batchwise-data-template2">
+						<div id="batchwise-data-template2" >
                         <!-- <div class="batch-info">
                             <h2 id="batch-name-template2"></h2>
                         </div>
@@ -537,7 +537,7 @@
             </div>
           </div>
 		</div>
-		  <div id="batchwise-data-template3">
+		  <div id="batchwise-data-template3" >
           <!-- <div class="t3batchname">
             <div class="t3sessions">
               <h2 class="t3sessions-firsth" id="t3sessions-firsth">Total Sessions:</h2>
@@ -941,7 +941,7 @@
                 
               </div>
       
-              <div id="batchwise-data-template5">
+              <div id="batchwise-data-template5" class="break-point">
                 <!-- <div class="batch-info">
                   <h1 id="batch-name-t5"></h1>
                 </div>
@@ -1328,9 +1328,9 @@
 					  </div>
 		  
 					  <div class="download">
+              <button  id="cut-and-download" title="Cut and Download"><i class="fa-solid fa-scissors"></i></button>
 						<button  id="download-button" title="Download"><i class="fa-solid fa-download"></i></button>
-						<button  id="composeEmailButton" title="Share"><i class="fa-solid fa-share-from-square"></i></button>
-           
+						<button  id="composeEmailButton" title="Share" onclick="openOutlookCompose()"><i class="fa-solid fa-share-from-square"></i></button>
             <button  id="save-button" title="Save" ><i class="fa-solid fa-floppy-disk"></i></button>
             <input id="img-input" type="file" style="display: none;"><br><br>
 						
@@ -1389,6 +1389,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
     
 
   </body>
