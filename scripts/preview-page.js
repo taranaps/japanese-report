@@ -1,4 +1,6 @@
 
+
+
 function preview_togglepopup() {
   let  previewPopup=document.getElementById("preview-popup");
   let generateButton=document.getElementById("generate-report");
@@ -36,14 +38,221 @@ document.getElementById('cancel-button').addEventListener('click', function () {
 
 
 
-document.getElementById('composeEmailButton').addEventListener('click', function () {
-  const email = 'hisham.e@experionglobal.com';
-  const subject = 'japanese training report';
-  const body = 'Hello, this is a sample email body.';
-  
-  window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
+// document.getElementById('composeEmailButton').addEventListener('click', function () {
+//   if (typeof html2canvas !== 'function') {
+//     console.error('html2canvas not loaded');
+//     alert('Failed to capture image: Required library not loaded');
+//     return;
+//   }
 
+//   const element = document.getElementById(selectTemplate);
+//   if (!element) {
+//     console.error('Target element not found:', selectTemplate);
+//     alert('Failed to capture image: Target element not found');
+//     return;
+//   }
+
+//   // Show loading indicator
+//   const loadingDiv = document.createElement('div');
+//   loadingDiv.innerHTML = 'Generating image...';
+//   loadingDiv.style.position = 'fixed';
+//   loadingDiv.style.top = '50%';
+//   loadingDiv.style.left = '50%';
+//   loadingDiv.style.transform = 'translate(-50%, -50%)';
+//   loadingDiv.style.background = 'rgba(0,0,0,0.7)';
+//   loadingDiv.style.color = 'white';
+//   loadingDiv.style.padding = '20px';
+//   loadingDiv.style.borderRadius = '8px';
+//   loadingDiv.style.zIndex = '9999';
+//   document.body.appendChild(loadingDiv);
+
+//   // Configuration for high quality
+//   const config = {
+//     scale: 3, // Increase for better quality
+//     useCORS: true,
+//     allowTaint: false,
+//     backgroundColor: '#ffffff',
+//     logging: false,
+//     removeContainer: true
+//   };
+
+//   // Process the image
+//   html2canvas(element, config)
+//     .then(canvas => {
+//       // Convert to high quality JPEG
+//       const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      
+//       // Create simple copy instructions
+//       const instructions = document.createElement('div');
+//       instructions.style.position = 'fixed';
+//       instructions.style.top = '50%';
+//       instructions.style.left = '50%';
+//       instructions.style.transform = 'translate(-50%, -50%)';
+//       instructions.style.background = 'white';
+//       instructions.style.padding = '20px';
+//       instructions.style.borderRadius = '8px';
+//       instructions.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+//       instructions.style.zIndex = '10000';
+//       instructions.style.maxWidth = '400px';
+//       instructions.style.width = '90%';
+//       instructions.innerHTML = `
+//         <div style="text-align: center;">
+//           <p>Image generated successfully!</p>
+//           <p>Steps to add to Outlook:</p>
+//           <ol style="text-align: left; margin: 10px 0;">
+//             <li>Click the Download button below</li>
+//             <li>Open Outlook and create a new email</li>
+//             <li>Drag and drop the downloaded image into your email</li>
+//           </ol>
+//           <button id="downloadBtn" style="padding: 10px 20px; margin: 10px; cursor: pointer;">Download Image</button>
+//           <button id="closeBtn" style="padding: 10px 20px; margin: 10px; cursor: pointer;">Close</button>
+//         </div>
+//       `;
+      
+//       document.body.appendChild(instructions);
+      
+//       // Handle download
+//       document.getElementById('downloadBtn').onclick = () => {
+//         const link = document.createElement('a');
+//         link.download = 'report.jpg';
+//         link.href = imgData;
+//         document.body.appendChild(link);
+//         link.click();
+//         document.body.removeChild(link);
+//       };
+      
+//       // Handle close
+//       document.getElementById('closeBtn').onclick = () => {
+//         document.body.removeChild(instructions);
+//       };
+      
+//       // Remove loading indicator
+//       document.body.removeChild(loadingDiv);
+//     })
+//     .catch(error => {
+//       console.error('Error generating image:', error);
+//       alert('Failed to generate image. Please try again.');
+//       document.body.removeChild(loadingDiv);
+//     });
+// });
+
+
+// function sendToOutlook(emailAddress) {
+//   if (typeof html2canvas !== 'function') {
+//     console.error('html2canvas not loaded');
+//     alert('Failed to capture image: Required library not loaded');
+//     return;
+//   }
+
+//   const element = document.getElementById(selectTemplate);
+//   if (!element) {
+//     console.error('Target element not found:', selectTemplate);
+//     alert('Failed to capture image: Target element not found');
+//     return;
+//   }
+
+//   // Show loading indicator
+//   const loadingDiv = document.createElement('div');
+//   loadingDiv.innerHTML = 'Preparing high-quality image...';
+//   loadingDiv.style.position = 'fixed';
+//   loadingDiv.style.top = '50%';
+//   loadingDiv.style.left = '50%';
+//   loadingDiv.style.transform = 'translate(-50%, -50%)';
+//   loadingDiv.style.background = 'rgba(0,0,0,0.7)';
+//   loadingDiv.style.color = 'white';
+//   loadingDiv.style.padding = '20px';
+//   loadingDiv.style.borderRadius = '8px';
+//   loadingDiv.style.zIndex = '9999';
+//   document.body.appendChild(loadingDiv);
+
+//   // Enhanced configuration for maximum quality
+//   const config = {
+//     scale: 4, // Increased scale for better quality
+//     useCORS: true,
+//     allowTaint: false,
+//     backgroundColor: '#ffffff',
+//     logging: false,
+//     removeContainer: true,
+//     imageTimeout: 0, // No timeout for better image processing
+//     async: true,
+//     width: element.offsetWidth,
+//     height: element.offsetHeight,
+//     // Better text rendering
+//     foreignObjectRendering: true,
+//     // Ensure proper rendering
+//     onclone: function(clonedDoc) {
+//       const clonedElement = clonedDoc.getElementById(selectTemplate);
+//       if (clonedElement) {
+//         clonedElement.style.transform = 'none';
+//         clonedElement.style.height = `${element.offsetHeight}px`;
+//         clonedElement.style.width = `${element.offsetWidth}px`;
+//       }
+//     }
+//   };
+
+//   // Get formatted date for subject
+//   const today = new Date();
+//   const formatDate = (date) => {
+//     const day = String(date.getDate()).padStart(2, '0');
+//     const month = String(date.getMonth() + 1).padStart(2, '0');
+//     const year = date.getFullYear();
+//     return `${day}-${month}-${year}`;
+//   };
+
+//   html2canvas(element, config)
+//     .then(canvas => {
+//       // Create high resolution canvas
+//       const highResCanvas = document.createElement('canvas');
+//       const ctx = highResCanvas.getContext('2d');
+      
+//       // Set dimensions for high quality
+//       highResCanvas.width = canvas.width * 2;
+//       highResCanvas.height = canvas.height * 2;
+      
+//       // Apply high quality settings
+//       ctx.imageSmoothingEnabled = true;
+//       ctx.imageSmoothingQuality = 'high';
+      
+//       // Draw with better quality
+//       ctx.drawImage(canvas, 0, 0, highResCanvas.width, highResCanvas.height);
+      
+//       // Get highest quality JPEG
+//       const imgData = highResCanvas.toDataURL('image/jpeg', 1.0);
+      
+//       // Create formatted subject
+//       const subject = `Japanese Language Training Report - ${formatDate(today)}`;
+      
+//       // Create email content with proper image sizing
+//       const body = `<img src="${imgData}" style="width:100%;max-width:1200px;height:auto;display:block;margin:0 auto;">`;
+      
+//       // Create outlook mailto URL
+//       const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+//       // Open in Outlook
+//       window.location.href = `ms-outlook:${encodeURIComponent(mailtoLink)}`;
+      
+//       // Fallback to regular mailto if ms-outlook protocol fails
+//       setTimeout(() => {
+//         window.location.href = mailtoLink;
+//       }, 1000);
+      
+//       document.body.removeChild(loadingDiv);
+//     })
+//     .catch(error => {
+//       console.error('Error preparing email:', error);
+//       alert('Failed to prepare email. Please try again.');
+//       document.body.removeChild(loadingDiv);
+//     });
+// }
+
+function openOutlookCompose() {
+ 
+  const outlookURL = "https://outlook.live.com/mail/0/deeplink/compose?subject=Japanese%20Language%20Training%20Report&body=Please%20find%20the%20training%20report%20below.";
+
+  // Use window.location to navigate to the URL directly (no pop-up)
+  window.location.href = outlookURL;
+  
+}
 
 
 
@@ -331,6 +540,7 @@ dropdown.forEach(dropdown => {
   var options = dropdown.querySelectorAll('.menu li');
   var selected = dropdown.querySelector('.selected');
   var downloadButton = document.getElementById('download-button');
+  var cutAndDownload=document.getElementById('cut-and-download')
   const canvas = document.getElementById('canvas');
 
 
@@ -373,8 +583,10 @@ dropdown.forEach(dropdown => {
         downloadButton.addEventListener('click', downloadPDF);
       } else if (selected.innerText === 'jpg') {
         downloadButton.addEventListener('click', downloadJPG);
+        cutAndDownload.addEventListener('click',CutAndDownloadJPG)
       } else {
         downloadButton.addEventListener('click', downloadPNG);
+        cutAndDownload.addEventListener('click',CutAndDownloadPNG)
       }
       
      
@@ -475,81 +687,618 @@ dropdown.forEach(dropdown => {
 
   
 
-  function downloadJPG()  {
-    const element = document.getElementById(selectTemplate); // Get the div element by ID
 
-    // Use html2canvas to render the div as a canvas
-    html2canvas(element, {
-        scale: 5, // Higher scale for improved clarity
-        allowTaint: true,
-        useCORS: true // Enable cross-origin resource sharing for external images
-    }).then((originalCanvas) => {
-        // Calculate the new dimensions with an additional 80px
-        const newWidth = originalCanvas.width + 120;
-        const newHeight = originalCanvas.height + 120;
-  
-        // Create a new canvas with the increased dimensions
-        const canvas = document.createElement('canvas');
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        const ctx = canvas.getContext('2d');
-  
-        // Scale the original content to fit the new dimensions
-        ctx.drawImage(originalCanvas, 0, 0, newWidth, newHeight);
-  
-        // Convert the new canvas to a data URL in PNG format
-        const imgData = canvas.toDataURL('image/jpg');
-  
-        // Create a temporary <a> element to trigger the download
+
+function CutAndDownloadJPG(){
+  if (typeof html2canvas !== 'function') {
+    console.error('html2canvas not loaded');
+    alert('Failed to capture image: Required library not loaded');
+    return;
+  }
+
+  let break_point;
+  if (selectTemplate == 'template2') {
+    break_point = 'batch-info';
+  } else if (selectTemplate == 'template5') {
+    break_point = 'batch-info-template5';
+  } else if (selectTemplate == 'template3') {
+    break_point = 't3batchname';
+  }
+
+  const element = document.getElementById(selectTemplate);
+  if (!element) {
+    console.error('Target element not found:', selectTemplate);
+    alert('Failed to capture image: Target element not found');
+    return;
+  }
+
+  // **Get actual dimensions to avoid distortion**
+  const elementRect = element.getBoundingClientRect();
+  const actualWidth = elementRect.width;
+  const actualHeight = elementRect.height;
+
+  // **Maintain High-Quality Scaling**
+  const publisherDPI = 600; // Standard print quality DPI
+  const screenDPI = 96;  // Standard screen DPI
+  const scaleFactor = publisherDPI / screenDPI;
+
+  // **Output dimensions**
+  const outputWidth = Math.round(actualWidth * scaleFactor);
+  const outputHeight = Math.round(actualHeight * scaleFactor);
+
+  // **HTML2Canvas Configuration**
+  const config = {
+    scale: scaleFactor,
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: '#ffffff',
+    width: actualWidth,
+    height: actualHeight,
+    scrollX: 0,
+    scrollY: 0,
+    imageTimeout: 60000,
+    logging: false,
+    removeContainer: true,
+    foreignObjectRendering: false,
+    windowHeight: actualHeight,
+    onclone: function(clonedDoc) {
+      const clonedElement = clonedDoc.getElementById(selectTemplate);
+      if (clonedElement) {
+        clonedElement.style.height = actualHeight + 'px';
+        clonedElement.style.overflow = 'visible';
+      }
+    }
+  };
+
+  // **Preload all images and fonts**
+  const preloadResources = () => {
+    return Promise.all([
+      document.fonts.ready,
+      ...Array.from(element.getElementsByTagName('img')).map(img => {
+        return new Promise((resolve, reject) => {
+          if (img.complete) resolve();
+          else {
+            img.onload = resolve;
+            img.onerror = reject;
+          }
+        });
+      })
+    ]);
+  };
+
+  // **Process captured canvas with high-quality settings**
+  const processCanvas = (canvas, startY, endY) => {
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = outputWidth;
+    finalCanvas.height = endY - startY;
+
+    const ctx = finalCanvas.getContext('2d', { alpha: false });
+
+    // **Apply High-Quality Image Processing**
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.globalCompositeOperation = 'source-over';
+
+    // **Ensure clean background**
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+    // **Draw image with proper scaling**
+    ctx.drawImage(canvas, 0, startY, canvas.width, finalCanvas.height, 0, 0, finalCanvas.width, finalCanvas.height);
+
+    return finalCanvas;
+  };
+
+  // **Split Handling for Template 3**
+  const splitOffset = selectTemplate == 'template3' ? 130 : 100;
+
+  // **Show Loading Indicator**
+  const loadingDiv = document.createElement('div');
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '50%';
+  loadingDiv.style.left = '50%';
+  loadingDiv.style.transform = 'translate(-50%, -50%)';
+  loadingDiv.style.padding = '20px';
+  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
+  loadingDiv.style.color = 'white';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.zIndex = '9999';
+  loadingDiv.textContent = 'Generating high-quality PNG...';
+  document.body.appendChild(loadingDiv);
+
+  preloadResources()
+    .then(() => html2canvas(element, config))
+    .then((canvas) => {
+      // **Find break-point div positions**
+      const breakPoints = Array.from(element.getElementsByClassName(break_point));
+      const splitPoints = [];
+
+      // **Capture the first part before any break-point**
+      splitPoints.push(0);
+
+      breakPoints.forEach((div) => {
+        const divTop = div.offsetTop;
+        const scaledTop = divTop * scaleFactor;
+
+        // **Adjust split point dynamically**
+        splitPoints.push(scaledTop - splitOffset * scaleFactor);
+      });
+
+      // **Ensure full content is captured**
+      splitPoints.push(canvas.height);
+
+      // **Generate multiple PNG images**
+      let part = 1;
+      for (let i = 0; i < splitPoints.length - 1; i++) {
+        const startY = splitPoints[i];
+        const endY = splitPoints[i + 1];
+
+        // **Process canvas for high-quality PNG**
+        const finalCanvas = processCanvas(canvas, startY, endY);
+
+        // **Convert to PNG and force download**
+        const imgData = finalCanvas.toDataURL('image/jpg', 1.0);
         const link = document.createElement('a');
-        link.href = imgData; // Set the image data URL as the href
-        link.download = 'report.jpg'; // Set the download filename
-        link.click(); // Trigger the download
-    }).catch((error) => {
-        console.error('Error generating JPG:', error);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        link.href = imgData;
+        link.download = `high-quality-image-part-${part}-${timestamp}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        part++;
+      }
+
+      // **Remove Loading Indicator**
+      document.body.removeChild(loadingDiv);
+    })
+    .catch((error) => {
+      console.error('Error generating high-quality PNG:', error);
+      alert('Failed to capture image. Please try again.');
+      document.body.removeChild(loadingDiv);
+    });
+
+}
+
+
+function CutAndDownloadPNG() {
+  if (typeof html2canvas !== 'function') {
+    console.error('html2canvas not loaded');
+    alert('Failed to capture image: Required library not loaded');
+    return;
+  }
+
+  let break_point;
+  if (selectTemplate == 'template2') {
+    break_point = 'batch-info';
+  } else if (selectTemplate == 'template5') {
+    break_point = 'batch-info-template5';
+  } else if (selectTemplate == 'template3') {
+    break_point = 't3batchname';
+  }
+
+  const element = document.getElementById(selectTemplate);
+  if (!element) {
+    console.error('Target element not found:', selectTemplate);
+    alert('Failed to capture image: Target element not found');
+    return;
+  }
+
+  // **Get actual dimensions to avoid distortion**
+  const elementRect = element.getBoundingClientRect();
+  const actualWidth = elementRect.width;
+  const actualHeight = elementRect.height;
+
+  // **Maintain High-Quality Scaling**
+  const publisherDPI = 600; // Standard print quality DPI
+  const screenDPI = 96;  // Standard screen DPI
+  const scaleFactor = publisherDPI / screenDPI;
+
+  // **Output dimensions**
+  const outputWidth = Math.round(actualWidth * scaleFactor);
+  const outputHeight = Math.round(actualHeight * scaleFactor);
+
+  // **HTML2Canvas Configuration**
+  const config = {
+    scale: scaleFactor,
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: '#ffffff',
+    width: actualWidth,
+    height: actualHeight,
+    scrollX: 0,
+    scrollY: 0,
+    imageTimeout: 60000,
+    logging: false,
+    removeContainer: true,
+    foreignObjectRendering: false,
+    windowHeight: actualHeight,
+    onclone: function(clonedDoc) {
+      const clonedElement = clonedDoc.getElementById(selectTemplate);
+      if (clonedElement) {
+        clonedElement.style.height = actualHeight + 'px';
+        clonedElement.style.overflow = 'visible';
+      }
+    }
+  };
+
+  // **Preload all images and fonts**
+  const preloadResources = () => {
+    return Promise.all([
+      document.fonts.ready,
+      ...Array.from(element.getElementsByTagName('img')).map(img => {
+        return new Promise((resolve, reject) => {
+          if (img.complete) resolve();
+          else {
+            img.onload = resolve;
+            img.onerror = reject;
+          }
+        });
+      })
+    ]);
+  };
+
+  // **Process captured canvas with high-quality settings**
+  const processCanvas = (canvas, startY, endY) => {
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = outputWidth;
+    finalCanvas.height = endY - startY;
+
+    const ctx = finalCanvas.getContext('2d', { alpha: false });
+
+    // **Apply High-Quality Image Processing**
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.globalCompositeOperation = 'source-over';
+
+    // **Ensure clean background**
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+    // **Draw image with proper scaling**
+    ctx.drawImage(canvas, 0, startY, canvas.width, finalCanvas.height, 0, 0, finalCanvas.width, finalCanvas.height);
+
+    return finalCanvas;
+  };
+
+  // **Split Handling for Template 3**
+  const splitOffset = selectTemplate == 'template3' ? 130 : 100;
+
+  // **Show Loading Indicator**
+  const loadingDiv = document.createElement('div');
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '50%';
+  loadingDiv.style.left = '50%';
+  loadingDiv.style.transform = 'translate(-50%, -50%)';
+  loadingDiv.style.padding = '20px';
+  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
+  loadingDiv.style.color = 'white';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.zIndex = '9999';
+  loadingDiv.textContent = 'Generating high-quality PNG...';
+  document.body.appendChild(loadingDiv);
+
+  preloadResources()
+    .then(() => html2canvas(element, config))
+    .then((canvas) => {
+      // **Find break-point div positions**
+      const breakPoints = Array.from(element.getElementsByClassName(break_point));
+      const splitPoints = [];
+
+      // **Capture the first part before any break-point**
+      splitPoints.push(0);
+
+      breakPoints.forEach((div) => {
+        const divTop = div.offsetTop;
+        const scaledTop = divTop * scaleFactor;
+
+        // **Adjust split point dynamically**
+        splitPoints.push(scaledTop - splitOffset * scaleFactor);
+      });
+
+      // **Ensure full content is captured**
+      splitPoints.push(canvas.height);
+
+      // **Generate multiple PNG images**
+      let part = 1;
+      for (let i = 0; i < splitPoints.length - 1; i++) {
+        const startY = splitPoints[i];
+        const endY = splitPoints[i + 1];
+
+        // **Process canvas for high-quality PNG**
+        const finalCanvas = processCanvas(canvas, startY, endY);
+
+        // **Convert to PNG and force download**
+        const imgData = finalCanvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        link.href = imgData;
+        link.download = `high-quality-image-part-${part}-${timestamp}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        part++;
+      }
+
+      // **Remove Loading Indicator**
+      document.body.removeChild(loadingDiv);
+    })
+    .catch((error) => {
+      console.error('Error generating high-quality PNG:', error);
+      alert('Failed to capture image. Please try again.');
+      document.body.removeChild(loadingDiv);
     });
 }
 
 
+function downloadJPG() {
 
+  if (typeof html2canvas !== 'function') {
+    console.error('html2canvas not loaded');
+    alert('Failed to capture image: Required library not loaded');
+    return;
+  }
 
+  const element = document.getElementById(selectTemplate);
+  if (!element) {
+    console.error('Target element not found:', selectTemplate);
+    alert('Failed to capture image: Target element not found');
+    return;
+  }
 
+  // Get actual element dimensions
+  const elementRect = element.getBoundingClientRect();
+  const actualWidth = elementRect.width;
+  const actualHeight = elementRect.height;
 
+  // Calculate dimensions while maintaining quality
+  const publisherDPI = 300; // Standard print quality DPI
+  const screenDPI = 96;  // Standard screen DPI
+  const scaleFactor = publisherDPI / screenDPI;
 
- 
-function downloadPNG() {
-  const element = document.getElementById(selectTemplate); // Get the div element by ID
+  // Dynamic dimensions calculation
+  // We'll use the actual dimensions and scale them up to maintain quality
+  const outputWidth = Math.round(actualWidth * scaleFactor);
+  const outputHeight = Math.round(actualHeight * scaleFactor);
 
-  // Use html2canvas to render the div as a canvas
-  html2canvas(element, {
-      scale: 5, // Higher scale for improved clarity
-      allowTaint: true,
-      useCORS: true // Enable cross-origin resource sharing for external images
-  }).then((originalCanvas) => {
-      // Calculate the new dimensions with an additional 80px
-      const newWidth = originalCanvas.width + 120;
-      const newHeight = originalCanvas.height + 120;
+  const config = {
+    scale: scaleFactor,
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: '#ffffff',
+    width: actualWidth,
+    height: actualHeight,
+    scrollX: 0,
+    scrollY: 0,
+    imageTimeout: 60000,
+    logging: false,
+    removeContainer: true,
+    foreignObjectRendering: false,
+    // Capture the full element height
+    windowHeight: actualHeight,
+    // Ensure we capture everything
+    onclone: function(clonedDoc) {
+      const clonedElement = clonedDoc.getElementById(selectTemplate);
+      if (clonedElement) {
+        clonedElement.style.height = actualHeight + 'px';
+        clonedElement.style.overflow = 'visible';
+      }
+    }
+  };
 
-      // Create a new canvas with the increased dimensions
-      const canvas = document.createElement('canvas');
-      canvas.width = newWidth;
-      canvas.height = newHeight;
-      const ctx = canvas.getContext('2d');
+  // Pre-load all resources
+  const preloadResources = () => {
+    return Promise.all([
+      document.fonts.ready,
+      ...Array.from(element.getElementsByTagName('img')).map(img => {
+        return new Promise((resolve, reject) => {
+          if (img.complete) resolve();
+          else {
+            img.onload = resolve;
+            img.onerror = reject;
+          }
+        });
+      })
+    ]);
+  };
 
-      // Scale the original content to fit the new dimensions
-      ctx.drawImage(originalCanvas, 0, 0, newWidth, newHeight);
+  // Process canvas with dynamic dimensions
+  const processCanvas = (canvas) => {
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = outputWidth;
+    finalCanvas.height = outputHeight;
+    const ctx = finalCanvas.getContext('2d', { alpha: false });
 
-      // Convert the new canvas to a data URL in PNG format
-      const imgData = canvas.toDataURL('image/png');
+    // Apply high-quality image processing
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.globalCompositeOperation = 'source-over';
+    
+    // Ensure clean background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+    
+    // Draw with high-quality interpolation
+    ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
+    
+    return finalCanvas;
+  };
 
-      // Create a temporary <a> element to trigger the download
+  // Add loading indicator
+  const loadingDiv = document.createElement('div');
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '50%';
+  loadingDiv.style.left = '50%';
+  loadingDiv.style.transform = 'translate(-50%, -50%)';
+  loadingDiv.style.padding = '20px';
+  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
+  loadingDiv.style.color = 'white';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.zIndex = '9999';
+  loadingDiv.textContent = 'Generating high-quality image...';
+  document.body.appendChild(loadingDiv);
+
+  // Execute the export
+  preloadResources()
+    .then(() => html2canvas(element, config))
+    .then(canvas => processCanvas(canvas))
+    .then(finalCanvas => {
+      // Use maximum quality JPEG encoding
+      const imgData = finalCanvas.toDataURL('image/jpeg', 1.0);
+      
+      // Force download with correct filename
       const link = document.createElement('a');
-      link.href = imgData; // Set the image data URL as the href
-      link.download = 'report.png'; // Set the download filename
-      link.click(); // Trigger the download
-  }).catch((error) => {
-      console.error('Error generating PNG:', error);
-  });
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      link.href = imgData;
+      link.download = `report-${timestamp}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Remove loading indicator
+      document.body.removeChild(loadingDiv);
+    })
+    .catch(error => {
+      console.error('Error generating high-quality image:', error);
+      alert('Failed to capture image. Please try again.');
+      // Remove loading indicator on error
+      document.body.removeChild(loadingDiv);
+    });
+}
+
+function downloadPNG() {
+  if (typeof html2canvas !== 'function') {
+    console.error('html2canvas not loaded');
+    alert('Failed to capture image: Required library not loaded');
+    return;
+  }
+
+  const element = document.getElementById(selectTemplate);
+  if (!element) {
+    console.error('Target element not found:', selectTemplate);
+    alert('Failed to capture image: Target element not found');
+    return;
+  }
+
+  // Get actual element dimensions
+  const elementRect = element.getBoundingClientRect();
+  const actualWidth = elementRect.width;
+  const actualHeight = elementRect.height;
+
+  // Calculate dimensions while maintaining quality
+  const publisherDPI = 300; // Standard print quality DPI
+  const screenDPI = 96;  // Standard screen DPI
+  const scaleFactor = publisherDPI / screenDPI;
+
+  // Dynamic dimensions calculation
+  // We'll use the actual dimensions and scale them up to maintain quality
+  const outputWidth = Math.round(actualWidth * scaleFactor);
+  const outputHeight = Math.round(actualHeight * scaleFactor);
+
+  const config = {
+    scale: scaleFactor,
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: '#ffffff',
+    width: actualWidth,
+    height: actualHeight,
+    scrollX: 0,
+    scrollY: 0,
+    imageTimeout: 60000,
+    logging: false,
+    removeContainer: true,
+    foreignObjectRendering: false,
+    // Capture the full element height
+    windowHeight: actualHeight,
+    // Ensure we capture everything
+    onclone: function(clonedDoc) {
+      const clonedElement = clonedDoc.getElementById(selectTemplate);
+      if (clonedElement) {
+        clonedElement.style.height = actualHeight + 'px';
+        clonedElement.style.overflow = 'visible';
+      }
+    }
+  };
+
+  // Pre-load all resources
+  const preloadResources = () => {
+    return Promise.all([
+      document.fonts.ready,
+      ...Array.from(element.getElementsByTagName('img')).map(img => {
+        return new Promise((resolve, reject) => {
+          if (img.complete) resolve();
+          else {
+            img.onload = resolve;
+            img.onerror = reject;
+          }
+        });
+      })
+    ]);
+  };
+
+  // Process canvas with dynamic dimensions
+  const processCanvas = (canvas) => {
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = outputWidth;
+    finalCanvas.height = outputHeight;
+    const ctx = finalCanvas.getContext('2d', { alpha: false });
+
+    // Apply high-quality image processing
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.globalCompositeOperation = 'source-over';
+    
+    // Ensure clean background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+    
+    // Draw with high-quality interpolation
+    ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
+    
+    return finalCanvas;
+  };
+
+  // Add loading indicator
+  const loadingDiv = document.createElement('div');
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '50%';
+  loadingDiv.style.left = '50%';
+  loadingDiv.style.transform = 'translate(-50%, -50%)';
+  loadingDiv.style.padding = '20px';
+  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
+  loadingDiv.style.color = 'white';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.zIndex = '9999';
+  loadingDiv.textContent = 'Generating high-quality image...';
+  document.body.appendChild(loadingDiv);
+
+  // Execute the export
+  preloadResources()
+    .then(() => html2canvas(element, config))
+    .then(canvas => processCanvas(canvas))
+    .then(finalCanvas => {
+      // Use maximum quality JPEG encoding
+      const imgData = finalCanvas.toDataURL('image/png', 1.0);
+      
+      // Force download with correct filename
+      const link = document.createElement('a');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      link.href = imgData;
+      link.download = `report-${timestamp}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Remove loading indicator
+      document.body.removeChild(loadingDiv);
+    })
+    .catch(error => {
+      console.error('Error generating high-quality image:', error);
+      alert('Failed to capture image. Please try again.');
+      // Remove loading indicator on error
+      document.body.removeChild(loadingDiv);
+    });
 }
 
 
