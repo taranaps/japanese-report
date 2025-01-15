@@ -696,13 +696,19 @@ function CutAndDownloadJPG(){
     return;
   }
 
-  let break_point;
+  let break_point1,break_point2;
   if (selectTemplate == 'template2') {
-    break_point = 'batch-info';
+    break_point1 = 'batch-info';
+    break_point2 = 'tablecontainer2';
+   
   } else if (selectTemplate == 'template5') {
-    break_point = 'batch-info-template5';
+    break_point1 = 'batch-info-template5';
+    break_point2 = 'tablecontainer4';
+   
   } else if (selectTemplate == 'template3') {
-    break_point = 't3batchname';
+    break_point1 = 't3batchname';
+    break_point2 = 'tablecontainer3';
+   
   }
 
   const element = document.getElementById(selectTemplate);
@@ -807,56 +813,74 @@ function CutAndDownloadJPG(){
   document.body.appendChild(loadingDiv);
 
   preloadResources()
-    .then(() => html2canvas(element, config))
-    .then((canvas) => {
-      // **Find break-point div positions**
-      const breakPoints = Array.from(element.getElementsByClassName(break_point));
-      const splitPoints = [];
+  .then(() => html2canvas(element, config))
+  .then((canvas) => {
+    const breakPoint1 = Array.from(element.getElementsByClassName(break_point1));
+    let breakPoints2 = Array.from(element.getElementsByClassName(break_point2));
+    let splitPoints = [];
 
-      // **Capture the first part before any break-point**
-      splitPoints.push(0);
+    // **Start from the top of the image**
+    splitPoints.push(0);
 
-      breakPoints.forEach((div) => {
-        const divTop = div.offsetTop;
-        const scaledTop = divTop * scaleFactor;
-
-        // **Adjust split point dynamically**
-        splitPoints.push(scaledTop - splitOffset * scaleFactor);
-      });
-
-      // **Ensure full content is captured**
-      splitPoints.push(canvas.height);
-
-      // **Generate multiple PNG images**
-      let part = 1;
-      for (let i = 0; i < splitPoints.length - 1; i++) {
-        const startY = splitPoints[i];
-        const endY = splitPoints[i + 1];
-
-        // **Process canvas for high-quality PNG**
-        const finalCanvas = processCanvas(canvas, startY, endY);
-
-        // **Convert to PNG and force download**
-        const imgData = finalCanvas.toDataURL('image/jpg', 1.0);
-        const link = document.createElement('a');
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        link.href = imgData;
-        link.download = `high-quality-image-part-${part}-${timestamp}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        part++;
-      }
-
-      // **Remove Loading Indicator**
-      document.body.removeChild(loadingDiv);
-    })
-    .catch((error) => {
-      console.error('Error generating high-quality PNG:', error);
-      alert('Failed to capture image. Please try again.');
-      document.body.removeChild(loadingDiv);
+    // **Add breakpoints for `break_point1`**
+    breakPoint1.forEach((div) => {
+      const divTop = div.offsetTop * scaleFactor;
+      splitPoints.push(divTop - splitOffset * scaleFactor);
     });
+
+    breakPoints2 = breakPoints2.filter(div => {
+      // Check if the div has one child
+      if (div.children.length === 1) {
+        const child = div.children[0]; // Get the first (and only) child
+        // Check if the child has any text or other elements inside it
+        return child.innerText.trim() !== '' || child.children.length > 0;
+      }
+      return false;
+    });
+    
+    // **If there are any non-empty `breakPoint2` divs**
+    if (breakPoints2.length > 0) {
+      breakPoints2.forEach((div) => {
+        const divTop = div.offsetTop * scaleFactor;
+        splitPoints.push(divTop - splitOffset * scaleFactor);  // Slice at break_point2 div start
+      });
+      // Ensure slicing goes until the full image height
+      splitPoints.push(canvas.height);
+    } else {
+      // **If `break_point2` is empty, just capture the full content**
+      splitPoints.push(canvas.height);
+    }
+
+    // **Generate multiple PNG images**
+    let part = 1;
+    for (let i = 0; i < splitPoints.length - 1; i++) {
+      const startY = splitPoints[i];
+      const endY = splitPoints[i + 1];
+
+      // **Process canvas for high-quality PNG**
+      const finalCanvas = processCanvas(canvas, startY, endY);
+
+      // **Convert to PNG and force download**
+      const imgData = finalCanvas.toDataURL('image/jpg', 1.0);
+      const link = document.createElement('a');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      link.href = imgData;
+      link.download = `Japanese-Training-Report-part-${part}-${timestamp}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      part++;
+    }
+
+    // **Remove Loading Indicator**
+    document.body.removeChild(loadingDiv);
+  })
+  .catch((error) => {
+    console.error('Error generating high-quality PNG:', error);
+    alert('Failed to capture image. Please try again.');
+    document.body.removeChild(loadingDiv);
+  });
 
 }
 
@@ -868,13 +892,19 @@ function CutAndDownloadPNG() {
     return;
   }
 
-  let break_point;
+  let break_point1,break_point2;
   if (selectTemplate == 'template2') {
-    break_point = 'batch-info';
+    break_point1 = 'batch-info';
+    break_point2 = 'tablecontainer2';
+   
   } else if (selectTemplate == 'template5') {
-    break_point = 'batch-info-template5';
+    break_point1 = 'batch-info-template5';
+    break_point2 = 'tablecontainer4';
+   
   } else if (selectTemplate == 'template3') {
-    break_point = 't3batchname';
+    break_point1 = 't3batchname';
+    break_point2 = 'tablecontainer3';
+   
   }
 
   const element = document.getElementById(selectTemplate);
@@ -979,56 +1009,75 @@ function CutAndDownloadPNG() {
   document.body.appendChild(loadingDiv);
 
   preloadResources()
-    .then(() => html2canvas(element, config))
-    .then((canvas) => {
-      // **Find break-point div positions**
-      const breakPoints = Array.from(element.getElementsByClassName(break_point));
-      const splitPoints = [];
+  .then(() => html2canvas(element, config))
+  .then((canvas) => {
+    const breakPoint1 = Array.from(element.getElementsByClassName(break_point1));
+    let breakPoints2 = Array.from(element.getElementsByClassName(break_point2));
+    let splitPoints = [];
 
-      // **Capture the first part before any break-point**
-      splitPoints.push(0);
+    // **Start from the top of the image**
+    splitPoints.push(0);
 
-      breakPoints.forEach((div) => {
-        const divTop = div.offsetTop;
-        const scaledTop = divTop * scaleFactor;
-
-        // **Adjust split point dynamically**
-        splitPoints.push(scaledTop - splitOffset * scaleFactor);
-      });
-
-      // **Ensure full content is captured**
-      splitPoints.push(canvas.height);
-
-      // **Generate multiple PNG images**
-      let part = 1;
-      for (let i = 0; i < splitPoints.length - 1; i++) {
-        const startY = splitPoints[i];
-        const endY = splitPoints[i + 1];
-
-        // **Process canvas for high-quality PNG**
-        const finalCanvas = processCanvas(canvas, startY, endY);
-
-        // **Convert to PNG and force download**
-        const imgData = finalCanvas.toDataURL('image/png', 1.0);
-        const link = document.createElement('a');
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        link.href = imgData;
-        link.download = `high-quality-image-part-${part}-${timestamp}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        part++;
-      }
-
-      // **Remove Loading Indicator**
-      document.body.removeChild(loadingDiv);
-    })
-    .catch((error) => {
-      console.error('Error generating high-quality PNG:', error);
-      alert('Failed to capture image. Please try again.');
-      document.body.removeChild(loadingDiv);
+    // **Add breakpoints for `break_point1`**
+    breakPoint1.forEach((div) => {
+      const divTop = div.offsetTop * scaleFactor;
+      splitPoints.push(divTop - splitOffset * scaleFactor);
     });
+
+    breakPoints2 = breakPoints2.filter(div => {
+      // Check if the div has one child
+      if (div.children.length === 1) {
+        const child = div.children[0]; // Get the first (and only) child
+        // Check if the child has any text or other elements inside it
+        return child.innerText.trim() !== '' || child.children.length > 0;
+      }
+      return false;
+    });
+    
+    // **If there are any non-empty `breakPoint2` divs**
+    if (breakPoints2.length > 0) {
+      breakPoints2.forEach((div) => {
+        const divTop = div.offsetTop * scaleFactor;
+        splitPoints.push(divTop - splitOffset * scaleFactor);  // Slice at break_point2 div start
+      });
+      // Ensure slicing goes until the full image height
+      splitPoints.push(canvas.height);
+    } else {
+      // **If `break_point2` is empty, just capture the full content**
+      splitPoints.push(canvas.height);
+    }
+
+    // **Generate multiple PNG images**
+    let part = 1;
+    for (let i = 0; i < splitPoints.length - 1; i++) {
+      const startY = splitPoints[i];
+      const endY = splitPoints[i + 1];
+
+      // **Process canvas for high-quality PNG**
+      const finalCanvas = processCanvas(canvas, startY, endY);
+
+      // **Convert to PNG and force download**
+      const imgData = finalCanvas.toDataURL('image/png', 1.0);
+      const link = document.createElement('a');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      link.href = imgData;
+      link.download = `Japanese-Training-Report-part-${part}-${timestamp}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      part++;
+    }
+
+    // **Remove Loading Indicator**
+    document.body.removeChild(loadingDiv);
+  })
+  .catch((error) => {
+    console.error('Error generating high-quality PNG:', error);
+    alert('Failed to capture image. Please try again.');
+    document.body.removeChild(loadingDiv);
+  });
+
 }
 
 
@@ -1151,7 +1200,7 @@ function downloadJPG() {
       const link = document.createElement('a');
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       link.href = imgData;
-      link.download = `report-${timestamp}.jpg`;
+      link.download = `Japanese-Training-Report-${timestamp}.jpg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1285,7 +1334,7 @@ function downloadPNG() {
       const link = document.createElement('a');
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       link.href = imgData;
-      link.download = `report-${timestamp}.png`;
+      link.download = `Japanese-Training-Report-${timestamp}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
