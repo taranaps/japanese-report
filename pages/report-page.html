@@ -165,7 +165,7 @@
                 <button onclick="changeColumnBackground()" title="Change Column Background Color">
                   <i class="fas fa-columns"></i>
                 </button>
-                <button onclick="toggleTableBorder()" title="Toggle Borders">
+                <button onclick="toggleTableBorder()" title="Set Border bold">
                   <i class="fas fa-border-all"></i> 
               </button>
     
@@ -379,7 +379,7 @@
             <button onclick="changeColumnBackground()" title="Change Column Background Color">
               <i class="fas fa-columns"></i>
             </button>
-            <button onclick="toggleTableBorder()" title="Toggle Borders">
+            <button onclick="toggleTableBorder()" title="Set Border bold">
               <i class="fas fa-border-all"></i> 
           </button>
 
@@ -598,7 +598,7 @@
       <button onclick="changeColumnBackground()" title="Change Column Background Color">
         <i class="fas fa-columns"></i>
       </button>
-      <button onclick="toggleTableBorder()" title="Toggle Borders">
+      <button onclick="toggleTableBorder()" title="Set Border bold">
         <i class="fas fa-border-all"></i> 
     </button>
 
@@ -1008,7 +1008,7 @@
                 <button onclick="changeColumnBackground()" title="Change Column Background Color">
                   <i class="fas fa-columns"></i>
                 </button>
-                <button onclick="toggleTableBorder()" title="Toggle Borders">
+                <button onclick="toggleTableBorder()" title="Set Border bold">
                   <i class="fas fa-border-all"></i> 
               </button>
     
@@ -1237,6 +1237,10 @@
                 </div>
                 
                 <div class="addSection">
+                  <div id="textareaInsert">
+                    <h3 style="margin-left:10px;margin-top: 5px;">Add Text</h3>
+                    <button onclick="createTextarea()" style="margin-top:10px;">Add Text</button>
+                </div>
                   <div class="table-options">
                     <h3>Add Tables</h3>
                     <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
@@ -1251,9 +1255,7 @@
                   <label>To Column: <input type="number" id="mergeColEnd" min="1"></label>
                   <button onclick="mergeCells()">Merge Cells</button>
                   </div> -->
-                  <div id="textareaInsert">
-                    <button onclick="createTextarea()">Add Text</button>
-                </div>
+                
                  <div id="imageuploads">
                   <input type="file" accept="image/*" id="uploadImage">
   
