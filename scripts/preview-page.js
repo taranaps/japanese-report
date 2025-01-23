@@ -1,35 +1,173 @@
+// Toggle the visibility of the template container
+function toggleTemplates() {
+  const templateContainer = document.getElementById('templateContainer');
+  if (templateContainer.style.display === 'none' || templateContainer.style.display === '') {
+    templateContainer.style.display = 'block'; // Show templates
+  } else {
+    templateContainer.style.display = 'none'; // Hide templates
+  }
+}
 
+// Close the template container if clicked outside or on an image
+document.addEventListener('click', function (event) {
+  const templateContainer = document.getElementById('templateContainer');
+  const button = document.querySelector('.toolbars button'); // The select button
+  const images = templateContainer.querySelectorAll('img'); // Select all images inside the template container
+
+  // If the click is outside the template container and the button
+  if (!templateContainer.contains(event.target) && event.target !== button) {
+    templateContainer.style.display = 'none'; // Hide templates
+  }
+
+  // If the click is on an image inside the template container
+  images.forEach(function (image) {
+    if (image.contains(event.target)) {
+      templateContainer.style.display = 'none'; // Hide templates when an image is selected
+    }
+  });
+});
+
+// Toggle the visibility of the theme popup
+function toggleThemes() {
+  var themesContainer = document.getElementById('themesContainer');
+  if (themesContainer.style.display === 'none' || themesContainer.style.display === '') {
+    themesContainer.style.display = 'block';  // Show popup
+  } else {
+    themesContainer.style.display = 'none';  // Hide popup
+  }
+}
+
+
+
+
+// Close the theme popup when clicking any color option
+var colorOptions = document.querySelectorAll('.sidebar-theme div');
+colorOptions.forEach(function (option) {
+  option.addEventListener('click', function () {
+    var themesContainer = document.getElementById('themesContainer');
+    themesContainer.style.display = 'none';  // Close the popup when a color is selected
+  });
+});
+
+function toggleAddTablePopup() {
+  const tablePopup = document.getElementById("addTablePopup");
+  const isPopupVisible = tablePopup.style.display === "block";
+
+  if (!isPopupVisible) {
+    // Show the popup
+    tablePopup.style.display = "block";
+
+    // Add a document-wide click listener to detect clicks outside the popup
+    document.addEventListener("click", closePopupOnClickOutside);
+  } else {
+    // Hide the popup
+    tablePopup.style.display = "none";
+
+    // Remove the document-wide click listener
+    document.removeEventListener("click", closePopupOnClickOutside);
+  }
+}
+
+function closePopupOnClickOutside(event) {
+  const tablePopup = document.getElementById("addTablePopup");
+  const addButton1 = document.querySelector('[onclick="toggleAddTablePopup()"]'); // First Add Table button
+  const addButton2 = document.querySelector('.inside-popup-table-button'); // Second Add Table button inside toolbar
+
+  if (
+    tablePopup.style.display === "block" && // Popup is visible
+    !tablePopup.contains(event.target) && // Click is outside the popup
+    event.target !== addButton1 && // Click is not on the first button
+    event.target !== addButton2 // Click is not on the second button
+  ) {
+    tablePopup.style.display = "none";
+    document.removeEventListener("click", closePopupOnClickOutside); // Remove listener
+  }
+
+}
+
+
+
+function toggleAddImagePopup() {
+  const tablePopup = document.getElementById("imageuploads");
+  const isPopupVisible = tablePopup.style.display === "block";
+
+  if (!isPopupVisible) {
+    // Show the popup
+    tablePopup.style.display = "block";
+
+    // Add a document-wide click listener to detect clicks outside the popup
+    document.addEventListener("click", closeImagePopupOnClickOutside);
+  } else {
+    // Hide the popup
+    tablePopup.style.display = "none";
+
+    // Remove the document-wide click listener
+    document.removeEventListener("click", closeImagePopupOnClickOutside);
+  }
+}
+
+function closeImagePopupOnClickOutside(event) {
+  const tablePopup = document.getElementById("imageuploads");
+  const addButton1 = document.querySelector('[onclick="toggleAddImagePopup()"]'); // First Add Table button
+  // const addButton2 = document.querySelector('.inside-popup-table-button'); 
+
+  if (
+    tablePopup.style.display === "block" && // Popup is visible
+    !tablePopup.contains(event.target) && // Click is outside the popup
+    event.target !== addButton1  // Click is not on the first button
+    // event.target !== addButton2 
+  ) {
+    tablePopup.style.display = "none";
+    document.removeEventListener("click", closePopupOnClickOutside); // Remove listener
+  }
+
+}
+
+
+
+var tablinks = document.getElementsByClassName("tablinks");
+var tabcontents = document.getElementsByClassName("tabcontents");
+function opentab(tabname) {
+  for (let tablink of tablinks) {
+    tablink.classList.remove("activelink");
+  }
+  for (let tabcontent of tabcontents) {
+    tabcontent.classList.remove("activetab");
+  }
+  event.currentTarget.classList.add("activelink");
+  document.getElementById(tabname).classList.add("activetab");
+}
 
 
 function preview_togglepopup() {
-  let  previewPopup=document.getElementById("preview-popup");
-  let generateButton=document.getElementById("generate-report");
-  let preview=document.getElementById("preview");
-  
+  let previewPopup = document.getElementById("preview-popup");
+  let generateButton = document.getElementById("generate-report");
+  let preview = document.getElementById("preview");
+
 
   document.getElementById("preview-popup").classList.toggle("active");
   previewPopup.classList.add('active');
-            document.body.classList.add('no-scroll');
-            window.scrollTo(0, 0); // Scroll to top
-            generateButton.style.display='none';
-            // preview.style.overflow='hidden'
-           
+  document.body.classList.add('no-scroll');
+  window.scrollTo(0, 0); // Scroll to top
+  generateButton.style.display = 'none';
+  // preview.style.overflow='hidden'
 
-            
+
+
 }
 
 // function share_togglepopup() {
 //   document.getElementById("share-popup").classList.toggle("active");
 // }
- 
+
 
 document.getElementById('cancel-button').addEventListener('click', function () {
-  let  previewPopup=document.getElementById("preview-popup");
+  let previewPopup = document.getElementById("preview-popup");
   // let generateButton=document.getElementById("generate-report");
   document.getElementById("preview-popup").classList.toggle("active");
   previewPopup.classList.remove('active');
-  let generateButton=document.getElementById("generate-report");
-  generateButton.style.display='block';
+  let generateButton = document.getElementById("generate-report");
+  generateButton.style.display = 'block';
 
 
 })
@@ -81,7 +219,7 @@ document.getElementById('cancel-button').addEventListener('click', function () {
 //     .then(canvas => {
 //       // Convert to high quality JPEG
 //       const imgData = canvas.toDataURL('image/jpeg', 1.0);
-      
+
 //       // Create simple copy instructions
 //       const instructions = document.createElement('div');
 //       instructions.style.position = 'fixed';
@@ -108,9 +246,9 @@ document.getElementById('cancel-button').addEventListener('click', function () {
 //           <button id="closeBtn" style="padding: 10px 20px; margin: 10px; cursor: pointer;">Close</button>
 //         </div>
 //       `;
-      
+
 //       document.body.appendChild(instructions);
-      
+
 //       // Handle download
 //       document.getElementById('downloadBtn').onclick = () => {
 //         const link = document.createElement('a');
@@ -120,12 +258,12 @@ document.getElementById('cancel-button').addEventListener('click', function () {
 //         link.click();
 //         document.body.removeChild(link);
 //       };
-      
+
 //       // Handle close
 //       document.getElementById('closeBtn').onclick = () => {
 //         document.body.removeChild(instructions);
 //       };
-      
+
 //       // Remove loading indicator
 //       document.body.removeChild(loadingDiv);
 //     })
@@ -204,38 +342,38 @@ document.getElementById('cancel-button').addEventListener('click', function () {
 //       // Create high resolution canvas
 //       const highResCanvas = document.createElement('canvas');
 //       const ctx = highResCanvas.getContext('2d');
-      
+
 //       // Set dimensions for high quality
 //       highResCanvas.width = canvas.width * 2;
 //       highResCanvas.height = canvas.height * 2;
-      
+
 //       // Apply high quality settings
 //       ctx.imageSmoothingEnabled = true;
 //       ctx.imageSmoothingQuality = 'high';
-      
+
 //       // Draw with better quality
 //       ctx.drawImage(canvas, 0, 0, highResCanvas.width, highResCanvas.height);
-      
+
 //       // Get highest quality JPEG
 //       const imgData = highResCanvas.toDataURL('image/jpeg', 1.0);
-      
+
 //       // Create formatted subject
 //       const subject = `Japanese Language Training Report - ${formatDate(today)}`;
-      
+
 //       // Create email content with proper image sizing
 //       const body = `<img src="${imgData}" style="width:100%;max-width:1200px;height:auto;display:block;margin:0 auto;">`;
-      
+
 //       // Create outlook mailto URL
 //       const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
+
 //       // Open in Outlook
 //       window.location.href = `ms-outlook:${encodeURIComponent(mailtoLink)}`;
-      
+
 //       // Fallback to regular mailto if ms-outlook protocol fails
 //       setTimeout(() => {
 //         window.location.href = mailtoLink;
 //       }, 1000);
-      
+
 //       document.body.removeChild(loadingDiv);
 //     })
 //     .catch(error => {
@@ -246,12 +384,12 @@ document.getElementById('cancel-button').addEventListener('click', function () {
 // }
 
 function openOutlookCompose() {
- 
+
   const outlookURL = "https://outlook.live.com/mail/0/deeplink/compose?subject=Japanese%20Language%20Training%20Report&body=Please%20find%20the%20training%20report%20below.";
 
   // Use window.location to navigate to the URL directly (no pop-up)
   window.location.href = outlookURL;
-  
+
 }
 
 
@@ -460,61 +598,241 @@ images.forEach(image => {
 // }
 
 
-function copyHtml(selectTemplate) {
-  var sourceDiv = document.getElementById(selectTemplate);
-  var wrapperDiv = document.querySelector(".preview-report");
-  const fileInputButton = document.getElementById("img-input");
+// function copyHtml(selectTemplate) {
+//   var sourceDiv = document.getElementById(selectTemplate);
+//   var wrapperDiv = document.querySelector(".preview-report");
+//   const fileInputButton = document.getElementById("img-input");
 
-  // Use html2canvas to convert the source div to an image
-  html2canvas(sourceDiv).then(canvas => {
-    // Clear previous content in the wrapper div
-    wrapperDiv.innerHTML = '';
+//   // Use html2canvas to convert the source div to an image
+//   html2canvas(sourceDiv).then(canvas => {
+//     // Clear previous content in the wrapper div
+//     wrapperDiv.innerHTML = '';
 
-    // Convert the canvas to a PNG data URL
-    var imgData = canvas.toDataURL("image/png");
+//     // Convert the canvas to a PNG data URL
+//     var imgData = canvas.toDataURL("image/png");
 
-    // Create a new image element
-    var img = document.createElement("img");
-    img.id = "myImageID"
-    img.src = imgData;
+//     // Create a new image element
+//     var img = document.createElement("img");
+//     img.id = "myImageID"
+//     img.src = imgData;
 
-    // Set margins based on the selected template if necessary
-    // if (selectTemplate === 'template1') {
-    //   img.style.marginLeft = "10px";
-    //   img.style.marginTop = "-20px";
-    // } else if (selectTemplate === 'template2') {
-    //   img.style.marginLeft = "100px";
-    // } else if (selectTemplate === 'template3') {
-    //   img.style.marginLeft = "0px";
-    // } else {
-    //   img.style.marginLeft = "40px";
-    // }
+//     // Set margins based on the selected template if necessary
+//     // if (selectTemplate === 'template1') {
+//     //   img.style.marginLeft = "10px";
+//     //   img.style.marginTop = "-20px";
+//     // } else if (selectTemplate === 'template2') {
+//     //   img.style.marginLeft = "100px";
+//     // } else if (selectTemplate === 'template3') {
+//     //   img.style.marginLeft = "0px";
+//     // } else {
+//     //   img.style.marginLeft = "40px";
+//     // }
 
-    // Ensure the image fully covers the width of the wrapper and allow scrolling for height
-    img.style.width = "100%";      // Cover the entire width
-    img.style.height = "auto";     // Maintain aspect ratio
-    wrapperDiv.style.overflowY = "auto";  // Enable vertical scrolling
-    wrapperDiv.style.height = "auto";    // Set preview container height to viewport height
+//     // Ensure the image fully covers the width of the wrapper and allow scrolling for height
+//     img.style.width = "100%";      // Cover the entire width
+//     img.style.height = "auto";     // Maintain aspect ratio
+//     wrapperDiv.style.overflowY = "auto";  // Enable vertical scrolling
+//     wrapperDiv.style.height = "auto";    // Set preview container height to viewport height
 
-    // Append the image to the wrapper div
-    wrapperDiv.appendChild(img);
+//     // Append the image to the wrapper div
+//     wrapperDiv.appendChild(img);
 
-    // Convert image to a file for file input handling
-    fetch(imgData)
-      .then(res => res.blob())
-      .then(blob => {
-        // Generate a unique filename based on current date and time
-        const now = new Date();
-        const formattedDate = now.toISOString().replace(/[:.]/g, '-');
-        const fileName = `captured_image_${formattedDate}.png`;
-        const file = new File([blob], fileName, { type: "image/png" });
+//     // Convert image to a file for file input handling
+//     fetch(imgData)
+//       .then(res => res.blob())
+//       .then(blob => {
+//         // Generate a unique filename based on current date and time
+//         const now = new Date();
+//         const formattedDate = now.toISOString().replace(/[:.]/g, '-');
+//         const fileName = `captured_image_${formattedDate}.png`;
+//         const file = new File([blob], fileName, { type: "image/png" });
 
-        // Assign this file to the file input element’s `files` property
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        fileInputButton.files = dataTransfer.files;
-      });
+//         // Assign this file to the file input element’s `files` property
+//         const dataTransfer = new DataTransfer();
+//         dataTransfer.items.add(file);
+//         fileInputButton.files = dataTransfer.files;
+//       });
+//   });
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const dropdown = document.querySelectorAll('.dropdown');
+
+// dropdown.forEach(dropdown => {
+// var select = dropdown.querySelector('.select');
+// var caret = dropdown.querySelector('.caret');
+// var menu = dropdown.querySelector('.menu');
+// var options = dropdown.querySelectorAll('.menu li');
+// var selected = dropdown.querySelector('.selected');
+// const canvas = document.getElementById('canvas');
+let downloadButton = document.getElementById('download-button');
+let cutAndDownload = document.getElementById('cut-and-download')
+
+let downloadSelect = document.getElementById('downloadSelect');
+
+
+// select.addEventListener('click', () => {
+//   select.classList.toggle('select-clicked');
+//   caret.classList.toggle('caret-rotate');
+//   menu.classList.toggle('menu-open');
+// });
+
+// function clearDownloadButtonListeners() {
+//   let newButton = downloadButton.cloneNode(true);
+//   downloadButton.replaceWith(newButton);
+//   downloadButton = document.getElementById('download-button');
+// }
+
+
+// options.forEach(option => {
+//   option.addEventListener('click', () => {
+//     selected.innerText = option.innerText;
+
+
+//     select.classList.remove('select-clicked');
+//     caret.classList.remove('caret-rotate');
+//     menu.classList.remove('menu-open');
+
+
+//     clearDownloadButtonListeners();
+//     downloadButton.disabled = false;
+//     console.log(selected.innerText)
+
+
+
+
+downloadButton.addEventListener('click', () => {
+  let selectedValue = downloadSelect.value;
+
+  if (selectedValue === '') {
+    errorMessage();
+  } else if (selectedValue === 'pdf') {
+    downloadPDF();
+  } else if (selectedValue === 'jpg') {
+    downloadJPG();
+  } else if (selectedValue === 'png') {
+    downloadPNG();
+  }
+});
+
+cutAndDownload.addEventListener('click', () => {
+  let selectedValue = downloadSelect.value;
+
+  if (selectedValue === 'jpg') {
+    CutAndDownloadJPG();
+  } else if (selectedValue === 'png') {
+    CutAndDownloadPNG();
+  } else {
+    errorMessage();
+  }
+});
+
+
+
+//     options.forEach(option => {
+//       option.classList.remove('active');
+//       option.style.backgroundColor = '';
+//     });
+//     option.classList.add('active');
+//     option.style.backgroundColor = '#dc143cfa';
+//   });
+
+// });
+
+
+function errorMessage() {
+  alert("Please select a file format before downloading.");
+
+}
+
+
+
+function downloadPDF() {
+
+  // const { jsPDF } = window.jspdf; // Import jsPDF
+
+  // // Capture the div with html2canvas
+  // html2canvas(document.getElementById(selectTemplate)).then(canvas => {
+  //     var imgData = canvas.toDataURL('image/jpeg', 1.0); // Convert canvas to image with full quality
+
+  //     // Create jsPDF instance (Portrait, A4 page size)
+  //     var pdf = new jsPDF('p', 'mm', 'a4');
+
+  //     // Calculate width and height in mm (A4 size)
+  //     var imgWidth = 210; // A4 width in mm
+  //     var pageHeight = 297; // A4 height in mm
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;
+  //     var heightLeft = imgHeight;
+
+  //     var position = 0;
+
+  //     // Add the first image to the PDF
+  //     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+  //     heightLeft -= pageHeight;
+
+  //     // Loop to add new pages if the content is taller than one page
+  //     while (heightLeft > 0) {
+  //         position = heightLeft - imgHeight; // Calculate the position for the new page
+  //         pdf.addPage(); // Create new page
+  //         pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+  //         heightLeft -= pageHeight;
+  //     }
+
+  //     // Save the PDF with a filename
+  //     pdf.save("report.pdf");
+  // });
+
+
+
+  // const { jsPDF } = window.jspdf;
+
+  // html2canvas(document.getElementById(selectTemplate)).then((canvas) => {
+  //     const imgData = canvas.toDataURL('image/png');
+  //     const pdf = new jsPDF();
+
+  //     // Add image to PDF and save
+  //     pdf.addImage(imgData, 'PNG', 0, 0);
+  //     pdf.save('output.pdf');
+  // });
+
+
+
+  const { jsPDF } = window.jspdf;
+
+  // Get the content div dimensions
+  const content = document.getElementById(selectTemplate);
+  const width = content.offsetWidth; // Width of the div
+  const height = content.offsetHeight; // Height of the div
+
+  // Create PDF with custom dimensions
+  const pdf = new jsPDF({
+    orientation: 'portrait', // or 'landscape'
+    unit: 'px', // Use pixels for dimensions
+    format: [width, height], // Set format to the div's width and height
+    putOnlyUsedFonts: true,
+    floatPrecision: 16 // Precision of float numbers
   });
+
+  html2canvas(content).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+    pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Adjusted to use div dimensions
+    pdf.save('output.pdf');
+  });
+
+
 }
 
 
@@ -522,193 +840,26 @@ function copyHtml(selectTemplate) {
 
 
 
-
-
-
-
-
-
-
-
-
-const dropdown = document.querySelectorAll('.dropdown');
-
-dropdown.forEach(dropdown => {
-  var select = dropdown.querySelector('.select');
-  var caret = dropdown.querySelector('.caret');
-  var menu = dropdown.querySelector('.menu');
-  var options = dropdown.querySelectorAll('.menu li');
-  var selected = dropdown.querySelector('.selected');
-  var downloadButton = document.getElementById('download-button');
-  var cutAndDownload=document.getElementById('cut-and-download')
-  const canvas = document.getElementById('canvas');
-
-
-  select.addEventListener('click', () => {
-    select.classList.toggle('select-clicked');
-    caret.classList.toggle('caret-rotate');
-    menu.classList.toggle('menu-open');
-  });
-
-  function clearDownloadButtonListeners() {
-    let newButton = downloadButton.cloneNode(true);
-    downloadButton.replaceWith(newButton);
-    downloadButton = document.getElementById('download-button');
-  }
-   
-
-  options.forEach(option => {
-    option.addEventListener('click', () => {
-      selected.innerText = option.innerText;
-
-
-      select.classList.remove('select-clicked');
-      caret.classList.remove('caret-rotate');
-      menu.classList.remove('menu-open');
-
-
-      clearDownloadButtonListeners();
-      downloadButton.disabled = false;
-      console.log(selected.innerText)
-
-
-      
-      
-  if(selected.innerText === 'File Type'){
-    downloadButton.addEventListener('click',errorMessage() );
-    
-  }
-
-      else if (selected.innerText === 'pdf') {
-        downloadButton.addEventListener('click', downloadPDF);
-      } else if (selected.innerText === 'jpg') {
-        downloadButton.addEventListener('click', downloadJPG);
-        cutAndDownload.addEventListener('click',CutAndDownloadJPG)
-      } else {
-        downloadButton.addEventListener('click', downloadPNG);
-        cutAndDownload.addEventListener('click',CutAndDownloadPNG)
-      }
-      
-     
-      
-      options.forEach(option => {
-        option.classList.remove('active');
-        option.style.backgroundColor = '';
-      });
-      option.classList.add('active');
-      option.style.backgroundColor = '#dc143cfa';
-    });
-   
-  });
-  
-  
- function errorMessage(){
-  alert("Please select a file format before downloading.");
-
- }
- 
-
-
-  function downloadPDF() {
-
-    // const { jsPDF } = window.jspdf; // Import jsPDF
-
-    // // Capture the div with html2canvas
-    // html2canvas(document.getElementById(selectTemplate)).then(canvas => {
-    //     var imgData = canvas.toDataURL('image/jpeg', 1.0); // Convert canvas to image with full quality
-
-    //     // Create jsPDF instance (Portrait, A4 page size)
-    //     var pdf = new jsPDF('p', 'mm', 'a4');
-
-    //     // Calculate width and height in mm (A4 size)
-    //     var imgWidth = 210; // A4 width in mm
-    //     var pageHeight = 297; // A4 height in mm
-    //     var imgHeight = canvas.height * imgWidth / canvas.width;
-    //     var heightLeft = imgHeight;
-
-    //     var position = 0;
-
-    //     // Add the first image to the PDF
-    //     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-    //     heightLeft -= pageHeight;
-
-    //     // Loop to add new pages if the content is taller than one page
-    //     while (heightLeft > 0) {
-    //         position = heightLeft - imgHeight; // Calculate the position for the new page
-    //         pdf.addPage(); // Create new page
-    //         pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-    //         heightLeft -= pageHeight;
-    //     }
-
-    //     // Save the PDF with a filename
-    //     pdf.save("report.pdf");
-    // });
-
-
-
-    // const { jsPDF } = window.jspdf;
-
-    // html2canvas(document.getElementById(selectTemplate)).then((canvas) => {
-    //     const imgData = canvas.toDataURL('image/png');
-    //     const pdf = new jsPDF();
-
-    //     // Add image to PDF and save
-    //     pdf.addImage(imgData, 'PNG', 0, 0);
-    //     pdf.save('output.pdf');
-    // });
-
-
-
-    const { jsPDF } = window.jspdf;
-
-    // Get the content div dimensions
-    const content = document.getElementById(selectTemplate);
-    const width = content.offsetWidth; // Width of the div
-    const height = content.offsetHeight; // Height of the div
-
-    // Create PDF with custom dimensions
-    const pdf = new jsPDF({
-      orientation: 'portrait', // or 'landscape'
-      unit: 'px', // Use pixels for dimensions
-      format: [width, height], // Set format to the div's width and height
-      putOnlyUsedFonts: true,
-      floatPrecision: 16 // Precision of float numbers
-    });
-
-    html2canvas(content).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Adjusted to use div dimensions
-      pdf.save('output.pdf');
-    });
-
-
-  }
-
-
-  
-
-
-
-function CutAndDownloadJPG(){
+function CutAndDownloadJPG() {
   if (typeof html2canvas !== 'function') {
     console.error('html2canvas not loaded');
     alert('Failed to capture image: Required library not loaded');
     return;
   }
 
-  let break_point1,break_point2;
+  let break_point1, break_point2;
   if (selectTemplate == 'template2') {
     break_point1 = 'batch-info';
     break_point2 = 'tablecontainer2';
-   
+
   } else if (selectTemplate == 'template5') {
     break_point1 = 'batch-info-template5';
     break_point2 = 'tablecontainer4';
-   
+
   } else if (selectTemplate == 'template3') {
     break_point1 = 't3batchname';
     break_point2 = 'tablecontainer3';
-   
+
   }
 
   const element = document.getElementById(selectTemplate);
@@ -747,7 +898,7 @@ function CutAndDownloadJPG(){
     removeContainer: true,
     foreignObjectRendering: false,
     windowHeight: actualHeight,
-    onclone: function(clonedDoc) {
+    onclone: function (clonedDoc) {
       const clonedElement = clonedDoc.getElementById(selectTemplate);
       if (clonedElement) {
         clonedElement.style.height = actualHeight + 'px';
@@ -796,7 +947,7 @@ function CutAndDownloadJPG(){
   };
 
   // **Split Handling for Template 3**
-  const splitOffset = selectTemplate == 'template3' ? 130 : 100;
+  const splitOffset = selectTemplate == 'template3' ? 205 : 175;
 
   // **Show Loading Indicator**
   const loadingDiv = document.createElement('div');
@@ -813,74 +964,74 @@ function CutAndDownloadJPG(){
   document.body.appendChild(loadingDiv);
 
   preloadResources()
-  .then(() => html2canvas(element, config))
-  .then((canvas) => {
-    const breakPoint1 = Array.from(element.getElementsByClassName(break_point1));
-    let breakPoints2 = Array.from(element.getElementsByClassName(break_point2));
-    let splitPoints = [];
+    .then(() => html2canvas(element, config))
+    .then((canvas) => {
+      const breakPoint1 = Array.from(element.getElementsByClassName(break_point1));
+      let breakPoints2 = Array.from(element.getElementsByClassName(break_point2));
+      let splitPoints = [];
 
-    // **Start from the top of the image**
-    splitPoints.push(0);
+      // **Start from the top of the image**
+      splitPoints.push(0);
 
-    // **Add breakpoints for `break_point1`**
-    breakPoint1.forEach((div) => {
-      const divTop = div.offsetTop * scaleFactor;
-      splitPoints.push(divTop - splitOffset * scaleFactor);
-    });
-
-    breakPoints2 = breakPoints2.filter(div => {
-      // Check if the div has one child
-      if (div.children.length === 1) {
-        const child = div.children[0]; // Get the first (and only) child
-        // Check if the child has any text or other elements inside it
-        return child.innerText.trim() !== '' || child.children.length > 0;
-      }
-      return false;
-    });
-    
-    // **If there are any non-empty `breakPoint2` divs**
-    if (breakPoints2.length > 0) {
-      breakPoints2.forEach((div) => {
+      // **Add breakpoints for `break_point1`**
+      breakPoint1.forEach((div) => {
         const divTop = div.offsetTop * scaleFactor;
-        splitPoints.push(divTop - splitOffset * scaleFactor);  // Slice at break_point2 div start
+        splitPoints.push(divTop - splitOffset * scaleFactor);
       });
-      // Ensure slicing goes until the full image height
-      splitPoints.push(canvas.height);
-    } else {
-      // **If `break_point2` is empty, just capture the full content**
-      splitPoints.push(canvas.height);
-    }
 
-    // **Generate multiple PNG images**
-    let part = 1;
-    for (let i = 0; i < splitPoints.length - 1; i++) {
-      const startY = splitPoints[i];
-      const endY = splitPoints[i + 1];
+      breakPoints2 = breakPoints2.filter(div => {
+        // Check if the div has one child
+        if (div.children.length === 1) {
+          const child = div.children[0]; // Get the first (and only) child
+          // Check if the child has any text or other elements inside it
+          return child.innerText.trim() !== '' || child.children.length > 0;
+        }
+        return false;
+      });
 
-      // **Process canvas for high-quality PNG**
-      const finalCanvas = processCanvas(canvas, startY, endY);
+      // **If there are any non-empty `breakPoint2` divs**
+      if (breakPoints2.length > 0) {
+        breakPoints2.forEach((div) => {
+          const divTop = div.offsetTop * scaleFactor;
+          splitPoints.push(divTop - splitOffset * scaleFactor);  // Slice at break_point2 div start
+        });
+        // Ensure slicing goes until the full image height
+        splitPoints.push(canvas.height);
+      } else {
+        // **If `break_point2` is empty, just capture the full content**
+        splitPoints.push(canvas.height);
+      }
 
-      // **Convert to PNG and force download**
-      const imgData = finalCanvas.toDataURL('image/jpg', 1.0);
-      const link = document.createElement('a');
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      link.href = imgData;
-      link.download = `Japanese-Training-Report-part-${part}-${timestamp}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // **Generate multiple PNG images**
+      let part = 1;
+      for (let i = 0; i < splitPoints.length - 1; i++) {
+        const startY = splitPoints[i];
+        const endY = splitPoints[i + 1];
 
-      part++;
-    }
+        // **Process canvas for high-quality PNG**
+        const finalCanvas = processCanvas(canvas, startY, endY);
 
-    // **Remove Loading Indicator**
-    document.body.removeChild(loadingDiv);
-  })
-  .catch((error) => {
-    console.error('Error generating high-quality PNG:', error);
-    alert('Failed to capture image. Please try again.');
-    document.body.removeChild(loadingDiv);
-  });
+        // **Convert to PNG and force download**
+        const imgData = finalCanvas.toDataURL('image/jpg', 1.0);
+        const link = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        link.href = imgData;
+        link.download = `Japanese-Training-Report-part-${part}-${timestamp}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        part++;
+      }
+
+      // **Remove Loading Indicator**
+      document.body.removeChild(loadingDiv);
+    })
+    .catch((error) => {
+      console.error('Error generating high-quality PNG:', error);
+      alert('Failed to capture image. Please try again.');
+      document.body.removeChild(loadingDiv);
+    });
 
 }
 
@@ -892,19 +1043,19 @@ function CutAndDownloadPNG() {
     return;
   }
 
-  let break_point1,break_point2;
+  let break_point1, break_point2;
   if (selectTemplate == 'template2') {
     break_point1 = 'batch-info';
     break_point2 = 'tablecontainer2';
-   
+
   } else if (selectTemplate == 'template5') {
     break_point1 = 'batch-info-template5';
     break_point2 = 'tablecontainer4';
-   
+
   } else if (selectTemplate == 'template3') {
     break_point1 = 't3batchname';
     break_point2 = 'tablecontainer3';
-   
+
   }
 
   const element = document.getElementById(selectTemplate);
@@ -943,7 +1094,7 @@ function CutAndDownloadPNG() {
     removeContainer: true,
     foreignObjectRendering: false,
     windowHeight: actualHeight,
-    onclone: function(clonedDoc) {
+    onclone: function (clonedDoc) {
       const clonedElement = clonedDoc.getElementById(selectTemplate);
       if (clonedElement) {
         clonedElement.style.height = actualHeight + 'px';
@@ -992,7 +1143,7 @@ function CutAndDownloadPNG() {
   };
 
   // **Split Handling for Template 3**
-  const splitOffset = selectTemplate == 'template3' ? 130 : 100;
+  const splitOffset = selectTemplate == 'template3' ? 205 : 175;
 
   // **Show Loading Indicator**
   const loadingDiv = document.createElement('div');
@@ -1009,74 +1160,74 @@ function CutAndDownloadPNG() {
   document.body.appendChild(loadingDiv);
 
   preloadResources()
-  .then(() => html2canvas(element, config))
-  .then((canvas) => {
-    const breakPoint1 = Array.from(element.getElementsByClassName(break_point1));
-    let breakPoints2 = Array.from(element.getElementsByClassName(break_point2));
-    let splitPoints = [];
+    .then(() => html2canvas(element, config))
+    .then((canvas) => {
+      const breakPoint1 = Array.from(element.getElementsByClassName(break_point1));
+      let breakPoints2 = Array.from(element.getElementsByClassName(break_point2));
+      let splitPoints = [];
 
-    // **Start from the top of the image**
-    splitPoints.push(0);
+      // **Start from the top of the image**
+      splitPoints.push(0);
 
-    // **Add breakpoints for `break_point1`**
-    breakPoint1.forEach((div) => {
-      const divTop = div.offsetTop * scaleFactor;
-      splitPoints.push(divTop - splitOffset * scaleFactor);
-    });
-
-    breakPoints2 = breakPoints2.filter(div => {
-      // Check if the div has one child
-      if (div.children.length === 1) {
-        const child = div.children[0]; // Get the first (and only) child
-        // Check if the child has any text or other elements inside it
-        return child.innerText.trim() !== '' || child.children.length > 0;
-      }
-      return false;
-    });
-    
-    // **If there are any non-empty `breakPoint2` divs**
-    if (breakPoints2.length > 0) {
-      breakPoints2.forEach((div) => {
+      // **Add breakpoints for `break_point1`**
+      breakPoint1.forEach((div) => {
         const divTop = div.offsetTop * scaleFactor;
-        splitPoints.push(divTop - splitOffset * scaleFactor);  // Slice at break_point2 div start
+        splitPoints.push(divTop - splitOffset * scaleFactor);
       });
-      // Ensure slicing goes until the full image height
-      splitPoints.push(canvas.height);
-    } else {
-      // **If `break_point2` is empty, just capture the full content**
-      splitPoints.push(canvas.height);
-    }
 
-    // **Generate multiple PNG images**
-    let part = 1;
-    for (let i = 0; i < splitPoints.length - 1; i++) {
-      const startY = splitPoints[i];
-      const endY = splitPoints[i + 1];
+      breakPoints2 = breakPoints2.filter(div => {
+        // Check if the div has one child
+        if (div.children.length === 1) {
+          const child = div.children[0]; // Get the first (and only) child
+          // Check if the child has any text or other elements inside it
+          return child.innerText.trim() !== '' || child.children.length > 0;
+        }
+        return false;
+      });
 
-      // **Process canvas for high-quality PNG**
-      const finalCanvas = processCanvas(canvas, startY, endY);
+      // **If there are any non-empty `breakPoint2` divs**
+      if (breakPoints2.length > 0) {
+        breakPoints2.forEach((div) => {
+          const divTop = div.offsetTop * scaleFactor;
+          splitPoints.push(divTop - splitOffset * scaleFactor);  // Slice at break_point2 div start
+        });
+        // Ensure slicing goes until the full image height
+        splitPoints.push(canvas.height);
+      } else {
+        // **If `break_point2` is empty, just capture the full content**
+        splitPoints.push(canvas.height);
+      }
 
-      // **Convert to PNG and force download**
-      const imgData = finalCanvas.toDataURL('image/png', 1.0);
-      const link = document.createElement('a');
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      link.href = imgData;
-      link.download = `Japanese-Training-Report-part-${part}-${timestamp}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // **Generate multiple PNG images**
+      let part = 1;
+      for (let i = 0; i < splitPoints.length - 1; i++) {
+        const startY = splitPoints[i];
+        const endY = splitPoints[i + 1];
 
-      part++;
-    }
+        // **Process canvas for high-quality PNG**
+        const finalCanvas = processCanvas(canvas, startY, endY);
 
-    // **Remove Loading Indicator**
-    document.body.removeChild(loadingDiv);
-  })
-  .catch((error) => {
-    console.error('Error generating high-quality PNG:', error);
-    alert('Failed to capture image. Please try again.');
-    document.body.removeChild(loadingDiv);
-  });
+        // **Convert to PNG and force download**
+        const imgData = finalCanvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        link.href = imgData;
+        link.download = `Japanese-Training-Report-part-${part}-${timestamp}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        part++;
+      }
+
+      // **Remove Loading Indicator**
+      document.body.removeChild(loadingDiv);
+    })
+    .catch((error) => {
+      console.error('Error generating high-quality PNG:', error);
+      alert('Failed to capture image. Please try again.');
+      document.body.removeChild(loadingDiv);
+    });
 
 }
 
@@ -1127,7 +1278,7 @@ function downloadJPG() {
     // Capture the full element height
     windowHeight: actualHeight,
     // Ensure we capture everything
-    onclone: function(clonedDoc) {
+    onclone: function (clonedDoc) {
       const clonedElement = clonedDoc.getElementById(selectTemplate);
       if (clonedElement) {
         clonedElement.style.height = actualHeight + 'px';
@@ -1163,14 +1314,14 @@ function downloadJPG() {
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.globalCompositeOperation = 'source-over';
-    
+
     // Ensure clean background
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
-    
+
     // Draw with high-quality interpolation
     ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
-    
+
     return finalCanvas;
   };
 
@@ -1195,7 +1346,7 @@ function downloadJPG() {
     .then(finalCanvas => {
       // Use maximum quality JPEG encoding
       const imgData = finalCanvas.toDataURL('image/jpeg', 1.0);
-      
+
       // Force download with correct filename
       const link = document.createElement('a');
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -1204,7 +1355,7 @@ function downloadJPG() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       // Remove loading indicator
       document.body.removeChild(loadingDiv);
     })
@@ -1217,6 +1368,8 @@ function downloadJPG() {
 }
 
 function downloadPNG() {
+  console.log("selecteddddddddddd", selectTemplate);
+
   if (typeof html2canvas !== 'function') {
     console.error('html2canvas not loaded');
     alert('Failed to capture image: Required library not loaded');
@@ -1261,7 +1414,7 @@ function downloadPNG() {
     // Capture the full element height
     windowHeight: actualHeight,
     // Ensure we capture everything
-    onclone: function(clonedDoc) {
+    onclone: function (clonedDoc) {
       const clonedElement = clonedDoc.getElementById(selectTemplate);
       if (clonedElement) {
         clonedElement.style.height = actualHeight + 'px';
@@ -1297,14 +1450,14 @@ function downloadPNG() {
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.globalCompositeOperation = 'source-over';
-    
+
     // Ensure clean background
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
-    
+
     // Draw with high-quality interpolation
     ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
-    
+
     return finalCanvas;
   };
 
@@ -1329,7 +1482,7 @@ function downloadPNG() {
     .then(finalCanvas => {
       // Use maximum quality JPEG encoding
       const imgData = finalCanvas.toDataURL('image/png', 1.0);
-      
+
       // Force download with correct filename
       const link = document.createElement('a');
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -1338,7 +1491,7 @@ function downloadPNG() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       // Remove loading indicator
       document.body.removeChild(loadingDiv);
     })
@@ -1353,14 +1506,14 @@ function downloadPNG() {
 
 
 downloadButton.addEventListener('click', () => {
-  if (selected.innerText==='File Type') {
+  if (downloadSelect.value === '') {
     alert("Please select a format before downloading.");
   }
 });
 
 
- 
-});
+
+// });
 
 
 
@@ -1390,7 +1543,7 @@ let textColorPicker;
 let highlightColorPicker;
 let imageToolbar;
 let hideImage;
-let borderColorPicker=null;
+let borderColorPicker = null;
 images.forEach(image => {
   image.addEventListener('click', function () {
     hideAllTemplates()
@@ -1405,74 +1558,74 @@ images.forEach(image => {
       if (templateKey === "template2") {
         tableContainer = document.getElementById('tableContent2')
         tableId = 'tablecontainer2'
-        toolbarId = 'toolbar2'
-        mergeRowIndex = 'mergeRowIndex2'
-        startColumnIndex = 'startColumnIndex2'
-        endColumnIndex = 'endColumnIndex2'
-        mergeColIndex = 'mergeColIndex2'
-        startrowIndex = 'startRowIndex2'
-        endrowIndex = 'endRowIndex2'
-        toolbar_text = 'toolbar-text2'
-        textColorPicker = 'textColorPicker2'
-        highlightColorPicker = 'highlightColorPicker2'
-        imageToolbar = 'imageToolbar2'
-        hideImage = '#tableContent2 img'
-        borderColorPicker='borderColorPicker2'
+        toolbarId = 'toolbar'
+        mergeRowIndex = 'mergeRowIndex'
+        startColumnIndex = 'startColumnIndex'
+        endColumnIndex = 'endColumnIndex'
+        mergeColIndex = 'mergeColIndex'
+        startrowIndex = 'startRowIndex'
+        endrowIndex = 'endRowIndex'
+        toolbar_text = 'toolbar-text'
+        textColorPicker = 'textColorPicker'
+        highlightColorPicker = 'highlightColorPicker'
+        imageToolbar = 'imageToolbar'
+        hideImage = '#tableContent img'
+        borderColorPicker = 'borderColorPicker'
 
 
       }
       else if (templateKey === "template5") {
-        tableContainer = document.getElementById('tableContent4')
-        tableId = 'tablecontainer4'
-        toolbarId = 'toolbar4'
-        mergeRowIndex = 'mergeRowIndex4'
-        startColumnIndex = 'startColumnIndex4'
-        endColumnIndex = 'endColumnIndex4'
-        mergeColIndex = 'mergeColIndex4'
-        startrowIndex = 'startRowIndex4'
-        endrowIndex = 'endRowIndex4'
-        toolbar_text = 'toolbar-text4'
-        textColorPicker = 'textColorPicker4'
-        highlightColorPicker = 'highlightColorPicker4'
-        imageToolbar = 'imageToolbar4'
-        hideImage = '#tableContent4 img'
-         borderColorPicker='borderColorPicker4'
+        tableContainer = document.getElementById('tableContent5')
+        tableId = 'tablecontainer5'
+        toolbarId = 'toolbar'
+        mergeRowIndex = 'mergeRowIndex'
+        startColumnIndex = 'startColumnIndex'
+        endColumnIndex = 'endColumnIndex'
+        mergeColIndex = 'mergeColIndex'
+        startrowIndex = 'startRowIndex'
+        endrowIndex = 'endRowIndex'
+        toolbar_text = 'toolbar-text'
+        textColorPicker = 'textColorPicker'
+        highlightColorPicker = 'highlightColorPicker'
+        imageToolbar = 'imageToolbar'
+        hideImage = '#tableContent img'
+        borderColorPicker = 'borderColorPicker'
 
       }
       else if (templateKey === "template3") {
         tableContainer = document.getElementById('tableContent3')
         tableId = 'tablecontainer3'
-        toolbarId = 'toolbar3'
-        mergeRowIndex = 'mergeRowIndex3'
-        startColumnIndex = 'startColumnIndex3'
-        endColumnIndex = 'endColumnIndex3'
-        mergeColIndex = 'mergeColIndex3'
-        startrowIndex = 'startRowIndex3'
-        endrowIndex = 'endRowIndex3'
-        toolbar_text = 'toolbar-text3'
-        textColorPicker = 'textColorPicker3'
-        highlightColorPicker = 'highlightColorPicker3'
-        imageToolbar = 'imageToolbar3'
-        hideImage = '#tableContent3 img'
-         borderColorPicker='borderColorPicker3'
+        toolbarId = 'toolbar'
+        mergeRowIndex = 'mergeRowIndex'
+        startColumnIndex = 'startColumnIndex'
+        endColumnIndex = 'endColumnIndex'
+        mergeColIndex = 'mergeColIndex'
+        startrowIndex = 'startRowIndex'
+        endrowIndex = 'endRowIndex'
+        toolbar_text = 'toolbar-text'
+        textColorPicker = 'textColorPicker'
+        highlightColorPicker = 'highlightColorPicker'
+        imageToolbar = 'imageToolbar'
+        hideImage = '#tableContent img'
+        borderColorPicker = 'borderColorPicker'
 
       }
       else {
         tableContainer = document.getElementById('tableContent1')
         tableId = 'tablecontainer1'
-        toolbarId = 'toolbar1'
-        mergeRowIndex = 'mergeRowIndex1'
-        startColumnIndex = 'startColumnIndex1'
-        endColumnIndex = 'endColumnIndex1'
-        mergeColIndex = 'mergeColIndex1'
-        startrowIndex = 'startRowIndex1'
-        endrowIndex = 'endRowIndex1'
-        toolbar_text = 'toolbar-text1'
-        textColorPicker = 'textColorPicker1'
-        highlightColorPicker = 'highlightColorPicker1'
-        imageToolbar = 'imageToolbar1'
-        hideImage = '#tableContent1 img'
-         borderColorPicker='borderColorPicker1'
+        toolbarId = 'toolbar'
+        mergeRowIndex = 'mergeRowIndex'
+        startColumnIndex = 'startColumnIndex'
+        endColumnIndex = 'endColumnIndex'
+        mergeColIndex = 'mergeColIndex'
+        startrowIndex = 'startRowIndex'
+        endrowIndex = 'endRowIndex'
+        toolbar_text = 'toolbar-text'
+        textColorPicker = 'textColorPicker'
+        highlightColorPicker = 'highlightColorPicker'
+        imageToolbar = 'imageToolbar'
+        hideImage = '#tableContent img'
+        borderColorPicker = 'borderColorPicker'
 
 
       }
@@ -1491,40 +1644,40 @@ const contentDiv = document.getElementById('workspace');
 
 
 
-document.getElementById("increaseMarginBtn").onclick = function () {
-  const targetDiv = document.getElementById(tableId);
+// document.getElementById("increaseMarginBtn").onclick = function () {
+//   const targetDiv = document.getElementById(tableId);
 
-  // Get the current margin-bottom of the div
-  const currentMarginTop = parseInt(window.getComputedStyle(targetDiv).marginTop);
+//   // Get the current margin-bottom of the div
+//   const currentMarginTop = parseInt(window.getComputedStyle(targetDiv).marginTop);
 
-  // Increase the margin-bottom by 10 pixels
-  targetDiv.style.marginTop = (currentMarginTop - 10) + "px";
-  let toolbar = document.getElementById(toolbarId)
-  toolbar.style.marginTop = '-170px';
-  let toolbarText = document.getElementById(toolbar_text);
-  toolbarText.style.marginTop = '-170px'
-  let toolbarImage = document.getElementById(imageToolbar);
-  toolbarImage.style.marginTop = '-170px'
-};
+//   // Increase the margin-bottom by 10 pixels
+//   targetDiv.style.marginTop = (currentMarginTop - 10) + "px";
+//   let toolbar = document.getElementById(toolbarId)
+//   toolbar.style.marginTop = '-170px';
+//   let toolbarText = document.getElementById(toolbar_text);
+//   toolbarText.style.marginTop = '-170px'
+//   let toolbarImage = document.getElementById(imageToolbar);
+//   toolbarImage.style.marginTop = '-170px'
+// };
 
-document.getElementById("decreaseMarginBtn").onclick = function () {
-  const targetDiv = document.getElementById(tableId);
+// document.getElementById("decreaseMarginBtn").onclick = function () {
+//   const targetDiv = document.getElementById(tableId);
 
-  // Get the current margin-bottom of the div
-  const currentMarginTop = parseInt(window.getComputedStyle(targetDiv).marginTop);
+//   // Get the current margin-bottom of the div
+//   const currentMarginTop = parseInt(window.getComputedStyle(targetDiv).marginTop);
 
-  // Increase the margin-bottom by 10 pixels
-  targetDiv.style.marginTop = (currentMarginTop + 10) + "px";
-  let toolbar = document.getElementById(toolbarId)
-  toolbar.style.marginTop = '70px';
-  let toolbarText = document.getElementById(toolbar_text);
-  toolbarText.style.marginTop = '70px'
-  let toolbarImage = document.getElementById(imageToolbar);
-  toolbarImage.style.marginTop = '70px'
+//   // Increase the margin-bottom by 10 pixels
+//   targetDiv.style.marginTop = (currentMarginTop + 10) + "px";
+//   let toolbar = document.getElementById(toolbarId)
+//   toolbar.style.marginTop = '70px';
+//   let toolbarText = document.getElementById(toolbar_text);
+//   toolbarText.style.marginTop = '70px'
+//   let toolbarImage = document.getElementById(imageToolbar);
+//   toolbarImage.style.marginTop = '70px'
 
 
 
-};
+// };
 
 
 
@@ -1568,14 +1721,14 @@ function selectCell(cell, table) {
 }
 
 // Close toolbar when clicking outside the toolbar and tables
-document.addEventListener('click', (event) => {
-  const toolbar = document.getElementById(toolbarId);
-  if (!toolbar.contains(event.target) && (!selectedTable || !selectedTable.contains(event.target))) {
-    toolbar.style.display = 'none';
-    selectedCell = null;
-    selectedTable = null;
-  }
-});
+// document.addEventListener('click', (event) => {
+//   const toolbar = document.getElementById(toolbarId);
+//   if (!toolbar.contains(event.target) && (!selectedTable || !selectedTable.contains(event.target))) {
+//     toolbar.style.display = 'none';
+//     selectedCell = null;
+//     selectedTable = null;
+//   }
+// });
 
 
 function makeBold() {
@@ -1983,31 +2136,31 @@ function deleteCell() {
 }
 
 
-  function moveTableDown(){
-    if (selectedTable){
-      // Adjust the margin-top to move the table down by 20px each click
+function moveTableDown() {
+  if (selectedTable) {
+    // Adjust the margin-top to move the table down by 20px each click
     const currentMarginTop = parseInt(window.getComputedStyle(selectedTable).marginTop, 10);
     selectedTable.style.marginTop = (currentMarginTop + 10) + "px";
-  
-  
-    }
+
 
   }
 
-  
+}
 
-  function moveTableUp(){
-    if (selectedTable){
-      // Adjust the margin-top to move the table down by 20px each click
+
+
+function moveTableUp() {
+  if (selectedTable) {
+    // Adjust the margin-top to move the table down by 20px each click
     const currentMarginTop = parseInt(window.getComputedStyle(selectedTable).marginTop, 10);
     selectedTable.style.marginTop = (currentMarginTop - 10) + "px";
-  
-  
-    }
+
 
   }
-  
-  
+
+}
+
+
 
 
 
@@ -2236,33 +2389,33 @@ function addMarginBottom() {
 
 }
 
-function deleteImage(){
+function deleteImage() {
   if (selectedImageElement) {
     tableContainer.removeChild(selectedImageElement);
-    
+
   }
 
 }
 
 
 // Hide toolbar when clicking outside of an image
-document.addEventListener("click", function (event) {
-  const toolbar = document.getElementById(imageToolbar);
-  if (!event.target.closest(hideImage) && event.target !== toolbar && !toolbar.contains(event.target)) {
-    toolbar.style.display = "none";
-  }
-});
+// document.addEventListener("click", function (event) {
+//   const toolbar = document.getElementById(imageToolbar);
+//   if (!event.target.closest(hideImage) && event.target !== toolbar && !toolbar.contains(event.target)) {
+//     toolbar.style.display = "none";
+//   }
+// });
 
 document.getElementById('save-button').addEventListener('click', function () {
   var wrapperDiv = document.getElementById('preview-report');
 
   // Check if the div is null or has no <img> elements
   if (wrapperDiv === null || wrapperDiv.getElementsByTagName('img').length === 0) {
-      alert("Please Choose a Template ");
+    alert("Please Choose a Template ");
   } else {
-     
-      alert("Saved Successfully ");
-     
+
+    alert("Saved Successfully ");
+
   }
 });
 

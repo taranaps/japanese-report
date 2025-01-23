@@ -50,41 +50,133 @@ body {
   cursor: pointer;
 }
 .contents {
-  /* display: flex;
-  flex-direction: row;
-  align-items: stretch; /* Ensure each child takes the full width */
-  /* gap: 1rem; Add space between sections */
-  /* justify-content: space-between; */
+  display: grid;
+  grid-template-columns: 5% auto; 
+  gap: 1rem; 
+  margin-top: 20px;
+  height: 100vh;
+  
+}
+.left-side-bar {
+  grid-column: 1; /* Left sidebar */
+  background-color: #f4f4f4; /* Sidebar background */
+  height: calc(100vh - 12.5%); /* Full height minus top offset */
+  position: fixed; /* Sidebar stays in place */
+  top: 12.5%; /* Space from the top */
+  left: 0; /* Align to the left */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Disable horizontal scrolling */
+  width: 5%; /* Increase width for better visibility */
+  display: flex;
+  flex-direction: column; /* Arrange children vertically */
+  padding: 10px; /* Add padding for inner spacing */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for aesthetics */
+  scrollbar-width: none; /* For Firefox: hide scrollbar */
+}
+
+.left-side-bar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge: hide scrollbar */
+}
+
+.main-space {
+  grid-column: 2; /* Workspace */
+  display: grid;
+  grid-template-rows: 100px 1fr; /* Toolbar takes 100px, the rest is scrollable content */
+  gap: 1rem;
+  margin-top: 4vh;
+  height: auto; /* Full height of the viewport */
+  overflow: visible; /* Allow scrolling in the workspace */
+  padding: 20px;
+ 
+}
+.main-space::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+.toolbars {
+  background-color: #f4f4f4; /* Soft light grey background for the toolbar */
+  /* border: 1px solid #dc143c;  */
+  width: 94.5%; /* Width of the toolbar */
+  height: 100px; /* Toolbar height */
+  position: fixed; /* Fix the toolbar to the top */
+  top: 12.5vh; /* Align to the top of the viewport */
+  left: 5.1vw; /* Adjust left alignment */
+  right: 0;
+  z-index: 10; /* Ensure the toolbar stays on top of other content */
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content:left;
+  gap: 15px; /* Add spacing between toolbar items */
+  padding: 0 15px; /* Padding for spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  color: #333; /* Dark text for better contrast */
+  font-family: 'Arial', sans-serif; /* Clean font */
+  font-weight: bold; /* Bold text for prominence */
+  border-bottom: 2px solid #d0d0d0; /* Slightly darker border for contrast */
+  
   
  
-  /* flex-wrap: wrap; */
-  /* margin-top: 20px; */
-  /* z-index: 50; */ 
+}
+.toolbars > * {
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Vertically center the content of each item */
+  justify-content: center; /* Horizontally center the content of each item */
+  text-align: center; /* Center text inside items */
+  height: 100%; /* Full height of the toolbar */
+}
+
+.toolbars-button {
+  background-color: transparent; /* Transparent background */
+  color: #333; /* Dark text for better contrast */
+  font-family: 'Arial', sans-serif; /* Clean font */
+  font-size: 14px; /* Set the font size for a toolbar button */
+  /* font-weight: normal;  */
+  padding: 8px 16px; 
+  border: none; /* Remove any borders */
+  border-radius: 4px; /* Slight rounding on the corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color transition */
+  outline: none; /* Remove outline on focus */
+  display: inline-flex; /* Ensure the button content is aligned well */
+  align-content: center; /* Vertically align the content */
+  justify-content: center; /* Center the content */
+  width: 100px;
+  /* height: 50px; */
+  height: max-content;
 
 
-  display: grid;
-  grid-template-columns: 200px 1fr 150px; /* Side-bar, workspace, right-sidebar */
-  gap: 1rem; /* Space between sections */
-  margin-top: 20px;
-  align-items: stretch; /* Ensures each child takes full height */
   
 
+  font-weight: 500;
+  background-color: #f1f1f1; /* Light gray background on hover */
+  color: #dc143c; /* Change text color to blue when hovered */
 
-}
-.side-bar {
-  grid-column: 1; /* Fixed width of 200px */
-}
-
-.workspace {
-  grid-column: 2; /* Fills remaining space */
-  /* font-weight: bold; */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* justify-content: center;
+  align-content: center; */
 }
 
-.right-sidebar {
-  grid-column: 3; /* Fixed width of 150px */
+.toolbars-button:hover {
+  background-color: #dc143c;
+  color: #fff;
+ 
 }
-.side-bar, .workspace, .right-sidebar {
-  width: 100%; /* Make each section take full width */
+
+.toolbars-button:active {
+  background-color: #e0e0e0; /* Slightly darker gray background when clicked */
+  color: #dc143c; /* Darker blue when clicked */
+}
+
+.toolbars-button:focus {
+  outline: none; /* Remove focus outline */
+}
+
+.vertical-line {
+  border-left: 2px solid #d0d0d0; /* Vertical line */
+  height: 80px; /* Height of the vertical line */
+  margin: 10px 10px; /* Space between the elements */
 }
 
 .side-bar {
@@ -107,13 +199,48 @@ body {
   overflow-y: auto;
   scroll-behavior: smooth;
 }
-.image-container {
+/* .image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding-top: 90px;
   overflow: hidden; /* Hide content outside container */
+/* }  */
+
+
+#templateContainer {
+  display: none; /* Initially hidden */
+  padding: 20px;
+  margin-top: 10%; 
+  background-color: white;
+  border-radius: 5px;
+  position: absolute;
+  top: 5px; 
+  left: 4.1vw;
+  right: 0;
+  z-index: 10;
+  width: 450px;
+  height: auto;
+  border: 1px solid #dc143c ;
+}
+
+.template-item {
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
+
+.template-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.template-item p {
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 #image-scroll {
@@ -168,7 +295,21 @@ body {
 }
 
 .workspace {
-  width: 70%;
+  width: 82%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+ 
+  height: auto;
+  padding: 20px;
+  margin-top: 5%;
+  margin-left: 10%;
+
+  box-sizing: border-box;
+  overflow: visible;
+ 
+  /* justify-content: center; */
+  /* width: 70%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -178,20 +319,21 @@ body {
   margin-top: 20px;
   margin-left: 70px;
   box-sizing: border-box;
-  overflow: visible;
-  /* position: relative; */
-  /* border: solid 1px #555; */
-  /* background: rgb(248, 245, 245); */
-  
-  /* box-sizing: border-box; */
+  overflow: visible; */
 
 }
 #editor{
-  height: 500px;
-  width: 100%;
-  background: #faf4f4;
-  text-align: center;
-  padding-top: 240px;
+  height: auto;  /* Set height to 80% of viewport height */
+  width: auto;
+  background: #f8e6e6b4;
+  display: flex;              /* Use flexbox to center content */
+  /* flex-direction: column;  */
+  justify-content: center;    
+  align-content: center;        /* Center content horizontally */
+  /* padding-top: 5%;            Optional: Top padding to give it some breathing room */
+  padding: 15%;
+  margin-top: 10%;           
+  /* text-align: center; */
 }
 #trainee-details-template1{
   box-sizing: border-box;
@@ -1282,6 +1424,7 @@ margin-top: 30px;
 
 .container-template2 {
   width: 800px;
+ 
   padding: 20px;
   background-color: #C3FFC0;
   
@@ -2424,8 +2567,8 @@ color: #333;
   .theme-color-dark-blue, .theme-color-violet, .theme-color-red, .theme-color-orange, .theme-color-blue,.theme-color-green{
     
     position: relative;
-    width: 2em; /* Width of the rhombus */
-    height: 2em; /* Base height of the rhombus for the 8x side */
+    width: 2.5em; /* Width of the rhombus */
+    height: 2.5em; /* Base height of the rhombus for the 8x side */
     clip-path: polygon(
       0% 0%,   /* Top-left corner */
       100% 0%,    /* Top-right corner */
@@ -2453,32 +2596,39 @@ color: #333;
   .theme-color-orange{
     background-color: #f09951;
   }
-  .sidebar-theme{
+.sidebar-theme{
     display: grid;
   grid-template-columns: auto auto auto;
   gap: 5px;
- /* padding: 10px; */
- width: 170px;
- /* margin-left: 10px; */
- background-color: white;
- padding-left: 30px;
- padding-top: 10px;
- padding-bottom: 10px;
- border-radius: 10px;
- /* border: 1px solid #dc143c ; */
- margin-top: -10px;
- width: 150px;
+ justify-content: space-evenly;
+ margin-top: 20px;
+}
+.sidebar-theme div {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+#themesContainer {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  position: absolute;
+  top: 110px; /* Adjust based on toolbar height */
+  left: 5.1vw;
+  right: 0;
+  z-index: 9;
+  width: 500px;
+  border-radius: 5px;
+  height: auto;
+  border: 1px solid #dc143c;
+}
 
-
-
-
-  }
-
-  .themes{
+  /* .themes{
     background-color: white;
-    /* padding-left: 20px; */
-    /* padding-top: 10px; */
-    /* padding-bottom: 10px; */
+   
     border-radius: 10px;
     border: 1px solid #dc143c ;
     margin-top: -10px;
@@ -2488,7 +2638,8 @@ color: #333;
     padding-bottom: 10px;
     margin-left: -3px;
 
-  }
+  } */
+   
   .right-sidebar h2{
     /* margin-top: 25px; */
     margin-bottom: 10px;
@@ -2856,24 +3007,104 @@ margin-bottom: 10px;
 
 .select-batch{
   
-  margin-top: 40px;
+  /* margin-top: 40px;
   /* background-color: white; */
   /* padding: 10px; */
-  width: 170px;
+  /* width: 170px;
   background-color: white;
   border: 1px solid #dc143c;
   border-radius: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-left: -3px;
+  margin-left: -3px;  */
+  /* margin-left: 30px; */
+  /* margin-top: 20px; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* place-items: center; */
+
 
   
 }
 .chart-toggle,.learners{
   margin-left: 10px;
 }
-.select-batch h2{
-  margin-left: 15px;
+/* .select-batch h2{
+  margin-left: 10px;
+  margin-top: 30px;
+
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color:#dc143c ;
+} */
+
+
+.select-batch,.toggle-learners,.toggle-certification ,.toggle-sessions-till-date,.toggle-duration-till-date,.toggle-attendence,.select-download
+  {
+  /* display: flex;
+  align-items: center;
+  gap: 5px; 
+  flex-direction: column;
+  width: 130px; */
+  display: flex;
+  align-items: center; /* Align items vertically at the center */
+  gap: 5px; /* Space between the heading and dropdown */
+  flex-direction: column; /* Horizontal alignment */
+  width: 130px; /* Ensure the container stretches fully */
+  
+}
+
+/* Batch dropdown heading */
+.select-batch h2, .toggle-learners h2,.toggle-certification h2,.toggle-sessions-till-date h2,.toggle-duration-till-date h2,.toggle-attendence h2,.select-download h2
+  {
+  /* font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+  font-weight: 600;  */
+  font-size: 1.2rem;
+  color: #333; /* Dark text for the title */
+  margin: 0;
+  font-weight: 600; /* Slightly bold for emphasis */
+  min-width: 150px; 
+  text-align: center; 
+}
+
+/* Styling the select box */
+.select-batch select,.toggle-learners select,.toggle-certification select,.toggle-sessions-till-date select,.toggle-duration-till-date select,.toggle-attendence select, .select-download select
+  {
+  /* background-color: #f8f8f8; 
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+ 
+  font-size: 1rem;
+  color: #333; 
+  outline: none;
+  cursor: pointer; 
+  transition: background-color 0.3s, border-color 0.3s;  */
+  background-color: #f8f8f8; /* Light gray background */
+  border: 1px solid #ccc; /* Soft border for the select */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1.2rem; /* Readable font size */
+  color: #333; /* Dark text color */
+  outline: none; /* Remove the default outline */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+  width: 150px;
+  padding: 5px;
+  /* flex-grow: 1;  */
+}
+
+/* Hover and focus effects for the select */
+/* .select-batch select:hover {
+  background-color: #e0e0e0; 
+} */
+
+select:focus {
+  outline: none;
+  border-color: #dc143c;
+  box-shadow: 0 0 3px rgba(236, 5, 5, 0.5);
 }
 
 
@@ -2894,7 +3125,7 @@ margin-bottom: 10px;
 
 
 
-.tablecontainer1{
+/* .tablecontainer{
   border: 1px solid black;
   height: auto;
   color: black;
@@ -2910,7 +3141,7 @@ margin-bottom: 10px;
  
   
 }
-.tablecontainer2{
+.tablecontainer{
   height: auto;
   color: black;
   background-color: white;
@@ -2919,7 +3150,7 @@ margin-bottom: 10px;
   padding: 10px;
 
 }
-.tablecontainer3{
+.tablecontainer{
   border: 2px solid black;
   height: auto;
   color: black;
@@ -2927,8 +3158,8 @@ margin-bottom: 10px;
   padding: 10px;
   margin-top: 20px;
 
-}
-.tablecontainer4{
+} */
+.tablecontainer2{
   height: auto;
   color: black;
   background-color: white;
@@ -2939,35 +3170,108 @@ margin-bottom: 10px;
   border: solid 1px #90a4ae;
 
 }
-.table-options{
+.tablecontainer3{
+  height: auto;
+  color: black;
+  background-color: white;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px auto;
+  padding: 10px;
+  border: solid 1px #90a4ae;
+
+}
+.tablecontainer5{
+  height: auto;
+  color: black;
+  background-color: white;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10px;
+  border: solid 1px #90a4ae;
+
+}
+/* .table-options {
+  background-color: #f4f4f4; 
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: auto; 
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 10px;
+} */
+.table-options {
+  position: absolute; /* Position relative to its parent */
+  top: calc(12.5vh + 50px); /* Align just below the toolbar */
+  left: 5.1vw; /* Match the left alignment of the toolbar */
+  background-color: #fff; /* Background for the popup */
+  border: 1px solid #d0d0d0; /* Subtle border for separation */
+  padding: 15px; /* Padding for inner spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  z-index: 20; /* Ensure it appears above other content */
+  height: auto;
+}
+.input-container-table label {
+  display: block; /* Each label on a new line */
+  margin-bottom: 10px; /* Spacing between labels */
+}
+.input-container-table input {
+  margin-left: 5px;
+  border:black;
+}
+
+.table-options h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* .table-options  .input-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 10px;
-  padding: 10px;
-  /* margin-left: 10px; */
-  
-  
-}
-.table-options input{
-  border-radius: 10px;
-  width: 150px;
-  height: 30px;
-  border: 1px solid #dc143c;
-  /* margin-left: 10px; */
+  gap: 8px;
 }
 
+.table-options  .input-container label {
+  font-size: 1em;
+}
 
-.table-options button{
-  border-radius: 10px;
-  background-color: #dc143c;
-  width: 150px;
-  height: 20px;
-  /* margin-left: 10px; */
+.table-options  .input-container input {
+  padding: 8px;
+  font-size: 1em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100px; 
+}
+
+.table-options  .input-container button {
+  padding: 8px 12px;
+  font-size: 1.1em;
+  background-color: #4CAF50; 
   color: white;
- 
-
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
+
+.table-options  .input-container button:hover {
+  background-color: #45a049;
+}
+
+.table-options  .input-container button i {
+  margin-right: 5px;
+}
+
+.table-options .input-container {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+} */
+
 .custom-table {
   width: 100%;
   border-collapse: collapse;
@@ -3011,9 +3315,9 @@ margin-bottom: 10px;
 
 
 
-.table-spacing{
+/* .table-spacing{
   margin-top: 10px;
-  /* background-color: white; */
+ 
   padding-left: 15px;
   width: 170px;
   margin-bottom: 10px;
@@ -3044,8 +3348,86 @@ margin-bottom: 10px;
   border: 1px solid #dc143c;
   margin-left:-8px;
 
+} */
+
+/* .table-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.table-spacing h3{
+  color: #dc143c;
 }
 
+.spacing-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spacing-input input {
+  width: 80px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.spacing-input button {
+  background-color: #dc143c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.spacing-input button:hover {
+  background-color: #a70727;
+} */
+.table-spacing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* padding: 5px 15px; */
+  /* margin-top: 10px; */
+}
+
+.spacing-input {
+  display: flex;
+  flex-direction: column;
+  align-items:start;
+  justify-content: center;
+}
+
+.spacing-input label {
+  margin-bottom: 5px;
+}
+
+.spacing-input input {
+  margin-bottom: 10px;
+  width: 70px;
+}
+
+.spacing-input button {
+  padding: 5px 10px;
+  background-color: #dc143c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: auto;
+  height: 30px;
+ align-items: center;
+ justify-content: center;
+}
+
+.spacing-input button:hover {
+  background-color: #b90428;
+  color: white;
+}
 
 
 
@@ -3053,10 +3435,10 @@ margin-bottom: 10px;
   display: flex;
   gap: 5px;
   padding: 5px;
-  background-color: #f3f3f3;
-  border: 1px solid #ccc;
+  /* background-color: #f3f3f3; */
+  /* border: 1px solid #ccc; */
   border-radius: 4px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); */
   /* height: auto; */
  
   
@@ -3156,41 +3538,80 @@ table.custom-table td {
   max-width: 100%;
   height: auto;
 }
-#imageuploads{
-  width: 170px;
-  
-}
-#imageuploads input{
-  width: 150px;
-  /* margin-left: 10px; */
-  margin-top: 20px;
-  
+
+#imageuploads {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  /* margin-top: 30px; */
+  position: absolute; /* Position relative to its parent */
+  top: calc(12.5vh + 50px); /* Align just below the toolbar */
+  left: 5.1vw; /* Match the left alignment of the toolbar */
+  background-color: #fff; /* Background for the popup */
+  border: 1px solid #d0d0d0; /* Subtle border for separation */
+  padding: 15px; /* Padding for inner spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  z-index: 20; /* Ensure it appears above other content */
+  height: auto;
 }
 
-#imageuploads button{
-  width: 150px;
-  height: 20px;
- 
+
+#imageuploads .input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="file"] {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#imageuploads .input-container button {
+  padding: 10px 20px;
   background-color: #dc143c;
-  border-radius: 10px;
-  margin-top: 10px;
-  margin-left: 10px;
   color: white;
-  
-
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+#imageuploads .input-container button:hover {
+  background-color: #9e0927;
+}
+
+
 #textareaInsert{
-  width: 170px;
+  /* width: 170px; */
+  margin-top: 30px;
+  margin-left: 10px;
+ 
+ 
 }
 #textareaInsert button{
-  width: 150px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   background-color: #dc143c;
-  border-radius: 10px;
-  margin-left: 10px;
+  
+  border-radius: 5px;
+  margin-right: 10px;
   color: white;
+  /* text-align: center; */
+  /* align-items: center; */
+  
 
 
+}
+#textareaInsert button:hover {
+  background-color: #9e0927;
+}
+#textareaInsert button i{
+ margin-left: -5px;
 }
 .edit-div button{
   width: 150px;
@@ -3223,17 +3644,7 @@ table.custom-table td {
 
 }
 
-.toggleChart{
-  background-color: white;
-  padding-top: 5px;
-  width: 170px;
-  padding-bottom: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  margin-right: 15px;
-  border: 1px solid #dc143c;
-  margin-left: -3px;
-}
+
 .addSection{
   background-color: white;
   padding-top: 5px;
@@ -3246,19 +3657,27 @@ table.custom-table td {
   margin-left: -3px;
 
 }
-.toggle-learners h2,.toggle-certification,.toggle-sessions-till-date,.toggle-duration-till-date,.toggle-attendence{
-  margin-top: 10px;
+.toggle-learners h2,.toggle-certification  h2,.toggle-sessions-till-date  h2,.toggle-duration-till-date  h2,.toggle-attendence  h2{
+  margin-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
 }
-#chartTypeDropdown,#chartType-dropdown-certification,#chartType-dropdown-session-tilldate,#chartType-dropdown-duration-tilldate,#chartTypeDropdownAttendance,#batchSelect{
-  border: 1px solid #dc143c ;
-  border-radius: 10px;
-  width: 150px;
-  height: 20px;
-
+#chartTypeDropdown,#chartType-dropdown-certification,#chartType-dropdown-session-tilldate,#chartType-dropdown-duration-tilldate,#chartTypeDropdownAttendance{
+  margin-left: 10px;
+  width: 90%;
+  margin-top: 5px;
+  height: 25px;
+  border-radius: 5px;
+  /* border: 0.5px solid #dc143c; */
 }
 #batchSelect{
   margin-left: 10px;
+  width: 90%;
+  margin-top: 5px;
+  height: 25px;
+  border-radius: 5px;
+  /* border: 0.5px solid #dc143c; */
 }
 
 
@@ -3268,6 +3687,185 @@ table.custom-table td {
 
 
 
+
+
+
+
+
+
+.tabtitles{
+  display: flex;
+  margin: 24px 10px 0px;
+  width: 100%;
+  flex-direction: column;
+  gap: 3vh;
+}
+.tablinks{
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+.tablinks.activelink i {
+  color: #dc143c; /* Red color for active icon */
+}
+
+.tablinks i {
+  color: inherit; /* Use the parent's color by default */
+  transition: color 0.5s; /* Smooth color transition */
+}
+
+.tabcontents{
+  display: none;
+
+}
+.tabcontents.activetab{
+  display: block;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+
+
+.download-toolbar-action-buttons button {
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+ 
+
+  background-color: #f1f1f1; /* Light gray background on hover */
+  color: #dc143c;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 40px;
+}
+
+.download-toolbar-action-buttons button:hover {
+  background-color: #dc143c;
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.vertical-line {
+  width: 1px;
+  height: 80px;
+  background-color: #ddd;
+  margin: 10px 10px; 
+  
+}
+
+/* .input-container input[type="file"],
+.input-container input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100px;
+} */
+
+/* .input-container button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input-container button:hover {
+  background-color: #218838;
+} */
+
+/* .input-container-table{
+  z-index: 1;
+} */
+
+/* .image-container, .themes, .table-options {
+  margin-top: 15px;
+} */
+
+.image-container .template-item {
+  display: inline-block;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.image-container img {
+  width: 100px;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.image-container img:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container p {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #555;
+}
+
+
+.toolbar-inner {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  gap: 10px; /* Space between rows */
+  width: 100%; /* Ensure full width */
+  justify-content: start; /* Align rows to the left */
+}
+
+/* Individual rows of buttons */
+.toolbar-row {
+  display: flex; /* Align items in a row */
+  gap: 10px; /* Space between buttons */
+}
+.toolbar-row input{
+  width: 130px;
+  cursor: pointer;
+}
+.toolbar-row button{
+  cursor: pointer;
+  padding:5px;
+  border-radius: 4px;
+
+
+}
+.toolbar-row button :hover{
+  /* background-color:#dc143c ; */
+  /* color: white; */
+}
 
 
 
