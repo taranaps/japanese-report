@@ -807,12 +807,16 @@ function CutAndDownloadJPG() {
 
   } else if (selectTemplate == 'template5') {
     break_point1 = 'batch-info-template5';
-    break_point2 = 'tablecontainer4';
+    break_point2 = 'tablecontainer5';
 
   } else if (selectTemplate == 'template3') {
     break_point1 = 't3batchname';
     break_point2 = 'tablecontainer3';
 
+  }
+  else if (selectTemplate == 'custom-div') {
+    break_point1 = 'batch-info-custom';
+    break_point2 = 'tablecontainer-custom';
   }
 
   const element = document.getElementById(selectTemplate);
@@ -1009,6 +1013,10 @@ function CutAndDownloadPNG() {
     break_point1 = 't3batchname';
     break_point2 = 'tablecontainer3';
 
+  }
+  else if (selectTemplate == 'custom-div') {
+    break_point1 = 'batch-info-custom';
+    break_point2 = 'tablecontainer-custom';
   }
 
   const element = document.getElementById(selectTemplate);
@@ -1544,6 +1552,23 @@ images.forEach(image => {
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
 
+      }
+      else if (templateKey === "custom-div") {
+        tableContainer = document.getElementById('tableContent-custom')
+        tableId = 'tablecontainer-custom'
+        toolbarId = 'toolbar'
+        mergeRowIndex = 'mergeRowIndex'
+        startColumnIndex = 'startColumnIndex'
+        endColumnIndex = 'endColumnIndex'
+        mergeColIndex = 'mergeColIndex'
+        startrowIndex = 'startRowIndex'
+        endrowIndex = 'endRowIndex'
+        toolbar_text = 'toolbar-text'
+        textColorPicker = 'textColorPicker'
+        highlightColorPicker = 'highlightColorPicker'
+        imageToolbar = 'imageToolbar'
+        hideImage = '#tableContent img'
+        borderColorPicker = 'borderColorPicker'
       }
       else if (templateKey === "template3") {
         tableContainer = document.getElementById('tableContent3')

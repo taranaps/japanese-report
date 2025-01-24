@@ -99,7 +99,7 @@ body {
   width: 94.5%; /* Width of the toolbar */
   height: 100px; /* Toolbar height */
   position: fixed; /* Fix the toolbar to the top */
-  top: 12.5vh; /* Align to the top of the viewport */
+  top: 12.5%; /* Align to the top of the viewport */
   left: 5.1vw; /* Adjust left alignment */
   right: 0;
   z-index: 10; /* Ensure the toolbar stays on top of other content */
@@ -299,7 +299,7 @@ body {
   width: 82%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
  
   height: auto;
   padding: 20px;
@@ -3168,7 +3168,8 @@ select:focus {
   border-collapse: collapse;
   margin: 20px auto;
   padding: 10px;
-  border: solid 1px #90a4ae;
+  border: solid 1px white;
+  border-radius: 8px;
 
 }
 .tablecontainer3{
@@ -3179,7 +3180,7 @@ select:focus {
   border-collapse: collapse;
   margin: 30px auto;
   padding: 10px;
-  border: solid 1px #90a4ae;
+  border: solid 2px black;
 
 }
 .tablecontainer5{
@@ -3191,6 +3192,19 @@ select:focus {
   margin: 20px auto;
   padding: 10px;
   border: solid 1px #90a4ae;
+
+}
+
+.tablecontainer-custom{
+  height: auto;
+  color: black;
+  background-color: white;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10px;
+  border: solid 1px #dc143c;
+  border-radius: 8px;
 
 }
 /* .table-options {
@@ -4239,7 +4253,7 @@ table.custom-table td {
   background-color: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-  border: solid 1px #000c11;
+  /* border: solid 1px #dc143c; */
   border-radius: 10px;
   margin: 30px auto;
   height: auto;
