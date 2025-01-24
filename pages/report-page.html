@@ -64,6 +64,9 @@
             <p class="tablinks activelink" onclick="opentab('template')" title="Template">
               <i class="fa-solid fa-layer-group"></i>
             </p>
+            <p class="tablinks" onclick="opentab('custom')" title="Custom Template">
+              <i class="fa-solid fa-plus"></i>
+            </p>
             <p class="tablinks" onclick="opentab('table')" title="Table">
               <i class="fa-solid fa-table"></i>
             </p>
@@ -167,8 +170,8 @@
               <div class="spacing-input">
                 <label for="tableSpacing">Table Spacing (px):</label>
                 <input type="number" id="tableSpacing" min="0" value="10">
-                <button onclick="setTableSpacing()" title="Set Table Spacing">
-                  <i class="fa-solid fa-arrows-left-right"></i>Set Space
+                <button onclick="setTableSpacing()" title="Set Table Spacing"  class="toolbars-button">
+                  Set space
                 </button>
               </div>
 
@@ -351,7 +354,8 @@
 
           </div>
 
-          <div class="image-container" id="templateContainer" style="display: none;">
+          <div class="image-container" id="templateContainer" >
+            <button class="close-button-side-pane" onclick="closeTemplatePane()">&#10005;</button>
             <h2 class="image-container-h2">Template</h2>
 
 
@@ -370,9 +374,15 @@
               <p>Template 3</p>
             </div>
 
+            <div class="template-item">
+              <img src="../assets/images/template-three.png" alt="custom-div" data-template="custom-div" />
+              <p>Template 4</p>
+            </div>
+
           </div>
 
-          <div class="themes" id="themesContainer" style="display: none;">
+          <div class="themes" id="themesContainer">
+            <button class="close-button-side-pane" onclick="closeThemePane()">&#10005;</button>
             <h2 class="image-container-h2">Theme</h2>
             <div class="sidebar-theme">
 
@@ -387,23 +397,25 @@
 
           </div>
 
-          <div class="table-options" id="addTablePopup" style="display: none;">
-            <h3>Add Tables</h3>
+          <div class="table-options" id="addTablePopup">
+            <button class="close-button-side-pane" onclick="closeAddTablePane()">&#10005;</button> <!-- Close button -->
+            <h3 class="image-container-h2">Add Tables</h3>
             <div class="input-container-table">
               <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
               <label>Columns: <input type="number" id="colCount" min="1" value="2"></label>
-              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button"><i
-                  class="fa-solid fa-table-cells"></i></button>
+              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button">
+                Add Table</button>
             </div>
 
           </div>
 
-          <div id="imageuploads" style="display: none;">
-            <h3>Add Image</h3>
+          <div  class="image-pane" id="imageuploads" >
+            <button class="close-button-side-pane" onclick="closeAddImagePane()">&#10005;</button> <!-- Close button -->
+           <h3 class="image-container-h2">Add Image</h3>
             <div class="input-container">
               <input type="file" accept="image/*" id="uploadImage">
-              <button onclick="displayUploadedPhotos()">
-                <i class="fa-solid fa-image"></i>
+              <button onclick="displayUploadedPhotos()"  class="inside-popup-table-button">
+               Add Image
               </button>
             </div>
           </div>
@@ -1468,6 +1480,51 @@
           </div>
 
           <!-- end of temp 5 -->
+           <div class="custom-div" id="custom-div" style="display: none" >
+            <div class="container-custom-template" id="container-custom-template">
+              <div class="header-custom-template" id="header-custom-template">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="custom-template-month"></h3>
+              </div>
+
+              <div class="summary-custom-template">
+                <div class="box-custom-template">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-custom"></h1>
+                  <!-- <h1 id="Batch-text-template2">Batches</h1> -->
+                  <div id="batch-number-custom">Batches</div>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-custom" width="120" height="150"></canvas>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-custom" width="100" height="120"></canvas>
+                </div>
+
+                <div class="box-custom-template">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-custom" width="200" height="250"></canvas>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Current Level</h3>
+                  <canvas id="levelChart-custom" width="200" height="300"></canvas>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Trainers</h3>
+                  <!-- <div class="box-template2-trainer-name"> -->
+                  <div id="trainer-name-custom-template"> </div>
+                </div>
+                <!-- </div> -->
+                
+
+              </div>
+              <div id="batchwise-data-custom-template"></div>
+
+            </div>
+
+           </div>
 
 
         </div>

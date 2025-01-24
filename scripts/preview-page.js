@@ -1,127 +1,80 @@
 // Toggle the visibility of the template container
 function toggleTemplates() {
   const templateContainer = document.getElementById('templateContainer');
-  if (templateContainer.style.display === 'none' || templateContainer.style.display === '') {
-    templateContainer.style.display = 'block'; // Show templates
+  
+  // Check if the container already has the "show" class
+  if (templateContainer.classList.contains('show')) {
+    templateContainer.classList.remove('show'); // Hide the side pane
   } else {
-    templateContainer.style.display = 'none'; // Hide templates
+    templateContainer.classList.add('show'); // Show the side pane
   }
 }
-
-// Close the template container if clicked outside or on an image
-document.addEventListener('click', function (event) {
+function closeTemplatePane() {
   const templateContainer = document.getElementById('templateContainer');
-  const button = document.querySelector('.toolbars button'); // The select button
-  const images = templateContainer.querySelectorAll('img'); // Select all images inside the template container
-
-  // If the click is outside the template container and the button
-  if (!templateContainer.contains(event.target) && event.target !== button) {
-    templateContainer.style.display = 'none'; // Hide templates
-  }
-
-  // If the click is on an image inside the template container
-  images.forEach(function (image) {
-    if (image.contains(event.target)) {
-      templateContainer.style.display = 'none'; // Hide templates when an image is selected
-    }
-  });
-});
-
-// Toggle the visibility of the theme popup
-function toggleThemes() {
-  var themesContainer = document.getElementById('themesContainer');
-  if (themesContainer.style.display === 'none' || themesContainer.style.display === '') {
-    themesContainer.style.display = 'block';  // Show popup
-  } else {
-    themesContainer.style.display = 'none';  // Hide popup
-  }
+  
+  // Remove the "show" class to hide the side pane
+  templateContainer.classList.remove('show');
 }
 
 
 
+function toggleThemes() {
+  const themesContainer = document.getElementById('themesContainer');
+  
+  // Toggle the "show" class to slide the themes pane in or out
+  themesContainer.classList.toggle('show');
+}
 
-// Close the theme popup when clicking any color option
-var colorOptions = document.querySelectorAll('.sidebar-theme div');
-colorOptions.forEach(function (option) {
-  option.addEventListener('click', function () {
-    var themesContainer = document.getElementById('themesContainer');
-    themesContainer.style.display = 'none';  // Close the popup when a color is selected
-  });
-});
+function closeThemePane() {
+  const themesContainer = document.getElementById('themesContainer');
+  
+  // Remove the "show" class to hide the themes pane
+  themesContainer.classList.remove('show');
+}
+
+
 
 function toggleAddTablePopup() {
-  const tablePopup = document.getElementById("addTablePopup");
-  const isPopupVisible = tablePopup.style.display === "block";
-
-  if (!isPopupVisible) {
-    // Show the popup
-    tablePopup.style.display = "block";
-
-    // Add a document-wide click listener to detect clicks outside the popup
-    document.addEventListener("click", closePopupOnClickOutside);
-  } else {
-    // Hide the popup
-    tablePopup.style.display = "none";
-
-    // Remove the document-wide click listener
-    document.removeEventListener("click", closePopupOnClickOutside);
-  }
+  const addTablePopup = document.getElementById('addTablePopup');
+  
+  // Toggle the "show" class to slide the pane in or out
+  addTablePopup.classList.toggle('show');
 }
 
-function closePopupOnClickOutside(event) {
-  const tablePopup = document.getElementById("addTablePopup");
-  const addButton1 = document.querySelector('[onclick="toggleAddTablePopup()"]'); // First Add Table button
-  const addButton2 = document.querySelector('.inside-popup-table-button'); // Second Add Table button inside toolbar
-
-  if (
-    tablePopup.style.display === "block" && // Popup is visible
-    !tablePopup.contains(event.target) && // Click is outside the popup
-    event.target !== addButton1 && // Click is not on the first button
-    event.target !== addButton2 // Click is not on the second button
-  ) {
-    tablePopup.style.display = "none";
-    document.removeEventListener("click", closePopupOnClickOutside); // Remove listener
-  }
-
+function closeAddTablePane() {
+  const addTablePopup = document.getElementById('addTablePopup');
+  
+  // Remove the "show" class to hide the pane
+  addTablePopup.classList.remove('show');
 }
+
+function createTable() {
+  const rows = document.getElementById('rowCount').value;
+  const cols = document.getElementById('colCount').value;
+
+  alert(`Table with ${rows} rows and ${cols} columns created!`);
+  // You can add your table creation logic here
+}
+
 
 
 
 function toggleAddImagePopup() {
-  const tablePopup = document.getElementById("imageuploads");
-  const isPopupVisible = tablePopup.style.display === "block";
-
-  if (!isPopupVisible) {
-    // Show the popup
-    tablePopup.style.display = "block";
-
-    // Add a document-wide click listener to detect clicks outside the popup
-    document.addEventListener("click", closeImagePopupOnClickOutside);
-  } else {
-    // Hide the popup
-    tablePopup.style.display = "none";
-
-    // Remove the document-wide click listener
-    document.removeEventListener("click", closeImagePopupOnClickOutside);
-  }
+  const imagePane = document.getElementById('imageuploads');
+  
+  // Toggle the "show" class to slide the pane in or out
+  imagePane.classList.toggle('show');
 }
 
-function closeImagePopupOnClickOutside(event) {
-  const tablePopup = document.getElementById("imageuploads");
-  const addButton1 = document.querySelector('[onclick="toggleAddImagePopup()"]'); // First Add Table button
-  // const addButton2 = document.querySelector('.inside-popup-table-button'); 
-
-  if (
-    tablePopup.style.display === "block" && // Popup is visible
-    !tablePopup.contains(event.target) && // Click is outside the popup
-    event.target !== addButton1  // Click is not on the first button
-    // event.target !== addButton2 
-  ) {
-    tablePopup.style.display = "none";
-    document.removeEventListener("click", closePopupOnClickOutside); // Remove listener
-  }
-
+function closeAddImagePane() {
+  const imagePane = document.getElementById('imageuploads');
+  
+  // Remove the "show" class to hide the pane
+  imagePane.classList.remove('show');
 }
+
+
+
 
 
 

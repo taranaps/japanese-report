@@ -2123,6 +2123,279 @@ async function generateSessionChart(data, id, chartType) {
     }
   }
 
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+async function populateBatchDataCustomTemplate(currentDate) {
+
+  const batchDetails = await getBatchDetailsFromLatestCollection();
+  if (!batchDetails) {
+    console.error("No batch details found.");
+    return;
+  }
+  
+  const mainContainer = document.getElementById("batchwise-data-custom-template");
+  mainContainer.innerHTML = "";
+
+  
+  const numberOfBatches = Object.keys(batchDetails).length;
+
+
+  const numberOfTrainees =document.getElementById("learnersChart-custom");
+  const backgroundColor = [
+               'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+              ];
+  const borderColor = [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ];
+
+  // const diaplayBatch = document.getElementById("batch-number");
+  // diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
+
+  numberOfTrainees.textContent = generateTraineePieChart("learnersChart-custom", "line",backgroundColor, borderColor);
+
+
+  initCertificationChart("levelChart-custom",backgroundColor,borderColor,'bar');
+
+  // loadSessionsAndDurationWholeBatch("sessionsChart","batchDurationChart");
+  const batchDetailsData = await getBatchDetailsFromLatestCollection();
+
+  generateSessionDurationChart(batchDetailsData,'batchDurationChart-custom','pie');
+  
+  document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    generateSessionDurationChart(batchDetailsData,'batchDurationChart-custom',selectedChartType);
+                  
+    });
+  
+  generateSessionChart(batchDetailsData, 'sessionsChart-custom','bar');
+  document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    generateSessionChart(batchDetailsData, 'sessionsChart-custom',selectedChartType);
+                  
+    });
+  initTrainerDetails("trainer-name-custom-template");
+
+  const batchCountDisplay = document.getElementById("number-custom");
+  batchCountDisplay.textContent = numberOfBatches;
+
+  document.getElementById('chartTypeDropdown').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    generateTraineePieChart("learnersChart-custom",selectedChartType,backgroundColor,borderColor);
+                  
+    });
+   document.getElementById('chartType-dropdown-certification').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    initCertificationChart("levelChart-custom",backgroundColor,borderColor,selectedChartType);
+                
+   });
+   const template1Header = document.getElementById("custom-template-month");
+  template1Header.textContent = formatCollectionName(currentDate);
+
+  for (const [batchName, details] of Object.entries(batchDetails)) {
+    const filteredData = await getFilteredDocuments(batchName);
+
+    const batchContainer = document.createElement("div");
+    batchContainer.classList.add("batchwise-data-custom-template");
+
+    const batchDurationMonth = details.batchDurationMonth;
+    const numberOfSessionsMonth = details.numberOfSessionsMonth;
+
+    if (
+      batchDurationMonth === undefined ||
+      numberOfSessionsMonth === undefined
+    ) {
+      console.error(`No batch data available for ${batchName}.`);
+      continue; // Skip this iteration
+    }
+
+    batchContainer.innerHTML = `
+          <div class="batch-info-custom">
+          <p>Total Sessions: ${numberOfSessionsMonth} </p>
+              <h1>${batchName}</h1>
+          <p>Total Duration: ${batchDurationMonth}</p>    
+          </div>
+     
+                 
+                  <div class="attendance-custom-template">
+                      <h3>Attendance</h3>
+                      <canvas id="attendanceChart-${batchName}" width="250" height="70"></canvas>
+                  </div>
+         
+          <div class="trainee-evaluation-custom-template">
+          <h3>Evaluation Details</h3>
+              <div id="evaluation-table-${batchName}"></div>
+          </div>
+      `;
+
+    mainContainer.appendChild(batchContainer);
+
+    const evaluationTable1 = document.getElementById(
+      `evaluation-table-${batchName}`
+    );
+    const table1 = await createEvaluationTable(
+      filteredData,
+      `evaluation-table-${batchName}`
+    );
+    evaluationTable1.appendChild(table1);
+
+    // await getAttendanceData(filteredData, `attendanceChart-${batchName}`);
+    await generateChartToggle(filteredData, `attendanceChart-${batchName}`,'bar');
+    document.getElementById('chartTypeDropdownAttendance').addEventListener('change', (event) => {
+      const selectedChartType = event.target.value;
+      generateChartToggle(filteredData, `attendanceChart-${batchName}`, selectedChartType);
+                      
+      });
+  }
+}
+
+
+async function batchwiseDataCustomTemplate(selectedBatch){
+
+  const batchDetails = await getBatchDetailsFromLatestCollection();
+  if (!batchDetails) {
+    
+    console.error("No batch details found.");
+    return;
+  }
+
+  const mainContainer = document.getElementById("batchwise-data-custom-template");
+  mainContainer.innerHTML = "";
+  mainContainer.innerHTML = `<div class="batch-info-custom">
+   <p id="batch-sessions-month-custom-template"></p>
+                          <h1 id="batch-name-custom-template"></h1>
+                         
+                                  <p id="batch-duration-month-custom-template"></p>
+                      </div>
+              
+                     
+                         
+                       
+                            
+                              <div class="attendance-custom-template">
+                                  <h3>Attendance</h3>
+                                  <canvas id="attendanceChart-custom" width="250" height="70"></canvas>
+                              </div>
+                          
+                      
+          <div class="trainee-evaluation-custom-template">
+            <h3>Evaluation Details</h3>
+            <div id="evaluation-table-custom-template"></div>
+
+          </div>`;
+
+  const currentDate = await getLatestCollection();
+  const filteredData = await getFilteredDocuments(selectedBatch);
+
+
+  const template1Header = document.getElementById("custom-template-month");
+  template1Header.textContent = formatCollectionName(currentDate);
+
+  const sessionsPerBatch = batchDetails[selectedBatch].numberOfSessionsMonth;
+  const sessionsTemplate1 = document.getElementById("batch-sessions-month-custom-template");
+  sessionsTemplate1.textContent = `Total Sessions: ${sessionsPerBatch}`;
+
+  const durationPerBatch = batchDetails[selectedBatch].batchDurationMonth;
+  const durationTemplate1 = document.getElementById("batch-duration-month-custom-template");
+  durationTemplate1.textContent = `Total duration: ${durationPerBatch}`;
+
+  const evaluationTable1 = document.getElementById("evaluation-table-custom-template");
+  const table1 = await createEvaluationTable(filteredData,"evaluation-table-custom-template");
+  evaluationTable1.appendChild(table1);
+
+  const template2Header = document.getElementById("batch-name-custom-template");
+  template2Header.textContent = selectedBatch; 
+
+  generateChartToggle(filteredData, 'attendanceChart-custom', 'bar');
+  document.getElementById('chartTypeDropdownAttendance').addEventListener('change', (event) => {
+  const selectedChartType = event.target.value;
+  generateChartToggle(filteredData, 'attendanceChart-custom', selectedChartType);
+                  
+  });
+
+  // const traineeDetailsTemplate2 = document.getElementById("trainee-details-template2");
+  // const traineeTable2 = await getTraineeDetails(filteredData,"trainee-details-template2"); 
+  // traineeDetailsTemplate2.appendChild(traineeTable2);
+
+  
+
+  const numberOfTrainees =document.getElementById("learnersChart-custom");
+  const backgroundColor = [
+               'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+              ];
+  const borderColor = [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ];
+  numberOfTrainees.textContent = generateTraineePieChart("learnersChart-custom","line",backgroundColor,borderColor);
+
+  const batchCountDisplay = document.getElementById("number-custom");
+  batchCountDisplay.textContent = await getNofBatches();
+
+  // const diaplayBatch = document.getElementById("batch-number");
+  // diaplayBatch.textContent = generateTraineeDoughnutChart("batch-number","doughnut",backgroundColor,borderColor);
+
+  // const backgroundColor2 = 'rgba(153, 102, 255, 0.2)';
+  // const borderColor2 = 'rgba(153, 102, 255, 1)';
+  
+
+  initCertificationChart("levelChart-custom",backgroundColor,borderColor,'bar');
+
+
+
+  document.getElementById('chartType-dropdown-certification').addEventListener('change', (event) => {
+      const selectedChartType = event.target.value;
+      initCertificationChart("levelChart-custom",backgroundColor,borderColor,selectedChartType);
+                  
+     });
+  // loadAndDisplayBatchDetails("sessionsChart","batchDurationChart","durationChart",selectedBatch);
+  const batchDetailsData = await getBatchDetailsFromLatestCollection();
+
+  generateSessionDurationChart(batchDetailsData,'batchDurationChart-custom','pie');
+  document.getElementById('chartType-dropdown-duration-tilldate').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    generateSessionDurationChart(batchDetailsData,'batchDurationChart-custom',selectedChartType);
+                  
+    });
+  generateSessionChart(batchDetailsData, 'sessionsChart-custom','bar');
+  document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    generateSessionChart(batchDetailsData, 'sessionsChart-custom',selectedChartType);
+                  
+    });
+  initTrainerDetails("trainer-name-custom-template");
+              
+  document.getElementById('chartTypeDropdown').addEventListener('change', (event) => {
+    const selectedChartType = event.target.value;
+    generateTraineePieChart("learnersChart-custom",selectedChartType,backgroundColor,borderColor);
+                  
+    });
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
   async function batchwiseDataTemplate1(selectedBatch){
 
     const batchDetails = await getBatchDetailsFromLatestCollection();
@@ -2928,6 +3201,19 @@ async function generateSessionChart(data, id, chartType) {
                     batchwiseDataTemplate5(selectedBatch);
                   }
                 break;
+                case "custom-div":
+              if (selectedBatch === "whole-batch") {
+                const populatedDataTemplate6 = document.getElementById(
+                  "batchwise-data-custom-template"
+                );
+                populatedDataTemplate6.innerHTML = "";
+                populateBatchDataCustomTemplate(currentDate);
+              } else {
+                
+                batchwiseDataCustomTemplate(selectedBatch);
+                
+              }
+              break;
           }
         }
 
@@ -3199,4 +3485,7 @@ document.getElementById("save-button").addEventListener("click",uploadImage)
 
 
 // document.getElementById("save-button").addEventListener("click",uploadImage)
- 
+
+
+
+
