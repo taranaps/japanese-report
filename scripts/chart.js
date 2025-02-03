@@ -2128,7 +2128,7 @@ async function generateSessionChart(data, id, chartType) {
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
+
 async function populateBatchDataCustomTemplate(currentDate) {
 
   const batchDetails = await getBatchDetailsFromLatestCollection();
@@ -2408,10 +2408,6 @@ async function batchwiseDataCustomTemplate(selectedBatch){
 
 
 
-
-
-
-
 async function populateBatchDataCustomTemplateUser(currentDate) {
 
   const batchDetails = await getBatchDetailsFromLatestCollection();
@@ -2422,7 +2418,6 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
   
   const mainContainer = document.getElementById("custom-dynamic-table-user");
   mainContainer.innerHTML = "";
-  
 
   
   const numberOfBatches = Object.keys(batchDetails).length;
@@ -2669,7 +2664,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
     generateSessionChart(batchDetailsData, 'sessionsChart-custom-user',selectedChartType);
                   
     });
-  initTrainerDetails("trainer-name-custom-user-template");
+  initTrainerDetails("trainer-name-custom-template");
               
   document.getElementById('chartTypeDropdown').addEventListener('change', (event) => {
     const selectedChartType = event.target.value;
@@ -3766,7 +3761,6 @@ document.getElementById("save-button").addEventListener("click",uploadImage)
 
 
 
-// firebase-charts.mjs
 
 
 
@@ -3775,29 +3769,5 @@ document.getElementById("save-button").addEventListener("click",uploadImage)
 
 
 
-
-
-
-
-
-
-
-
-// async function uploadImage()
-// {
-//   const fileInput = document.getElementById("img-input");
-//   let image= fileInput.files[0]
-
-//       if (image) {
-//           var imageUrl = await uploadImageToFirebase(image);
-//           console.log("image link " + imageUrl)
-
-//       }
-     
-      
-// }
-
-
-// document.getElementById("save-button").addEventListener("click",uploadImage)
 
 

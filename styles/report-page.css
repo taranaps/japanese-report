@@ -3897,16 +3897,16 @@ table.custom-table td {
 
 .image-container {
   position: fixed;
-  top: 12.5vh;
+  top: 29.5vh;
   right: -25%; /* Start outside the viewport */
-  height: 90%;
+  height: 70%;
   width: 25%; /* Adjust the width as needed */
   background: linear-gradient(180deg, #f8f9fa, #ffffff); /* Smooth gradient background */
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.25); /* Stronger shadow for emphasis */
   border-radius: 15px 0 0 15px; /* Rounded corners for a modern look */
   padding: 20px;
   z-index: 1000;
-  overflow-y: auto;
+  overflow:auto;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth and modern sliding effect */
   display: flex;
   flex-direction: column;
@@ -4039,9 +4039,9 @@ table.custom-table td {
 
 .themes {
   position: fixed;
-  top: 12.5vh;
+  top: 29.5vh;
   right: -25%; /* Start outside the viewport */
-  height: 90%;
+  height: 70%;
   width: 25%; /* Adjust the width as needed */ /* Adjust the width as needed */
   background: linear-gradient(180deg, #f9fafb, #ffffff); /* Light gradient */
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.25); /* Stronger shadow for emphasis */
@@ -4049,6 +4049,7 @@ table.custom-table td {
   padding: 20px;
   z-index: 1000;
   overflow-y: auto;
+  overflow-x: hidden;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth sliding effect */
   display: flex;
   flex-direction: column;
@@ -4112,9 +4113,9 @@ table.custom-table td {
 /* Table options side pane */
 .table-options {
   position: fixed;
-  top: 12.5vh;
+  top: 29.5vh;
   right: -25%; /* Start outside the viewport */
-  height: 90%;
+  height: 70%;
   width: 25%; /* Adjust the width as needed */
   background: linear-gradient(180deg, #f9fafb, #ffffff); /* Light gradient */
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.25);
@@ -4192,9 +4193,9 @@ table.custom-table td {
 
 .image-pane {
   position: fixed;
-  top: 12.5vh;
+  top: 29.5vh;
   right: -25%; /* Start outside the viewport */
-  height: 90%;
+  height: 70%;
   width: 25%; /* Adjust the width as needed */
   background: linear-gradient(180deg, #f7f9fc, #ffffff); /* Light gradient */
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.25);
@@ -4591,5 +4592,751 @@ color: white;
   background:white;
 }
 
+
+
+
+
+
+
+
+
+/* Side Pane Style */
+.side-pane {
+  position: fixed;
+  right: -300px; /* Initially hidden off-screen */
+  top: 29.5%;
+  width: 300px;
+  height: 70%;
+  background-color: #f4f4f4;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* When the side pane is active, it slides in */
+.side-pane.show {
+  right: 0; /* Slide the pane into view */
+}
+
+/* Close button style */
+.side-pane .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Heading Style in Side Pane */
+.side-pane h2 {
+  margin-top: 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+
+/* Heading Options */
+.heading-option {
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.heading-option:hover {
+  background-color: #e0e0e0;
+}
+
+/* .tablecontainer-custom {
+  width: 100%;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  margin: 20px 0;
+} */
+
+#custom-template-heading-container h1 {
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.style1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #8061c3;
+}
+
+.style2 {
+  font-size: 22px;
+  font-style: italic;
+  color: #8061c3;
+}
+
+.style3 {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #8061c3;
+  letter-spacing: 2px;
+}
+
+.style4 {
+  font-size: 26px;
+  text-decoration: underline;
+  color: #8061c3;
+}
+
+.style5 {
+  font-size: 24px;
+  font-weight: 300;
+  color: white;
+  background-color: #8061c3;
+  padding: 5px;
+}
+
+.style6 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #8061c3;
+  background-color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+.style7 {
+  font-size: 22px;
+  color: #8061c3;
+  border: 2px dashed #8061c3;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.style8 {
+  font-size: 24px;
+  color: #8061c3;
+  background: linear-gradient(to right, #E8EAF6, #C5CAE9);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.style9 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #8061c3;
+  border-left: 5px solid #8061c3;
+  padding-left: 10px;
+}
+
+.style10 {
+  font-size: 24px;
+  font-style: oblique;
+  color: #8061c3;
+  background-color: #E0F2F1;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.customization {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for Each Input Group */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group .label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-group .input {
+  width: 100%;
+  max-width: 220px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group .input:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-group .input[type="color"] {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+/* Optional: Hover Effects */
+.form-group .input:hover {
+  border-color: #888;
+}
+
+
+.custom-template-user{
+  width: 100%;
+ 
+  padding: 20px;
+ background-color: white;
+  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  box-sizing: border-box;
+  border: 1px solid black;
+
+  border-radius: 8px;
+  /* margin: 30px; */
+  height: auto;
+
+
+
+  /* width: 800px; */
+  
+
+  /* border-radius: 10px; */
+  margin: 30px auto;
+
+
+
+  /* color: black;
+  background-color: white;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10px;
+  border: solid 1px #dc143c;
+  border-radius: 8px; */
+
+}
+
+
+
+
+
+
+
+.box-template-custom-user {
+  margin-top: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  width: 240px;
+  height: 310px;
+
+  /* border: solid 1px #8061c3; */
+  
+
+  /* max-width: 100%;  */
+}
+
+.box-template-custom-user h3 {
+  margin-bottom: 10px;
+  font-size: 2em;
+}
+
+.box-template-custom-user h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #8061c3;
+}
+
+.box-template-custom-user .trainer {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+}
+
+.trainer-name-custom-user-template{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+}
+
+
+
+#custom-template-graph-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping in row layout */
+  gap: 10px; /* Spacing between elements */
+  padding: 20px;
+  /* background-color: #f4f4f4;
+  border: 1px solid #ddd; */
+  border-radius: 8px;
+  /* min-height: 400px; */
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+
+
+}
+#custom-template-table-container{
+  /* display: flex;
+  flex-wrap: wrap; 
+  gap: 10px; */
+  padding: 20px;
+  /* background-color: #f4f4f4;
+  border: 1px solid #ddd; */
+  border-radius: 8px;
+  /* min-height: 400px; */
+  position: relative;
+  /* margin-top: 20px; */
+  
+
+}
+
+
+
+.box-template-custom-user:active {
+  cursor: grabbing;
+}
+
+.layout-controls {
+  margin: 10px 0;
+  text-align: center;
+}
+
+
+.custom-template-user > div {
+  resize: both; /* Allow resizing */
+  /* overflow: hidden; */
+  position: relative; /* Required for delete button positioning */
+}
+
+.layout-controls input[type="number"] {
+  width: 80px;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+
+
+#sessionsChart-custom-user{
+  padding: 10px;
+  
+}
+#sessionsChart-custom-user .progress-bar{
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  padding: auto;
+  background-color:  #8061c3;/* Background color of the progress bar */
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Ensures the inner progress fits */
+  color: #fcfcfc;
+}
+#sessionsChart-custom-user .progress-bar h3{
+  padding-top: 10px;
+  text-align: center;
+}
+#sessionsChart-custom-user .progress{
+  /* margin: 10px; */
+  height: 40px; /* Height of the progress indicator */
+  background-color: #e0e0e0;/* Default color for the progress */
+  border-radius: 5px; /* Rounded corners */
+  transition: width 0.4s ease; 
+}
+#sessionsChart-custom-user label{
+  color: #000000;
+}
+
+
+
+#batchDurationChart-custom-user .progress-bar{
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  padding: auto;
+  background-color:  #8061c3;/* Background color of the progress bar */
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Ensures the inner progress fits */
+  color: #fcfcfc;
+}
+#batchDurationChart-custom-user .progress-bar h3{
+  padding-top: 10px;
+  text-align: center;
+}
+#batchDurationChart-custom-user .progress{
+  margin: 10px;
+  height: 40px; /* Height of the progress indicator */
+  background-color: #e0e0e0;/* Default color for the progress */
+  border-radius: 5px; /* Rounded corners */
+  transition: width 0.4s ease; 
+}
+#batchDurationChart-custom-user label{
+  color: #000000;
+}
+
+#levelChart-custom-user{
+  width: 100%; 
+  height: 300px;
+  padding: 10px;
+  padding-bottom: 45px;
+  /* background: #0E486B; */
+}
+
+#trainer-name-custom-user-template{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#trainer-name-custom-user-template h3{
+  color: #8061c3;
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 30px;  
+  padding-top:70px ;
+
+
+  
+}
+
+.batchwise-data-custom-user-template h3{
+  margin: 10px;
+  font-size: 2em;
+  text-align: center;
+  color: #333;
+}
+.batchwise-data-custom-user-template table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+.batchwise-data-custom-user-template th{
+  background-color: #8061c3;
+  color: rgb(250, 245, 245);
+}
+.batchwise-data-custom-user-template th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ffffff;
+  color: #000000;
+  border: 2px solid #ebe8e8;
+  text-align: center; 
+  vertical-align: middle;
+}
+.batchwise-data-custom-user-template td{
+  background:white;
+}
+
+.attendance-custom-user-template {
+  /* border: solid 1px #8061c3; */
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #ffffff
+}
+.attendance-custom-user-template h3{
+  text-align: center;
+  font-size: 2.1rem;
+  margin-bottom: 5px;
+}
+
+.trainee-evaluation-custom-user-template{
+  /* border: solid 1px #8061c3; */
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  height: auto;
+  margin-top: 20px;
+}
+.trainee-evaluation-custom-user-template h3{
+  margin: 10px;
+  font-size: 2em;
+  text-align: center;
+}
+
+
+
+
+
+
+.batch-info-custom-user {
+  /* border: solid 1px #dc143c; */
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #8061c3;
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  font-size: 20px;
+  color: white;
+}
+
+
+.batch-info-custom-user p{
+align-self: flex-end;
+margin-bottom: 15px;
+/* padding: 1px; */
+font-size: 20px;
+color: white;
+}
+ .batch-info-custom-user{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+ }
+.batch-info-custom-user h1{
+  text-align: center;
+  padding: auto;
+  color: white;
+  font-size: 3rem;
+  margin-top: 5px;
+}
+
+.trainee-evaluation-custom-user-template table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+.trainee-evaluation-custom-user-template th{
+  background-color: #8061c3;
+  color: rgb(250, 245, 245);
+}
+.trainee-evaluation-custom-user-template th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ffffff;
+  color: #000000;
+  border: 2px solid #ebe8e8;
+  text-align: center; 
+  vertical-align: middle;
+}
+.trainee-evaluation-custom-user-template td{
+  background:white;
+}
+
+
+/* #custom-template-graph-container {
+  width: 100%;
+  min-height: 500px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  margin-top: 20px;
+} */
+
+
+.resized {
+  flex: 1 1 50%;
+}
+
+
+
+/* 
+.style {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.style > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.style .row-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.style .row-container > * {
+  width: calc(50% - 5px); 
+}
+
+
+.style .full-width-container > * {
+  width: 100%;
+}
+
+ */
+
+
+
+
+ /* Side Pane Style */
+ #dynamicTableSidePane {
+  position: fixed;
+  right: -500px; /* Initially hidden off-screen */
+  top: 29.5%;
+  width: 500px;
+  height: 70%;
+  background-color: #f4f4f4;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* When the side pane is active, it slides in */
+#dynamicTableSidePane.show {
+  right: 0; /* Slide the pane into view */
+}
+
+/* Close button style */
+#dynamicTableSidePane .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Heading Style in Side Pane */
+#dynamicTableSidePane h2 {
+  margin-top: 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+.tablecontainer-custom-user{
+  
+
+
+  padding: 10px;
+  /* background-color: #f4f4f4; */
+  /* border: 1px solid #ddd; */
+  border-radius: 8px;
+  /* min-height: 400px; */
+  position: relative;
+  margin: 20px auto;
+  margin-top: 20px;
+
+}
+
+
+ /* Style 1: Square Divs */
+
+.styleTable1 .trainee-evaluation-custom-user-template {
+
+
+  /* border: solid 1px #8061c3; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+ 
+}
+
+
+
+.styleTemplate1 {
+
+  font-weight: bold;
+  color: #8061c3;
+}
+
+.styleTemplate2 {
+
+  font-style: italic;
+  color: #8061c3;
+}
+
+.styleTemplate3 {
+
+  text-transform: uppercase;
+  color: #8061c3;
+  letter-spacing: 2px;
+}
+
+.styleTemplate4 {
+ 
+  text-decoration: underline;
+  color: #8061c3;
+}
+
+.styleTemplate5 {
+
+  font-weight: 300;
+  color: white;
+  background-color: white;
+  padding: 5px;
+}
+
+.styleTemplate6 {
+
+  font-weight: bold;
+  color: #8061c3;
+  background-color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+.styleTemplate7 {
+
+  color: #8061c3;
+  border: 2px dashed #8061c3;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.styleTemplate8 {
+
+  color: #8061c3;
+  background: linear-gradient(to right, #E8EAF6, #C5CAE9);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.styleTemplate9 {
+
+  font-weight: bold;
+  color: #8061c3;
+  border-left: 5px solid #8061c3;
+  padding-left: 10px;
+}
+
+.styleTemplate10 {
+
+  font-style: oblique;
+  color: #8061c3;
+  background-color: #E0F2F1;
+  padding: 8px;
+  border-radius: 5px;
+}
 
 

@@ -162,6 +162,7 @@
             </div>
 
           </div>
+
           <div class="tabcontents" id="table">
             <button onclick="toggleAddTablePopup()" class="toolbars-button">Add Table</button>
             <div class="vertical-line"></div>
@@ -170,7 +171,7 @@
               <div class="spacing-input">
                 <label for="tableSpacing">Table Spacing (px):</label>
                 <input type="number" id="tableSpacing" min="0" value="10">
-                <button onclick="setTableSpacing()" title="Set Table Spacing"  class="toolbars-button">
+                <button onclick="setTableSpacing()" title="Set Table Spacing" class="toolbars-button">
                   Set space
                 </button>
               </div>
@@ -353,8 +354,33 @@
 
 
           </div>
+          <div class="tabcontents" id="custom">
+            <button class="toolbars-button" onclick="toggleHeadingsPane()">Headings</button>
+            <div class="vertical-line"></div>
+            <button class="toolbars-button" onclick="toggleGraphsPane()">Graphs</button>
+            <div class="vertical-line"></div>
+            <button class="toolbars-button" onclick="toggleDynamicTableSidePane()">Tables</button>
+            <div class="vertical-line"></div>
+          
+                <button class="toolbars-button" id="changeColorButton">
+                  BackGround Color
+                </button>
+                <div class="vertical-line"></div>
+                <button onclick="randomizeLayout()" class="toolbars-button">Graph Styles</button>
+               
+                <button id="changeLayoutBtn" class="toolbars-button">Batch Info Styles</button>
+                <div class="vertical-line"></div>
+                <button onclick="changeLayout('styleTable1')" class="toolbars-button">Table Style 1</button>
+                
+                <button onclick="changeLayout('styleTable2')" class="toolbars-button">Table Style 2</button>
+                <div class="vertical-line"></div>
+                <button id="styleChangeButton" class="toolbars-button">System Styles</button>
 
-          <div class="image-container" id="templateContainer" >
+             
+           
+          </div>
+
+          <div class="image-container" id="templateContainer">
             <button class="close-button-side-pane" onclick="closeTemplatePane()">&#10005;</button>
             <h2 class="image-container-h2">Template</h2>
 
@@ -375,8 +401,13 @@
             </div>
 
             <div class="template-item">
-              <img src="../assets/images/template-three.png" alt="custom-div" data-template="custom-div" />
+              <img src="../assets/images/Screenshot 2025-02-02 211420.png" alt="custom-div" data-template="custom-div" />
               <p>Template 4</p>
+            </div>
+            <div class="template-item">
+              <img src="../assets/images/add-button-plus-icon-isolated-on-circle-line-background-vector.jpg" alt="custom-template-user"
+                data-template="custom-template-user" />
+              <p>Custom template</p>
             </div>
 
           </div>
@@ -409,15 +440,132 @@
 
           </div>
 
-          <div  class="image-pane" id="imageuploads" >
+          <div class="image-pane" id="imageuploads">
             <button class="close-button-side-pane" onclick="closeAddImagePane()">&#10005;</button> <!-- Close button -->
-           <h3 class="image-container-h2">Add Image</h3>
+            <h3 class="image-container-h2">Add Image</h3>
             <div class="input-container">
               <input type="file" accept="image/*" id="uploadImage">
-              <button onclick="displayUploadedPhotos()"  class="inside-popup-table-button">
-               Add Image
+              <button onclick="displayUploadedPhotos()" class="inside-popup-table-button">
+                Add Image
               </button>
             </div>
+          </div>
+
+          <div class="side-pane" id="headingsPane">
+            <button class="close-button-side-pane" onclick="toggleHeadingsPane()"
+              >&#10005;</button>
+            <h3 class="image-container-h2">Choose Heading</h3>
+            <div class="heading-option" onclick="selectHeading('style1')">
+              <h1 class="style1">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style2')">
+              <h1 class="style2">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style3')">
+              <h1 class="style3">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style4')">
+              <h1 class="style4">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style5')">
+              <h1 class="style5">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style6')">
+              <h1 class="style6">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style7')">
+              <h1 class="style7">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style8')">
+              <h1 class="style8">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style9')">
+              <h1 class="style9">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style10')">
+              <h1 class="style10">Japanese Language<br>Training Report</h1>
+            </div>
+
+
+            <div class="customization">
+              <h3 class="image-container-h2">Choose Style</h3>
+              <div class="form-group">
+                <label for="text-color" class="label">Text Color:</label>
+                <input type="color" id="text-color" class="input" onchange="updateHeadingStyle()">
+              </div>
+
+              <div class="form-group">
+                <label for="bg-color" class="label">Background Color:</label>
+                <input type="color" id="bg-color" class="input" onchange="updateHeadingStyle()">
+              </div>
+
+              <div class="form-group">
+                <label for="border-radius" class="label">Border Radius:</label>
+                <input type="number" id="border-radius" class="input" min="0" max="50" placeholder="Enter border radius"
+                  onchange="updateHeadingStyle()">
+              </div>
+            </div>
+          </div>
+          <div class="side-pane" id="graphsPane">
+            <button class="close-button-side-pane" onclick="toggleGraphsPane()"
+              ">&#10005;</button>
+            <h3 class="image-container-h2">Choose Graph</h3>
+            <div class="graph-options">
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="activeBatches">
+                <h3>Active Batches</h3>
+                <h1 id="number-custom-user"></h1>
+                <div id="batch-number-custom-user">Batches</div>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="sessionsChart">
+                <h3>Total No. of Sessions</h3>
+                <canvas id="sessionsChart-custom-user" width="120" height="150"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="learnersChart">
+                <h3>Number of Learners</h3>
+                <canvas id="learnersChart-custom-user" width="100" height="120"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="batchDurationChart">
+                <h3>Total Batch Duration</h3>
+                <canvas id="batchDurationChart-custom-user" width="200" height="250"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="levelChart">
+                <h3>Current Level</h3>
+                <canvas id="levelChart-custom-user" width="200" height="300"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="trainerName">
+                <h3>Trainers</h3>
+                <div id="trainer-name-custom-user-template"></div>
+              </div>
+            </div>
+            <div class="layout-controls" class="form-group">
+              <button onclick="toggleLayout('row')" class="inside-popup-table-button" style="margin-top: 10px;">Row
+                Layout</button>
+              <button onclick="toggleLayout('column')" class="inside-popup-table-button"
+                style="margin-top: 10px; margin-bottom: 10px;">Column Layout</button><br>
+              <!-- <label for="divsPerRow">Box's per Row: </label>
+              <input type="number" id="divsPerRow" placeholder="Enter number of divs" min="1"
+                onchange="updateDivsPerRow()" /> -->
+              <button onclick="hideDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Hide
+                Delete Buttons</button>
+              <button onclick="showDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Show
+                Delete Buttons</button>
+            </div>
+          </div>
+
+          <div id="dynamicTableSidePane" class="side-pane">
+            <button class="close-button-side-pane" onclick="toggleDynamicTableSidePane()"
+             >&#10005;</button>
+            <h3 class="image-container-h2" >Choose Table</h3>
+            <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)"></div>
+
+
+
           </div>
         </div>
 
@@ -1042,7 +1190,7 @@
 
               </div> -->
 
-              
+
               <div class="tablecontainer3" id="tablecontainer3">
                 <div id="tableContent3"></div>
 
@@ -1469,7 +1617,7 @@
               </div> -->
 
 
-              
+
               <div class="tablecontainer5" id="tablecontainer5">
                 <div id="tableContent5"></div>
 
@@ -1480,7 +1628,7 @@
           </div>
 
           <!-- end of temp 5 -->
-           <div class="custom-div" id="custom-div" style="display: none" >
+          <div class="custom-div" id="custom-div" style="display: none">
             <div class="container-custom-template" id="container-custom-template">
               <div class="header-custom-template" id="header-custom-template">
                 <h1>Japanese Language Training Report</h1>
@@ -1517,25 +1665,37 @@
                   <div id="trainer-name-custom-template"> </div>
                 </div>
                 <!-- </div> -->
-                
+
 
               </div>
               <div id="batchwise-data-custom-template"></div>
 
-              
-              
+
+
               <div class="tablecontainer-custom" id="tablecontainer-custom">
                 <div id="tableContent-custom"></div>
 
               </div>
             </div>
 
+          </div>
+
+          <div class="custom-template-user" id="custom-template-user" class="selected-container" style="display: none"
+            ondragover="allowDrop(event)" ondrop="drop(event)">
+            <div id="custom-template-heading-container"></div>
+            <div id="custom-template-graph-container" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div id="custom-template-table-container" ondragover="allowDropTable(event)" ondrop="dropTable(event)">
             </div>
+            <div class="tablecontainer-custom-user" id="tablecontainer-custom-user">
+              <div id="tableContent-custom-user"></div>
 
-           </div>
-
+            </div>
+          </div>
 
         </div>
+
+
+      </div>
 
       </div>
       <!-- <div class="right-sidebar">
@@ -1764,6 +1924,7 @@
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
   <script src="../scripts/preview-page.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dom-to-image"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

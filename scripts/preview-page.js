@@ -1,3 +1,4 @@
+
 // Toggle the visibility of the template container
 function toggleTemplates() {
   const templateContainer = document.getElementById('templateContainer');
@@ -73,6 +74,1155 @@ function closeAddImagePane() {
   imagePane.classList.remove('show');
 }
 
+
+
+////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+// Toggle the Side Pane
+let selectedHeading = null;  // Variable to track selected heading style
+
+// Function to toggle the side pane
+function toggleHeadingsPane() {
+  const pane = document.getElementById('headingsPane');
+  pane.classList.toggle('show');  // Toggle the 'show' class to show/hide the pane
+}
+
+// Function to select a heading style
+function selectHeading(styleClass) {
+  const tableContent = document.getElementById('custom-template-heading-container');
+  tableContent.innerHTML = `<h1 class="${styleClass}">Japanese Language Training Report</h1>`;
+  selectedHeading = tableContent.querySelector('h1');  // Store the selected heading element
+  // Close the side pane after selection
+}
+
+// Function to update the heading's styles based on user inputs
+function updateHeadingStyle() {
+  if (!selectedHeading) return;  // If no heading is selected, do nothing
+
+  // Get the values from the input fields
+  const textColor = document.getElementById('text-color').value;
+  const bgColor = document.getElementById('bg-color').value;
+  const borderRadius = document.getElementById('border-radius').value;
+
+  // Apply the selected styles to the heading
+  selectedHeading.style.color = textColor;
+  selectedHeading.style.backgroundColor = bgColor;
+  selectedHeading.style.borderRadius = borderRadius + 'px';
+}
+
+function toggleGraphsPane() {
+  const graphsPane = document.getElementById('graphsPane');
+  graphsPane.classList.toggle('show'); // Toggles the visibility of the side pane
+}
+
+
+// Function to handle click event on the source div
+function moveContent(event) {
+  const sourceDiv = event.currentTarget; // The clicked div
+  const targetDiv = document.getElementById("custom-template-table-container"); // The target div
+
+  if (targetDiv) {
+    // Move all child nodes (content) from the source div to the target div
+    while (sourceDiv.firstChild) {
+      targetDiv.appendChild(sourceDiv.firstChild);
+    }
+  }
+}
+
+// Function to handle click event on the delete button
+function deleteContent(event) {
+  const deleteButton = event.currentTarget; // The clicked delete button
+  const containerDiv = deleteButton.parentElement; // The container div
+  const sourceTable = document.getElementById("custom-dynamic-table-user"); // The source table
+
+  if (sourceTable) {
+    // Move all child nodes (content) back to the source table
+    while (containerDiv.firstChild) {
+      if (containerDiv.firstChild !== deleteButton) { // Skip the delete button
+        sourceTable.appendChild(containerDiv.firstChild);
+      }
+    }
+  }
+  containerDiv.remove(); // Remove the container div from the target container
+}
+
+
+
+
+// function dragStart(event) {
+//   event.dataTransfer.setData("text", event.target.dataset.id);
+// }
+
+// function allowDrop(event) {
+//   event.preventDefault();
+// }
+
+// function drop(event) {
+//   event.preventDefault();
+//   const draggedId = event.dataTransfer.getData("text");
+
+//   const mainContainer = document.getElementById("custom-template-graph-container");
+//   if (mainContainer.querySelector(`[data-id="${draggedId}"]`)) {
+//     return;
+//   }
+
+//   const draggedElement = document.querySelector(`[data-id="${draggedId}"]`);
+//   if (draggedElement) {
+//     const newDiv = document.createElement("div");
+//     newDiv.setAttribute("data-id", draggedId);
+//     newDiv.classList.add("box-template-custom-user");
+
+//     // Copy all styles from the original element
+//     const computedStyle = window.getComputedStyle(draggedElement);
+//     Object.values(computedStyle).forEach(property => {
+//       newDiv.style[property] = computedStyle.getPropertyValue(property);
+//     });
+
+//     while (draggedElement.firstChild) {
+//       newDiv.appendChild(draggedElement.firstChild);
+//     }
+
+//     const deleteBtn = document.createElement("button");
+//     deleteBtn.innerText = "Delete";
+//     deleteBtn.className = 'delete-btn';
+//     deleteBtn.style.position = "absolute";
+//     deleteBtn.style.top = "5px";
+//     deleteBtn.style.right = "5px";
+//     deleteBtn.style.padding = "5px";
+//     deleteBtn.style.cursor = "pointer";
+//     deleteBtn.style.border = "none";
+//     deleteBtn.style.backgroundColor = "#f44336";
+//     deleteBtn.style.color = "white";
+//     deleteBtn.style.borderRadius = "4px";
+//     deleteBtn.onclick = () => newDiv.remove();
+
+//     newDiv.appendChild(deleteBtn);
+
+//     // Set base styles for the container
+//     newDiv.style.display = "flex";
+//     newDiv.style.justifyContent = "center";
+//     newDiv.style.alignItems = "center";
+//     newDiv.style.position = "relative";
+//     newDiv.style.minWidth = "150px";
+//     newDiv.style.minHeight = "100px";
+//     newDiv.style.margin = "5px";
+//     newDiv.style.boxSizing = "border-box";
+//     newDiv.style.cursor = "se-resize";
+//     newDiv.style.flex = "1";
+
+//     let isResizing = false;
+//     let originalWidth;
+//     let originalHeight;
+//     let originalX;
+//     let originalY;
+
+//     function getDivsInSameRow(targetDiv) {
+//         const divsInRow = [];
+//         const targetRect = targetDiv.getBoundingClientRect();
+        
+//         Array.from(mainContainer.children).forEach(child => {
+//             const childRect = child.getBoundingClientRect();
+//             if (Math.abs(childRect.top - targetRect.top) < 5) {
+//                 divsInRow.push(child);
+//             }
+//         });
+        
+//         return divsInRow;
+//     }
+
+//     function getMaxAllowedWidth() {
+//         const containerWidth = mainContainer.clientWidth;
+//         const margin = 10; // 5px on each side
+//         const divsInRow = getDivsInSameRow(newDiv);
+//         const totalMargins = (divsInRow.length + 1) * margin;
+//         let otherDivsWidth = 0;
+        
+//         divsInRow.forEach(div => {
+//             if (div !== newDiv) {
+//                 otherDivsWidth += div.offsetWidth;
+//             }
+//         });
+
+//         return containerWidth - otherDivsWidth - totalMargins;
+//     }
+
+//     newDiv.addEventListener('mousedown', function(e) {
+//         const box = newDiv.getBoundingClientRect();
+//         const clickRegion = 20;
+        
+//         if (e.clientX > box.right - clickRegion && 
+//             e.clientY > box.bottom - clickRegion) {
+//             isResizing = true;
+//             originalWidth = parseFloat(getComputedStyle(newDiv, null).getPropertyValue('width').replace('px', ''));
+//             originalHeight = parseFloat(getComputedStyle(newDiv, null).getPropertyValue('height').replace('px', ''));
+//             originalX = e.clientX;
+//             originalY = e.clientY;
+            
+//             e.preventDefault();
+//         }
+//     });
+
+//     document.addEventListener('mousemove', function(e) {
+//         if (isResizing) {
+//             const maxWidth = getMaxAllowedWidth();
+//             const newWidth = originalWidth + (e.clientX - originalX);
+//             const newHeight = originalHeight + (e.clientY - originalY);
+            
+//             // Apply width constraints
+//             if (newWidth >= 150 && newWidth <= maxWidth) {
+//                 newDiv.style.width = newWidth + 'px';
+//                 newDiv.style.flex = "none"; // Remove flex growth when explicitly sized
+//             }
+            
+//             // Apply height constraints
+//             if (newHeight >= 100) {
+//                 newDiv.style.height = newHeight + 'px';
+//             }
+
+//             // Adjust content layout
+//             const content = newDiv.children;
+//             Array.from(content).forEach(child => {
+//                 if (child !== deleteBtn) {
+//                     child.style.maxWidth = "100%";
+//                     child.style.maxHeight = "100%";
+//                     child.style.objectFit = "contain";
+//                 }
+//             });
+//         }
+//     });
+
+//     document.addEventListener('mouseup', function() {
+//         isResizing = false;
+//     });
+
+//     // Set the container styles
+//     mainContainer.style.display = "flex";
+//     mainContainer.style.flexWrap = "wrap";
+//     mainContainer.style.width = "100%";
+//     mainContainer.style.gap = "5px";
+    
+//     // Calculate if we need to start a new row
+//     const divsInLastRow = getDivsInSameRow(mainContainer.lastElementChild || newDiv);
+//     if (divsInLastRow.length >= 3) {
+//         // Force new row by adding a width constraint
+//         newDiv.style.flexBasis = "30%";
+//     }
+    
+//     mainContainer.appendChild(newDiv);
+//   }
+// }
+
+function dragStart(event) {
+  event.dataTransfer.setData("text", event.target.dataset.id);
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function drop(event) {
+  event.preventDefault();
+  const draggedId = event.dataTransfer.getData("text");
+  const mainContainer = document.getElementById("custom-template-graph-container");
+  
+  if (!mainContainer.querySelector(`[data-id="${draggedId}"]`)) {
+    const draggedElement = document.querySelector(`[data-id="${draggedId}"]`);
+    if (draggedElement) {
+      const newDiv = document.createElement("div");
+      newDiv.setAttribute("data-id", draggedId);
+      newDiv.classList.add("box-template-custom-user");
+
+      while (draggedElement.firstChild) {
+        newDiv.appendChild(draggedElement.firstChild);
+      }
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.innerText = "Delete";
+      deleteBtn.className = 'delete-btn';
+      Object.assign(deleteBtn.style, {
+        position: "absolute",
+        top: "5px",
+        right: "5px",
+        padding: "5px",
+        cursor: "pointer",
+        border: "none",
+        backgroundColor: "#f44336",
+        color: "white",
+        borderRadius: "4px"
+      });
+      deleteBtn.onclick = () => newDiv.remove();
+      newDiv.appendChild(deleteBtn);
+
+      Object.assign(newDiv.style, {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+        margin: "5px",
+        cursor: "se-resize",
+        flex: "1 1 auto"
+      });
+
+      let isResizing = false;
+      let originalWidth, originalHeight, originalX, originalY;
+
+      function getMaxAllowedWidth() {
+        const containerWidth = mainContainer.clientWidth;
+        const margin = 10;
+        const divsInRow = getDivsInSameRow(newDiv);
+        const totalMargins = (divsInRow.length + 1) * margin;
+        let otherDivsWidth = 0;
+        
+        divsInRow.forEach(div => {
+          if (div !== newDiv) {
+            otherDivsWidth += div.offsetWidth;
+          }
+        });
+        
+        return containerWidth - otherDivsWidth - totalMargins;
+      }
+
+      function getDivsInSameRow(targetDiv) {
+        const divsInRow = [];
+        const targetRect = targetDiv.getBoundingClientRect();
+        
+        Array.from(mainContainer.children).forEach(child => {
+          const childRect = child.getBoundingClientRect();
+          if (Math.abs(childRect.top - targetRect.top) < 5) {
+            divsInRow.push(child);
+          }
+        });
+        
+        return divsInRow;
+      }
+
+      function handleResize(e) {
+        if (!isResizing) return;
+
+        const maxWidth = getMaxAllowedWidth();
+        const newWidth = originalWidth + (e.clientX - originalX);
+        const newHeight = originalHeight + (e.clientY - originalY);
+        const divsInRow = getDivsInSameRow(newDiv);
+        
+        // Apply width constraints
+        if (newWidth >= 150) {
+          newDiv.style.width = Math.min(newWidth, maxWidth) + 'px';
+          
+          // Check if current row is full
+          if (divsInRow.length === 3 && newWidth > maxWidth) {
+            const nextRowDivs = Array.from(mainContainer.children).filter(div => {
+              const divRect = div.getBoundingClientRect();
+              const newDivRect = newDiv.getBoundingClientRect();
+              return divRect.top > newDivRect.top && 
+                     divRect.top < newDivRect.top + newDivRect.height + 50; // Adding tolerance
+            });
+            
+            if (nextRowDivs.length > 0) {
+              // Share row with existing divs
+              newDiv.style.width = (containerWidth - 
+                nextRowDivs.reduce((sum, div) => sum + div.offsetWidth + 10, 0) - 20) + 'px';
+            }
+          }
+        }
+
+        // Apply height constraints
+        if (newHeight >= 100) {
+          newDiv.style.height = newHeight + 'px';
+        }
+
+        // Adjust content layout
+        Array.from(newDiv.children).forEach(child => {
+          if (child !== deleteBtn) {
+            child.style.maxWidth = "100%";
+            child.style.maxHeight = "100%";
+            child.style.objectFit = "contain";
+          }
+        });
+      }
+
+      newDiv.addEventListener('mousedown', function(e) {
+        const box = newDiv.getBoundingClientRect();
+        const clickRegion = 20;
+        
+        if (e.clientX > box.right - clickRegion && e.clientY > box.bottom - clickRegion) {
+          isResizing = true;
+          originalWidth = parseFloat(getComputedStyle(newDiv, null).getPropertyValue('width').replace('px', ''));
+          originalHeight = parseFloat(getComputedStyle(newDiv, null).getPropertyValue('height').replace('px', ''));
+          originalX = e.clientX;
+          originalY = e.clientY;
+          e.preventDefault();
+        }
+      });
+
+      document.addEventListener('mousemove', handleResize);
+      
+      document.addEventListener('mouseup', function() {
+        isResizing = false;
+      });
+
+      // Check if we need to start a new row
+      const divsInLastRow = getDivsInSameRow(mainContainer.lastElementChild || newDiv);
+      if (divsInLastRow.length >= 3) {
+        newDiv.style.flexBasis = "auto";
+      }
+
+      mainContainer.appendChild(newDiv);
+    }
+  }
+}
+
+
+
+
+
+
+
+const layouts = [
+  // 1. Two equal columns
+  function twoEqualColumns() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div) => {
+              div.style.minHeight = '150px';
+          }
+      });
+  },
+
+  // 2. Three equal columns
+  function threeEqualColumns() {
+      applyGridLayout({
+          gridColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div) => {
+              div.style.minHeight = '200px';
+          }
+      });
+  },
+
+  // 3. One large + smaller ones
+  function oneLargeFourSmall() {
+      applyGridLayout({
+          gridColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.gridColumn = 'span 3';
+                  div.style.minHeight = '200px';
+              } else {
+                  div.style.minHeight = '150px';
+              }
+          }
+      });
+  },
+
+  // 4. Two rows, two columns
+  function twoByTwo() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div) => {
+              div.style.minHeight = '180px';
+          }
+      });
+  },
+
+  // 5. Vertical stack
+  function verticalStack() {
+      applyGridLayout({
+          gridColumns: '1fr',
+          gap: '8px',
+          callback: (div) => {
+              div.style.minHeight = '120px';
+          }
+      });
+  },
+
+  // 6. Pyramid (top wide, bottom split)
+  function pyramid() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.gridColumn = 'span 2';
+                  div.style.minHeight = '200px';
+              } else {
+                  div.style.minHeight = '150px';
+              }
+          }
+      });
+  },
+
+  // 7. Alternating spans
+  function alternatingSpans() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index % 2 === 0) {
+                  div.style.gridColumn = 'span 2';
+                  div.style.minHeight = '180px';
+              } else {
+                  div.style.minHeight = '150px';
+              }
+          }
+      });
+  },
+
+  // 8. Three rows
+  function threeRows() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index < 2) {
+                  div.style.gridColumn = 'span 2';
+              }
+              div.style.minHeight = '140px';
+          }
+      });
+  },
+
+  // 9. Mixed layout
+  function mixedLayout() {
+      applyGridLayout({
+          gridColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.gridColumn = 'span 2';
+              }
+              div.style.minHeight = '160px';
+          }
+      });
+  },
+
+  // 10. Compact grid
+  function compactGrid() {
+      applyGridLayout({
+          gridColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '8px',
+          callback: (div) => {
+              div.style.minHeight = '160px';
+          }
+      });
+  },
+
+  // 11. Mosaic
+  function mosaic() {
+      applyGridLayout({
+          gridColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.gridColumn = 'span 2';
+                  div.style.gridRow = 'span 2';
+                  div.style.minHeight = '300px';
+              } else {
+                  div.style.minHeight = '150px';
+              }
+          }
+      });
+  },
+
+  // 12. Split view
+  function splitView() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              div.style.minHeight = index === 0 ? '250px' : '180px';
+          }
+      });
+  },
+
+  // 13. Dynamic rows
+  function dynamicRows() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index, total) => {
+              if (total <= 3 && index === 0) {
+                  div.style.gridColumn = 'span 2';
+              }
+              div.style.minHeight = '160px';
+          }
+      });
+  },
+
+  // 14. Asymmetric grid
+  function asymmetricGrid() {
+      applyGridLayout({
+          gridColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.gridColumn = 'span 2';
+                  div.style.minHeight = '200px';
+              } else if (index === 1) {
+                  div.style.gridRow = 'span 2';
+                  div.style.minHeight = '300px';
+              } else {
+                  div.style.minHeight = '150px';
+              }
+          }
+      });
+  },
+
+  // 15. Flexible grid
+  function flexibleGrid() {
+      applyGridLayout({
+          gridColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gap: '8px',
+          callback: (div) => {
+              div.style.minHeight = '180px';
+          }
+      });
+  },
+
+  // 16. Centered focus
+  function centeredFocus() {
+      applyGridLayout({
+          gridColumns: 'repeat(3, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 1) {
+                  div.style.gridColumn = 'span 2';
+                  div.style.minHeight = '250px';
+              } else {
+                  div.style.minHeight = '150px';
+              }
+          }
+      });
+  },
+
+  // 17. Zigzag layout
+  function zigzagLayout() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index % 2 === 0) {
+                  div.style.gridColumn = '1 / 2';
+              } else {
+                  div.style.gridColumn = '2 / 3';
+              }
+              div.style.minHeight = '160px';
+          }
+      });
+  },
+
+  // 18. Staggered grid
+  function staggeredGrid() {
+      applyGridLayout({
+          gridColumns: 'repeat(4, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index % 2 === 0) {
+                  div.style.gridColumn = 'span 2';
+              }
+              div.style.minHeight = '180px';
+          }
+      });
+  },
+
+  // 19. Full-width header
+  function fullWidthHeader() {
+      applyGridLayout({
+          gridColumns: '1fr',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.minHeight = '200px';
+              } else {
+                  div.style.minHeight = '120px';
+              }
+          }
+      });
+  },
+
+  // 20. Diagonal split
+  function diagonalSplit() {
+      applyGridLayout({
+          gridColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '8px',
+          callback: (div, index) => {
+              if (index === 0) {
+                  div.style.gridColumn = '1 / 2';
+                  div.style.gridRow = '1 / 2';
+              } else if (index === 1) {
+                  div.style.gridColumn = '2 / 3';
+                  div.style.gridRow = '2 / 3';
+              }
+              div.style.minHeight = '180px';
+          }
+      });
+  }
+];
+
+// ... Previous layout functions remain the same ...
+
+// Updated utility function with 5px padding
+// Updated utility function with 5px padding
+function applyGridLayout({ gridColumns, gap, callback }) {
+  const container = document.getElementById('custom-template-graph-container');
+  const divs = Array.from(container.getElementsByClassName('box-template-custom-user'));
+  
+  // Only proceed if we have 2-6 divs
+  if (divs.length < 2 || divs.length > 6) return;
+
+  // Reset container styles
+  container.style.cssText = '';
+  
+  // Apply container styles
+  Object.assign(container.style, {
+      display: 'grid',
+      gridTemplateColumns: gridColumns,
+      gap: gap,
+      padding: '5px', // Updated to 5px
+      width: '100%',
+      maxWidth: '100%',
+      height: 'auto',
+      minHeight: 'min-content'
+  });
+
+  // Reset and apply styles to each div
+  divs.forEach((div, index) => {
+      // Reset div styles
+      div.style.cssText = '';
+      
+      // Apply base styles
+      Object.assign(div.style, {
+          width: '100%',
+          height: '100%',
+          margin: '0',
+          padding: '5px', // Updated to 5px
+          overflow: 'hidden',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
+          boxSizing: 'border-box',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative'
+      });
+
+      // Create or get content wrapper
+      let wrapper = div.querySelector('.content-wrapper');
+      if (!wrapper) {
+          wrapper = document.createElement('div');
+          wrapper.className = 'content-wrapper';
+          // Move div's content to wrapper
+          while (div.firstChild) {
+              wrapper.appendChild(div.firstChild);
+          }
+          div.appendChild(wrapper);
+      }
+
+      // Style content wrapper with column-wise layout
+      Object.assign(wrapper.style, {
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',  // Change to column-wise layout
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          transform: 'scale(1)',
+          transition: 'transform 0.2s'
+      });
+
+      // Apply custom styles if callback provided
+      if (callback) {
+          callback(div, index, divs.length);
+      }
+
+      // Function to scale content to fit
+      function scaleContentToFit() {
+          const content = wrapper;
+          const parent = div;
+          
+          // Reset scale to measure true size
+          content.style.transform = 'scale(1)';
+          
+          // Get measurements (account for 5px padding)
+          const parentWidth = parent.clientWidth - 10; // 5px padding on each side
+          const parentHeight = parent.clientHeight - 10; // 5px padding on each side
+          const contentWidth = content.scrollWidth;
+          const contentHeight = content.scrollHeight;
+          
+          // Calculate scale factors
+          const scaleX = parentWidth / contentWidth;
+          const scaleY = parentHeight / contentHeight;
+          
+          // Use the smaller scale to ensure content fits both dimensions
+          const scale = Math.min(scaleX, scaleY, 1); // Never scale up, only down
+          
+          // Apply the scale transform
+          content.style.transform = `scale(${scale})`;
+      }
+
+      // Scale content initially
+      scaleContentToFit();
+
+      // Add resize observer to handle dynamic content changes
+      const resizeObserver = new ResizeObserver(() => {
+          scaleContentToFit();
+      });
+
+      resizeObserver.observe(div);
+      resizeObserver.observe(wrapper);
+  });
+}
+
+
+// Track layout usage
+let usedLayouts = new Set();
+let currentLayoutIndex = 0; // Start at the first layout
+
+// Function to get the next layout (sequentially)
+function getNextLayoutGrapgh() {
+  // Get the current layout and increment the index
+  const nextIndex = currentLayoutIndex;
+  currentLayoutIndex = (currentLayoutIndex + 1) % layouts.length; // Loop back after the last layout
+  return layouts[nextIndex];
+}
+
+// Function to apply next layout
+function randomizeLayout() {
+  const nextLayout = getNextLayoutGrapgh();
+  nextLayout(); // Apply the next layout
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 1. Two-column Layout (for all divs inside the container)
+function twoColumnsLayout() {
+  const batchInfoDivs = document.querySelectorAll('.batch-info-custom-user');
+  
+
+  batchInfoDivs.forEach(div => {
+    div.style.display = 'flex';
+    div.style.flexDirection = 'row';
+    div.style.justifyContent = 'space-between';
+    div.style.alignItems = 'center';
+    div.style.gap = '30px';
+    div.style.padding = '10px';
+    div.style.width = '100%';
+    div.style.height='auto';
+
+    // Ensure elements order: heading at the center
+    const [p1, h1, p2] = div.children;
+    p1.style.order = '1';
+    h1.style.order = '2';
+    p2.style.order = '3';
+
+    // Center align text
+    h1.style.textAlign = 'center';
+  });
+
+
+
+
+  
+}
+
+// 2. Vertical Stack Layout (for all divs inside the container)
+function verticalStackLayout() {
+  const batchInfoDivs = document.querySelectorAll('.batch-info-custom-user');
+ 
+
+  batchInfoDivs.forEach(div => {
+    div.style.display = 'flex';
+    div.style.flexDirection = 'column';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'center';
+    div.style.gap = '15px';
+    div.style.padding = '10px';
+    div.style.width = '100%';
+    div.style.height='auto';
+
+    // Align all text to center
+    div.querySelectorAll('p, h1').forEach(elem => {
+      elem.style.textAlign = 'center';
+    });
+  });
+
+
+
+  
+}
+
+// 3. Split Top-Bottom Layout (Batch Info first, then others)
+function splitTopBottomLayout() {
+  const batchInfoDivs = document.querySelectorAll('.batch-info-custom-user');
+  
+
+  batchInfoDivs.forEach(div => {
+    div.style.display = 'flex';
+    div.style.flexDirection = 'column';
+    div.style.gap = '10px';
+    div.style.padding = '10px';
+    div.style.width = '100%';
+    div.style.height = 'auto';
+
+    const paragraphs = div.querySelectorAll('p');
+    const heading = div.querySelector('h1');
+
+    if (paragraphs.length >= 2 && heading) {
+      // Create a new container for paragraphs
+      const infoContainer = document.createElement('div');
+      infoContainer.style.display = 'flex';
+      infoContainer.style.justifyContent = 'space-between';
+      infoContainer.style.gap = '20px';
+
+      infoContainer.appendChild(paragraphs[0]);
+      infoContainer.appendChild(paragraphs[1]);
+
+      // Append elements in correct order
+      div.appendChild(heading);
+      div.appendChild(infoContainer);
+    }
+});
+
+
+ 
+}
+
+// 4. Horizontal Split Layout (Two rows for each div)
+function horizontalSplitLayout() {
+  const batchInfoDivs = document.querySelectorAll('.batch-info-custom-user');
+  
+
+  batchInfoDivs.forEach(div => {
+    div.style.display = 'flex';
+    div.style.flexDirection = 'row-reverse';
+    div.style.justifyContent = 'space-between';
+    div.style.alignItems = 'center';
+    div.style.padding = '10px';
+    div.style.width = '100%';
+    div.style.gap = '30px';
+    div.style.height='auto';
+
+    const [p1, h1, p2] = div.children;
+    p1.style.order = '3'; // Move first p to the end
+    h1.style.order = '2'; // Keep h1 in the center
+    p2.style.order = '1'; // Move second p to the beginning
+});
+
+
+  
+}
+
+// 5. Centered Layout with Flexbox (Centered with a fixed width)
+function centeredLayout() {
+  const batchInfoDivs = document.querySelectorAll('.batch-info-custom-user');
+  
+
+  batchInfoDivs.forEach(div => {
+    div.style.display = 'flex';
+    div.style.flexDirection = 'column';
+    div.style.alignItems = 'center';
+    div.style.gap = '10px';
+    div.style.padding = '10px';
+    div.style.width = '100%';
+    div.style.height = 'auto';
+
+    const paragraphs = div.querySelectorAll('p');
+    const heading = div.querySelector('h1');
+
+    if (paragraphs.length >= 2 && heading) {
+      // Create a container for paragraphs
+      const infoContainer = document.createElement('div');
+      infoContainer.style.display = 'flex';
+      infoContainer.style.justifyContent = 'center';
+      infoContainer.style.gap = '20px';
+
+      infoContainer.appendChild(paragraphs[0]);
+      infoContainer.appendChild(paragraphs[1]);
+
+      // Append elements in correct order
+      div.appendChild(heading);
+      div.appendChild(infoContainer);
+    }
+});
+
+
+
+ 
+}
+
+// Array of layout functions
+const layoutsTable = [
+  twoColumnsLayout,
+  verticalStackLayout,
+  splitTopBottomLayout,
+  horizontalSplitLayout,
+  centeredLayout
+];
+
+// Track the current layout index
+let currentLayoutIndexTable = 0;
+
+// Function to get the next layout
+function getNextLayout() {
+  if (currentLayoutIndexTable >= layoutsTable.length) {
+    currentLayoutIndexTable = 0; // Reset to the first layout after 5
+  }
+  return layoutsTable[currentLayoutIndexTable++];
+}
+
+// Function to apply the layout
+function applyLayout() {
+  const nextLayout = getNextLayout();
+  nextLayout(); // Apply the layout
+}
+
+// Button click handler to change layout
+document.getElementById('changeLayoutBtn').addEventListener('click', applyLayout);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Function to reinitialize the chart after it's dropped
+// function initializeChartAfterDrop(draggedId, clone) {
+//   const chartId = clone.dataset.id;
+  
+//   if (!chartId) return;
+
+//   const canvas = clone.querySelector('canvas');
+//   if (!canvas) return;
+
+//   // Destroy previous chart if it exists
+//   if (canvas.chart) {
+//     canvas.chart.destroy();
+//   }
+
+//   switch (chartId) {
+//     case 'sessionsChart':
+//       // Re-render the chart
+//       generateSessionChart(batchDetailsData, canvas.id, 'bar');
+//       break;
+//     case 'learnersChart':
+//       // Re-render the chart
+//       generateTraineePieChart(canvas.id, "line", backgroundColor, borderColor);
+//       break;
+//     case 'batchDurationChart':
+//       // Re-render the chart
+//       generateSessionDurationChart(batchDetailsData, canvas.id, 'pie');
+//       break;
+//     case 'levelChart':
+//       // Re-render the chart
+//       initCertificationChart(canvas.id, backgroundColor, borderColor, 'bar');
+//       break;
+//     default:
+//       break;
+//   }
+// }
+
+
+
+
+
+
+// Toggle between row and column layout
+function toggleLayout(layoutType) {
+  const container = document.getElementById("custom-template-graph-container");
+  
+  // Ensure the container exists before applying layout changes
+  if (container) {
+    if (layoutType === "row") {
+      container.style.flexDirection = "row";
+      container.style.flexWrap = "wrap"; // Allow wrapping in row layout
+    } else if (layoutType === "column") {
+      container.style.flexDirection = "column";
+      container.style.flexWrap = "nowrap"; // No wrapping in column layout
+    }
+  }
+}
+
+function updateDivsPerRow() {
+  const container = document.getElementById("custom-template-graph-container");
+  const divsPerRow = parseInt(document.getElementById("divsPerRow").value, 10);
+
+  if (!divsPerRow || divsPerRow <= 0) {
+    alert("Please enter a valid number greater than 0");
+    return;
+  }
+
+  // Calculate the width percentage for each div
+  const divWidth = 100 / divsPerRow;
+
+  // Apply the calculated width to each child div
+  Array.from(container.children).forEach((child) => {
+    child.style.flexBasis = `${divWidth}%`; // Set flex-basis for equal spacing
+  });
+}
+
+
+function hideDeleteButtons() {
+  // Select all delete buttons and draggable divs inside the container
+  const deleteButtons = document.querySelectorAll('.delete-btn');
+  const draggableDivs = document.querySelectorAll('#custom-template-graph-container > div');
+
+  // Loop through each button and hide it
+  deleteButtons.forEach((button) => {
+    button.style.display = 'none';
+  });
+
+  // Disable drag-and-drop functionality for the divs
+  draggableDivs.forEach((div) => {
+    div.setAttribute('draggable', 'false'); // Disable dragging
+    div.style.pointerEvents = 'none'; // Disable interactions
+  });
+}
+
+function showDeleteButtons() {
+  // Select all delete buttons and draggable divs inside the container
+  const deleteButtons = document.querySelectorAll('.delete-btn');
+  const draggableDivs = document.querySelectorAll('#custom-template-graph-container > div');
+
+  // Loop through each button and show it
+  deleteButtons.forEach((button) => {
+    button.style.display = 'block';
+  });
+
+  // Enable drag-and-drop functionality for the divs
+  draggableDivs.forEach((div) => {
+    div.setAttribute('draggable', 'true'); // Enable dragging
+    div.style.pointerEvents = 'auto'; // Enable interactions
+  });
+}
+
+function toggleDynamicTableSidePane() {
+  const sidePane = document.getElementById('dynamicTableSidePane');
+  sidePane.classList.toggle('show'); // Toggles the side pane visibility
+}
 
 
 
@@ -817,6 +1967,10 @@ function CutAndDownloadJPG() {
   else if (selectTemplate == 'custom-div') {
     break_point1 = 'batch-info-custom';
     break_point2 = 'tablecontainer-custom';
+  }
+  else if (selectTemplate == 'custom-template-user') {
+    break_point1 = 'batch-info-custom-user';
+    break_point2 = 'tablecontainer-custom-user';
   }
 
   const element = document.getElementById(selectTemplate);
@@ -1573,6 +2727,24 @@ images.forEach(image => {
       else if (templateKey === "template3") {
         tableContainer = document.getElementById('tableContent3')
         tableId = 'tablecontainer3'
+        toolbarId = 'toolbar'
+        mergeRowIndex = 'mergeRowIndex'
+        startColumnIndex = 'startColumnIndex'
+        endColumnIndex = 'endColumnIndex'
+        mergeColIndex = 'mergeColIndex'
+        startrowIndex = 'startRowIndex'
+        endrowIndex = 'endRowIndex'
+        toolbar_text = 'toolbar-text'
+        textColorPicker = 'textColorPicker'
+        highlightColorPicker = 'highlightColorPicker'
+        imageToolbar = 'imageToolbar'
+        hideImage = '#tableContent img'
+        borderColorPicker = 'borderColorPicker'
+
+      }
+      else if (templateKey === "custom-template-user") {
+        tableContainer = document.getElementById('tableContent-custom-user')
+        tableId = 'tablecontainer-custom-user'
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -2400,6 +3572,337 @@ document.getElementById('save-button').addEventListener('click', function () {
 
 
 
+// function changeBackgroundColor() {
+//   // Get all required elements
+//   const mainDiv = document.getElementById('custom-template-user');
+//   const graphDiv = document.getElementById('custom-template-graph-container');
+//   const tableDiv = document.getElementById('custom-template-table-container');
+//   const thElements = document.querySelectorAll('.batch-info-custom-user');
+//   const traineeThElements = document.querySelectorAll('.trainee-evaluation-custom-user-template th');
+
+//   // Generate random color
+//   const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  
+//   // Convert hex color to RGB
+//   const r = parseInt(randomColor.substring(0, 2), 16);
+//   const g = parseInt(randomColor.substring(2, 4), 16);
+//   const b = parseInt(randomColor.substring(4, 6), 16);
+
+//   // Apply colors to batch-info elements
+//   thElements.forEach(th => {
+//       th.style.backgroundColor = `#${randomColor}`;
+//       th.style.color = 'rgb(250, 245, 245)';
+//   });
+
+//   // Apply colors to trainee-evaluation elements
+//   traineeThElements.forEach(th => {
+//       th.style.backgroundColor = `#${randomColor}`;
+//       th.style.color = 'rgb(250, 245, 245)';
+//   });
+
+//   // Set background colors with opacity
+//   mainDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.3)`;
+//   graphDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
+//   tableDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
+// }
+// Attach the click event to the button
+
+function changeBackgroundColor() {
+  // Get all required elements
+  const mainDiv = document.getElementById('custom-template-user');
+  const graphDiv = document.getElementById('custom-template-graph-container');
+  const tableDiv = document.getElementById('custom-template-table-container');
+  const thElements = document.querySelectorAll('.batch-info-custom-user');
+  const traineeThElements = document.querySelectorAll('.trainee-evaluation-custom-user-template th');
+  const h1Elements = document.querySelectorAll('.box-template-custom-user h1');
+  const trainerNameH3 = document.querySelectorAll('#trainer-name-custom-user-template h3');
+  const tableContainer = document.querySelectorAll('.tablecontainer-custom-user');
+
+  // Generate random color
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  
+  // Convert hex color to RGB
+  const r = parseInt(randomColor.substring(0, 2), 16);
+  const g = parseInt(randomColor.substring(2, 4), 16);
+  const b = parseInt(randomColor.substring(4, 6), 16);
+
+  // Apply colors to batch-info elements
+  thElements.forEach(th => {
+      th.style.backgroundColor = `#${randomColor}`;
+      th.style.color = 'rgb(250, 245, 245)';
+  });
+
+  // Apply colors to trainee-evaluation elements
+  traineeThElements.forEach(th => {
+      th.style.backgroundColor = `#${randomColor}`;
+      th.style.color = 'rgb(250, 245, 245)';
+  });
+
+  // Apply color to h1 elements
+  h1Elements.forEach(h1 => {
+      h1.style.color = `#${randomColor}`;
+  });
+
+  // Apply color to trainer name h3 elements
+  trainerNameH3.forEach(h3 => {
+      h3.style.color = `#${randomColor}`;
+  });
+
+  // Apply background color to table container elements
+  tableContainer.forEach(container => {
+      container.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
+  });
+  const h1InHeadingContainer = document.querySelector('#custom-template-heading-container h1');
+  if (h1InHeadingContainer) {
+    h1InHeadingContainer.style.color = `#${randomColor}`;  // Change color of h1 in specific div
+  }
+
+
+  // Set background colors with opacity
+  mainDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.3)`;
+  graphDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
+  tableDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
+  h1InHeadingContainer.style.backgroundColor=`rgba(${r}, ${g}, ${b}, 0.10)`;
+
+
+
+ 
+// Create a style element
+const styleElement = document.createElement('style');
+styleElement.textContent = `
+.styleTemplate1 {
+    font-weight: bold;
+    color: #${randomColor};
+}
+
+.styleTemplate2 {
+    font-style: italic;
+    color: #${randomColor};
+}
+
+.styleTemplate3 {
+    text-transform: uppercase;
+    color: #${randomColor};
+    letter-spacing: 2px;
+}
+
+.styleTemplate4 {
+    text-decoration: underline;
+    color: #${randomColor};
+}
+
+.styleTemplate5 {
+    font-weight: 300;
+    color: #${randomColor};
+    background-color: white;
+    padding: 5px;
+}
+
+.styleTemplate6 {
+    font-weight: bold;
+    color: #${randomColor};
+    background-color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.styleTemplate7 {
+    color: #${randomColor};
+    border: 2px dashed #${randomColor};
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.styleTemplate8 {
+    color: #${randomColor};
+    background: linear-gradient(to right, 
+        rgba(${r}, ${g}, ${b}, 0.1),
+        rgba(${r}, ${g}, ${b}, 0.2)
+    );
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.styleTemplate9 {
+    font-weight: bold;
+    color: #${randomColor};
+    border-left: 5px solid #${randomColor};
+    padding-left: 10px;
+}
+
+.styleTemplate10 {
+    font-style: oblique;
+    color: #${randomColor};
+    background-color: rgba(${r}, ${g}, ${b}, 0.1);
+    padding: 8px;
+    border-radius: 5px;
+}
+`;
+
+// Remove existing style element if it exists
+const existingStyle = document.querySelector('#dynamicStyles');
+if (existingStyle) {
+    existingStyle.remove();
+}
+
+// Add ID to new style element and append to document
+styleElement.id = 'dynamicStyles';
+document.head.appendChild(styleElement);
+}
+document.getElementById('changeColorButton').addEventListener('click', changeBackgroundColor);
+
+// Sample data for dynamic content
+
+
+// Function to generate the dynamic content
+
+
+// Function to change the layout
+// Function to change the layout for all dynamically generated divs
+// function changeLayout(style) {
+//   const container = document.getElementById("custom-template-table-container");
+//   const allParentDivs = Array.from(container.children); // Get all main divs
+
+//   // Remove previous styles and apply the new style
+//   container.classList.remove("style", "style2", "style3", "style4", "style5");
+//   container.classList.add(style);
+
+//   if (style === "style") {
+//     // Loop through each parent div inside the container
+//     allParentDivs.forEach((parentDiv) => {
+//       const childDivs = Array.from(parentDiv.children); // Get all child divs inside each parent div
+
+//       // Clear previous structure
+//       parentDiv.innerHTML = "";
+
+//       // Loop through child divs in sets of 3
+//       for (let i = 0; i < childDivs.length; i += 3) {
+//         const rowDiv = document.createElement("div"); // Create a row container
+//         rowDiv.classList.add("row-container");
+
+//         // First two child divs in a row
+//         if (childDivs[i]) rowDiv.appendChild(childDivs[i]);
+//         if (childDivs[i + 1]) rowDiv.appendChild(childDivs[i + 1]);
+
+//         parentDiv.appendChild(rowDiv); // Append row inside the parent div
+
+//         // Third child div in full width below
+//         if (childDivs[i + 2]) {
+//           const fullWidthDiv = document.createElement("div");
+//           fullWidthDiv.classList.add("full-width-container");
+//           fullWidthDiv.appendChild(childDivs[i + 2]);
+//           parentDiv.appendChild(fullWidthDiv);
+//         }
+//       }
+//     });
+//   }
+// }
+function changeLayout(style) {
+  const container = document.getElementById("custom-template-table-container");
+  const allDivs = Array.from(container.children); // Get all child divs
+
+  // Clear previous styles
+  container.classList.remove("styleTable1", "styleTable2", "styleTable3", "styleTable4", "styleTable5");
+  container.classList.add(style); // Apply new style
+
+  // Apply the selected style to each div individually
+  allDivs.forEach((div) => {
+    div.classList.remove("styleTable1", "styleTable2", "styleTable", "styleTable4", "styleTable5"); // Remove existing styles
+    div.classList.add(style); // Add the new style
+  });
+}
+
+
+
+
+function addBreakpointClickListener() {
+  let isBreakpointMode = false;
+
+  const button = document.getElementById('breakPointButton');
+  
+  button.addEventListener('click', () => {
+      isBreakpointMode = !isBreakpointMode;
+      document.body.style.cursor = isBreakpointMode ? 'crosshair' : 'default';
+  });
+
+  // Add click listeners to specific divs only
+  const allowedDivs = document.querySelectorAll('.custom-template-user');
+  allowedDivs.forEach(div => {
+      div.addEventListener('click', (e) => {
+          if (!isBreakpointMode) return;
+          
+          // Create a new horizontal line element
+          const breakpoint = document.createElement('div');
+          breakpoint.className = 'breakpointcustomuser';
+          
+          // Get click position relative to the div
+          // const rect = div.getBoundingClientRect();
+          const y = e.clientY  // Y position relative to the div
+          
+          // Style the horizontal line
+          breakpoint.style.cssText = `
+              position: absolute;
+              left: 0;
+              top: ${y}px;
+              width: 800px;
+              height: 2px;
+              background-color: #000;
+              pointer-events: none; /* Ensure the line doesn't interfere with clicks */
+          `;
+          
+          // Append the line to the specific div
+          div.appendChild(breakpoint);
+      });
+  });
+}
+
+
+// // Add the necessary CSS
+// const style = document.createElement('style');
+// style.textContent = `
+//   .breakpointcustomuser {
+//       position: absolute;
+//       width: 100%;
+//       height: 2px;
+//       background-color: #000;
+   
+//   }
+// `;
+// document.head.appendChild(style);
+
+
+const styles = [
+  "styleTemplate1", "styleTemplate2", "styleTemplate3", "styleTemplate4", "styleTemplate5",
+  "styleTemplate6", "styleTemplate7", "styleTemplate8", "styleTemplate9", "styleTemplate10"
+];
+
+let currentStyleIndex = 0;
+
+function applyNextStyle() {
+    const parentDiv = document.querySelector('.custom-template-user');
+    
+    if (!parentDiv) return;
+
+    // Select all direct child divs only (using parentDiv.children)
+    const allChildDivs = Array.from(parentDiv.children).filter(child => child.tagName === 'DIV');
+
+    // Remove all previous styles
+    allChildDivs.forEach(div => {
+        styles.forEach(style => div.classList.remove(style));
+    });
+
+    // Get the next style from the list
+    const nextStyle = styles[currentStyleIndex];
+
+    // Apply the new style to all child divs
+    allChildDivs.forEach(div => div.classList.add(nextStyle));
+
+    // Move to the next style, loop back if needed
+    currentStyleIndex = (currentStyleIndex + 1) % styles.length;
+}
+
+// Attach to a button click
+document.getElementById("styleChangeButton").addEventListener("click", applyNextStyle);
 
 
 
