@@ -64,7 +64,7 @@
             <p class="tablinks activelink" onclick="opentab('template')" title="Template">
               <i class="fa-solid fa-layer-group"></i>
             </p>
-            <p class="tablinks" onclick="opentab('custom')" title="Custom Template">
+            <p class="tablinks" onclick="opentab('custom')" title="Custom Template"  style="display: none;" id="tabLinkCustom">
               <i class="fa-solid fa-plus"></i>
             </p>
             <p class="tablinks" onclick="opentab('table')" title="Table">
@@ -354,7 +354,7 @@
 
 
           </div>
-          <div class="tabcontents" id="custom">
+          <div class="tabcontents" id="custom" >
             <button class="toolbars-button" onclick="toggleHeadingsPane()">Headings</button>
             <div class="vertical-line"></div>
             <button class="toolbars-button" onclick="toggleGraphsPane()">Graphs</button>
@@ -406,7 +406,7 @@
             </div>
             <div class="template-item">
               <img src="../assets/images/add-button-plus-icon-isolated-on-circle-line-background-vector.jpg" alt="custom-template-user"
-                data-template="custom-template-user" />
+                data-template="custom-template-user"   id="toggleCustomImage" />
               <p>Custom template</p>
             </div>
 

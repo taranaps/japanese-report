@@ -313,6 +313,169 @@ function deleteContent(event) {
 //   }
 // }
 
+// function dragStart(event) {
+//   event.dataTransfer.setData("text", event.target.dataset.id);
+// }
+
+// function allowDrop(event) {
+//   event.preventDefault();
+// }
+
+// function drop(event) {
+//   event.preventDefault();
+//   const draggedId = event.dataTransfer.getData("text");
+//   const mainContainer = document.getElementById("custom-template-graph-container");
+  
+//   if (!mainContainer.querySelector(`[data-id="${draggedId}"]`)) {
+//     const draggedElement = document.querySelector(`[data-id="${draggedId}"]`);
+//     if (draggedElement) {
+//       const newDiv = document.createElement("div");
+//       newDiv.setAttribute("data-id", draggedId);
+//       newDiv.classList.add("box-template-custom-user");
+
+//       while (draggedElement.firstChild) {
+//         newDiv.appendChild(draggedElement.firstChild);
+//       }
+
+//       const deleteBtn = document.createElement("button");
+//       deleteBtn.innerText = "Delete";
+//       deleteBtn.className = 'delete-btn';
+//       Object.assign(deleteBtn.style, {
+//         position: "absolute",
+//         top: "5px",
+//         right: "5px",
+//         padding: "5px",
+//         cursor: "pointer",
+//         border: "none",
+//         backgroundColor: "#f44336",
+//         color: "white",
+//         borderRadius: "4px"
+//       });
+//       deleteBtn.onclick = () => newDiv.remove();
+//       newDiv.appendChild(deleteBtn);
+
+//       Object.assign(newDiv.style, {
+//         display: "flex",
+//         flexDirection: "column",
+//         justifyContent: "center",
+//         alignItems: "center",
+//         position: "relative",
+//         margin: "5px",
+//         cursor: "se-resize",
+//         flex: "1 1 auto"
+//       });
+
+//       let isResizing = false;
+//       let originalWidth, originalHeight, originalX, originalY;
+
+//       function getMaxAllowedWidth() {
+//         const containerWidth = mainContainer.clientWidth;
+//         const margin = 10;
+//         const divsInRow = getDivsInSameRow(newDiv);
+//         const totalMargins = (divsInRow.length + 1) * margin;
+//         let otherDivsWidth = 0;
+        
+//         divsInRow.forEach(div => {
+//           if (div !== newDiv) {
+//             otherDivsWidth += div.offsetWidth;
+//           }
+//         });
+        
+//         return containerWidth - otherDivsWidth - totalMargins;
+//       }
+
+//       function getDivsInSameRow(targetDiv) {
+//         const divsInRow = [];
+//         const targetRect = targetDiv.getBoundingClientRect();
+        
+//         Array.from(mainContainer.children).forEach(child => {
+//           const childRect = child.getBoundingClientRect();
+//           if (Math.abs(childRect.top - targetRect.top) < 5) {
+//             divsInRow.push(child);
+//           }
+//         });
+        
+//         return divsInRow;
+//       }
+
+//       function handleResize(e) {
+//         if (!isResizing) return;
+
+//         const maxWidth = getMaxAllowedWidth();
+//         const newWidth = originalWidth + (e.clientX - originalX);
+//         const newHeight = originalHeight + (e.clientY - originalY);
+//         const divsInRow = getDivsInSameRow(newDiv);
+        
+//         // Apply width constraints
+//         if (newWidth >= 150) {
+//           newDiv.style.width = Math.min(newWidth, maxWidth) + 'px';
+          
+//           // Check if current row is full
+//           if (divsInRow.length === 3 && newWidth > maxWidth) {
+//             const nextRowDivs = Array.from(mainContainer.children).filter(div => {
+//               const divRect = div.getBoundingClientRect();
+//               const newDivRect = newDiv.getBoundingClientRect();
+//               return divRect.top > newDivRect.top && 
+//                      divRect.top < newDivRect.top + newDivRect.height + 50; // Adding tolerance
+//             });
+            
+//             if (nextRowDivs.length > 0) {
+//               // Share row with existing divs
+//               newDiv.style.width = (containerWidth - 
+//                 nextRowDivs.reduce((sum, div) => sum + div.offsetWidth + 10, 0) - 20) + 'px';
+//             }
+//           }
+//         }
+
+//         // Apply height constraints
+//         if (newHeight >= 100) {
+//           newDiv.style.height = newHeight + 'px';
+//         }
+
+//         // Adjust content layout
+//         Array.from(newDiv.children).forEach(child => {
+//           if (child !== deleteBtn) {
+//             child.style.maxWidth = "100%";
+//             child.style.maxHeight = "100%";
+//             child.style.objectFit = "contain";
+//           }
+//         });
+//       }
+
+//       newDiv.addEventListener('mousedown', function(e) {
+//         const box = newDiv.getBoundingClientRect();
+//         const clickRegion = 20;
+        
+//         if (e.clientX > box.right - clickRegion && e.clientY > box.bottom - clickRegion) {
+//           isResizing = true;
+//           originalWidth = parseFloat(getComputedStyle(newDiv, null).getPropertyValue('width').replace('px', ''));
+//           originalHeight = parseFloat(getComputedStyle(newDiv, null).getPropertyValue('height').replace('px', ''));
+//           originalX = e.clientX;
+//           originalY = e.clientY;
+//           e.preventDefault();
+//         }
+//       });
+
+//       document.addEventListener('mousemove', handleResize);
+      
+//       document.addEventListener('mouseup', function() {
+//         isResizing = false;
+//       });
+
+//       // Check if we need to start a new row
+//       const divsInLastRow = getDivsInSameRow(mainContainer.lastElementChild || newDiv);
+//       if (divsInLastRow.length >= 3) {
+//         newDiv.style.flexBasis = "auto";
+//       }
+
+//       mainContainer.appendChild(newDiv);
+//     }
+//   }
+// }
+
+
+
+
 function dragStart(event) {
   event.dataTransfer.setData("text", event.target.dataset.id);
 }
@@ -329,10 +492,13 @@ function drop(event) {
   if (!mainContainer.querySelector(`[data-id="${draggedId}"]`)) {
     const draggedElement = document.querySelector(`[data-id="${draggedId}"]`);
     if (draggedElement) {
+      const originalParent = draggedElement.parentElement;
       const newDiv = document.createElement("div");
       newDiv.setAttribute("data-id", draggedId);
       newDiv.classList.add("box-template-custom-user");
 
+      // Store original content and parent reference
+      const originalContent = Array.from(draggedElement.children);
       while (draggedElement.firstChild) {
         newDiv.appendChild(draggedElement.firstChild);
       }
@@ -351,7 +517,20 @@ function drop(event) {
         color: "white",
         borderRadius: "4px"
       });
-      deleteBtn.onclick = () => newDiv.remove();
+      
+      // Modified delete button click handler
+      deleteBtn.onclick = () => {
+        // Return content to original element
+        originalContent.forEach(child => {
+          // Skip the delete button when returning content
+          if (!child.classList.contains('delete-btn')) {
+            draggedElement.appendChild(child);
+          }
+        });
+        // Remove the container div
+        newDiv.remove();
+      };
+      
       newDiv.appendChild(deleteBtn);
 
       Object.assign(newDiv.style, {
@@ -406,33 +585,28 @@ function drop(event) {
         const newHeight = originalHeight + (e.clientY - originalY);
         const divsInRow = getDivsInSameRow(newDiv);
         
-        // Apply width constraints
         if (newWidth >= 150) {
           newDiv.style.width = Math.min(newWidth, maxWidth) + 'px';
           
-          // Check if current row is full
           if (divsInRow.length === 3 && newWidth > maxWidth) {
             const nextRowDivs = Array.from(mainContainer.children).filter(div => {
               const divRect = div.getBoundingClientRect();
               const newDivRect = newDiv.getBoundingClientRect();
               return divRect.top > newDivRect.top && 
-                     divRect.top < newDivRect.top + newDivRect.height + 50; // Adding tolerance
+                     divRect.top < newDivRect.top + newDivRect.height + 50;
             });
             
             if (nextRowDivs.length > 0) {
-              // Share row with existing divs
               newDiv.style.width = (containerWidth - 
                 nextRowDivs.reduce((sum, div) => sum + div.offsetWidth + 10, 0) - 20) + 'px';
             }
           }
         }
 
-        // Apply height constraints
         if (newHeight >= 100) {
           newDiv.style.height = newHeight + 'px';
         }
 
-        // Adjust content layout
         Array.from(newDiv.children).forEach(child => {
           if (child !== deleteBtn) {
             child.style.maxWidth = "100%";
@@ -462,7 +636,6 @@ function drop(event) {
         isResizing = false;
       });
 
-      // Check if we need to start a new row
       const divsInLastRow = getDivsInSameRow(mainContainer.lastElementChild || newDiv);
       if (divsInLastRow.length >= 3) {
         newDiv.style.flexBasis = "auto";
@@ -782,7 +955,7 @@ function applyGridLayout({ gridColumns, gap, callback }) {
       display: 'grid',
       gridTemplateColumns: gridColumns,
       gap: gap,
-      padding: '5px', // Updated to 5px
+      // padding: '5px',
       width: '100%',
       maxWidth: '100%',
       height: 'auto',
@@ -3904,6 +4077,34 @@ function applyNextStyle() {
 // Attach to a button click
 document.getElementById("styleChangeButton").addEventListener("click", applyNextStyle);
 
+document.addEventListener("DOMContentLoaded", function () {
+  const tabContent = document.getElementById("custom");
+  const tabLink = document.getElementById("tabLinkCustom");
+  const toggleImage = document.getElementById("toggleCustomImage");
+
+  // Initially hide the tab link
+  tabLink.style.display = "none";
+
+  toggleImage.addEventListener("click", function (event) {
+    // Show the tab link when clicking the image
+    tabLink.style.display = "block";
+    
+    // Stop event from propagating
+    event.stopPropagation();
+
+    // Remove the event listener after the first click so it stays visible forever
+    document.removeEventListener("click", hideTabLink);
+  });
+
+  function hideTabLink(event) {
+    if (event.target !== toggleImage) {
+      tabLink.style.display = "none"; // Hide tab link
+    }
+  }
+
+  // Initially set up the event listener to hide the tab link when clicking outside
+  document.addEventListener("click", hideTabLink);
+});
 
 
 
