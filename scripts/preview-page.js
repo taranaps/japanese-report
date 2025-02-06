@@ -2,77 +2,172 @@
 // Toggle the visibility of the template container
 function toggleTemplates() {
   const templateContainer = document.getElementById('templateContainer');
-  
+
   // Check if the container already has the "show" class
   if (templateContainer.classList.contains('show')) {
-    templateContainer.classList.remove('show'); // Hide the side pane
+      templateContainer.classList.remove('show'); // Hide the side pane
+      document.removeEventListener('click', closeOnClickOutside);
   } else {
-    templateContainer.classList.add('show'); // Show the side pane
+      templateContainer.classList.add('show'); // Show the side pane
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutside);
+      }, 0); // Delay to prevent immediate closure
   }
 }
+
 function closeTemplatePane() {
   const templateContainer = document.getElementById('templateContainer');
-  
+
   // Remove the "show" class to hide the side pane
   templateContainer.classList.remove('show');
+  document.removeEventListener('click', closeOnClickOutside);
+}
+
+// Function to close the pane when clicking outside of it
+function closeOnClickOutside(event) {
+  const templateContainer = document.getElementById('templateContainer');
+  if (templateContainer && !templateContainer.contains(event.target)) {
+      closeTemplatePane();
+  }
 }
 
 
 
+
+
+// function toggleThemes() {
+//   const themesContainer = document.getElementById('themesContainer');
+  
+//   // Toggle the "show" class to slide the themes pane in or out
+//   themesContainer.classList.toggle('show');
+// }
+
+// function closeThemePane() {
+//   const themesContainer = document.getElementById('themesContainer');
+  
+//   // Remove the "show" class to hide the themes pane
+//   themesContainer.classList.remove('show');
+// }
+
+
+// Toggle the visibility of the themes container
 function toggleThemes() {
   const themesContainer = document.getElementById('themesContainer');
-  
-  // Toggle the "show" class to slide the themes pane in or out
-  themesContainer.classList.toggle('show');
+
+  // Check if the container is already shown
+  if (themesContainer.classList.contains('show')) {
+      themesContainer.classList.remove('show'); // Hide the themes pane
+      document.removeEventListener('click', closeOnClickOutsideThemes);
+  } else {
+      themesContainer.classList.add('show'); // Show the themes pane
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutsideThemes);
+      }, 0); // Delay to prevent immediate closure
+  }
 }
 
 function closeThemePane() {
   const themesContainer = document.getElementById('themesContainer');
-  
+
   // Remove the "show" class to hide the themes pane
   themesContainer.classList.remove('show');
+  document.removeEventListener('click', closeOnClickOutsideThemes);
+}
+
+// Function to close the pane when clicking outside of it
+function closeOnClickOutsideThemes(event) {
+  const themesContainer = document.getElementById('themesContainer');
+  if (themesContainer && !themesContainer.contains(event.target)) {
+      closeThemePane();
+  }
 }
 
 
-
+// Toggle the visibility of the Add Table popup
 function toggleAddTablePopup() {
   const addTablePopup = document.getElementById('addTablePopup');
-  
-  // Toggle the "show" class to slide the pane in or out
-  addTablePopup.classList.toggle('show');
+
+  // Check if the popup is already shown
+  if (addTablePopup.classList.contains('show')) {
+      addTablePopup.classList.remove('show'); // Hide the popup
+      document.removeEventListener('click', closeOnClickOutsideTable);
+  } else {
+      addTablePopup.classList.add('show'); // Show the popup
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutsideTable);
+      }, 0); // Delay to prevent immediate closure
+  }
 }
 
 function closeAddTablePane() {
   const addTablePopup = document.getElementById('addTablePopup');
-  
-  // Remove the "show" class to hide the pane
+
+  // Remove the "show" class to hide the popup
   addTablePopup.classList.remove('show');
+  document.removeEventListener('click', closeOnClickOutsideTable);
 }
 
-function createTable() {
-  const rows = document.getElementById('rowCount').value;
-  const cols = document.getElementById('colCount').value;
-
-  alert(`Table with ${rows} rows and ${cols} columns created!`);
-  // You can add your table creation logic here
+// Function to close the popup when clicking outside of it
+function closeOnClickOutsideTable(event) {
+  const addTablePopup = document.getElementById('addTablePopup');
+  if (addTablePopup && !addTablePopup.contains(event.target)) {
+      closeAddTablePane();
+  }
 }
 
 
 
 
+
+
+
+// function toggleAddImagePopup() {
+//   const imagePane = document.getElementById('imageuploads');
+  
+//   // Toggle the "show" class to slide the pane in or out
+//   imagePane.classList.toggle('show');
+// }
+
+// function closeAddImagePane() {
+//   const imagePane = document.getElementById('imageuploads');
+  
+//   // Remove the "show" class to hide the pane
+//   imagePane.classList.remove('show');
+// }
+
+
+// Toggle the visibility of the Add Image popup
 function toggleAddImagePopup() {
   const imagePane = document.getElementById('imageuploads');
-  
-  // Toggle the "show" class to slide the pane in or out
-  imagePane.classList.toggle('show');
+
+  // Check if the popup is already shown
+  if (imagePane.classList.contains('show')) {
+      imagePane.classList.remove('show'); // Hide the popup
+      document.removeEventListener('click', closeOnClickOutsideImage);
+  } else {
+      imagePane.classList.add('show'); // Show the popup
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutsideImage);
+      }, 0); // Delay to prevent immediate closure
+  }
 }
 
 function closeAddImagePane() {
   const imagePane = document.getElementById('imageuploads');
-  
-  // Remove the "show" class to hide the pane
+
+  // Remove the "show" class to hide the popup
   imagePane.classList.remove('show');
+  document.removeEventListener('click', closeOnClickOutsideImage);
 }
+
+// Function to close the popup when clicking outside of it
+function closeOnClickOutsideImage(event) {
+  const imagePane = document.getElementById('imageuploads');
+  if (imagePane && !imagePane.contains(event.target)) {
+      closeAddImagePane();
+  }
+}
+
 
 
 
@@ -83,10 +178,37 @@ function closeAddImagePane() {
 let selectedHeading = null;  // Variable to track selected heading style
 
 // Function to toggle the side pane
+// function toggleHeadingsPane() {
+//   const pane = document.getElementById('headingsPane');
+//   pane.classList.toggle('show');  // Toggle the 'show' class to show/hide the pane
+// }
+
+
+// Toggle the visibility of the Headings Pane
 function toggleHeadingsPane() {
   const pane = document.getElementById('headingsPane');
-  pane.classList.toggle('show');  // Toggle the 'show' class to show/hide the pane
+
+  // Check if the pane is already shown
+  if (pane.classList.contains('show')) {
+      pane.classList.remove('show'); // Hide the pane
+      document.removeEventListener('click', closeOnClickOutsideHeadings);
+  } else {
+      pane.classList.add('show'); // Show the pane
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutsideHeadings);
+      }, 0); // Delay to prevent immediate closure
+  }
 }
+
+// Function to close the pane when clicking outside of it
+function closeOnClickOutsideHeadings(event) {
+  const pane = document.getElementById('headingsPane');
+  if (pane && !pane.contains(event.target)) {
+      pane.classList.remove('show');
+      document.removeEventListener('click', closeOnClickOutsideHeadings);
+  }
+}
+
 
 // Function to select a heading style
 function selectHeading(styleClass) {
@@ -111,10 +233,37 @@ function updateHeadingStyle() {
   selectedHeading.style.borderRadius = borderRadius + 'px';
 }
 
+// function toggleGraphsPane() {
+//   const graphsPane = document.getElementById('graphsPane');
+//   graphsPane.classList.toggle('show'); // Toggles the visibility of the side pane
+// }
+
+
+// Toggle the visibility of the Graphs Pane
 function toggleGraphsPane() {
   const graphsPane = document.getElementById('graphsPane');
-  graphsPane.classList.toggle('show'); // Toggles the visibility of the side pane
+
+  // Check if the pane is already shown
+  if (graphsPane.classList.contains('show')) {
+      graphsPane.classList.remove('show'); // Hide the pane
+      document.removeEventListener('click', closeOnClickOutsideGraphs);
+  } else {
+      graphsPane.classList.add('show'); // Show the pane
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutsideGraphs);
+      }, 0); // Delay to prevent immediate closure
+  }
 }
+
+// Function to close the pane when clicking outside of it
+function closeOnClickOutsideGraphs(event) {
+  const graphsPane = document.getElementById('graphsPane');
+  if (graphsPane && !graphsPane.contains(event.target)) {
+      graphsPane.classList.remove('show');
+      document.removeEventListener('click', closeOnClickOutsideGraphs);
+  }
+}
+
 
 
 // Function to handle click event on the source div
@@ -1246,7 +1395,7 @@ const layoutsTable = [
   twoColumnsLayout,
   verticalStackLayout,
   splitTopBottomLayout,
-  horizontalSplitLayout,
+ 
   centeredLayout
 ];
 
@@ -1392,11 +1541,35 @@ function showDeleteButtons() {
   });
 }
 
+// function toggleDynamicTableSidePane() {
+//   const sidePane = document.getElementById('dynamicTableSidePane');
+//   sidePane.classList.toggle('show'); // Toggles the side pane visibility
+// }
+
+// Toggle the visibility of the Dynamic Table Side Pane
 function toggleDynamicTableSidePane() {
   const sidePane = document.getElementById('dynamicTableSidePane');
-  sidePane.classList.toggle('show'); // Toggles the side pane visibility
+
+  // Check if the pane is already shown
+  if (sidePane.classList.contains('show')) {
+      sidePane.classList.remove('show'); // Hide the pane
+      document.removeEventListener('click', closeOnClickOutsideDynamicTable);
+  } else {
+      sidePane.classList.add('show'); // Show the pane
+      setTimeout(() => {
+          document.addEventListener('click', closeOnClickOutsideDynamicTable);
+      }, 0); // Delay to prevent immediate closure
+  }
 }
 
+// Function to close the pane when clicking outside of it
+function closeOnClickOutsideDynamicTable(event) {
+  const sidePane = document.getElementById('dynamicTableSidePane');
+  if (sidePane && !sidePane.contains(event.target)) {
+      sidePane.classList.remove('show');
+      document.removeEventListener('click', closeOnClickOutsideDynamicTable);
+  }
+}
 
 
 

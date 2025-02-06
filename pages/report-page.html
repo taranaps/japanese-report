@@ -355,26 +355,27 @@
 
           </div>
           <div class="tabcontents" id="custom" >
-            <button class="toolbars-button" onclick="toggleHeadingsPane()">Headings</button>
+            <button class="toolbars-button" onclick="toggleHeadingsPane()">Table of Contents</button>
             <div class="vertical-line"></div>
-            <button class="toolbars-button" onclick="toggleGraphsPane()">Graphs</button>
+            <button class="toolbars-button" onclick="toggleGraphsPane()">Chart View</button>
             <div class="vertical-line"></div>
-            <button class="toolbars-button" onclick="toggleDynamicTableSidePane()">Tables</button>
+            <button class="toolbars-button" onclick="toggleDynamicTableSidePane()"> Data Tables</button>
             <div class="vertical-line"></div>
           
                 <button class="toolbars-button" id="changeColorButton">
-                  BackGround Color
+                  Color Palette
                 </button>
                 <div class="vertical-line"></div>
-                <button onclick="randomizeLayout()" class="toolbars-button">Graph Styles</button>
+                <button onclick="randomizeLayout()" class="toolbars-button"> Chart Layout</button>
                
-                <button id="changeLayoutBtn" class="toolbars-button">Batch Info Styles</button>
+                <button id="changeLayoutBtn" class="toolbars-button">Batch View
+                </button>
                 <div class="vertical-line"></div>
-                <button onclick="changeLayout('styleTable1')" class="toolbars-button">Table Style 1</button>
+                <button onclick="changeLayout('styleTable1')" class="toolbars-button">Table Compact View</button>
                 
-                <button onclick="changeLayout('styleTable2')" class="toolbars-button">Table Style 2</button>
+                <button onclick="changeLayout('styleTable2')" class="toolbars-button">Table Expanded View</button>
                 <div class="vertical-line"></div>
-                <button id="styleChangeButton" class="toolbars-button">System Styles</button>
+                <button id="styleChangeButton" class="toolbars-button"> Design Palette</button>
 
              
            
@@ -384,7 +385,7 @@
             <button class="close-button-side-pane" onclick="closeTemplatePane()">&#10005;</button>
             <h2 class="image-container-h2">Template</h2>
 
-
+            <div class="scrollable-content">
             <div class="template-item">
               <img src="../assets/images/template-two.png" alt="Template2" data-template="template2" />
               <p>Template 1</p>
@@ -409,6 +410,7 @@
                 data-template="custom-template-user"   id="toggleCustomImage" />
               <p>Custom template</p>
             </div>
+          </div>
 
           </div>
 
@@ -455,6 +457,7 @@
             <button class="close-button-side-pane" onclick="toggleHeadingsPane()"
               >&#10005;</button>
             <h3 class="image-container-h2">Choose Heading</h3>
+            <div class="scrollable-content">
             <div class="heading-option" onclick="selectHeading('style1')">
               <h1 class="style1">Japanese Language Training Report</h1>
             </div>
@@ -505,11 +508,13 @@
                   onchange="updateHeadingStyle()">
               </div>
             </div>
+            </div>
           </div>
           <div class="side-pane" id="graphsPane">
             <button class="close-button-side-pane" onclick="toggleGraphsPane()"
               ">&#10005;</button>
-            <h3 class="image-container-h2">Choose Graph</h3>
+            <h3 class="image-container-h2">Choose Chart</h3>
+            <div class="scrollable-content">
             <div class="graph-options">
               <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
                 data-id="activeBatches">
@@ -544,10 +549,10 @@
               </div>
             </div>
             <div class="layout-controls" class="form-group">
-              <button onclick="toggleLayout('row')" class="inside-popup-table-button" style="margin-top: 10px;">Row
+              <!-- <button onclick="toggleLayout('row')" class="inside-popup-table-button" style="margin-top: 10px;">Row
                 Layout</button>
               <button onclick="toggleLayout('column')" class="inside-popup-table-button"
-                style="margin-top: 10px; margin-bottom: 10px;">Column Layout</button><br>
+                style="margin-top: 10px; margin-bottom: 10px;">Column Layout</button><br> -->
               <!-- <label for="divsPerRow">Box's per Row: </label>
               <input type="number" id="divsPerRow" placeholder="Enter number of divs" min="1"
                 onchange="updateDivsPerRow()" /> -->
@@ -557,13 +562,15 @@
                 Delete Buttons</button>
             </div>
           </div>
+        </div>
 
           <div id="dynamicTableSidePane" class="side-pane">
             <button class="close-button-side-pane" onclick="toggleDynamicTableSidePane()"
              >&#10005;</button>
             <h3 class="image-container-h2" >Choose Table</h3>
+            <div class="scrollable-content">
             <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)"></div>
-
+          </div>
 
 
           </div>

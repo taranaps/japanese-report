@@ -3895,9 +3895,23 @@ table.custom-table td {
 
 
 
+/* Scrollbar customization (optional) */
+.image-container::-webkit-scrollbar {
+  width: 6px;
+}
+.image-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+.image-container::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 5px;
+}
+
+/* Main container */
 .image-container {
   position: fixed;
-  top: 29.5vh;
+  top: 29.5%;
   right: -25%; /* Start outside the viewport */
   height: 70%;
   width: 25%; /* Adjust the width as needed */
@@ -3906,12 +3920,12 @@ table.custom-table td {
   border-radius: 15px 0 0 15px; /* Rounded corners for a modern look */
   padding: 20px;
   z-index: 1000;
-  overflow:auto;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth and modern sliding effect */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Adjusted for content alignment */
+  overflow: hidden; /* Prevent scrolling on the main container */
 }
 
 .image-container.show {
@@ -3928,7 +3942,28 @@ table.custom-table td {
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 10px;
   width: 100%;
+  position: sticky; /* Keep the heading fixed */
+  top: 0;
+  /* background: linear-gradient(180deg, #f8f9fa, #ffffff);  */
+  z-index: 1;
 }
+
+/* Scrollable content */
+.scrollable-content {
+  flex: 1; /* Take up remaining space */
+  width: 100%;
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin-top: 10px;
+/* Hide scrollbar */
+scrollbar-width: none; /* For Firefox */
+-ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.scrollable-content::-webkit-scrollbar {
+display: none; /* For Chrome, Safari, and Opera */
+}
+
+
 
 /* Template items */
 .template-item {
@@ -3943,7 +3978,6 @@ table.custom-table td {
   transition: transform 0.2s, box-shadow 0.2s;
   width: 100%;
   cursor: pointer;
- 
 }
 
 .template-item:hover {
@@ -3973,7 +4007,7 @@ table.custom-table td {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #ff1a1a; 
+  background: #ff1a1a;
   border: none;
   color: white;
   font-size: 16px;
@@ -3987,30 +4021,11 @@ table.custom-table td {
   justify-content: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: background 0.2s ease-in-out;
+  z-index: 1001;
 }
 
 .close-button-side-pane:hover {
-/* Darker red on hover */
-  background: #dc143c;
-}
-
-/* Scrollbar customization (optional) */
-.image-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.image-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 5px;
-}
-
-.image-container::-webkit-scrollbar-thumb {
-  background: #c0c0c0;
-  border-radius: 5px;
-}
-
-.image-container::-webkit-scrollbar-thumb:hover {
-  background: #a0a0a0;
+  background: #dc143c; /* Darker red on hover */
 }
 
 /* .image-container-h2 {
