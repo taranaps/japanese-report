@@ -482,7 +482,7 @@ async function createEvaluationTable(data, id) {
   const headerRow = table.insertRow();
 
   // Add the "SI No" column header
-  ["SI No", "Trainee Name", "DU", "Avg.Attendance"].forEach((headerText) => {
+  ["SI No", "Trainee Name", "Department", "Avg.Attendance"].forEach((headerText) => {
       const th = document.createElement("th");
       th.textContent = headerText;
       headerRow.appendChild(th);
