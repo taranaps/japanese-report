@@ -3,7 +3,6 @@ import { collection, addDoc, doc, getDoc, updateDoc, setDoc, arrayUnion, arrayRe
 
 console.log("XLSX library loaded", XLSX);
 
-// DOM Elements
 const openUploadModal = document.getElementById('openUploadModal');
 const uploadModal = document.getElementById('uploadModal');
 const fileInput = document.getElementById('excelFile');
@@ -14,24 +13,20 @@ const messageModal = document.getElementById('messageModal');
 const messageContent = document.getElementById('messageContent');
 const closeMessageModal = document.getElementById('closeMessageModal');
 
-// Show the upload modal
 openUploadModal.addEventListener('click', () => {
     document.body.classList.add('modal-active');
     uploadModal.style.display = 'block';
 });
 
-// Close modal event
 closeUploadModal.addEventListener('click', () => {
-    document.body.classList.remove('modal-active'); // Remove modal-active class
-    uploadModal.style.display = 'none'; // Hide the modal
+    document.body.classList.remove('modal-active'); 
+    uploadModal.style.display = 'none'; 
 });
 
-// Close message modal
 closeMessageModal.addEventListener('click', () => {
     messageModal.style.display = 'none';
 });
 
-// Handle file upload and process the Excel data
 uploadButton.addEventListener('click', async () => {
     const file = fileInput.files[0];
 
@@ -46,8 +41,8 @@ uploadButton.addEventListener('click', async () => {
     }
 
     try {
-        console.log("inside xlsx", XLSX.utils); // Check if utils are accessible
-        console.log("inside xlsx methods", Object.keys(XLSX));  // List available methods to see if `read` exists
+        console.log("inside xlsx", XLSX.utils); 
+        console.log("inside xlsx methods", Object.keys(XLSX));  
 
 
         const data = await file.arrayBuffer();
@@ -55,24 +50,15 @@ uploadButton.addEventListener('click', async () => {
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
 
-        console.log("jsonData ka trainees:", jsonData); // View initial parsed data
+        console.log("jsonData ka trainees:", jsonData); 
 
-        // Preliminary validation for merged cell fields
-        //  const rawValidationResult = validateRawData(jsonData);
-        //  if (!rawValidationResult.isValid) {
-        //      showMessageModal(rawValidationResult.errorMessage, 'error');
-        //      return;
-        //  }
-
-
-        // Process data into structured format
         const trainees = processTraineeData(sheet, jsonData);
 
         console.log("processtrainee eventlistner ka trainees:", trainees);
 
         const validationResult = validateData(trainees);
 
-        console.log("validationResult ka trainees:", validationResult); // Check if data validation passed or failed
+        console.log("validationResult ka trainees:", validationResult); 
 
         if (validationResult.isValid) {
             const trainees = processTraineeData(sheet, jsonData);
@@ -90,40 +76,18 @@ uploadButton.addEventListener('click', async () => {
     }
 });
 
-// Function to show the success/error modal
 function showMessageModal(message, type) {
     messageContent.textContent = message;
-    messageContent.className = type; // Apply either "success" or "error" style
+    messageContent.className = type;
     messageModal.style.display = 'block';
 }
 
-// Extract Month-Year collection name
 function getCollectionName(month) {
     const year = new Date().getFullYear();
     return `${month.toLowerCase()}-${year}`;
 }
 
-// Validate raw data before processing trainee data
-// function validateRawData(rawData) {
-//     const requiredFields = [
-//         "Batch Name", "Trainer Name", "Number of Sessions Till Date",
-//         "Number of Sessions (Month)", "Batch Duration Till Date",
-//         "Batch Duration (Month)", "Month", "Certification Level"
-//     ];
-
-//     for (const row of rawData) {
-//         for (const field of requiredFields) {
-//             if (!row[field]) {
-//                 return { isValid: false, errorMessage: `Field '${field}' cannot be empty.` };
-//             }
-//         }
-//     }
-//     return { isValid: true };
-// }
-
-// Validate the uploaded data against the specified rules
 function validateData(trainees) {
-    // Check if all trainee objects contain the required fields
     const requiredHeaders = [
         'traineeName', 'batchName', 'numberOfSessionsTillDate', 'numberOfSessionsMonth',
         'batchDurationTillDate', 'batchDurationMonth', 'certificationLevel', 'month',
@@ -134,7 +98,6 @@ function validateData(trainees) {
     const validEvaluationNumbers = /^E\d+$/;
     const validBatchNamePattern = /^Batch \d+$/;
 
-    // 1. Check if all headers are present
     const keys = Object.keys(trainees[0] || {});
     for (const header of requiredHeaders) {
         if (!keys.includes(header)) {
@@ -144,12 +107,10 @@ function validateData(trainees) {
 
     for (const trainee of trainees) {
 
-        // Validate that batchName is not empty and follows "Batch X" format
         if (!trainee.batchName || !validBatchNamePattern.test(trainee.batchName)) {
             return { isValid: false, errorMessage: `Batch Name is required and must follow the format 'Batch X' where X is a number. Invalid Batch Name: '${trainee.batchName}' for trainee: ${trainee.traineeName}.` };
         }
 
-        // Check for empty fields (other than evaluations)
         if (trainee.traineeName) {
             for (const field of requiredHeaders) {
                 if (!trainee[field] && field !== 'evaluations' && field !== 'avgAttendance') {
@@ -158,7 +119,6 @@ function validateData(trainees) {
             }
         }
 
-        // Evaluation-specific validation
         for (const evaluation of trainee.evaluations || []) {
             if (!validEvaluationNumbers.test(evaluation.evaluationNo)) {
                 return { isValid: false, errorMessage: `Invalid Evaluation Number '${evaluation.evaluationNo}' for trainee: ${trainee.traineeName}. Expected format: E1, E2, ...` };
@@ -173,7 +133,6 @@ function validateData(trainees) {
             }
         }
 
-        // Additional validations (example: Certification Level format)
         if (!/^(N[1-5])$/.test(trainee.certificationLevel)) {
             return { isValid: false, errorMessage: `Invalid Certification Level: '${trainee.certificationLevel}'. Expected values: N1, N2, N3, N4, N5.` };
         }
@@ -191,28 +150,23 @@ function validateData(trainees) {
             return { isValid: false, errorMessage: `Avg Attendance Percentage must be between 1 and 100.` };
         }
 
-        // Ensure 'Batch Duration Till Date' >= 'Batch duration (month)'
         if (trainee.batchDurationTillDate < trainee.batchDurationMonth) {
             return { isValid: false, errorMessage: `Batch Duration Till Date should be greater than or equal to Batch Duration (Month) for trainee: ${trainee.traineeName}.` };
         }
 
-        // Ensure 'Number of Sessions Till Date' >= 'Number of Sessions (Month)'
         if (trainee.numberOfSessionsTillDate < trainee.numberOfSessionsMonth) {
             return { isValid: false, errorMessage: `Number of Sessions Till Date should be greater than or equal to Number of Sessions (Month) for trainee: ${trainee.traineeName}.` };
         }
 
-        // Check for integers in 'Number of Sessions' fields
         if (!Number.isInteger(trainee.numberOfSessionsMonth) || !Number.isInteger(trainee.numberOfSessionsTillDate)) {
             return { isValid: false, errorMessage: `Number of Sessions fields should be integers for trainee: ${trainee.traineeName}.` };
         }
 
-        // Ensure 'Number of Sessions' and 'Batch Duration' fields are non-zero
         if (trainee.numberOfSessionsMonth <= 0 || trainee.numberOfSessionsTillDate <= 0 || trainee.batchDurationMonth <= 0 || trainee.batchDurationTillDate <= 0) {
             return { isValid: false, errorMessage: `Number of Sessions and Batch Duration fields cannot be 0 or empty for trainee: ${trainee.traineeName}.` };
         }
     }
 
-    // Check for consistent 'Month' value
     const monthValue = trainees[0]?.month;
     for (const trainee of trainees) {
         if (trainee.month !== monthValue) {
@@ -223,7 +177,6 @@ function validateData(trainees) {
     return { isValid: true };
 }
 
-// Process Excel data into structured objects
 function processTraineeData(sheet, data) {
     const trainees = [];
     let currentBatch = "", certLevel = "", month = "", trainerNames = [],
@@ -252,7 +205,7 @@ function processTraineeData(sheet, data) {
             batchName: currentBatch || "",
             certificationLevel: certLevel || "",
             month: month || "",
-            du: row["DU"] || "",
+            du: row["Department"] || "",
             avgAttendance: row["Avg Attendance Percentage"] || 0,
             trainerName: trainerNames || "",
             numberOfSessionsTillDate: parseInt(nOfSessionsTillDate) || 0,
@@ -296,8 +249,6 @@ function locateEvaluationRows(data) {
     return { evalNumbers, evalNames };
 }
 
-
-// Extract evaluations for each trainee
 function extractEvaluations(row, evalNumbers, evalNames) {
     const evaluations = [];
 
@@ -331,15 +282,12 @@ function extractEvaluations(row, evalNumbers, evalNames) {
     return evaluations;
 }
 
-// Upload structured data to Firestore
 async function uploadDataToFirestore(collectionName, trainees) {
     const colRef = collection(db, collectionName);
 
-    // Check if collection with same data already exists
     const existingDocsSnapshot = await getDocs(colRef);
     const existingDocs = existingDocsSnapshot.docs.map(doc => doc.data());
 
-    // Convert trainees and existingDocs to JSON strings for comparison
     const newData = JSON.stringify(trainees);
     const existingData = JSON.stringify(existingDocs);
 
@@ -348,7 +296,6 @@ async function uploadDataToFirestore(collectionName, trainees) {
             console.log("No changes detected, skipping upload.");
             return;
         } else {
-            // Delete existing docs before replacing with new ones
             for (const docSnapshot of existingDocsSnapshot.docs) {
                 await deleteDoc(docSnapshot.ref);
             }
@@ -359,7 +306,6 @@ async function uploadDataToFirestore(collectionName, trainees) {
 
     for (const trainee of trainees) {
         try {
-            // Rename document to `batch-name-trainee-name`
             const docName = `${trainee.batchName.replace(/\s+/g, "-").toLowerCase()}-${trainee.traineeName.replace(/\s+/g, "-").toLowerCase()}`;
             const docRef = doc(colRef, docName);
             await setDoc(docRef, trainee);
@@ -369,26 +315,21 @@ async function uploadDataToFirestore(collectionName, trainees) {
         }
     }
 }
-
-// Function to update meta collection
 async function updateMetaCollection(collectionName) {
     const metaDocRef = doc(db, 'meta', 'collections');
     const metaDoc = await getDoc(metaDocRef);
 
     if (metaDoc.exists()) {
-        // If the meta document exists, update the collection names
         await updateDoc(metaDocRef, {
-            names: arrayUnion(collectionName) // Use arrayUnion to avoid duplicates
+            names: arrayUnion(collectionName) 
         });
     } else {
-        // If the meta document doesn't exist, create it with the collection name
         await setDoc(metaDocRef, {
             names: [collectionName]
         });
     }
 }
 
-// Remove a collection and update meta document
 async function deleteCollectionAndMeta(collectionName) {
     const colRef = collection(db, collectionName);
     const existingDocsSnapshot = await getDocs(colRef);
@@ -396,8 +337,6 @@ async function deleteCollectionAndMeta(collectionName) {
     for (const docSnapshot of existingDocsSnapshot.docs) {
         await deleteDoc(docSnapshot.ref);
     }
-
-    // Update 'meta' collection to remove collection name
     const metaDocRef = doc(db, 'meta', 'collections');
     await updateDoc(metaDocRef, {
         names: arrayRemove(collectionName)
