@@ -1,7 +1,6 @@
 import { db } from "./firebaseConfig.mjs";
 import { collection, addDoc, doc, getDoc, updateDoc, setDoc, arrayUnion, arrayRemove, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-
 console.log("XLSX library loaded", XLSX);
 
 // DOM Elements
@@ -31,8 +30,6 @@ closeUploadModal.addEventListener('click', () => {
 closeMessageModal.addEventListener('click', () => {
     messageModal.style.display = 'none';
 });
-
-
 
 // Handle file upload and process the Excel data
 uploadButton.addEventListener('click', async () => {
@@ -185,22 +182,22 @@ function validateData(trainees) {
             return { isValid: false, errorMessage: `Invalid Month: '${trainee.month}'. Expected a valid month name.` };
         }
 
-        if (!/^DU \d+$/.test(trainee.du)) {
-            return { isValid: false, errorMessage: `Invalid DU format: '${trainee.du}'. Expected format: 'DU [num]' where num is from 1 to 6.` };
-        }
+        if (!/^(DU\d+|PitStop)$/.test(trainee.du)) { 
+            return { isValid: false, errorMessage: `Invalid DU format: '${trainee.du}'. Expected formats: 'DU[num]' (e.g., 'DU1', 'DU2') or 'PitStop'.` };
+        }                
 
         if (trainee.avgAttendance == null || trainee.avgAttendance < 0 || trainee.avgAttendance > 100) {
             return { isValid: false, errorMessage: `Avg Attendance Percentage must be between 1 and 100.` };
         }
 
-        // Ensure 'Batch duration (month)' < 'Batch Duration Till Date'
-        if (trainee.batchDurationMonth >= trainee.batchDurationTillDate) {
-            return { isValid: false, errorMessage: `Batch Duration (Month) should be less than Batch Duration Till Date for trainee: ${trainee.traineeName}.` };
+        // Ensure 'Batch Duration Till Date' >= 'Batch duration (month)'
+        if (trainee.batchDurationTillDate < trainee.batchDurationMonth) {
+            return { isValid: false, errorMessage: `Batch Duration Till Date should be greater than or equal to Batch Duration (Month) for trainee: ${trainee.traineeName}.` };
         }
 
-        // Ensure 'Number of Sessions (month)' < 'Number of Sessions Till Date'
-        if (trainee.numberOfSessionsMonth >= trainee.numberOfSessionsTillDate) {
-            return { isValid: false, errorMessage: `Number of Sessions (Month) should be less than Number of Sessions Till Date for trainee: ${trainee.traineeName}.` };
+        // Ensure 'Number of Sessions Till Date' >= 'Number of Sessions (Month)'
+        if (trainee.numberOfSessionsTillDate < trainee.numberOfSessionsMonth) {
+            return { isValid: false, errorMessage: `Number of Sessions Till Date should be greater than or equal to Number of Sessions (Month) for trainee: ${trainee.traineeName}.` };
         }
 
         // Check for integers in 'Number of Sessions' fields
