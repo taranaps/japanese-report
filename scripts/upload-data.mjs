@@ -182,9 +182,10 @@ function validateData(trainees) {
             return { isValid: false, errorMessage: `Invalid Month: '${trainee.month}'. Expected a valid month name.` };
         }
 
-        if (!/^(DU\d+|PitStop)$/.test(trainee.du)) { 
-            return { isValid: false, errorMessage: `Invalid DU format: '${trainee.du}'. Expected formats: 'DU[num]' (e.g., 'DU1', 'DU2') or 'PitStop'.` };
-        }                
+        if (!/^(Executive Management|Administration|Human Resources|Strategic Hiring|Talent Pool|System Facility Management|Legal|Audits and Compliance|Global PMO|Internal Systems|Finance and Accounts|Learning and Development|PitStop|Business Solutions|Japan Delivery|Testing Practice|BFSI Practice|Australia Delivery|Global Marketing|Partnerships and Alliances|Business Development Australia|Business Development UK|Business Development Japan|Business Development USA|Executive Office|DU[1-8]|FinForge)$/.test(trainee.du)) { 
+            return { isValid: false, errorMessage: `Invalid DU format: '${trainee.du}'. Expected one of the predefined values.` };
+        }
+                      
 
         if (trainee.avgAttendance == null || trainee.avgAttendance < 0 || trainee.avgAttendance > 100) {
             return { isValid: false, errorMessage: `Avg Attendance Percentage must be between 1 and 100.` };
