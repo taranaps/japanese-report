@@ -115,9 +115,27 @@ body {
   font-family: 'Arial', sans-serif; /* Clean font */
   font-weight: bold; /* Bold text for prominence */
   border-bottom: 2px solid #d0d0d0; /* Slightly darker border for contrast */
+   /* Enable horizontal scrolling only if content overflows */
+   overflow-x: auto;
+   overflow-y: hidden;
+
   
   
  
+}
+
+/* Optional: Hide scrollbar for a cleaner look */
+.toolbars::-webkit-scrollbar {
+  height: 2px; /* Adjust scrollbar thickness */
+}
+
+.toolbars::-webkit-scrollbar-thumb {
+  background-color: #dc143c; /* Color of scrollbar */
+  border-radius: 4px;
+}
+
+.toolbars::-webkit-scrollbar-track {
+  background: #f4f4f4; /* Background matches toolbar */
 }
 .toolbars > * {
   display: flex; /* Use flexbox for centering */

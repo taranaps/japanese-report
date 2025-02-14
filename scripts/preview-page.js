@@ -3963,7 +3963,7 @@ function changeBackgroundColor() {
   const h1Elements = document.querySelectorAll('.box-template-custom-user h1');
   const trainerNameH3 = document.querySelectorAll('#trainer-name-custom-user-template h3');
   const tableContainer = document.querySelectorAll('.tablecontainer-custom-user');
-  const graphCustomContainer=document.querySelectorAll('#chartDiv');
+ 
 
   // Generate random color
   const randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -4013,7 +4013,7 @@ function changeBackgroundColor() {
   graphDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
   tableDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
   h1InHeadingContainer.style.backgroundColor=`rgba(${r}, ${g}, ${b}, 0.10)`;
-  graphCustomContainer.style.backgroundColor=`rgba(${r}, ${g}, ${b}, 0.10)`;
+ 
 
 
 
