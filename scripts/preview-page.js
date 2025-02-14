@@ -3963,6 +3963,7 @@ function changeBackgroundColor() {
   const h1Elements = document.querySelectorAll('.box-template-custom-user h1');
   const trainerNameH3 = document.querySelectorAll('#trainer-name-custom-user-template h3');
   const tableContainer = document.querySelectorAll('.tablecontainer-custom-user');
+  const graphCustomContainer=document.querySelectorAll('#chartDiv');
 
   // Generate random color
   const randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -3998,6 +3999,9 @@ function changeBackgroundColor() {
   tableContainer.forEach(container => {
       container.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
   });
+//   graphCustomContainer.forEach(container => {
+//     container.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
+// });
   const h1InHeadingContainer = document.querySelector('#custom-template-heading-container h1');
   if (h1InHeadingContainer) {
     h1InHeadingContainer.style.color = `#${randomColor}`;  // Change color of h1 in specific div
@@ -4009,6 +4013,7 @@ function changeBackgroundColor() {
   graphDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
   tableDiv.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.10)`;
   h1InHeadingContainer.style.backgroundColor=`rgba(${r}, ${g}, ${b}, 0.10)`;
+  graphCustomContainer.style.backgroundColor=`rgba(${r}, ${g}, ${b}, 0.10)`;
 
 
 
@@ -4280,28 +4285,675 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// let isTableView = true;
+// let startTable = null;
+
+// // Toggle between table view and chart view
+// function toggleView() {
+//     let tableDiv = document.getElementById("tablecontainer-custom-user");
+//     let chartDiv = document.getElementById("chartDiv");
+
+//     if (isTableView) {
+//         tableDiv.style.display = "none";
+//         chartDiv.style.display = "block";
+//         generateChartsAndTables();
+//     } else {
+//         tableDiv.style.display = "block";
+//         chartDiv.style.display = "none";
+//     }
+//     isTableView = !isTableView;
+// }
+
+// // Generate dynamic tables and add them to the connectedTables container
+// function generateChartsAndTables() {
+//     let chartGrid = document.getElementById("chartGrid");
+//     let connectedTables = document.getElementById("connectedTables");
+
+//     chartGrid.innerHTML = ""; // Clear previous content
+//     connectedTables.innerHTML = ""; // Clear previous content
+
+//     let tables = document.querySelectorAll("#tableContent-custom-user table");
+
+//     tables.forEach((table, index) => {
+//         let wrapper = document.createElement("div");
+//         wrapper.className = "resizable-table";
+//         wrapper.style.left = `${50 + index * 200}px`; // Adjust horizontal spacing
+//         wrapper.style.top = `${50 + index * 100}px`; // Adjust vertical spacing
+//         wrapper.appendChild(table.cloneNode(true));
+//         wrapper.addEventListener("dblclick", startConnecting);
+//         connectedTables.appendChild(wrapper); // Append to the correct container
+//     });
+// }
+
+// // Start connecting two tables with a line
+// function startConnecting(event) {
+//     let table = event.target.closest(".resizable-table");
+//     if (!startTable) {
+//         startTable = table;
+//     } else {
+//         drawLine(startTable, table);
+//         startTable = null;
+//     }
+// }
+
+// // Draw a line between two tables
+// function drawLine(startElem, endElem) {
+//     let line = document.createElement("div");
+//     line.className = "line";
+//     document.getElementById("connectedTables").appendChild(line);
+
+//     function updateLine() {
+//         let startRect = startElem.getBoundingClientRect();
+//         let endRect = endElem.getBoundingClientRect();
+
+//         let x1 = startRect.left + startRect.width / 2;
+//         let y1 = startRect.top + startRect.height / 2;
+//         let x2 = endRect.left + endRect.width / 2;
+//         let y2 = endRect.top + endRect.height / 2;
+
+//         let length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+//         let angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+
+//         line.style.width = `${length}px`;
+//         line.style.transform = `rotate(${angle}deg)`;
+//         line.style.position = "absolute";
+//         line.style.left = `${x1}px`;
+//         line.style.top = `${y1}px`;
+//     }
+
+//     // Initial line update
+//     updateLine();
+
+//     // Update line when tables are resized
+//     new ResizeObserver(updateLine).observe(startElem);
+//     new ResizeObserver(updateLine).observe(endElem);
+// }
+
+
+// let isTableView = true;
+
+// function toggleView() {
+//     let tableDiv = document.getElementById("tablecontainer-custom-user");
+//     let chartDiv = document.getElementById("chartDiv");
+
+//     if (isTableView) {
+//         tableDiv.style.display = "none";
+//         chartDiv.style.display = "block";
+//         generateChartsAndTables();
+//     } else {
+//         tableDiv.style.display = "block";
+//         chartDiv.style.display = "none";
+//     }
+//     isTableView = !isTableView;
+// }
+
+// function generateChartsAndTables() {
+//     let chartGrid = document.getElementById("chartGrid");
+//     let connectedTables = document.getElementById("connectedTables");
+//     chartGrid.innerHTML = "";  
+//     connectedTables.innerHTML = ""; 
+
+//     let tables = document.querySelectorAll("#tableContent-custom-user table");
+
+//     tables.forEach((table, index) => {
+//         let rows = table.querySelectorAll("tr");
+//         let headers = [];
+//         let values = [];
+//         let isNumericTable = false;
+
+//         // Extract headers
+//         let headerCells = rows[0].getElementsByTagName("td");
+//         for (let cell of headerCells) {
+//             headers.push(cell.innerText);
+//         }
+
+//         // Extract data from remaining rows
+//         for (let i = 1; i < rows.length; i++) {
+//             let cells = rows[i].getElementsByTagName("td");
+//             if (cells.length === 2 && !isNaN(cells[1].innerText)) {
+//                 isNumericTable = true;
+//                 values.push({
+//                     label: cells[0].innerText,
+//                     value: parseInt(cells[1].innerText)
+//                 });
+//             }
+//         }
+
+//         if (isNumericTable) {
+//             createChart(headers, values, index);
+//         } else {
+//             createConnectedTable(table, index, tables.length);
+//         }
+//     });
+// }
+
+// function createChart(headers, values, index) {
+//     let chartGrid = document.getElementById("chartGrid");
+
+//     let canvasContainer = document.createElement("div");
+//     canvasContainer.className = "chart-box";
+//     let canvas = document.createElement("canvas");
+//     canvas.id = "chartCanvas" + index;
+//     canvasContainer.appendChild(canvas);
+//     chartGrid.appendChild(canvasContainer);
+
+//     let ctx = canvas.getContext("2d");
+//     new Chart(ctx, {
+//         type: "bar",
+//         data: {
+//             labels: values.map(v => v.label),
+//             datasets: [{
+//                 label: headers[1],
+//                 data: values.map(v => v.value),
+//                 backgroundColor: ["red", "blue", "green", "orange", "purple", "cyan"],
+//                 borderWidth: 1
+//             }]
+//         },
+//         options: {
+//             responsive: true,
+//             scales: {
+//                 y: {
+//                     beginAtZero: true
+//                 }
+//             }
+//         }
+//     });
+// }
+
+// function createConnectedTable(table, index, totalTables) {
+//     let connectedTables = document.getElementById("connectedTables");
+
+//     let tableClone = table.cloneNode(true);
+//     let divWrapper = document.createElement("div");
+//     divWrapper.className = "connected-table";
+
+//     // Remove right connection if it's the last table in the row
+//     if ((index + 1) % 2 === 0 || index === totalTables - 1) {
+//         divWrapper.style.marginRight = "0";
+//     }
+
+//     divWrapper.appendChild(tableClone);
+//     connectedTables.appendChild(divWrapper);
+// }
 
 
 
 
+// let isTableView = true;
+// let currentResizer = null;
+
+// function toggleView() {
+//     let tableDiv = document.getElementById("tablecontainer-custom-user");
+//     let chartDiv = document.getElementById("chartDiv");
+//     if (isTableView) {
+//         tableDiv.style.display = "none";
+//         chartDiv.style.display = "block";
+//         generateChartsAndTables();
+//     } else {
+//         tableDiv.style.display = "block";
+//         chartDiv.style.display = "none";
+//     }
+//     isTableView = !isTableView;
+// }
+
+// function generateChartsAndTables() {
+//     let connectedTables = document.getElementById("connectedTables");
+//     connectedTables.innerHTML = ""; // Clear previous content
+//     let tables = document.querySelectorAll("#tableContent-custom-user table");
+
+//     tables.forEach((table, index) => {
+//         let tableClone = table.cloneNode(true);
+//         let divWrapper = document.createElement("div");
+//         divWrapper.className = "resizable-table";
+//         divWrapper.style.position = "absolute"; 
+//         divWrapper.style.left = `${100 + index * 250}px`; // Initial position
+//         divWrapper.style.top = `${100 + index * 100}px`;
+//         divWrapper.style.width = "200px"; // Initial width
+//         divWrapper.appendChild(tableClone);
+
+//         // Add resizers
+//         let resizer = document.createElement("div");
+//         resizer.className = "resizer";
+//         resizer.style.width = "10px";
+//         resizer.style.height = "10px";
+//         resizer.style.background = "none";
+//         resizer.style.position = "absolute";
+//         resizer.style.right = "0";
+//         resizer.style.bottom = "0";
+//         resizer.style.cursor = "se-resize";
+//         divWrapper.appendChild(resizer);
+
+//         // Add event listeners
+//         divWrapper.addEventListener("mouseenter", showTooltip);
+//         divWrapper.addEventListener("mouseleave", hideTooltip);
+
+//         // Make the div draggable
+//         makeDraggable(divWrapper);
+
+//         // Make the div resizable
+//         makeResizable(divWrapper, resizer);
+
+//         connectedTables.appendChild(divWrapper);
+//     });
+// }
+
+// function makeDraggable(element) {
+//     let offsetX = 0, offsetY = 0, isDragging = false;
+
+//     element.addEventListener("mousedown", (e) => {
+//         isDragging = true;
+//         offsetX = e.clientX - element.getBoundingClientRect().left;
+//         offsetY = e.clientY - element.getBoundingClientRect().top;
+//         element.style.cursor = "grabbing";
+//     });
+
+//     document.addEventListener("mousemove", (e) => {
+//         if (isDragging) {
+//             element.style.left = `${e.clientX - offsetX}px`;
+//             element.style.top = `${e.clientY - offsetY}px`;
+//         }
+//     });
+
+//     document.addEventListener("mouseup", () => {
+//         isDragging = false;
+//         element.style.cursor = "grab";
+//     });
+// }
+
+// function makeResizable(element, resizer) {
+//     let isResizing = false;
+
+//     resizer.addEventListener("mousedown", (e) => {
+//         e.stopPropagation();
+//         isResizing = true;
+//         currentResizer = resizer;
+//     });
+
+//     document.addEventListener("mousemove", (e) => {
+//         if (isResizing && currentResizer === resizer) {
+//             element.style.width = `${e.clientX - element.getBoundingClientRect().left}px`;
+//             element.style.height = `${e.clientY - element.getBoundingClientRect().top}px`;
+//         }
+//     });
+
+//     document.addEventListener("mouseup", () => {
+//         isResizing = false;
+//         currentResizer = null;
+//     });
+// }
+
+// function showTooltip(event) {
+//     let tooltip = document.createElement("div");
+//     tooltip.className = "tooltip";
+//     tooltip.textContent = "Double-click to connect";
+//     tooltip.style.left = `${event.clientX + 10}px`;
+//     tooltip.style.top = `${event.clientY + 10}px`;
+//     document.body.appendChild(tooltip);
+//     tooltip.style.display = "block";
+// }
+
+// function hideTooltip() {
+//     let tooltip = document.querySelector(".tooltip");
+//     if (tooltip) {
+//         tooltip.remove();
+//     }
+// }
 
 
 
+// let isTableView = true;
+// let currentResizer = null;
 
+// function toggleView() {
+//     let tableDiv = document.getElementById("tablecontainer-custom-user");
+//     let chartDiv = document.getElementById("chartDiv");
+//     if (isTableView) {
+//         tableDiv.style.display = "none";
+//         chartDiv.style.display = "block";
+//         generateChartsAndTables();
+//     } else {
+//         tableDiv.style.display = "block";
+//         chartDiv.style.display = "none";
+//     }
+//     isTableView = !isTableView;
+// }
 
+// function generateChartsAndTables() {
+//     let connectedTables = document.getElementById("connectedTables");
+//     connectedTables.innerHTML = ""; // Clear previous content
+//     let tables = document.querySelectorAll("#tableContent-custom-user table");
 
+//     tables.forEach((table, index) => {
+//         let tableClone = table.cloneNode(true);
+//         let divWrapper = document.createElement("div");
+//         divWrapper.className = "resizable-table";
+//         // divWrapper.style.position = "absolute"; 
+//         divWrapper.style.left = `${100 + index * 250}px`; // Initial position
+//         divWrapper.style.top = `${100 + index * 100}px`;
+//         divWrapper.style.width = "200px"; // Initial width
+//         divWrapper.appendChild(tableClone);
 
+//         // Add resizers
+//         let resizer = document.createElement("div");
+//         resizer.className = "resizer";
+//         resizer.style.width = "10px";
+//         resizer.style.height = "10px";
+//         resizer.style.background = "none";
+//         resizer.style.position = "absolute";
+//         resizer.style.right = "0";
+//         resizer.style.bottom = "0";
+//         resizer.style.cursor = "se-resize";
+//         divWrapper.appendChild(resizer);
 
+//         // Add event listeners
+//         divWrapper.addEventListener("mouseenter", showTooltip);
+//         divWrapper.addEventListener("mouseleave", hideTooltip);
 
+//         // Make the div draggable
+//         makeDraggable(divWrapper);
 
+//         // Make the div resizable
+//         makeResizable(divWrapper, resizer);
 
+//         connectedTables.appendChild(divWrapper);
+//     });
+// }
 
+// function makeDraggable(element) {
+//     let offsetX = 0, offsetY = 0, isDragging = false;
 
+//     element.addEventListener("mousedown", (e) => {
+//         isDragging = true;
+//         offsetX = e.clientX - element.getBoundingClientRect().left; // Offset from the left edge
+//         offsetY = e.clientY - element.getBoundingClientRect().top; // Offset from the top edge
+//         element.style.cursor = "grabbing";
+//     });
 
+//     document.addEventListener("mousemove", (e) => {
+//         if (isDragging) {
+//             // Update the position of the element based on the cursor's position
+//             element.style.left = `${e.clientX - offsetX}px`;
+//             element.style.top = `${e.clientY - offsetY}px`;
+//         }
+//     });
 
+//     document.addEventListener("mouseup", () => {
+//         isDragging = false;
+//         element.style.cursor = "grab";
+//     });
+// }
 
+// function makeResizable(element, resizer) {
+//     let isResizing = false;
 
+//     resizer.addEventListener("mousedown", (e) => {
+//         e.stopPropagation(); // Prevent dragging while resizing
+//         isResizing = true;
+//         currentResizer = resizer;
+//     });
 
+//     document.addEventListener("mousemove", (e) => {
+//         if (isResizing && currentResizer === resizer) {
+//             // Resize the element based on the cursor's position
+//             element.style.width = `${e.clientX - element.getBoundingClientRect().left}px`;
+//             element.style.height = `${e.clientY - element.getBoundingClientRect().top}px`;
+//         }
+//     });
 
+//     document.addEventListener("mouseup", () => {
+//         isResizing = false;
+//         currentResizer = null;
+//     });
+// }
 
+// function showTooltip(event) {
+//     let tooltip = document.createElement("div");
+//     tooltip.className = "tooltip";
+//     tooltip.textContent = "Double-click to connect";
+//     tooltip.style.left = `${event.clientX + 10}px`;
+//     tooltip.style.top = `${event.clientY + 10}px`;
+//     document.body.appendChild(tooltip);
+//     tooltip.style.display = "block";
+// }
 
+// function hideTooltip() {
+//     let tooltip = document.querySelector(".tooltip");
+//     if (tooltip) {
+//         tooltip.remove();
+//     }
+// }
+
+let isTableView = true;
+
+// Toggle between table view and chart view
+function toggleView() {
+    let tableDiv = document.getElementById("tablecontainer-custom-user");
+    let chartDiv = document.getElementById("chartDiv");
+    if (isTableView) {
+        // tableDiv.style.display = "none";
+        chartDiv.style.display = "block";
+        generateCharts();
+    } else {
+        tableDiv.style.display = "block";
+        chartDiv.style.display = "none";
+    }
+    isTableView = !isTableView;
+}
+
+// Generate charts for numeric tables
+function generateCharts() {
+    let chartGrid = document.getElementById("chartGrid");
+    chartGrid.innerHTML = ""; // Clear previous content
+
+    let tables = document.querySelectorAll("#tableContent-custom-user table");
+    tables.forEach((table, index) => {
+        let rows = table.querySelectorAll("tr");
+        let headers = [];
+        let values = [];
+        let isNumericTable = false;
+
+        // Extract headers
+        let headerCells = rows[0].getElementsByTagName("td");
+        for (let cell of headerCells) {
+            headers.push(cell.innerText);
+        }
+
+        // Extract data from remaining rows
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            if (cells.length === 2 && !isNaN(cells[1].innerText)) {
+                isNumericTable = true;
+                values.push({
+                    label: cells[0].innerText,
+                    value: parseInt(cells[1].innerText)
+                });
+            }
+        }
+
+        // If the table contains numeric data, create a chart and remove it from the main div
+        if (isNumericTable) {
+            createChart(headers, values, index, chartGrid);
+            table.remove(); // Remove the numeric table from the main div
+        }
+        // Non-numeric tables remain untouched in their original container
+    });
+}
+
+// Create a chart based on the extracted data
+function createChart(headers, values, index, chartGrid) {
+    // Create a container for the chart
+    let chartContainer = document.createElement("div");
+    chartContainer.className = "chart-container";
+    // chartContainer.style.position = "absolute";
+    chartContainer.style.left = `${50 + (index % 3) * 300}px`; // Adjust horizontal spacing
+    chartContainer.style.top = `${50 + Math.floor(index / 3) * 300}px`; // Adjust vertical spacing
+    chartContainer.style.width = "300px"; // Initial width
+    chartContainer.style.height = "400px"; // Initial height
+    chartContainer.style.border = "1px solid #ccc"; // Optional border for visibility
+    chartContainer.style.backgroundColor = "white"; // White background for the chart
+    chartContainer.style.overflow = "hidden"; // Prevent overflow
+
+    // Add a heading for the chart
+    let heading = document.createElement("div");
+    heading.className = "chart-heading";
+    heading.contentEditable = true; // Make the heading editable
+    heading.innerText = "Chart Title"; // Default title
+    heading.style.textAlign = "center";
+    heading.style.fontWeight = "bold";
+    heading.style.padding = "5px";
+    heading.style.cursor = "text";
+    chartContainer.appendChild(heading);
+
+    // Create a canvas element for the chart
+    let canvas = document.createElement("canvas");
+    canvas.id = "chartCanvas" + index;
+    canvas.style.width = "100%"; // Ensure canvas fits the container
+    canvas.style.height = "calc(100% - 40px)"; // Leave space for the heading
+    canvas.style.padding="50px"
+    chartContainer.appendChild(canvas);
+    chartGrid.appendChild(chartContainer);
+
+    // Render the chart using Chart.js
+    let ctx = canvas.getContext("2d");
+    let myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: values.map(v => v.label),
+            datasets: [{
+                label: headers[1],
+                data: values.map(v => v.value),
+                backgroundColor: ["red", "blue", "green", "orange", "purple", "cyan"],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true, // Enable responsiveness
+            maintainAspectRatio: false, // Allow custom aspect ratio
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Make the chart draggable and resizable
+    makeDraggable(chartContainer);
+    enableResizing(chartContainer, myChart);
+}
+
+// Make an element draggable
+function makeDraggable(element) {
+    let offsetX = 0, offsetY = 0, isDragging = false;
+
+    element.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - element.getBoundingClientRect().left;
+        offsetY = e.clientY - element.getBoundingClientRect().top;
+        element.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            element.style.left = `${e.clientX - offsetX}px`;
+            element.style.top = `${e.clientY - offsetY}px`;
+        }
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        element.style.cursor = "grab";
+    });
+}
+
+// Make an element resizable
+function enableResizing(element, chartInstance = null) {
+    let isResizingActive = false;
+    let initialWidth, initialHeight, startX, startY;
+
+    const handleResizeAction = (e) => {
+        if (!isResizingActive) return;
+
+        const maxAllowedWidth = getMaxWidthForElement(element);
+        const newWidth = initialWidth + (e.clientX - startX);
+        const newHeight = initialHeight + (e.clientY - startY);
+        const elementsInSameRow = getElementsInSameRow(element);
+
+        if (newWidth >= 150) {
+            element.style.width = Math.min(newWidth, maxAllowedWidth) + 'px';
+
+            if (elementsInSameRow.length === 3 && newWidth > maxAllowedWidth) {
+                const nextRowElements = Array.from(element.parentElement.children).filter(div => {
+                    const divRect = div.getBoundingClientRect();
+                    const elementRect = element.getBoundingClientRect();
+                    return divRect.top > elementRect.top &&
+                        divRect.top < elementRect.top + elementRect.height + 50;
+                });
+
+                if (nextRowElements.length > 0) {
+                    element.style.width = (getParentContainerWidth(element) -
+                        nextRowElements.reduce((sum, div) => sum + div.offsetWidth + 10, 0) - 20) + 'px';
+                }
+            }
+        }
+        if (newHeight >= 100) {
+            element.style.height = newHeight + 'px';
+        }
+
+        // Resize the chart to fit the container
+        if (chartInstance) {
+            chartInstance.resize();
+        }
+
+        // Ensure child elements (like canvas) fit inside the container
+        Array.from(element.children).forEach(child => {
+            if (child.tagName.toLowerCase() !== "button") { // Exclude buttons
+                child.style.maxWidth = "100%";
+                child.style.maxHeight = "100%";
+                child.style.objectFit = "contain";
+            }
+        });
+    };
+
+    element.addEventListener('mousedown', function (e) {
+        const box = element.getBoundingClientRect();
+        const resizeRegion = 20;
+
+        if (e.clientX > box.right - resizeRegion && e.clientY > box.bottom - resizeRegion) {
+            isResizingActive = true;
+            initialWidth = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
+            initialHeight = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+            startX = e.clientX;
+            startY = e.clientY;
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('mousemove', handleResizeAction);
+
+    document.addEventListener('mouseup', function () {
+        isResizingActive = false;
+    });
+}
+
+// Helper function to calculate the maximum allowed width
+function getMaxWidthForElement(element) {
+    const parentWidth = getParentContainerWidth(element);
+    const siblings = Array.from(element.parentElement.children).filter(el => el !== element);
+    const siblingWidth = siblings.reduce((sum, sibling) => sum + sibling.offsetWidth + 10, 0);
+    return parentWidth - siblingWidth - 20; // Subtract padding and margins
+}
+
+// Helper function to get the parent container width
+function getParentContainerWidth(element) {
+    return element.parentElement.getBoundingClientRect().width;
+}
+
+// Helper function to get elements in the same row
+function getElementsInSameRow(element) {
+    const elementRect = element.getBoundingClientRect();
+    return Array.from(element.parentElement.children).filter(div => {
+        const divRect = div.getBoundingClientRect();
+        return divRect.top === elementRect.top;
+    });
+}

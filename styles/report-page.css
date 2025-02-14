@@ -5353,5 +5353,130 @@ color: white;
   padding: 8px;
   border-radius: 5px;
 }
+/* 
+.chart-container {
+  margin-top: 20px;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.chart-box {
+  width: 45%;
+  min-width: 400px;
+  padding: 10px;
+  border-radius: 5px;
+  background: white;
+}
+
+
+.connected-tables {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding: 20px;
+  position: relative;
+}
+
+.resizable-table {
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f2f2f2;
+ 
+  min-width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.resizable-table:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  display: none;
+} */
+
+
+.chart-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 10px;
+ 
+}
+
+.chart-box {
+  width: 45%;
+  min-width: 400px;
+  padding: 10px;
+  border-radius: 5px;
+  background: white;
+}
+
+/* Styling for Connected Tables */
+.connected-tables {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding: 20px;
+  /* position:inherit;  */
+}
+
+.resizable-table {
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f2f2f2;
+  /* position: absolute;  */
+  min-width: 200px;
+  text-align: center;
+  cursor: grab;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.resizable-table:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.resizer {
+  width: 10px;
+  height: 10px;
+  background: red;
+  /* position: absolute; */
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  display: none;
+}
+
+
 
 
