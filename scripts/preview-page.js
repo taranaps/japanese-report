@@ -3963,6 +3963,9 @@ function changeBackgroundColor() {
   const h1Elements = document.querySelectorAll('.box-template-custom-user h1');
   const trainerNameH3 = document.querySelectorAll('#trainer-name-custom-user-template h3');
   const tableContainer = document.querySelectorAll('.tablecontainer-custom-user');
+
+  const styletablesBorder = document.querySelectorAll('#tableContent-custom-user table');
+ 
  
 
   // Generate random color
@@ -3979,6 +3982,8 @@ function changeBackgroundColor() {
       th.style.color = 'rgb(250, 245, 245)';
   });
 
+
+
   // Apply colors to trainee-evaluation elements
   traineeThElements.forEach(th => {
       th.style.backgroundColor = `#${randomColor}`;
@@ -3989,6 +3994,10 @@ function changeBackgroundColor() {
   h1Elements.forEach(h1 => {
       h1.style.color = `#${randomColor}`;
   });
+
+  styletablesBorder.forEach(h1 => {
+    h1.style.border =`2px solid #${randomColor}`;
+});
 
   // Apply color to trainer name h3 elements
   trainerNameH3.forEach(h3 => {
@@ -4285,443 +4294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// let isTableView = true;
-// let startTable = null;
 
-// // Toggle between table view and chart view
-// function toggleView() {
-//     let tableDiv = document.getElementById("tablecontainer-custom-user");
-//     let chartDiv = document.getElementById("chartDiv");
-
-//     if (isTableView) {
-//         tableDiv.style.display = "none";
-//         chartDiv.style.display = "block";
-//         generateChartsAndTables();
-//     } else {
-//         tableDiv.style.display = "block";
-//         chartDiv.style.display = "none";
-//     }
-//     isTableView = !isTableView;
-// }
-
-// // Generate dynamic tables and add them to the connectedTables container
-// function generateChartsAndTables() {
-//     let chartGrid = document.getElementById("chartGrid");
-//     let connectedTables = document.getElementById("connectedTables");
-
-//     chartGrid.innerHTML = ""; // Clear previous content
-//     connectedTables.innerHTML = ""; // Clear previous content
-
-//     let tables = document.querySelectorAll("#tableContent-custom-user table");
-
-//     tables.forEach((table, index) => {
-//         let wrapper = document.createElement("div");
-//         wrapper.className = "resizable-table";
-//         wrapper.style.left = `${50 + index * 200}px`; // Adjust horizontal spacing
-//         wrapper.style.top = `${50 + index * 100}px`; // Adjust vertical spacing
-//         wrapper.appendChild(table.cloneNode(true));
-//         wrapper.addEventListener("dblclick", startConnecting);
-//         connectedTables.appendChild(wrapper); // Append to the correct container
-//     });
-// }
-
-// // Start connecting two tables with a line
-// function startConnecting(event) {
-//     let table = event.target.closest(".resizable-table");
-//     if (!startTable) {
-//         startTable = table;
-//     } else {
-//         drawLine(startTable, table);
-//         startTable = null;
-//     }
-// }
-
-// // Draw a line between two tables
-// function drawLine(startElem, endElem) {
-//     let line = document.createElement("div");
-//     line.className = "line";
-//     document.getElementById("connectedTables").appendChild(line);
-
-//     function updateLine() {
-//         let startRect = startElem.getBoundingClientRect();
-//         let endRect = endElem.getBoundingClientRect();
-
-//         let x1 = startRect.left + startRect.width / 2;
-//         let y1 = startRect.top + startRect.height / 2;
-//         let x2 = endRect.left + endRect.width / 2;
-//         let y2 = endRect.top + endRect.height / 2;
-
-//         let length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-//         let angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
-
-//         line.style.width = `${length}px`;
-//         line.style.transform = `rotate(${angle}deg)`;
-//         line.style.position = "absolute";
-//         line.style.left = `${x1}px`;
-//         line.style.top = `${y1}px`;
-//     }
-
-//     // Initial line update
-//     updateLine();
-
-//     // Update line when tables are resized
-//     new ResizeObserver(updateLine).observe(startElem);
-//     new ResizeObserver(updateLine).observe(endElem);
-// }
-
-
-// let isTableView = true;
-
-// function toggleView() {
-//     let tableDiv = document.getElementById("tablecontainer-custom-user");
-//     let chartDiv = document.getElementById("chartDiv");
-
-//     if (isTableView) {
-//         tableDiv.style.display = "none";
-//         chartDiv.style.display = "block";
-//         generateChartsAndTables();
-//     } else {
-//         tableDiv.style.display = "block";
-//         chartDiv.style.display = "none";
-//     }
-//     isTableView = !isTableView;
-// }
-
-// function generateChartsAndTables() {
-//     let chartGrid = document.getElementById("chartGrid");
-//     let connectedTables = document.getElementById("connectedTables");
-//     chartGrid.innerHTML = "";  
-//     connectedTables.innerHTML = ""; 
-
-//     let tables = document.querySelectorAll("#tableContent-custom-user table");
-
-//     tables.forEach((table, index) => {
-//         let rows = table.querySelectorAll("tr");
-//         let headers = [];
-//         let values = [];
-//         let isNumericTable = false;
-
-//         // Extract headers
-//         let headerCells = rows[0].getElementsByTagName("td");
-//         for (let cell of headerCells) {
-//             headers.push(cell.innerText);
-//         }
-
-//         // Extract data from remaining rows
-//         for (let i = 1; i < rows.length; i++) {
-//             let cells = rows[i].getElementsByTagName("td");
-//             if (cells.length === 2 && !isNaN(cells[1].innerText)) {
-//                 isNumericTable = true;
-//                 values.push({
-//                     label: cells[0].innerText,
-//                     value: parseInt(cells[1].innerText)
-//                 });
-//             }
-//         }
-
-//         if (isNumericTable) {
-//             createChart(headers, values, index);
-//         } else {
-//             createConnectedTable(table, index, tables.length);
-//         }
-//     });
-// }
-
-// function createChart(headers, values, index) {
-//     let chartGrid = document.getElementById("chartGrid");
-
-//     let canvasContainer = document.createElement("div");
-//     canvasContainer.className = "chart-box";
-//     let canvas = document.createElement("canvas");
-//     canvas.id = "chartCanvas" + index;
-//     canvasContainer.appendChild(canvas);
-//     chartGrid.appendChild(canvasContainer);
-
-//     let ctx = canvas.getContext("2d");
-//     new Chart(ctx, {
-//         type: "bar",
-//         data: {
-//             labels: values.map(v => v.label),
-//             datasets: [{
-//                 label: headers[1],
-//                 data: values.map(v => v.value),
-//                 backgroundColor: ["red", "blue", "green", "orange", "purple", "cyan"],
-//                 borderWidth: 1
-//             }]
-//         },
-//         options: {
-//             responsive: true,
-//             scales: {
-//                 y: {
-//                     beginAtZero: true
-//                 }
-//             }
-//         }
-//     });
-// }
-
-// function createConnectedTable(table, index, totalTables) {
-//     let connectedTables = document.getElementById("connectedTables");
-
-//     let tableClone = table.cloneNode(true);
-//     let divWrapper = document.createElement("div");
-//     divWrapper.className = "connected-table";
-
-//     // Remove right connection if it's the last table in the row
-//     if ((index + 1) % 2 === 0 || index === totalTables - 1) {
-//         divWrapper.style.marginRight = "0";
-//     }
-
-//     divWrapper.appendChild(tableClone);
-//     connectedTables.appendChild(divWrapper);
-// }
-
-
-
-
-// let isTableView = true;
-// let currentResizer = null;
-
-// function toggleView() {
-//     let tableDiv = document.getElementById("tablecontainer-custom-user");
-//     let chartDiv = document.getElementById("chartDiv");
-//     if (isTableView) {
-//         tableDiv.style.display = "none";
-//         chartDiv.style.display = "block";
-//         generateChartsAndTables();
-//     } else {
-//         tableDiv.style.display = "block";
-//         chartDiv.style.display = "none";
-//     }
-//     isTableView = !isTableView;
-// }
-
-// function generateChartsAndTables() {
-//     let connectedTables = document.getElementById("connectedTables");
-//     connectedTables.innerHTML = ""; // Clear previous content
-//     let tables = document.querySelectorAll("#tableContent-custom-user table");
-
-//     tables.forEach((table, index) => {
-//         let tableClone = table.cloneNode(true);
-//         let divWrapper = document.createElement("div");
-//         divWrapper.className = "resizable-table";
-//         divWrapper.style.position = "absolute"; 
-//         divWrapper.style.left = `${100 + index * 250}px`; // Initial position
-//         divWrapper.style.top = `${100 + index * 100}px`;
-//         divWrapper.style.width = "200px"; // Initial width
-//         divWrapper.appendChild(tableClone);
-
-//         // Add resizers
-//         let resizer = document.createElement("div");
-//         resizer.className = "resizer";
-//         resizer.style.width = "10px";
-//         resizer.style.height = "10px";
-//         resizer.style.background = "none";
-//         resizer.style.position = "absolute";
-//         resizer.style.right = "0";
-//         resizer.style.bottom = "0";
-//         resizer.style.cursor = "se-resize";
-//         divWrapper.appendChild(resizer);
-
-//         // Add event listeners
-//         divWrapper.addEventListener("mouseenter", showTooltip);
-//         divWrapper.addEventListener("mouseleave", hideTooltip);
-
-//         // Make the div draggable
-//         makeDraggable(divWrapper);
-
-//         // Make the div resizable
-//         makeResizable(divWrapper, resizer);
-
-//         connectedTables.appendChild(divWrapper);
-//     });
-// }
-
-// function makeDraggable(element) {
-//     let offsetX = 0, offsetY = 0, isDragging = false;
-
-//     element.addEventListener("mousedown", (e) => {
-//         isDragging = true;
-//         offsetX = e.clientX - element.getBoundingClientRect().left;
-//         offsetY = e.clientY - element.getBoundingClientRect().top;
-//         element.style.cursor = "grabbing";
-//     });
-
-//     document.addEventListener("mousemove", (e) => {
-//         if (isDragging) {
-//             element.style.left = `${e.clientX - offsetX}px`;
-//             element.style.top = `${e.clientY - offsetY}px`;
-//         }
-//     });
-
-//     document.addEventListener("mouseup", () => {
-//         isDragging = false;
-//         element.style.cursor = "grab";
-//     });
-// }
-
-// function makeResizable(element, resizer) {
-//     let isResizing = false;
-
-//     resizer.addEventListener("mousedown", (e) => {
-//         e.stopPropagation();
-//         isResizing = true;
-//         currentResizer = resizer;
-//     });
-
-//     document.addEventListener("mousemove", (e) => {
-//         if (isResizing && currentResizer === resizer) {
-//             element.style.width = `${e.clientX - element.getBoundingClientRect().left}px`;
-//             element.style.height = `${e.clientY - element.getBoundingClientRect().top}px`;
-//         }
-//     });
-
-//     document.addEventListener("mouseup", () => {
-//         isResizing = false;
-//         currentResizer = null;
-//     });
-// }
-
-// function showTooltip(event) {
-//     let tooltip = document.createElement("div");
-//     tooltip.className = "tooltip";
-//     tooltip.textContent = "Double-click to connect";
-//     tooltip.style.left = `${event.clientX + 10}px`;
-//     tooltip.style.top = `${event.clientY + 10}px`;
-//     document.body.appendChild(tooltip);
-//     tooltip.style.display = "block";
-// }
-
-// function hideTooltip() {
-//     let tooltip = document.querySelector(".tooltip");
-//     if (tooltip) {
-//         tooltip.remove();
-//     }
-// }
-
-
-
-// let isTableView = true;
-// let currentResizer = null;
-
-// function toggleView() {
-//     let tableDiv = document.getElementById("tablecontainer-custom-user");
-//     let chartDiv = document.getElementById("chartDiv");
-//     if (isTableView) {
-//         tableDiv.style.display = "none";
-//         chartDiv.style.display = "block";
-//         generateChartsAndTables();
-//     } else {
-//         tableDiv.style.display = "block";
-//         chartDiv.style.display = "none";
-//     }
-//     isTableView = !isTableView;
-// }
-
-// function generateChartsAndTables() {
-//     let connectedTables = document.getElementById("connectedTables");
-//     connectedTables.innerHTML = ""; // Clear previous content
-//     let tables = document.querySelectorAll("#tableContent-custom-user table");
-
-//     tables.forEach((table, index) => {
-//         let tableClone = table.cloneNode(true);
-//         let divWrapper = document.createElement("div");
-//         divWrapper.className = "resizable-table";
-//         // divWrapper.style.position = "absolute"; 
-//         divWrapper.style.left = `${100 + index * 250}px`; // Initial position
-//         divWrapper.style.top = `${100 + index * 100}px`;
-//         divWrapper.style.width = "200px"; // Initial width
-//         divWrapper.appendChild(tableClone);
-
-//         // Add resizers
-//         let resizer = document.createElement("div");
-//         resizer.className = "resizer";
-//         resizer.style.width = "10px";
-//         resizer.style.height = "10px";
-//         resizer.style.background = "none";
-//         resizer.style.position = "absolute";
-//         resizer.style.right = "0";
-//         resizer.style.bottom = "0";
-//         resizer.style.cursor = "se-resize";
-//         divWrapper.appendChild(resizer);
-
-//         // Add event listeners
-//         divWrapper.addEventListener("mouseenter", showTooltip);
-//         divWrapper.addEventListener("mouseleave", hideTooltip);
-
-//         // Make the div draggable
-//         makeDraggable(divWrapper);
-
-//         // Make the div resizable
-//         makeResizable(divWrapper, resizer);
-
-//         connectedTables.appendChild(divWrapper);
-//     });
-// }
-
-// function makeDraggable(element) {
-//     let offsetX = 0, offsetY = 0, isDragging = false;
-
-//     element.addEventListener("mousedown", (e) => {
-//         isDragging = true;
-//         offsetX = e.clientX - element.getBoundingClientRect().left; // Offset from the left edge
-//         offsetY = e.clientY - element.getBoundingClientRect().top; // Offset from the top edge
-//         element.style.cursor = "grabbing";
-//     });
-
-//     document.addEventListener("mousemove", (e) => {
-//         if (isDragging) {
-//             // Update the position of the element based on the cursor's position
-//             element.style.left = `${e.clientX - offsetX}px`;
-//             element.style.top = `${e.clientY - offsetY}px`;
-//         }
-//     });
-
-//     document.addEventListener("mouseup", () => {
-//         isDragging = false;
-//         element.style.cursor = "grab";
-//     });
-// }
-
-// function makeResizable(element, resizer) {
-//     let isResizing = false;
-
-//     resizer.addEventListener("mousedown", (e) => {
-//         e.stopPropagation(); // Prevent dragging while resizing
-//         isResizing = true;
-//         currentResizer = resizer;
-//     });
-
-//     document.addEventListener("mousemove", (e) => {
-//         if (isResizing && currentResizer === resizer) {
-//             // Resize the element based on the cursor's position
-//             element.style.width = `${e.clientX - element.getBoundingClientRect().left}px`;
-//             element.style.height = `${e.clientY - element.getBoundingClientRect().top}px`;
-//         }
-//     });
-
-//     document.addEventListener("mouseup", () => {
-//         isResizing = false;
-//         currentResizer = null;
-//     });
-// }
-
-// function showTooltip(event) {
-//     let tooltip = document.createElement("div");
-//     tooltip.className = "tooltip";
-//     tooltip.textContent = "Double-click to connect";
-//     tooltip.style.left = `${event.clientX + 10}px`;
-//     tooltip.style.top = `${event.clientY + 10}px`;
-//     document.body.appendChild(tooltip);
-//     tooltip.style.display = "block";
-// }
-
-// function hideTooltip() {
-//     let tooltip = document.querySelector(".tooltip");
-//     if (tooltip) {
-//         tooltip.remove();
-//     }
-// }
 
 let isTableView = true;
 
@@ -4792,14 +4365,16 @@ function createChart(headers, values, index, chartGrid) {
     chartContainer.style.border = "1px solid #ccc"; // Optional border for visibility
     chartContainer.style.backgroundColor = "white"; // White background for the chart
     chartContainer.style.overflow = "hidden"; // Prevent overflow
+    chartContainer.style.margin="0"
 
     // Add a heading for the chart
     let heading = document.createElement("div");
     heading.className = "chart-heading";
     heading.contentEditable = true; // Make the heading editable
-    heading.innerText = "Chart Title"; // Default title
+    heading.innerText = "Enter Chart Title Here"; // Default title
     heading.style.textAlign = "center";
-    heading.style.fontWeight = "bold";
+    heading.style.fontWeight = "800";
+   
     heading.style.padding = "5px";
     heading.style.cursor = "text";
     chartContainer.appendChild(heading);
@@ -4956,4 +4531,485 @@ function getElementsInSameRow(element) {
         const divRect = div.getBoundingClientRect();
         return divRect.top === elementRect.top;
     });
+}
+
+
+
+
+// Function to get the existing border color of the tables in a specific container
+function getTableBorderColor(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return '#e2e8f0'; // Default fallback color if container doesn't exist
+
+  const tables = container.getElementsByTagName('table');
+  if (tables.length === 0) return '#e2e8f0'; // Default fallback color if no tables exist
+
+  // Extract the border color from the first table in the container
+  const computedStyle = window.getComputedStyle(tables[0]);
+  const borderColor = computedStyle.borderTopColor || computedStyle.borderLeftColor;
+
+  // Check if the border color is transparent or not set, and fallback to default
+  return borderColor !== 'rgba(0, 0, 0, 0)' ? borderColor : '#e2e8f0';
+}
+
+// Keep track of current style
+let currentStyleIndexTable = 0;
+
+const tableStylesCss = [
+  // Style 1: No Borders - Clean Layout
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: `
+        width: 100%;
+        border-collapse: collapse;
+    `,
+    additionalCSS: (borderColor) => `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            padding: 12px; 
+            text-align: left;
+            border: none;
+        }
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 8px;
+            border: none;
+        }
+    `
+  },
+  // Style 2: Left Border Only
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 20px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border-left: 2px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border: none;
+        }
+    `
+  },
+  // Style 3: Top and Bottom Borders
+  {
+    container: `
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid ${borderColor};
+        border-bottom: 2px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 12px;
+            border: none;
+        }
+    `
+  },
+  // Style 4: Bottom Border Only on Rows
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 25px;
+    `,
+    table: `
+        width: 100%;
+        border-collapse: collapse;
+    `,
+    additionalCSS: (borderColor) => `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            padding: 12px;
+            border-bottom: 2px solid ${borderColor};
+        }
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 12px;
+            border-bottom: 1px solid ${borderColor};
+        }
+    `
+  },
+  // Style 5: Left and Right Borders
+  {
+    container: `
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 15px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border-left: 2px solid ${borderColor};
+        border-right: 2px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 8px;
+            border: none;
+        }
+    `
+  },
+  // Style 6: Top Border Only
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        padding: 20px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 3px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border: none;
+        }
+    `
+  },
+  // Style 7: Three Sided (No Bottom)
+  {
+    container: `
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid ${borderColor};
+        border-left: 2px solid ${borderColor};
+        border-right: 2px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border: none;
+        }
+    `
+  },
+  // Style 8: Bottom and Right Borders on Cells
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: `
+        width: 100%;
+        border-collapse: collapse;
+    `,
+    additionalCSS: (borderColor) => `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 12px;
+            border-bottom: 1px solid ${borderColor};
+            border-right: 1px solid ${borderColor};
+        }
+        #tableContent-custom-user table th:last-child,
+        .trainee-evaluation-custom-user-template table th:last-child,
+        #tableContent-custom-user table td:last-child,
+        .trainee-evaluation-custom-user-template table td:last-child {
+            border-right: none;
+        }
+    `
+  },
+  // Style 9: Right Border Only
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding: 20px;
+        align-items: center;
+    `,
+    table: (borderColor) => `
+        width: 80%;
+        border-collapse: collapse;
+        border-right: 2px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border: none;
+        }
+    `
+  },
+  // Style 10: Three Sided (No Top)
+  {
+    container: `
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border-bottom: 2px solid ${borderColor};
+        border-left: 2px solid ${borderColor};
+        border-right: 2px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 12px;
+            border: none;
+        }
+    `
+  },
+  // Style 11: Alternating Row Colors
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: `
+        width: 100%;
+        border-collapse: collapse;
+    `,
+    additionalCSS: (borderColor) => `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            padding: 12px;
+            background-color: #f7fafc;
+            border-bottom: 2px solid ${borderColor};
+        }
+        #tableContent-custom-user table tr:nth-child(even) td,
+        .trainee-evaluation-custom-user-template table tr:nth-child(even) td {
+            background-color: #edf2f7;
+        }
+        #tableContent-custom-user table tr:nth-child(odd) td,
+        .trainee-evaluation-custom-user-template table tr:nth-child(odd) td {
+            background-color: #ffffff;
+        }
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border-bottom: 1px solid ${borderColor};
+        }
+    `
+  },
+  // Style 12: Rounded Corners with Shadow
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            padding: 12px;
+            background-color: #f7fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        #tableContent-custom-user table tr:first-child th,
+        .trainee-evaluation-custom-user-template table tr:first-child th {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        #tableContent-custom-user table tr:last-child td,
+        .trainee-evaluation-custom-user-template table tr:last-child td {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    `
+  },
+  // Style 13: Minimalist with Light Background
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+        background-color: #f7fafc;
+    `,
+    table: `
+        width: 100%;
+        border-collapse: collapse;
+    `,
+    additionalCSS: (borderColor) => `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+            border-bottom: 2px solid ${borderColor};
+        }
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            color: #4a5568;
+            border-bottom: 1px solid ${borderColor};
+        }
+    `
+  },
+  // Style 14: Bold Header with Subtle Divider
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    `,
+    table: `
+        width: 100%;
+        border-collapse: collapse;
+    `,
+    additionalCSS: (borderColor) => `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            padding: 12px;
+            background-color: #f7fafc;
+            border-bottom: 3px solid ${borderColor};
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 10px;
+            border-bottom: 1px solid ${borderColor};
+        }
+    `
+  },
+  // Style 15: Compact Layout with Center Alignment
+  {
+    container: `
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+    `,
+    table: (borderColor) => `
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid ${borderColor};
+    `,
+    additionalCSS: `
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th,
+        #tableContent-custom-user table td,
+        .trainee-evaluation-custom-user-template table td {
+            padding: 8px;
+            text-align: center;
+        }
+        #tableContent-custom-user table th,
+        .trainee-evaluation-custom-user-template table th {
+            background-color: #f7fafc;
+            font-weight: bold;
+        }
+    `
+  }
+];
+
+// Function to apply styles
+function applyTableStyle(styleConfig, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return; // Exit if the container doesn't exist
+
+  const tables = container.getElementsByTagName('table');
+
+  // Get the border color from the tables in the specific container
+  const borderColor = getTableBorderColor(containerId);
+
+  // Apply container styles
+  container.style.cssText = styleConfig.container;
+
+  // Apply styles to each table
+  Array.from(tables).forEach(table => {
+    table.style.cssText = typeof styleConfig.table === 'function'
+      ? styleConfig.table(borderColor)
+      : styleConfig.table;
+  });
+
+  // Remove any previously added style tag for this container
+  const existingStyle = document.getElementById(`dynamic-table-styles-${containerId}`);
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  // Add additional CSS if present
+  if (styleConfig.additionalCSS) {
+    const styleTag = document.createElement('style');
+    styleTag.id = `dynamic-table-styles-${containerId}`;
+    styleTag.textContent = typeof styleConfig.additionalCSS === 'function'
+      ? styleConfig.additionalCSS(borderColor)
+      : styleConfig.additionalCSS;
+    document.head.appendChild(styleTag);
+  }
+}
+
+// Function to toggle between styles for multiple containers
+function toggleTableStyles() {
+  const containerIds = ['tableContent-custom-user', 'trainee-evaluation-custom-user-template'];
+
+  containerIds.forEach(containerId => {
+    currentStyleIndexTable = (currentStyleIndexTable + 1) % tableStylesCss.length;
+    applyTableStyle(tableStylesCss[currentStyleIndexTable], containerId);
+  });
 }
