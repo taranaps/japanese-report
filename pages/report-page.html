@@ -64,15 +64,309 @@
             </div>
             <div class="arrow" id="arrow-down">&#9660;</div>
           </div>
+<<<<<<< Updated upstream
 		  </div>
 		  
 		
+=======
+        </div>
+      </div>
+      <div class="main-space">
+        <div class="toolbars">
+          <div class="tabcontents activetab" id="template">
+            <div class="select-batch">
+              <h2>Batch</h2>
+              <select id="batchSelect">
+                <option value="">Select Batch</option>
+              </select>
+            </div>
+
+            <div class="vertical-line"></div>
+            <button onclick="toggleTemplates()" class="toolbars-button">Choose Template</button>
+            <div class="vertical-line"></div>
+            <button onclick="toggleThemes()" class="toolbars-button">Choose Theme</button>
+            <div class="vertical-line"></div>
+            <div class="toggle-learners">
+              <h2>No. of Learners</h2>
+              <div class="chart-toggle">
+                <select id="chartTypeDropdown">
+                  <option value="bar">Bar Chart</option>
+                  <option value="line">Line Chart</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-certification">
+              <h2>Current Learning Level</h2>
+              <div class="learners">
+                <select id="chartType-dropdown-certification">
+                  <option value="line">Line</option>
+                  <option value="bar">Bar</option>
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="radar">Radar</option>
+                  <option value="polarArea">Polar Area</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-sessions-till-date">
+              <h2>Total Sessions Till Date</h2>
+              <div class="learners">
+                <select id="chartType-dropdown-session-tilldate">
+                  <!-- <option value="line">Line</option>
+                  <option value="bar">Bar</option> -->
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="radar">Radar</option>
+                  <option value="polarArea">Polar Area</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-duration-till-date">
+              <h2>Total Duration Till Date</h2>
+              <div class="learners">
+                <select id="chartType-dropdown-duration-tilldate">
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="radar">Radar</option>
+                  <option value="polarArea">Polar Area</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-attendence">
+              <h2>Average Attendence</h2>
+              <div class="learners">
+                <select id="chartTypeDropdownAttendance">
+                  <option value="line">Line</option>
+                  <option value="bar">Bar</option>
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="radar">Radar</option>
+                  <option value="polarArea">Polar Area</option>
+                </select>
+              </div>
+            </div>
+
+>>>>>>> Stashed changes
           </div>
           <div class="workspace" id="workspace">
             <div id="editor"><h2>Please select the batch and a template to start editing!</h2></div>
              
+<<<<<<< Updated upstream
             
             <div class="template-one" id="template1" style="display: none">
+=======
+           
+          </div>
+
+          <div class="image-container" id="templateContainer">
+            <button class="close-button-side-pane" onclick="closeTemplatePane()">&#10005;</button>
+            <h2 class="image-container-h2">Template</h2>
+
+            <div class="scrollable-content">
+            <div class="template-item">
+              <img src="../assets/images/template-two.png" alt="Template2" data-template="template2" />
+              <p>Template 1</p>
+            </div>
+
+            <div class="template-item">
+              <img src="../assets/images/template-one.png" alt="Template3" data-template="template3" />
+              <p>Template 2</p>
+            </div>
+
+            <div class="template-item">
+              <img src="../assets/images/template-five.png" alt="Template5" data-template="template5" />
+              <p>Template 3</p>
+            </div>
+
+            <div class="template-item">
+              <img src="../assets/images/Screenshot 2025-02-02 211420.png" alt="custom-div" data-template="custom-div" />
+              <p>Template 4</p>
+            </div>
+            <div class="template-item">
+              <img src="../assets/images/add-button-plus-icon-isolated-on-circle-line-background-vector.jpg" alt="custom-template-user"
+                data-template="custom-template-user"   id="toggleCustomImage" />
+              <p>Custom template</p>
+            </div>
+          </div>
+
+          </div>
+
+          <div class="themes" id="themesContainer">
+            <button class="close-button-side-pane" onclick="closeThemePane()">&#10005;</button>
+            <h2 class="image-container-h2">Theme</h2>
+            <div class="sidebar-theme">
+
+              <div class="theme-color-dark-blue" id="theme-color-dark-blue"></div>
+              <div class="theme-color-violet" id="theme-color-violet"></div>
+              <div class="theme-color-red" id="theme-color-red"></div>
+              <div class="theme-color-blue" id="theme-color-blue"></div>
+              <div class="theme-color-green" id="theme-color-green"></div>
+              <div class="theme-color-orange" id="theme-color-orange"></div>
+
+            </div>
+
+          </div>
+
+          <div class="table-options" id="addTablePopup">
+            <button class="close-button-side-pane" onclick="closeAddTablePane()">&#10005;</button> <!-- Close button -->
+            <h3 class="image-container-h2">Add Tables</h3>
+            <div class="input-container-table">
+              <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
+              <label>Columns: <input type="number" id="colCount" min="1" value="2"></label>
+              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button">
+                Add Table</button>
+            </div>
+
+          </div>
+
+          <div class="image-pane" id="imageuploads">
+            <button class="close-button-side-pane" onclick="closeAddImagePane()">&#10005;</button> <!-- Close button -->
+            <h3 class="image-container-h2">Add Image</h3>
+            <div class="input-container">
+              <input type="file" accept="image/*" id="uploadImage">
+              <button onclick="displayUploadedPhotos()" class="inside-popup-table-button">
+                Add Image
+              </button>
+            </div>
+          </div>
+
+          <div class="side-pane" id="headingsPane">
+            <button class="close-button-side-pane" onclick="toggleHeadingsPane()"
+              >&#10005;</button>
+            <h3 class="image-container-h2">Choose Heading</h3>
+            <div class="scrollable-content">
+            <div class="heading-option" onclick="selectHeading('style1')">
+              <h1 class="style1">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style2')">
+              <h1 class="style2">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style3')">
+              <h1 class="style3">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style4')">
+              <h1 class="style4">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style5')">
+              <h1 class="style5">Japanese Language Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style6')">
+              <h1 class="style6">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style7')">
+              <h1 class="style7">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style8')">
+              <h1 class="style8">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style9')">
+              <h1 class="style9">Japanese Language<br>Training Report</h1>
+            </div>
+            <div class="heading-option" onclick="selectHeading('style10')">
+              <h1 class="style10">Japanese Language<br>Training Report</h1>
+            </div>
+
+
+            <div class="customization">
+              <h3 class="image-container-h2">Choose Style</h3>
+              <div class="form-group">
+                <label for="text-color" class="label">Text Color:</label>
+                <input type="color" id="text-color" class="input" onchange="updateHeadingStyle()">
+              </div>
+
+              <div class="form-group">
+                <label for="bg-color" class="label">Background Color:</label>
+                <input type="color" id="bg-color" class="input" onchange="updateHeadingStyle()">
+              </div>
+
+              <div class="form-group">
+                <label for="border-radius" class="label">Border Radius:</label>
+                <input type="number" id="border-radius" class="input" min="0" max="50" placeholder="Enter border radius"
+                  onchange="updateHeadingStyle()">
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="side-pane" id="graphsPane">
+            <button class="close-button-side-pane" onclick="toggleGraphsPane()"
+              ">&#10005;</button>
+            <h3 class="image-container-h2">Choose Chart</h3>
+            <div class="scrollable-content">
+            <div class="graph-options">
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="activeBatches">
+                <h3>Active Batches</h3>
+                <h1 id="number-custom-user"></h1>
+                <div id="batch-number-custom-user">Batches</div>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="sessionsChart">
+                <h3>Total No. of Sessions</h3>
+                <canvas id="sessionsChart-custom-user" width="120" height="150"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="learnersChart">
+                <h3>Number of Learners</h3>
+                <canvas id="learnersChart-custom-user" width="100" height="120"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="batchDurationChart">
+                <h3>Total Batch Duration</h3>
+                <canvas id="batchDurationChart-custom-user" width="200" height="250"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="levelChart">
+                <h3>Current Learning Level</h3>
+                <canvas id="levelChart-custom-user" width="200" height="300"></canvas>
+              </div>
+              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                data-id="trainerName">
+                <h3>Trainers</h3>
+                <div id="trainer-name-custom-user-template"></div>
+              </div>
+            </div>
+            <div class="layout-controls" class="form-group">
+              <!-- <button onclick="toggleLayout('row')" class="inside-popup-table-button" style="margin-top: 10px;">Row
+                Layout</button>
+              <button onclick="toggleLayout('column')" class="inside-popup-table-button"
+                style="margin-top: 10px; margin-bottom: 10px;">Column Layout</button><br> -->
+              <!-- <label for="divsPerRow">Box's per Row: </label>
+              <input type="number" id="divsPerRow" placeholder="Enter number of divs" min="1"
+                onchange="updateDivsPerRow()" /> -->
+              <button onclick="hideDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Hide
+                Delete Buttons</button>
+              <button onclick="showDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Show
+                Delete Buttons</button>
+            </div>
+          </div>
+        </div>
+
+          <div id="dynamicTableSidePane" class="side-pane">
+            <button class="close-button-side-pane" onclick="toggleDynamicTableSidePane()"
+             >&#10005;</button>
+            <h3 class="image-container-h2" >Choose Table</h3>
+            <div class="scrollable-content">
+            <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)"></div>
+          </div>
+
+
+          </div>
+        </div>
+
+
+
+        <div class="workspace" id="workspace">
+          <div id="editor">
+            <h2>Please select the batch and a template to start editing!</h2>
+          </div>
+
+
+          <!-- <div class="template-one" id="template1" style="display: none">
+>>>>>>> Stashed changes
               <div class="container-template1">
                 <div class="header-template1" id="header-template1">
                   <h1>Japanese <br> Language <br> Training Report</h1>
@@ -276,6 +570,7 @@
               </div>
             </div>
 
+<<<<<<< Updated upstream
         
             <div class="template-two" id="template2" style="display: none">
                 
@@ -319,6 +614,52 @@
                         <!-- </div> -->
 						<div id="batchwise-data-template2" >
                         <!-- <div class="batch-info">
+=======
+
+          <div class="template-two" id="template2" style="display: none">
+
+            <div class="container-template2" id="container-template2">
+              <div class="header-template2" id="header-template2">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template2-month"></h3>
+              </div>
+
+              <div class="summary-template2">
+                <div class="box-template2">
+                  <h3>Active Batches</h3>
+                  <h1 id="number"></h1>
+                  <!-- <h1 id="Batch-text-template2">Batches</h1> -->
+                  <div id="batch-number">Batches</div>
+                </div>
+                <div class="box-template2">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart" width="120" height="150"></canvas>
+                </div>
+                <div class="box-template2">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart" width="100" height="120"></canvas>
+                </div>
+
+                <div class="box-template2">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart" width="200" height="250"></canvas>
+                </div>
+                <div class="box-template2">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart" width="200" height="300"></canvas>
+                </div>
+                <div class="box-template2">
+                  <h3>Trainers</h3>
+                  <!-- <div class="box-template2-trainer-name"> -->
+                  <div id="trainer-name-template2"> </div>
+                </div>
+                <!-- </div> -->
+
+              </div>
+              <!-- </div> -->
+              <div id="batchwise-data-template2">
+                <!-- <div class="batch-info">
+>>>>>>> Stashed changes
                             <h2 id="batch-name-template2"></h2>
                         </div>
                 
@@ -486,6 +827,33 @@
             <div id="tableContent2"></div>
 
           </div>
+<<<<<<< Updated upstream
+=======
+
+          <!-- temp3 new -->
+
+          <div class="template-three" id="template3" style="display: none">
+            <div class="report-container">
+              <h1 class="title">Japanese Training Report</h1>
+              <h3 id="subtitle"></h3>
+              <div class="batch-container-main">
+                <div class="batch-container">
+                  <div class="batch-card">
+                    <div class="card-title">No. of Batches</div>
+                    <h1 id="number-of-Batch-tmeplate3"></h1>
+                    <h1 class="batch-text">Batches</h1>
+                    <canvas id="batch-number-template3" width="200" height="230"></canvas>
+                  </div>
+                  <div class="batch-card">
+                    <div class="card-title">Trainers</div>
+                    <div class="trainers-template3" id="trainers-template3"></div>
+                  </div>
+                  <div class="batch-card">
+                    <div class="card-title">Current Learning Level</div>
+                    <div class="bar-chart">
+                      <canvas id="current-level-template3" width="200" height="260"></canvas>
+                      <div></div>
+>>>>>>> Stashed changes
                     </div>
                 
             </div>
@@ -910,11 +1278,25 @@
               </div>
       
               <div class="summary-template5">
+<<<<<<< Updated upstream
                
               <div class="first-box">
                 <div class="box-template5-1">
                   <h2>Number of Learners</h2>
                   <canvas id="learners-chart-template5" width="200" height="200"></canvas>
+=======
+
+                <div class="first-box">
+                  <div class="box-template5-1">
+                    <h2>Number of Learners</h2>
+                    <canvas id="learners-chart-template5" width="200" height="200"></canvas>
+                  </div>
+
+                  <div class="box-template5-2">
+                    <h2>Current Learning Level</h2>
+                    <canvas id="levelChart-t5" height="250" width="200"></canvas>
+                  </div>
+>>>>>>> Stashed changes
                 </div>
       
                 <div class="box-template5-2">
@@ -1123,6 +1505,58 @@
           </div>
 
           <!-- end of temp 5 -->
+<<<<<<< Updated upstream
+=======
+          <div class="custom-div" id="custom-div" style="display: none">
+            <div class="container-custom-template" id="container-custom-template">
+              <div class="header-custom-template" id="header-custom-template">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="custom-template-month"></h3>
+              </div>
+
+              <div class="summary-custom-template">
+                <div class="box-custom-template">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-custom"></h1>
+                  <!-- <h1 id="Batch-text-template2">Batches</h1> -->
+                  <div id="batch-number-custom">Batches</div>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-custom" width="120" height="150"></canvas>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-custom" width="100" height="120"></canvas>
+                </div>
+
+                <div class="box-custom-template">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-custom" width="200" height="250"></canvas>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart-custom" width="200" height="300"></canvas>
+                </div>
+                <div class="box-custom-template">
+                  <h3>Trainers</h3>
+                  <!-- <div class="box-template2-trainer-name"> -->
+                  <div id="trainer-name-custom-template"> </div>
+                </div>
+                <!-- </div> -->
+
+
+              </div>
+              <div id="batchwise-data-custom-template"></div>
+
+
+
+              <div class="tablecontainer-custom" id="tablecontainer-custom">
+                <div id="tableContent-custom"></div>
+
+              </div>
+
+>>>>>>> Stashed changes
               
             
           </div>
