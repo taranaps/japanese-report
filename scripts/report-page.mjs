@@ -409,7 +409,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 //     const headerRow = table.insertRow();
 
 //     // Standard headers
-//     ["Trainee Name", "DU","Avg.Attendance"].forEach((headerText) => {
+//     ["Trainee Name", "DU","Avg.Attendance(%)"].forEach((headerText) => {
 //         const th = document.createElement("th");
 //         th.textContent = headerText;
 //         headerRow.appendChild(th);
