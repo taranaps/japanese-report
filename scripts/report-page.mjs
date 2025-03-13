@@ -378,13 +378,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-  // async function getAttendanceData(data, id) {
-  //   try {
-  //     generateChart(data, id);
-  //   } catch (error) {
-  //     console.error("Error fetching data from Firebase:", error);
-  //   }
-  // }
 
   async function getLatestCollection() {
     try {
@@ -419,7 +412,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 //     const headerRow = table.insertRow();
 
 //     // Standard headers
-//     ["Trainee Name", "DU","Avg.Attendance"].forEach((headerText) => {
+//     ["Trainee Name", "DU","Avg.Attendance(%)"].forEach((headerText) => {
 //         const th = document.createElement("th");
 //         th.textContent = headerText;
 //         headerRow.appendChild(th);
@@ -487,7 +480,7 @@ async function createEvaluationTable(data, id) {
   const headerRow = table.insertRow();
 
   // Add the "SI No" column header
-  ["SI No", "Trainee Name", "Department", "Avg.Attendance"].forEach((headerText) => {
+  ["SI No", "Trainee Name", "Department", "Avg.Attendance (%)"].forEach((headerText) => {
       const th = document.createElement("th");
       th.textContent = headerText;
       headerRow.appendChild(th);
@@ -829,7 +822,7 @@ async function generateTraineePieChart(id, chartType = "line", backgroundColor =
           x: {
             title: {
               display: true,
-              text: 'Batch Name',
+              text: 'Batches',
               color: "#333",
               font: { size: 12, weight: "bold" },
             },
@@ -1031,7 +1024,7 @@ async function generateSessionDurationChart(data, id, chartType) {
         labels: batchNames,
         datasets: [
             {
-                label: "Total Duration (Days)",
+                label: "Total Duration (Hours)",
                 data: batchDurations,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -1075,7 +1068,7 @@ async function generateSessionDurationChart(data, id, chartType) {
                 x: {
                     title: {
                         display: false,
-                        text: "Batch Name",
+                        text: "Batches",
                         color: "#333",
                         font: { size: 12, weight: "bold" }
                     },
@@ -1349,7 +1342,7 @@ function renderCertificationLevelChart(
       labels: batchNames,
       datasets: [
         {
-          label: "Certification Level",
+          label: "Current Learning Level",
           font: { size: 13, weight: "bold" },
           data: certificationLevels,
           backgroundColor: backgroundColor,
@@ -1383,7 +1376,7 @@ function renderCertificationLevelChart(
         x: {
           title: {
             display: false,
-            text: "Batch Name",
+            text: "Batches",
             color: "#333",
             font: { size: 8, weight: "bold" },
           },
@@ -1599,7 +1592,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                     
       });
     
-    generateSessionChart(batchDetailsData, 'sessionsChart','bar');
+    generateSessionChart(batchDetailsData, 'sessionsChart','pie');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart',selectedChartType);
@@ -1655,7 +1648,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                     </div>
            
             <div class="trainee-evaluation-template2">
-            <h3>Evaluation Details</h3>
+            <h3>Trainee Details</h3>
                 <div id="evaluation-table-${batchName}"></div>
             </div>
         `;
@@ -1826,7 +1819,7 @@ async function generateSessionChart(data, id, chartType) {
               x: {
                   title: {
                       display: true,
-                      text: "Batch Name",
+                      text: "Batches ",
                       color: "#000000",
                   },
                   font: { size: 10, weight: "bold" },
@@ -1926,7 +1919,7 @@ async function generateSessionChart(data, id, chartType) {
            
             <div class="current-level-template1">
                       <div class="level-heading" id="level-heading">
-                        <p>Current Level</p>
+                        <p>Current Learning Level</p>
                       </div>
                       <div class="inner-level-template1">
                         <canvas id="certificationBarChart" width="300" height="200"></canvas>                    
@@ -1955,7 +1948,7 @@ async function generateSessionChart(data, id, chartType) {
       generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','bar');
+    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','pie');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1',selectedChartType);
@@ -2024,7 +2017,7 @@ async function generateSessionChart(data, id, chartType) {
                         </div>
                         <div class="single-batch-evaluation-details-template1">
                             <div class="single-batch-evaluation-heading-template1">
-                                <p>Evaluation Details</p>
+                                <p>Trainee Details</p>
                             </div>
                             <div class="single-batch-evaluation-body-template1">
                                 <div id="single-batch-evaluation-content-template1-${batchName}"></div>
@@ -2133,7 +2126,7 @@ async function generateSessionChart(data, id, chartType) {
         generateSessionDurationChart(batchDetailsData,'card-content-duration',selectedChartType);
                       
         });
-      generateSessionChart(batchDetailsData, 'card-content-sessions','bar');
+      generateSessionChart(batchDetailsData, 'card-content-sessions','pie');
       document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
         const selectedChartType = event.target.value;
         generateSessionChart(batchDetailsData, 'card-content-sessions',selectedChartType);
@@ -2196,7 +2189,7 @@ async function generateSessionChart(data, id, chartType) {
             </div>
         </div>
         <div class="eval-table">
-            <div class="table-title">Trainee Evaluation</div>
+            <div class="table-title">Trainee Details</div>
             <div class="table-section">
                 <div id="evaluation-table-${batchName}" style="width:100%; padding-left:60px;"></div>
             </div>
@@ -2291,7 +2284,7 @@ async function populateBatchDataCustomTemplate(currentDate) {
                   
     });
   
-  generateSessionChart(batchDetailsData, 'sessionsChart-custom','bar');
+  generateSessionChart(batchDetailsData, 'sessionsChart-custom','pie');
   document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
     const selectedChartType = event.target.value;
     generateSessionChart(batchDetailsData, 'sessionsChart-custom',selectedChartType);
@@ -2346,7 +2339,7 @@ async function populateBatchDataCustomTemplate(currentDate) {
                   </div>
          
           <div class="trainee-evaluation-custom-template">
-          <h3>Evaluation Details</h3>
+          <h3>Trainee Details</h3>
               <div id="evaluation-table-${batchName}"></div>
           </div>
       `;
@@ -2402,7 +2395,7 @@ async function batchwiseDataCustomTemplate(selectedBatch){
                           
                       
           <div class="trainee-evaluation-custom-template">
-            <h3>Evaluation Details</h3>
+            <h3>Trainee Details</h3>
             <div id="evaluation-table-custom-template"></div>
 
           </div>`;
@@ -2489,7 +2482,7 @@ async function batchwiseDataCustomTemplate(selectedBatch){
     generateSessionDurationChart(batchDetailsData,'batchDurationChart-custom',selectedChartType);
                   
     });
-  generateSessionChart(batchDetailsData, 'sessionsChart-custom','bar');
+  generateSessionChart(batchDetailsData, 'sessionsChart-custom','pie');
   document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
     const selectedChartType = event.target.value;
     generateSessionChart(batchDetailsData, 'sessionsChart-custom',selectedChartType);
@@ -2578,7 +2571,7 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
                   
     });
   
-  generateSessionChart(batchDetailsData, 'sessionsChart-custom-user','bar');
+  generateSessionChart(batchDetailsData, 'sessionsChart-custom-user','pie');
   document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
     const selectedChartType = event.target.value;
     generateSessionChart(batchDetailsData, 'sessionsChart-custom-user',selectedChartType);
@@ -2635,7 +2628,7 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
                   </div>
          
           <div class="trainee-evaluation-custom-user-template">
-          <h3>Evaluation Details</h3>
+          <h3>Trainee Details</h3>
               <div id="evaluation-table-${batchName}"></div>
           </div>
       `;
@@ -2757,7 +2750,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                           
                       
           <div class="trainee-evaluation-custom-user-template">
-            <h3>Evaluation Details</h3>
+            <h3>Trainee Details</h3>
             <div id="evaluation-table-custom-user-template"></div>
 
           </div>`;
@@ -2844,7 +2837,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
     generateSessionDurationChart(batchDetailsData,'batchDurationChart-custom-user',selectedChartType);
                   
     });
-  generateSessionChart(batchDetailsData, 'sessionsChart-custom-user','bar');
+  generateSessionChart(batchDetailsData, 'sessionsChart-custom-user','pie');
   document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
     const selectedChartType = event.target.value;
     generateSessionChart(batchDetailsData, 'sessionsChart-custom-user',selectedChartType);
@@ -2884,7 +2877,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
     certificationConatianer.innerHTML='';
     certificationConatianer.innerHTML = `<div class="current-level-template1">
                       <div class="level-heading" id="level-heading">
-                        <p>Current Level</p>
+                        <p>Current Learning Level</p>
                       </div>
                       <div class="inner-level-template1">
                         <canvas id="certificationBarChart" width="200" height="200"></canvas>                    
@@ -2932,7 +2925,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
     bottomContainer.innerHTML = '';
     bottomContainer.innerHTML =`<div class="batch-evaluation-template1" id="batch-evaluation-template1">
                   <div class="batch-evaluation-heading-template1" id="batch-evaluation-heading-template1">
-                    <p>Evaluation Details</p>
+                    <p>Trainee Details</p>
                   </div>
                   <div class="batch-evaluation-body-template1">
                     <div id="evaluation-table-template1"></div>
@@ -3030,7 +3023,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
       generateSessionDurationChart(batchDetailsData,'whole-duration-data-templae1',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','bar');
+    generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1','pie');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'progressBarsContainer-templae1',selectedChartType);
@@ -3101,7 +3094,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                             
                         
 						<div class="trainee-evaluation-template2">
-							<h3>Evaluation Details</h3>
+							<h3>Trainee Details</h3>
 							<div id="evaluation-table-template2"></div>
 
 						</div>`;
@@ -3188,7 +3181,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
       generateSessionDurationChart(batchDetailsData,'batchDurationChart',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'sessionsChart','bar');
+    generateSessionChart(batchDetailsData, 'sessionsChart','pie');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart',selectedChartType);
@@ -3301,7 +3294,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
         generateSessionDurationChart(batchDetailsData,'card-content-duration',selectedChartType);
                       
         });
-      generateSessionChart(batchDetailsData, 'card-content-sessions','bar');
+      generateSessionChart(batchDetailsData, 'card-content-sessions','pie');
       document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
         const selectedChartType = event.target.value;
         generateSessionChart(batchDetailsData, 'card-content-sessions',selectedChartType);
@@ -3396,7 +3389,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
       generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'sessionsChart-t5','bar');
+    generateSessionChart(batchDetailsData, 'sessionsChart-t5','pie');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart-t5',selectedChartType);
@@ -3439,7 +3432,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                   </div>
                 </div>
                 <div class="trainee-evaluation-template5">
-                  <h2>Evaluation Details</h2>
+                  <h2>Trainee Details</h2>
                   <div id="evaluation-table-template5-${batchName}"></div>
                 </div>
               </div>
@@ -3497,7 +3490,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                     </div>
              
                 <div class="trainee-evaluation-template5">
-                  <h2>Evaluation Details</h2>
+                  <h2>Trainee Details</h2>
                   <div id="evaluation-table-template5"></div>
                 </div>`;
     const backgroundColor = [
@@ -3574,7 +3567,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
       generateSessionDurationChart(batchDetailsData,'batch-duration-chart-t5',selectedChartType);
                     
       });
-    generateSessionChart(batchDetailsData, 'sessionsChart-t5','bar');
+    generateSessionChart(batchDetailsData, 'sessionsChart-t5','pie');
     document.getElementById('chartType-dropdown-session-tilldate').addEventListener('change', (event) => {
       const selectedChartType = event.target.value;
       generateSessionChart(batchDetailsData, 'sessionsChart-t5',selectedChartType);
