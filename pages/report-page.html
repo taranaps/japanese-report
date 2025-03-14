@@ -26,39 +26,6 @@
   <main>
     <section class="contents">
       <div class="content">
-        <!-- <div class="side-bar">
-            <div class="arrow" id="arrow-up">&#9650;</div>
-            <div class="image-container" id="image-scroll">
-              
-             
-              <br>
-              <br>
-              <img
-                src="../assets/images/template-three.png"
-                alt="Template1"
-                data-template="template1"
-              />
-             
-              <img
-                src="../assets/images/template-two.png"
-                alt="Template2"
-                data-template="template2"
-              />
-              <img
-                src="../assets/images/template-one.png"
-                alt="Template3"
-                data-template="template3"
-              />
-              <img
-                src="../assets/images/template-five.png"
-                alt="Template5"
-                data-template="template5"
-              />
-             
-            </div>
-            <div class="arrow" id="arrow-down">&#9660;</div>
-          </div> -->
-
         <div class="left-side-bar">
           <div class="tabtitles">
             <p class="tablinks activelink" onclick="opentab('template')" title="Template">
@@ -164,7 +131,16 @@
           </div>
 
           <div class="tabcontents" id="table">
-            <button onclick="toggleAddTablePopup()" class="toolbars-button">Add Table</button>
+            <div class="select-batch">
+              <h2>Batch</h2>
+              <select id="tableSectionPreference">
+                <option value="">Select</option>
+                <option value="above">Above</option>
+                <option value="below">Below</option>
+              </select>
+            </div>
+            <div class="vertical-line"></div>
+            <button onclick="toggleAddTablePopup()" class="toolbars-button" id="addtablesection">Add Table</button>
             <div class="vertical-line"></div>
             <div class="table-spacing">
               <!-- <h3>Adjust Table Spacing</h3> -->
@@ -337,9 +313,11 @@
               <h2>File</h2>
               <select id="downloadSelect">
                 <option value="">File Type</option>
-                <option value="pdf">Pdf</option>
-                <option value="png">png</option>
-                <option value="jpg">jpg</option>
+                <option value="pdf">PDF</option>
+                <option value="png">PNG</option>
+                <option value="jpg">JPG</option>
+                <option value="html">HTML</option>
+                
               </select>
             </div>
             <div class="vertical-line"></div>
@@ -349,7 +327,7 @@
               <button id="composeEmailButton" title="Share" onclick="openOutlookCompose()"><i
                   class="fa-solid fa-share-from-square"></i></button>
               <button id="save-button" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
-              <input id="img-input" type="file" style="display: none;"><br><br>
+              <input id="image-input" type="file" style="display: none;"><br><br>
             </div>
 
 
@@ -441,7 +419,7 @@
             <div class="input-container-table">
               <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
               <label>Columns: <input type="number" id="colCount" min="1" value="2"></label>
-              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button">
+              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button" id="addTableSectionTrigger">
                 Add Table</button>
             </div>
 
@@ -517,7 +495,7 @@
           </div>
           <div class="side-pane" id="graphsPane">
             <button class="close-button-side-pane" onclick="toggleGraphsPane()"
-              ">&#10005;</button>
+              >&#10005;</button>
             <h3 class="image-container-h2">Choose Chart</h3>
             <div class="scrollable-content">
             <div class="graph-options">
@@ -574,7 +552,15 @@
              >&#10005;</button>
             <h3 class="image-container-h2" >Choose Table</h3>
             <div class="scrollable-content">
-            <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)"></div>
+              <h3 class="image-container-h2-table">Table Style 1</h3>
+              <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)" 
+              style="border-radius: 10px; height: 90%; width: 100%; background: linear-gradient(180deg, #f8f9fa, #ffffff);   padding: 20px;transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden;">
+         </div>
+         <h3 class="image-container-h2-table">Table Style 2</h3>
+         <div id="custom-dynamic-table-user2" data-id="2" class="source-div" onclick="moveContent(event)" 
+              style="border-radius: 10px;  height: 90%; width: 100%; background: linear-gradient(180deg, #f8f9fa, #ffffff);   padding: 20px;; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden;">
+         </div>
+         
           </div>
 
 
@@ -784,6 +770,11 @@
               <div class="header-template2" id="header-template2">
                 <h1>Japanese Language Training Report</h1>
                 <h3 id="template2-month"></h3>
+              </div>
+
+              <div class="tablecontainer2" id="tablecontainerAbove2">
+                <div id="tableContentAbove2"></div>
+
               </div>
 
               <div class="summary-template2">
@@ -998,6 +989,11 @@
             <div class="report-container">
               <h1 class="title">Japanese Training Report</h1>
               <h3 id="subtitle"></h3>
+
+              <div class="tablecontainer3" id="tablecontainerAbove3">
+                <div id="tableContentAbove3"></div>
+
+              </div>
               <div class="batch-container-main">
                 <div class="batch-container">
                   <div class="batch-card">
@@ -1358,6 +1354,8 @@
               </div>
             </div>
 
+            
+
             <div class="t4body">
               <div class="t4leftbody">
                 <div class="t4batch">
@@ -1398,7 +1396,7 @@
                     <h2>D(60-69)</h2>
                   </div>
                   <div class="gradeexp">
-                    <h2>E(< 59-Failed)</h2>
+                    <h2>E( 59-Failed)</h2>
                   </div>
                 </div>
 
@@ -1424,6 +1422,10 @@
               <div class="header-template5" id="header-template5">
                 <h1>Japanese Language Training Report</h1>
                 <h3 id="template5-month"></h3>
+              </div>
+              <div class="tablecontainer5" id="tablecontainerAbove5">
+                <div id="tableContentAbove5"></div>
+
               </div>
 
               <div class="summary-template5">
@@ -1647,6 +1649,11 @@
                 <h3 id="custom-template-month"></h3>
               </div>
 
+              <div class="tablecontainer-custom" id="tablecontainerAbove-custom">
+                <div id="tableContentAbove-custom"></div>
+
+              </div>
+
               <div class="summary-custom-template">
                 <div class="box-custom-template">
                   <h3>Active Batches</h3>
@@ -1672,7 +1679,7 @@
                   <canvas id="levelChart-custom" width="200" height="300"></canvas>
                 </div>
                 <div class="box-custom-template">
-                  <h3>Trainers</h3>
+                  <h3>Trainer</h3>
                   <!-- <div class="box-template2-trainer-name"> -->
                   <div id="trainer-name-custom-template"> </div>
                 </div>
@@ -1908,13 +1915,13 @@
                 </ul>
               </div>
 
-              <div class="download">
+              <!-- <div class="download">
                 <button id="cut-and-download" title="Cut and Download"><i class="fa-solid fa-scissors"></i></button>
                 <button id="download-button" title="Download"><i class="fa-solid fa-download"></i></button>
                 <button id="composeEmailButton" title="Share" onclick="openOutlookCompose()"><i
                     class="fa-solid fa-share-from-square"></i></button>
-                <button id="save-button" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
-                <input id="img-input" type="file" style="display: none;"><br><br>
+                <button id="save-button" title="Save"><i class="fa-solid fa-floppy-disk"></i></button> -->
+                <!-- <input id="image-input" type="file" style="display: none;"><br><br> -->
 
 
 

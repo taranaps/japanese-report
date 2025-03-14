@@ -1,6 +1,7 @@
 import { checkAuth, logout } from "./auth.js";
-import { db } from "./firebaseConfig.mjs";
-import { collection, getDocs, getFirestore, doc, getDoc, where, query } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { db,storage } from "./firebaseConfig.mjs";
+import { collection, getDocs, getFirestore, doc, getDoc, where, query,addDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import {  ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-storage.js";
 
 import uploadImageToFirebase from '../scripts/uploadimage.mjs'
 
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 let selectedTemplate = "";
+let templateKey="";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const images = document.querySelectorAll(".image-container img");
@@ -136,6 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   batchSelect.addEventListener("change", async (e) => {
     const selectedBatch = e.target.value;
     if (selectedBatch) {
+      console.log("gggggggg",selectedBatch)
       const filteredData = await getFilteredDocuments(selectedBatch);
       console.log("Filtered Data:", filteredData);
     }
@@ -259,7 +262,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         table.appendChild(row); // Append each row to the table
     });
 
-    createTable.appendChild(table); // Append the table to the designated element
+    createTable.appendChild(table); 
     return table;
 }
 
@@ -539,6 +542,110 @@ async function createEvaluationTable(data, id) {
       });
   });
 
+  return table;
+}
+
+
+
+async function createEvaluationTable2(data, id) {
+  const tablePosition = document.getElementById(id);
+  tablePosition.innerHTML = "";
+  const table = document.createElement("table");
+  table.style.borderCollapse = "collapse";
+
+  // Create header row
+  const headerRow = table.insertRow();
+
+  // Add the standard column headers up to "Avg.Attendance"
+  const standardHeaders = ["SI No", "Trainee Name", "Department", "Avg.Attendance"];
+  standardHeaders.forEach((headerText) => {
+      const th = document.createElement("th");
+      th.textContent = headerText;
+      th.style.padding = "8px";
+      headerRow.appendChild(th);
+  });
+
+  const evaluationDetailsCell = document.createElement("td");
+  evaluationDetailsCell.textContent = "Evaluation Details";
+  
+  // Ensure text is exactly vertical and centered
+  evaluationDetailsCell.style.writingMode = "sideways-lr"; // Rotate text 90° to face right
+  evaluationDetailsCell.style.textAlign = "center"; // Center horizontally
+  evaluationDetailsCell.style.verticalAlign = "middle"; // Center vertically
+  evaluationDetailsCell.style.width = "20px"; // Adjust width to fit text
+  evaluationDetailsCell.style.padding = "0"; // Remove padding for better fit
+  evaluationDetailsCell.style.lineHeight = "1"; // Prevent extra spacing
+  evaluationDetailsCell.style.fontSize = "12px"; // Set font size
+  evaluationDetailsCell.style.overflow = "hidden"; // Prevent any overflow
+  
+  // Apply rowspan to span all rows (+1 for header)
+  evaluationDetailsCell.rowSpan = data.length + 1;
+  headerRow.appendChild(evaluationDetailsCell);
+  
+
+  // Collect unique evaluations without "N/A" names or scores
+  const uniqueEvaluations = new Set();
+  data.forEach((item) => {
+      item.evaluations.forEach((evaluation) => {
+          if (evaluation.evaluationName !== "" && evaluation.evaluationScore !== "N/A") {
+              uniqueEvaluations.add(evaluation.evaluationName);
+          }
+      });
+  });
+
+  // Create headers for each valid evaluation (after "Evaluation Details")
+  const evaluationHeaders = Array.from(uniqueEvaluations);
+  evaluationHeaders.forEach((header) => {
+      const th = document.createElement("th");
+      th.textContent = header;
+      th.style.padding = "8px";
+      headerRow.appendChild(th);
+  });
+
+  // Populate table rows
+  data.forEach((item, index) => {
+      const row = table.insertRow();
+
+      // Add the serial number (index + 1) as the first cell
+      row.insertCell().textContent = index + 1;
+
+      // Add the other standard columns
+      row.insertCell().textContent = item.traineeName;
+      row.insertCell().textContent = item.du;
+      row.insertCell().textContent = item.avgAttendance;
+
+      // Skip adding a cell for "Evaluation Details" since it's already spanned
+
+      // Map valid evaluations to their scores
+      const evaluationMap = {};
+      item.evaluations.forEach((evaluation) => {
+          if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
+              evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
+          }
+      });
+
+      // Insert cells for each evaluation header, showing score or blank if missing
+      evaluationHeaders.forEach((header) => {
+          const cell = row.insertCell();
+          const score = evaluationMap[header] || "";
+
+          // Set cell background color to red if score is 'F'
+          if (score === 'F') {
+              cell.style.backgroundColor = "red";
+              cell.style.color = "white";
+          } else if (score.toLowerCase() === 'absent') {
+              cell.style.backgroundColor = "yellow";
+              cell.style.color = "black";
+          }
+
+          cell.textContent = score;
+      });
+  });
+
+  // Adjust the height of the "Evaluation Details" cell to match the table
+  evaluationDetailsCell.style.height = `${table.offsetHeight}px`;
+
+  tablePosition.appendChild(table);
   return table;
 }
 
@@ -1438,6 +1545,8 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
       console.error("No batch details found.");
       return;
     }
+
+    console.log("ggggggggbatchdetails",batchDetails)
     
     const mainContainer = document.getElementById("batchwise-data-template2");
     mainContainer.innerHTML = "";
@@ -1509,6 +1618,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
 
     for (const [batchName, details] of Object.entries(batchDetails)) {
       const filteredData = await getFilteredDocuments(batchName);
+      console.log("gggggggg",filteredData)
 
       const batchContainer = document.createElement("div");
       batchContainer.classList.add("batchwise-data-template2");
@@ -2415,6 +2525,9 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
   
   const mainContainer = document.getElementById("custom-dynamic-table-user");
   mainContainer.innerHTML = "";
+
+  const mainContainer2 = document.getElementById("custom-dynamic-table-user2");
+  mainContainer.innerHTML = "";
   
 
   
@@ -2488,6 +2601,8 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
     const batchContainer = document.createElement("div");
     batchContainer.classList.add("custom-dynamic-table-user");
 
+ 
+
     const batchDurationMonth = details.batchDurationMonth;
     const numberOfSessionsMonth = details.numberOfSessionsMonth;
 
@@ -2503,7 +2618,7 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
           <div class="batch-info-custom-user">
           <p>Total Sessions: ${numberOfSessionsMonth} </p>
               <h1>${batchName}</h1>
-          <p>Total Duration: ${batchDurationMonth}</p>    
+          <p>Total Duration: ${batchDurationMonth} (hr)</p>    
           </div>
      
                  
@@ -2518,7 +2633,10 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
           </div>
       `;
 
+     
+
     mainContainer.appendChild(batchContainer);
+    
 
     const evaluationTable1 = document.getElementById(
       `evaluation-table-${batchName}`
@@ -2529,6 +2647,11 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
     );
     evaluationTable1.appendChild(table1);
 
+
+
+ 
+
+
     // await getAttendanceData(filteredData, `attendanceChart-${batchName}`);
     await generateChartToggle(filteredData, `attendanceChart-${batchName}`,'bar');
     document.getElementById('chartTypeDropdownAttendance').addEventListener('change', (event) => {
@@ -2536,6 +2659,64 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
       generateChartToggle(filteredData, `attendanceChart-${batchName}`, selectedChartType);
                       
       });
+
+         
+
+  }
+
+
+
+
+
+
+  for (const [batchName, details] of Object.entries(batchDetails)) {
+    const filteredData = await getFilteredDocuments(batchName);
+    const batchContainer2 = document.createElement("div");
+    batchContainer2.classList.add("custom-dynamic-table-user2");
+
+    const batchDurationMonth = details.batchDurationMonth;
+    const numberOfSessionsMonth = details.numberOfSessionsMonth;
+
+    if (
+      batchDurationMonth === undefined ||
+      numberOfSessionsMonth === undefined
+    ) {
+      console.error(`No batch data available for ${batchName}.`);
+      continue; // Skip this iteration
+    }
+
+
+
+
+ 
+
+
+  
+
+         
+    batchContainer2.innerHTML = `
+    <div class="batch-info-custom-user">
+    <h1>${batchName}</h1>
+    <p>Total Sessions: ${numberOfSessionsMonth} </p>
+        
+    <p>Total Duration: ${batchDurationMonth} (hr)</p>    
+    </div>
+   
+    <div class="trainee-evaluation-custom-user-template">
+    <h3>Batch Details</h3>
+        <div id="evaluation-table2-${batchName}"></div>
+    </div>
+`;
+     mainContainer2.appendChild(batchContainer2);
+     
+     const evaluationTable2 = document.getElementById(
+      `evaluation-table2-${batchName}`
+    );
+    const table2 = await createEvaluationTable2(
+      filteredData,
+      `evaluation-table2-${batchName}`
+    );
+    evaluationTable2.appendChild(table2);
   }
 }
 
@@ -3285,7 +3466,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
     }
       
   }
-
+ 
   async function batchwiseDataTemplate5(selectedBatch) {
 
     const batchDetails = await getBatchDetailsFromLatestCollection();
@@ -3417,8 +3598,9 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
   images.forEach((image) => {
     image.addEventListener("click", async function () {
       hideAllTemplates();
-      const templateKey = this.getAttribute("data-template");
+       templateKey = this.getAttribute("data-template");
       selectTemplate = templateKey;
+    
 
       selectedTemplate = document.getElementById(templateKey);
       if (selectedTemplate) {
@@ -3739,22 +3921,53 @@ commonclass.forEach(id => {
 
 
 
-async function uploadImage()
-{
-  const fileInput = document.getElementById("img-input");
-  let image= fileInput.files[0]
+// async function uploadImage()
+// {
+//   const fileInput = document.getElementById("image-input");
+//   let image= fileInput.files[0]
+//   console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",image)
 
-      if (image) {
-          var imageUrl = await uploadImageToFirebase(image);
-          console.log("image link " + imageUrl)
+//       if (image) {
+//           var imageUrl = await uploadImageToFirebase(image);
+//           console.log("image link " + imageUrl)
 
-      }
+//       }
      
       
+// }
+
+async function uploadImage() {
+  console.log("Starting image upload...");
+
+  const fileInput = document.getElementById("image-input");
+  let image = fileInput.files[0];
+
+  if (!image) {
+      console.error("No image found in input field!");
+      alert("No image available for upload.");
+      return;
+  }
+
+  console.log("Uploading image:", image);
+
+  try {
+      var imageUrl = await uploadImageToFirebase(image);
+      console.log("Image uploaded successfully:", imageUrl);
+  } catch (error) {
+      console.error("Upload failed:", error);
+      alert("Image upload failed.");
+  }
 }
 
 
-document.getElementById("save-button").addEventListener("click",uploadImage)
+document.addEventListener("imageReadyForUpload", function () {
+  console.log("Received event: Image is ready for upload. Starting upload...");
+  
+  setTimeout(uploadImage, 1500);
+});
+
+
+
 
 
 
@@ -3792,5 +4005,316 @@ document.getElementById("save-button").addEventListener("click",uploadImage)
 
 
 // document.getElementById("save-button").addEventListener("click",uploadImage)
+
+
+
+
+
+
+ 
+
+
+function captureAndDownload() {
+  const element = selectedTemplate;
+  if (!element) {
+      alert('Element not found');
+      return;
+  }
+
+  const loadingDiv = document.createElement('div');
+  loadingDiv.textContent = 'Processing...';
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '20px';
+  loadingDiv.style.right = '20px';
+  loadingDiv.style.padding = '10px';
+  loadingDiv.style.background = '#f0f0f0';
+  loadingDiv.style.border = '1px solid #ccc';
+  document.body.appendChild(loadingDiv);
+
+  // Calculate dimensions for high-quality capture
+  const scaleFactor = 4; // High quality
+  const width = element.offsetWidth;
+  const height = element.offsetHeight;
+
+  html2canvas(element, {
+      scale: scaleFactor,
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      width: width,
+      height: height,
+      scrollX: 0,
+      scrollY: 0,
+      backgroundColor: null,
+      windowWidth: width,
+      windowHeight: height,
+      imageTimeout: 0,
+      onclone: (doc) => {
+          const clonedElement = doc.getElementById(templateKey);
+          if (clonedElement) {
+              clonedElement.style.width = `${width}px`;
+              clonedElement.style.height = `${height}px`;
+              
+              // Improve text rendering
+              const allText = clonedElement.querySelectorAll('p, span, h1, h2, h3, h4, h5, h6, div');
+              allText.forEach(el => {
+                  el.style.textRendering = 'optimizeLegibility';
+                  el.style.webkitFontSmoothing = 'antialiased';
+                  el.style.mozOsxFontSmoothing = 'grayscale';
+              });
+          }
+      }
+  }).then(canvas => {
+      // Create final canvas with correct dimensions
+      const finalCanvas = document.createElement('canvas');
+      finalCanvas.width = width * scaleFactor;
+      finalCanvas.height = height * scaleFactor;
+      const ctx = finalCanvas.getContext('2d');
+      
+      // Fill with white background
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+      
+      // Draw the captured content
+      ctx.drawImage(canvas, 0, 0);
+      
+      // Apply sharpening filter for better clarity
+      applySharpening(ctx, finalCanvas.width, finalCanvas.height);
+
+      // Generate both HTML output and direct image
+      createEmailCompatibleHTML(finalCanvas);
+      
+      // Cleanup
+      document.body.removeChild(loadingDiv);
+  }).catch(error => {
+      console.error('Error:', error);
+      alert('Capture failed. Check console for details.');
+      document.body.removeChild(loadingDiv);
+  });
+}
+
+function createEmailCompatibleHTML(canvas) {
+  // Generate data URL with high quality
+  const imgData = canvas.toDataURL('image/jpeg', 0.95);
+  
+  // Create HTML content with email-compatible styling
+  const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <!-- Outlook-specific meta tags -->
+          <meta name="x-apple-disable-message-reformatting">
+          <!--[if mso]>
+          <xml>
+              <o:OfficeDocumentSettings>
+                  <o:PixelsPerInch>96</o:PixelsPerInch>
+              </o:OfficeDocumentSettings>
+          </xml>
+          <![endif]-->
+          <title>Report</title>
+          <style>
+              /* Reset styles for email clients */
+              body, html, table, td, div, p, span {
+                  margin: 0;
+                  padding: 0;
+                  border: 0;
+                  font-size: 100%;
+                  font-family: Arial, sans-serif;
+                  line-height: 1.5;
+              }
+              
+              body {
+                  width: 100% !important;
+                  -webkit-text-size-adjust: 100%;
+                  -ms-text-size-adjust: 100%;
+                  margin: 0;
+                  padding: 0;
+              }
+              
+              /* Ensures image fills width in most email clients */
+              .report-image {
+                  width: 100%;
+                  max-width: 100%;
+                  height: auto;
+                  display: block;
+                  outline: none;
+                  text-decoration: none;
+                  -ms-interpolation-mode: bicubic;
+              }
+              
+              /* Outlook-specific width fix */
+              table, td {
+                  mso-table-lspace: 0pt;
+                  mso-table-rspace: 0pt;
+              }
+              
+              /* Table for email client compatibility */
+              .container-table {
+                  width: 100%;
+                  border-collapse: collapse;
+                  border-spacing: 0;
+                  padding: 0;
+                  margin: 0;
+              }
+          </style>
+      </head>
+      <body>
+          <!-- Table-based layout for Outlook compatibility -->
+          <table class="container-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                  <td align="center" valign="top">
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                          <tr>
+                              <td>
+                                  <!-- Image with width attribute for Outlook -->
+                                  <img src="${imgData}" alt="Report" class="report-image" width="${canvas.width}" style="width:100%; max-width:100%;" />
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+          
+          <!-- Direct copy-paste instruction text -->
+          <div style="font-family: Arial, sans-serif; font-size: 11px; color: #666; text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              For best results when pasting into Outlook, right-click the image above and copy, then paste directly into your email.
+          </div>
+      </body>
+      </html>
+  `;
+
+  // Create direct image download option
+  const imgLink = document.createElement('a');
+  imgLink.href = imgData;
+  imgLink.download = 'report.jpg';
+  
+  // Create HTML download
+  const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+  const htmlUrl = URL.createObjectURL(htmlBlob);
+  const htmlLink = document.createElement('a');
+  htmlLink.href = htmlUrl;
+  htmlLink.download = 'report-for-email.html';
+  
+  // Create a container for download options
+  const downloadOptions = document.createElement('div');
+  downloadOptions.style.position = 'fixed';
+  downloadOptions.style.top = '20px';
+  downloadOptions.style.right = '20px';
+  downloadOptions.style.padding = '15px';
+  downloadOptions.style.background = '#f8f8f8';
+  downloadOptions.style.border = '1px solid #ddd';
+  downloadOptions.style.borderRadius = '5px';
+  downloadOptions.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+  downloadOptions.style.zIndex = '9999';
+  
+  // Add title
+  const title = document.createElement('h3');
+  title.textContent = 'Download Options';
+  title.style.margin = '0 0 10px 0';
+  title.style.fontSize = '14px';
+  downloadOptions.appendChild(title);
+  
+  // Add HTML option
+  const htmlButton = document.createElement('button');
+  htmlButton.textContent = 'Download HTML for Email';
+  htmlButton.style.display = 'block';
+  htmlButton.style.width = '100%';
+  htmlButton.style.padding = '8px';
+  htmlButton.style.marginBottom = '8px';
+  htmlButton.style.cursor = 'pointer';
+  htmlButton.onclick = () => {
+      document.body.appendChild(htmlLink);
+      htmlLink.click();
+      document.body.removeChild(htmlLink);
+      document.body.removeChild(downloadOptions);
+  };
+  downloadOptions.appendChild(htmlButton);
+  
+  // Add Image option
+  const imgButton = document.createElement('button');
+  imgButton.textContent = 'Download Image Only';
+  imgButton.style.display = 'block';
+  imgButton.style.width = '100%';
+  imgButton.style.padding = '8px';
+  imgButton.style.cursor = 'pointer';
+  imgButton.onclick = () => {
+      document.body.appendChild(imgLink);
+      imgLink.click();
+      document.body.removeChild(imgLink);
+      document.body.removeChild(downloadOptions);
+  };
+  downloadOptions.appendChild(imgButton);
+  
+  // Add close button
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'Close';
+  closeButton.style.display = 'block';
+  closeButton.style.width = '100%';
+  closeButton.style.padding = '8px';
+  closeButton.style.marginTop = '8px';
+  closeButton.style.cursor = 'pointer';
+  closeButton.onclick = () => {
+      document.body.removeChild(downloadOptions);
+  };
+  downloadOptions.appendChild(closeButton);
+  
+  // Add to document
+  document.body.appendChild(downloadOptions);
+}
+
+// Function to apply sharpening to canvas context
+function applySharpening(ctx, width, height) {
+  try {
+      // Get image data
+      const imgData = ctx.getImageData(0, 0, width, height);
+      const pixels = imgData.data;
+      const tempPixels = new Uint8ClampedArray(pixels);
+      
+      // Simple sharpening kernel
+      // Skip edge pixels to avoid out-of-bounds
+      for (let y = 1; y < height - 1; y++) {
+          for (let x = 1; x < width - 1; x++) {
+              const idx = (y * width + x) * 4;
+              
+              // Apply sharpening for RGB channels (skip alpha)
+              for (let c = 0; c < 3; c++) {
+                  const currentPixel = tempPixels[idx + c];
+                  const neighbors = [
+                      tempPixels[idx - width * 4 + c], // top
+                      tempPixels[idx - 4 + c],        // left
+                      tempPixels[idx + 4 + c],        // right
+                      tempPixels[idx + width * 4 + c]  // bottom
+                  ];
+                  
+                  // Sharpening calculation: 5*current - sum(neighbors)
+                  let sharpened = 5 * currentPixel - neighbors.reduce((a, b) => a + b, 0);
+                  
+                  // Clamp values to valid range
+                  pixels[idx + c] = Math.min(255, Math.max(0, sharpened));
+              }
+          }
+      }
+      
+      // Put the modified pixels back
+      ctx.putImageData(imgData, 0, 0);
+  } catch (e) {
+      console.warn("Sharpening filter could not be applied:", e);
+      // Continue without sharpening if it fails
+  }
+}
+
+let downloadButton = document.getElementById('download-button');
+let downloadSelect = document.getElementById('downloadSelect');
+downloadButton.addEventListener('click', () => {
+  let selectedValue = downloadSelect.value;
+  if(selectedValue==='html'){
+    captureAndDownload();
+  }
+});
+
+ 
 
 
