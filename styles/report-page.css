@@ -7,6 +7,7 @@
   outline: none;
   scroll-behavior: smooth;
   
+  
   /* font-weight: bold; */
 }
 html {
@@ -18,7 +19,20 @@ body {
   color: #4d4d4d;
   padding: 30px;
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  
 }
+body table {
+  font-size: 12px;
+}
+
+body table td {
+  font-size: 12px;
+}
+
+body table th {
+  font-size: 12px;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -2279,7 +2293,7 @@ text-align: center;
     font-size: 16px;
  
     margin-bottom: 15px;
-    /* margin-left: 300px; */
+    margin-left: 100px;
     width: fit-content;
     position: absolute;
     left: 42%;
@@ -2372,7 +2386,7 @@ text-align: center;
     padding: 6px;
     font-size: 16px;
     margin-bottom: 15px;
-    margin-left: 80px;
+    margin-left: 150px;
     text-align: center;
     line-height: auto; 
     left: 37%;
@@ -3179,7 +3193,7 @@ select:focus {
   margin-top: 20px;
 
 } */
-.tablecontainer2{
+/* .tablecontainer2{
   height: auto;
   color: black;
   background-color: white;
@@ -3190,7 +3204,20 @@ select:focus {
   border: solid 1px white;
   border-radius: 8px;
 
-}
+}*/
+
+/* .tablecontainer2 {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10px;
+  border: solid 1px white;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+} 
+
+
+
 .tablecontainer3{
   height: auto;
   color: black;
@@ -3225,7 +3252,7 @@ select:focus {
   border: solid 1px #dc143c;
   border-radius: 8px;
 
-}
+} */
 /* .table-options {
   background-color: #f4f4f4; 
   padding: 10px 15px;
@@ -3964,6 +3991,23 @@ table.custom-table td {
   top: 0;
   /* background: linear-gradient(180deg, #f8f9fa, #ffffff);  */
   z-index: 1;
+}
+
+.image-container-h2-table {
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  border: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+  width: 100%;
+  border-radius: 6px;
+  justify-content: center;
+  margin-top: 15px;
+  padding-top: 10px;
+
+
 }
 
 /* Scrollable content */
@@ -5270,14 +5314,15 @@ color: white;
   
 
 
-  padding: 10px;
+  /* padding: 10px; */
   /* background-color: #f4f4f4; */
   /* border: 1px solid #ddd; */
-  border-radius: 8px;
+  /* border-radius: 8px; */
   /* min-height: 400px; */
-  position: relative;
+  /* position: relative;
   margin: 20px auto;
-  margin-top: 20px;
+  margin-top: 20px; */
+  
 
 }
 
@@ -5430,7 +5475,7 @@ color: white;
 
 
 .chart-container {
-  margin-top: 20px;
+  /* margin-top: 10px; */
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -5506,12 +5551,13 @@ color: white;
 /* Common Styles */
 /* General Container Styling */
 #tableContent-custom-user {
-  /* position: relative; */
-  padding: 40px;
+ 
+  /* padding: 40px;
   min-height: 10px;
   background: #f7fafc;
   font-family: system-ui, -apple-system, sans-serif;
-  overflow: hidden; /* Prevent overflow */
+  overflow: hidden;  */
+  
 }
 
 /* Table Styling */
