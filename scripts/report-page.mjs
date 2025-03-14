@@ -480,7 +480,7 @@ async function createEvaluationTable(data, id) {
   const headerRow = table.insertRow();
 
   // Add the "SI No" column header
-  ["SI No", "Trainee Name", "Department", "Avg.Attendance (%)"].forEach((headerText) => {
+  ["SI No", "Trainee Name", "Department"].forEach((headerText) => {
       const th = document.createElement("th");
       th.textContent = headerText;
       headerRow.appendChild(th);
@@ -514,7 +514,7 @@ async function createEvaluationTable(data, id) {
       // Add the other standard columns
       row.insertCell().textContent = item.traineeName;
       row.insertCell().textContent = item.du;
-      row.insertCell().textContent = item.avgAttendance;
+      // row.insertCell().textContent = item.avgAttendance;
 
       // Map valid evaluations to their scores
       const evaluationMap = {};
