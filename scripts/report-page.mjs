@@ -956,7 +956,7 @@ async function generateTraineePieChart(id, chartType = "line", backgroundColor =
       if (batchName === selectedBatch) {
         const sessionDurationHTML = `
         <div class="progress">
-            <div class="progress-bar id="progress-bar-duration-month"><h3>Total Duration: ${batchDurationMonth} </h3></div>
+            <div class="progress-bar id="progress-bar-duration-month"><h3>Total Duration: ${batchDurationMonth} hrs</h3></div>
         </div>
         <div class="progress">
         <div class="progress-bar" id="progress-bar-session-month"><h3 >Total Sessions: ${numberOfSessionsMonth} </h3></div>
@@ -1638,7 +1638,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
             <div class="batch-info">
             <p>Total Sessions: ${numberOfSessionsMonth} </p>
                 <h1>${batchName}</h1>
-            <p>Total Duration: ${batchDurationMonth}</p>    
+            <p>Total Duration: ${batchDurationMonth} hrs</p>    
             </div>
        
                    
@@ -2001,7 +2001,7 @@ async function generateSessionChart(data, id, chartType) {
                                     <div class="single-batch-sessionDuration-body-template1">
                                         <div id="single-batch-sessionDuration-content-template1-${batchName}">
                                         <h2 class="t3sessions-firsth-template1">Total Sessions: ${numberOfSessionsMonth}</h2>
-                                        <h2 class="t3sessions-secondh-template1">Total Duration: ${batchDurationMonth}</h2>
+                                        <h2 class="t3sessions-secondh-template1">Total Duration: ${batchDurationMonth} hrs</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -2173,7 +2173,7 @@ async function generateSessionChart(data, id, chartType) {
             <div class="t3sessions">
                 <h2 class="t3sessions-firsth">Total Sessions: ${numberOfSessionsMonth}</h2>
                 <h3 class="batch-title">${batchName}</h3>
-                <h2 class="t3sessions-secondh">Total Duration: ${batchDurationMonth}</h2>
+                <h2 class="t3sessions-secondh">Total Duration: ${batchDurationMonth} hrs</h2>
             </div>
         </div>
         <div class="traneediv">
@@ -2329,7 +2329,7 @@ async function populateBatchDataCustomTemplate(currentDate) {
           <div class="batch-info-custom">
           <p>Total Sessions: ${numberOfSessionsMonth} </p>
               <h1>${batchName}</h1>
-          <p>Total Duration: ${batchDurationMonth}</p>    
+          <p>Total Duration: ${batchDurationMonth} hrs</p>    
           </div>
      
                  
@@ -2339,7 +2339,7 @@ async function populateBatchDataCustomTemplate(currentDate) {
                   </div>
          
           <div class="trainee-evaluation-custom-template">
-          <h3>Trainee Details</h3>
+          <h3>Evaluation Details</h3>
               <div id="evaluation-table-${batchName}"></div>
           </div>
       `;
@@ -2618,7 +2618,7 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
           <div class="batch-info-custom-user">
           <p>Total Sessions: ${numberOfSessionsMonth} </p>
               <h1>${batchName}</h1>
-          <p>Total Duration: ${batchDurationMonth} (hr)</p>    
+          <p>Total Duration: ${batchDurationMonth} hrs</p>    
           </div>
      
                  
@@ -2699,7 +2699,7 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
     <h1>${batchName}</h1>
     <p>Total Sessions: ${numberOfSessionsMonth} </p>
         
-    <p>Total Duration: ${batchDurationMonth} (hr)</p>    
+    <p>Total Duration: ${batchDurationMonth} hrs</p>    
     </div>
    
     <div class="trainee-evaluation-custom-user-template">
@@ -3418,7 +3418,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
             <div class="batch-info-template5">
              <h2>Total Sessions: ${numberOfSessionsMonth}</h2>
                   <h1 id="batch-name-t5-${batchName}">${batchName}</h1>
-                  <h2>Total Duration: ${batchDurationMonth}</h2>
+                  <h2>Total Duration: ${batchDurationMonth} hrs</h2>
                 </div>
       
                 <div class="details-template5">
