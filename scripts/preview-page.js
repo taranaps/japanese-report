@@ -2133,36 +2133,6 @@ let cutAndDownload = document.getElementById('cut-and-download')
 let downloadSelect = document.getElementById('downloadSelect');
 
 
-// select.addEventListener('click', () => {
-//   select.classList.toggle('select-clicked');
-//   caret.classList.toggle('caret-rotate');
-//   menu.classList.toggle('menu-open');
-// });
-
-// function clearDownloadButtonListeners() {
-//   let newButton = downloadButton.cloneNode(true);
-//   downloadButton.replaceWith(newButton);
-//   downloadButton = document.getElementById('download-button');
-// }
-
-
-// options.forEach(option => {
-//   option.addEventListener('click', () => {
-//     selected.innerText = option.innerText;
-
-
-//     select.classList.remove('select-clicked');
-//     caret.classList.remove('caret-rotate');
-//     menu.classList.remove('menu-open');
-
-
-//     clearDownloadButtonListeners();
-//     downloadButton.disabled = false;
-//     console.log(selected.innerText)
-
-
-
-
 downloadButton.addEventListener('click', () => {
   let selectedValue = downloadSelect.value;
 
@@ -2966,11 +2936,82 @@ function downloadPNG() {
 
 
 
+function downloadHTML() {
+  const imageUrl='https://experiontechnologies-my.sharepoint.com/:i:/r/personal/hisham_e_experionglobal_com/Documents/JapaneseReport/Japanese-Training-Report-2025-03-12T08-02-36-293Z.jpg?csf=1&web=1&e=2ZVLQK'
+  // Validate input
+  if (!imageUrl || typeof imageUrl !== 'string') {
+    console.error('Invalid image URL provided');
+    alert('Failed to generate HTML: Invalid image URL');
+    return;
+  }
+
+  // Create the HTML content
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        /* Ensure the table takes full width and no padding/margin */
+        body, html {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          table-layout: fixed;
+        }
+        img {
+          width: 100%; /* Image width matches the email body */
+          height: auto; /* Maintain aspect ratio */
+          display: block; /* Remove any extra space below the image */
+        }
+      </style>
+    </head>
+    <body>
+      <table>
+        <tr>
+          <td>
+            <!-- The image will be displayed here -->
+            <img src="${imageUrl}" alt="Generated Image">
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+  `;
+
+  // Create a Blob from the HTML content
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+
+  // Create a temporary anchor element for downloading
+  const link = document.createElement('a');
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  link.href = URL.createObjectURL(blob);
+  link.download = `Japanese-Training-Report-${timestamp}.html`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  // Clean up the object URL
+  URL.revokeObjectURL(link.href);
+}
+
+
+
 downloadButton.addEventListener('click', () => {
   if (downloadSelect.value === '') {
     alert("Please select a format before downloading.");
   }
 });
+
+
+
 
 
 
@@ -3016,9 +3057,7 @@ images.forEach(image => {
     const selectedTemplate = document.getElementById(templateKey);
     if (selectedTemplate) {
 
-      if (templateKey === "template2") {
-        tableContainer = document.getElementById('tableContent2')
-        tableId = 'tablecontainer2'
+      if (templateKey === "template2") { 
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -3032,12 +3071,27 @@ images.forEach(image => {
         imageToolbar = 'imageToolbar'
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
+       
+
+        let addButton = document.getElementById('addtablesection');
+        let addSelect = document.getElementById('tableSectionPreference');
+        addButton.addEventListener('click', () => {
+        let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove2')
+          tableId = 'tablecontainerAbove2'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent2')
+           tableId = 'tablecontainer2'
+        }
+      
+      })
 
 
       }
       else if (templateKey === "template5") {
-        tableContainer = document.getElementById('tableContent5')
-        tableId = 'tablecontainer5'
+        // tableContainer = document.getElementById('tableContent5')
+        // tableId = 'tablecontainer5'
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -3052,10 +3106,25 @@ images.forEach(image => {
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
 
+
+        let addButton = document.getElementById('addtablesection');
+        let addSelect = document.getElementById('tableSectionPreference');
+        addButton.addEventListener('click', () => {
+        let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove5')
+          tableId = 'tablecontainerAbove5'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent5')
+           tableId = 'tablecontainer5'
+        }
+      
+      })
+
       }
       else if (templateKey === "custom-div") {
-        tableContainer = document.getElementById('tableContent-custom')
-        tableId = 'tablecontainer-custom'
+        // tableContainer = document.getElementById('tableContent-custom')
+        // tableId = 'tablecontainer-custom'
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -3069,10 +3138,26 @@ images.forEach(image => {
         imageToolbar = 'imageToolbar'
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
+
+
+
+        let addButton = document.getElementById('addtablesection');
+        let addSelect = document.getElementById('tableSectionPreference');
+        addButton.addEventListener('click', () => {
+        let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove-custom')
+          tableId = 'tablecontainerAbove-custom' 
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent-custom')
+           tableId = 'tablecontainer-custom' 
+        }
+      
+      })
       }
       else if (templateKey === "template3") {
-        tableContainer = document.getElementById('tableContent3')
-        tableId = 'tablecontainer3'
+        // tableContainer = document.getElementById('tableContent3')
+        // tableId = 'tablecontainer3'
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -3086,6 +3171,21 @@ images.forEach(image => {
         imageToolbar = 'imageToolbar'
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
+
+
+        let addButton = document.getElementById('addtablesection');
+        let addSelect = document.getElementById('tableSectionPreference');
+        addButton.addEventListener('click', () => {
+        let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove3')
+          tableId = 'tablecontainerAbove3'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent3')
+           tableId = 'tablecontainer3'
+        }
+      
+      })
 
       }
       else if (templateKey === "custom-template-user") {
@@ -3107,8 +3207,8 @@ images.forEach(image => {
 
       }
       else {
-        tableContainer = document.getElementById('tableContent1')
-        tableId = 'tablecontainer1'
+        // tableContainer = document.getElementById('tableContent1')
+        // tableId = 'tablecontainer1'
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -3122,6 +3222,21 @@ images.forEach(image => {
         imageToolbar = 'imageToolbar'
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
+
+
+        let addButton = document.getElementById('addtablesection');
+        let addSelect = document.getElementById('tableSectionPreference');
+        addButton.addEventListener('click', () => {
+        let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove1')
+          tableId = 'tablecontainerAbove1'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent1')
+           tableId = 'tablecontainer1'
+        }
+      
+      })
 
 
       }
@@ -3189,6 +3304,10 @@ function createTable() {
 
   const table = document.createElement('table');
   table.className = 'custom-table';
+  table.style.width = "100%"; // Ensure table fills container
+  table.style.borderCollapse = "collapse";
+  table.style.tableLayout = "fixed"; // Ensures equal column widths
+  table.style.fontSize="12px"
 
   for (let i = 0; i < rows; i++) {
     const row = table.insertRow();
@@ -3356,7 +3475,7 @@ function changeCellBackground() {
     // Create a color picker with the last chosen color as the default
     const colorPicker = document.createElement('input');
     colorPicker.type = 'color';
-    colorPicker.style.position = 'absolute';
+    colorPicker.style.position = 'relative';
     colorPicker.style.zIndex = '1000';
     colorPicker.style.opacity = '0';
 
@@ -3902,18 +4021,122 @@ function deleteImage() {
 //   }
 // });
 
-document.getElementById('save-button').addEventListener('click', function () {
-  var wrapperDiv = document.getElementById('preview-report');
+// document.getElementById('save-button').addEventListener('click', function () {
+//   var wrapperDiv = document.getElementById(selectTemplate);
 
-  // Check if the div is null or has no <img> elements
-  if (wrapperDiv === null || wrapperDiv.getElementsByTagName('img').length === 0) {
-    alert("Please Choose a Template ");
-  } else {
+//   // Check if the div is null or has no <img> elements
+//   if (wrapperDiv === null || wrapperDiv.getElementsByTagName('img').length === 0) {
+//     alert("Please Choose a Template ");
+//   } else {
 
-    alert("Saved Successfully ");
+//     alert("Saved Successfully ");
 
+//   }
+// });
+
+document.getElementById("save-button").addEventListener("click", async function () {
+  console.log("Processing... Please wait.");
+
+  var wrapperDiv = document.getElementById(selectTemplate);
+  if (!wrapperDiv) {
+      alert("Please Choose a Template");
+      return;
+  }
+
+  try {
+      await convertElementToJPG(wrapperDiv);
+      console.log("Image conversion completed. Dispatching event...");
+
+      // Dispatch an event when the image is ready
+      document.dispatchEvent(new Event("imageReadyForUpload"));
+  } catch (error) {
+      console.error("Error during conversion:", error);
+      alert("Failed to capture image.");
   }
 });
+
+function convertElementToJPG(element) {
+  return new Promise((resolve, reject) => {
+      if (typeof html2canvas !== 'function') {
+          console.error('html2canvas not loaded');
+          alert('Failed to capture image: Required library not loaded');
+          reject(new Error('html2canvas not loaded'));
+          return;
+      }
+
+      const elementRect = element.getBoundingClientRect();
+      const actualWidth = elementRect.width;
+      const actualHeight = elementRect.height;
+
+      const publisherDPI = 300;
+      const screenDPI = 96;
+      const scaleFactor = publisherDPI / screenDPI;
+
+      const outputWidth = Math.round(actualWidth * scaleFactor);
+      const outputHeight = Math.round(actualHeight * scaleFactor);
+
+      const config = {
+          scale: scaleFactor,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          width: actualWidth,
+          height: actualHeight,
+          scrollX: 0,
+          scrollY: 0,
+          imageTimeout: 60000,
+          removeContainer: true,
+          foreignObjectRendering: false,
+          onclone: function (clonedDoc) {
+              const clonedElement = clonedDoc.getElementById(selectTemplate);
+              if (clonedElement) {
+                  clonedElement.style.height = actualHeight + 'px';
+                  clonedElement.style.overflow = 'visible';
+              }
+          }
+      };
+
+      html2canvas(element, config)
+          .then(canvas => {
+              const finalCanvas = document.createElement('canvas');
+              finalCanvas.width = outputWidth;
+              finalCanvas.height = outputHeight;
+              const ctx = finalCanvas.getContext('2d', { alpha: false });
+
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = 'high';
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+              ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
+
+              return finalCanvas.toDataURL('image/jpeg', 1.0);
+          })
+          .then(imgData => {
+              return fetch(imgData)
+                  .then(res => res.blob())
+                  .then(blob => {
+                      const file = new File([blob], "convertedImage.jpeg", { type: "image/jpeg" });
+
+                      const dataTransfer = new DataTransfer();
+                      dataTransfer.items.add(file);
+
+                      const imageInput = document.getElementById('image-input');
+                      imageInput.files = dataTransfer.files;
+
+                      console.log("Image assigned to file input:", imageInput.files);
+                      resolve();
+                  });
+          })
+          .catch(error => {
+              console.error('Error generating image:', error);
+              alert('Failed to capture image. Please try again.');
+              reject(error);
+          });
+  });
+
+  
+}
+
+
 
 
 
@@ -5013,3 +5236,99 @@ function toggleTableStyles() {
     applyTableStyle(tableStylesCss[currentStyleIndexTable], containerId);
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+function updateTableContainerVisibility(tableContainer, tableId) {
+  if (!tableContainer || !tableId) return;
+
+  let hasContent = tableContainer.innerHTML.trim() !== ""; // Ensure content detection
+  console.log(`Checking content for ${tableId}: `, hasContent); // Debugging
+
+  let parentDiv = document.getElementById(tableId);
+
+  if (parentDiv) {
+    if (hasContent) {
+      switch (tableId) {
+        case "tablecontainer2":
+          case "tablecontainerAbove2":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "solid 1px white";
+          parentDiv.style.borderRadius = "8px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor="white"
+          break;
+
+        case "tablecontainer3":
+          case "tablecontainerAbove3":
+          parentDiv.style.height = "auto";
+          parentDiv.style.color = "black";
+          parentDiv.style.backgroundColor = "white";
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "30px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "solid 2px black";
+          break;
+
+        case "tablecontainer5":
+          case "tablecontainerAbove5":
+          parentDiv.style.height = "auto";
+          parentDiv.style.color = "black";
+          parentDiv.style.backgroundColor = "white";
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "solid 1px #90a4ae";
+          break;
+
+        case "tablecontainer-custom":
+          case "tablecontainerAbove-custom":
+          parentDiv.style.height = "auto";
+          parentDiv.style.color = "black";
+          parentDiv.style.backgroundColor = "white";
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "solid 1px #dc143c";
+          parentDiv.style.borderRadius = "8px";
+          break;
+
+        default:
+          console.warn(`No predefined styles for ${tableId}`);
+      }
+    } else {
+      // Hide when empty
+      parentDiv.style.backgroundColor = "transparent";
+      parentDiv.style.border = "none";
+      parentDiv.style.padding = "0";
+    }
+  }
+}
+
+
+
+// Attach event listener when adding a table section
+let addButton = document.getElementById("addTableSectionTrigger");
+let addSelect = document.getElementById("tableSectionPreference");
+
+addButton.addEventListener("click", () => {
+  setTimeout(() => {
+    updateTableContainerVisibility(tableContainer, tableId);
+  }, 100);
+});
+
+
