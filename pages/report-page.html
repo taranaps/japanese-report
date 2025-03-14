@@ -64,6 +64,15 @@
             <div class="vertical-line"></div>
             <button onclick="toggleThemes()" class="toolbars-button">Choose Theme</button>
             <div class="vertical-line"></div>
+            <div class="select-batch">
+              <h2>Custom Position</h2>
+              <select id="tableSectionPreference">
+                <option value="">Select</option>
+                <option value="above">Above Template</option>
+                <option value="below">Below Template</option>
+              </select>
+            </div>
+            <div class="vertical-line"></div>
             <div class="toggle-learners">
               <h2>No. of Learners</h2>
               <div class="chart-toggle">
@@ -131,15 +140,6 @@
           </div>
 
           <div class="tabcontents" id="table">
-            <div class="select-batch">
-              <h2>Batch</h2>
-              <select id="tableSectionPreference">
-                <option value="">Select</option>
-                <option value="above">Above</option>
-                <option value="below">Below</option>
-              </select>
-            </div>
-            <div class="vertical-line"></div>
             <button onclick="toggleAddTablePopup()" class="toolbars-button" id="addtablesection">Add Table</button>
             <div class="vertical-line"></div>
             <div class="table-spacing">
@@ -239,7 +239,7 @@
 
           </div>
           <div class="tabcontents" id="image">
-            <button class="toolbars-button" onclick="toggleAddImagePopup()">Add Image</button>
+            <button class="toolbars-button" onclick="toggleAddImagePopup()" id="addImageToTableSection">Add Image</button>
             <div class="vertical-line"></div>
             <div class="toolbar-inner">
               <div class="toolbar-row">
@@ -276,7 +276,7 @@
 
           </div>
           <div class="tabcontents" id="text">
-            <button onclick="createTextarea()" class="toolbars-button">Add Text</button>
+            <button onclick="createTextarea()" class="toolbars-button" id="addTextForTableSpace">Add Text</button>
             <div class="vertical-line"></div>
             <div class="toolbar-inner">
               <div class="toolbar-row">
@@ -430,7 +430,7 @@
             <h3 class="image-container-h2">Add Image</h3>
             <div class="input-container">
               <input type="file" accept="image/*" id="uploadImage">
-              <button onclick="displayUploadedPhotos()" class="inside-popup-table-button">
+              <button onclick="displayUploadedPhotos()" class="inside-popup-table-button" id="addTableSectionTriggerImage" >
                 Add Image
               </button>
             </div>
@@ -527,7 +527,7 @@
               </div>
               <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
                 data-id="trainerName">
-                <h3>Trainers</h3>
+                <h3>Trainer</h3>
                 <div id="trainer-name-custom-user-template"></div>
               </div>
             </div>
@@ -1704,6 +1704,10 @@
           <div class="custom-template-user" id="custom-template-user" class="selected-container" style="display: none"
             ondragover="allowDrop(event)" ondrop="drop(event)">
             <div id="custom-template-heading-container"></div>
+            <div class="tablecontainer-customAbove-user" id="tablecontainer-customAbove-user">
+              <div id="tableContent-customAbove-user"></div>
+
+            </div>
             <div id="custom-template-graph-container" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
             <div id="custom-template-table-container" ondragover="allowDropTable(event)" ondrop="dropTable(event)">
             </div>

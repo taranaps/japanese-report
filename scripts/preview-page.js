@@ -3087,6 +3087,36 @@ images.forEach(image => {
       
       })
 
+      let addTextButton = document.getElementById('addTextForTableSpace');
+        let addTextSelect = document.getElementById('tableSectionPreference');
+        addTextButton.addEventListener('click', () => {
+        let selectedValue = addTextSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove2')
+          tableId = 'tablecontainerAbove2'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent2')
+           tableId = 'tablecontainer2'
+        }
+      
+      })
+
+
+
+      let addImageButton = document.getElementById('addImageToTableSection');
+        let addImageSelect = document.getElementById('tableSectionPreference');
+        addImageButton.addEventListener('click', () => {
+        let selectedValue = addImageSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove2')
+          tableId = 'tablecontainerAbove2'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent2')
+           tableId = 'tablecontainer2'
+        }
+      
+      })
+
 
       }
       else if (templateKey === "template5") {
@@ -3121,6 +3151,37 @@ images.forEach(image => {
       
       })
 
+
+      let addTextButton = document.getElementById('addTextForTableSpace');
+        let addTextSelect = document.getElementById('tableSectionPreference');
+        addTextButton.addEventListener('click', () => {
+          let selectedValue = addTextSelect.value;
+          if(selectedValue=="above"){
+            tableContainer = document.getElementById('tableContentAbove5')
+            tableId = 'tablecontainerAbove5'
+          }else if(selectedValue=="below"){
+             tableContainer = document.getElementById('tableContent5')
+             tableId = 'tablecontainer5'
+          }
+        
+        })
+
+
+
+        let addImageButton = document.getElementById('addImageToTableSection');
+        let addImageSelect = document.getElementById('tableSectionPreference');
+        addImageButton.addEventListener('click', () => {
+          let selectedValue = addImageSelect.value;
+          if(selectedValue=="above"){
+            tableContainer = document.getElementById('tableContentAbove5')
+            tableId = 'tablecontainerAbove5'
+          }else if(selectedValue=="below"){
+             tableContainer = document.getElementById('tableContent5')
+             tableId = 'tablecontainer5'
+          }
+      
+      })
+
       }
       else if (templateKey === "custom-div") {
         // tableContainer = document.getElementById('tableContent-custom')
@@ -3145,6 +3206,39 @@ images.forEach(image => {
         let addSelect = document.getElementById('tableSectionPreference');
         addButton.addEventListener('click', () => {
         let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove-custom')
+          tableId = 'tablecontainerAbove-custom' 
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent-custom')
+           tableId = 'tablecontainer-custom' 
+        }
+      
+      })
+
+
+
+      let addTextButton = document.getElementById('addTextForTableSpace');
+        let addTextSelect = document.getElementById('tableSectionPreference');
+        addTextButton.addEventListener('click', () => {
+          let selectedValue = addTextSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove-custom')
+          tableId = 'tablecontainerAbove-custom' 
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent-custom')
+           tableId = 'tablecontainer-custom' 
+        }
+        
+        })
+
+
+
+
+        let addImageButton = document.getElementById('addImageToTableSection');
+        let addImageSelect = document.getElementById('tableSectionPreference');
+        addImageButton.addEventListener('click', () => {
+          let selectedValue = addImageSelect.value;
         if(selectedValue=="above"){
           tableContainer = document.getElementById('tableContentAbove-custom')
           tableId = 'tablecontainerAbove-custom' 
@@ -3187,10 +3281,43 @@ images.forEach(image => {
       
       })
 
+
+
+
+      let addTextButton = document.getElementById('addTextForTableSpace');
+        let addTextSelect = document.getElementById('tableSectionPreference');
+        addTextButton.addEventListener('click', () => {
+          let selectedValue = addTextSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove3')
+          tableId = 'tablecontainerAbove3'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent3')
+           tableId = 'tablecontainer3'
+        }
+        
+        })
+
+
+
+        let addImageButton = document.getElementById('addImageToTableSection');
+        let addImageSelect = document.getElementById('tableSectionPreference');
+        addImageButton.addEventListener('click', () => {
+        let selectedValue = addImageSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove3')
+          tableId = 'tablecontainerAbove3'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent3')
+           tableId = 'tablecontainer3'
+        }
+      
+      })
+
       }
       else if (templateKey === "custom-template-user") {
-        tableContainer = document.getElementById('tableContent-custom-user')
-        tableId = 'tablecontainer-custom-user'
+        // tableContainer = document.getElementById('tableContent-custom-user')
+        // tableId = 'tablecontainer-custom-user'
         toolbarId = 'toolbar'
         mergeRowIndex = 'mergeRowIndex'
         startColumnIndex = 'startColumnIndex'
@@ -3204,6 +3331,53 @@ images.forEach(image => {
         imageToolbar = 'imageToolbar'
         hideImage = '#tableContent img'
         borderColorPicker = 'borderColorPicker'
+
+
+
+        let addButton = document.getElementById('addtablesection');
+        let addSelect = document.getElementById('tableSectionPreference');
+        addButton.addEventListener('click', () => {
+        let selectedValue = addSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContent-customAbove-user')
+          tableId = 'tablecontainer-customAbove-user'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent-custom-user')
+           tableId = 'tablecontainer-custom-user'
+        }
+      
+      })
+
+
+
+      let addTextButton = document.getElementById('addTextForTableSpace');
+        let addTextSelect = document.getElementById('tableSectionPreference');
+        addTextButton.addEventListener('click', () => {
+          let selectedValue = addTextSelect.value;
+          if(selectedValue=="above"){
+            tableContainer = document.getElementById('tableContent-customAbove-user')
+            tableId = 'tablecontainer-customAbove-user'
+          }else if(selectedValue=="below"){
+             tableContainer = document.getElementById('tableContent-custom-user')
+             tableId = 'tablecontainer-custom-user'
+          }
+        
+        })
+
+
+        let addImageButton = document.getElementById('addImageToTableSection');
+        let addImageSelect = document.getElementById('tableSectionPreference');
+        addImageButton.addEventListener('click', () => {
+          let selectedValue = addImageSelect.value;
+          if(selectedValue=="above"){
+            tableContainer = document.getElementById('tableContent-customAbove-user')
+            tableId = 'tablecontainer-customAbove-user'
+          }else if(selectedValue=="below"){
+             tableContainer = document.getElementById('tableContent-custom-user')
+             tableId = 'tablecontainer-custom-user'
+          }
+      
+      })
 
       }
       else {
@@ -3235,6 +3409,38 @@ images.forEach(image => {
            tableContainer = document.getElementById('tableContent1')
            tableId = 'tablecontainer1'
         }
+      
+      })
+
+
+
+
+      let addTextButton = document.getElementById('addTextForTableSpace');
+        let addTextSelect = document.getElementById('tableSectionPreference');
+        addTextButton.addEventListener('click', () => {
+          let selectedValue = addTextSelect.value;
+        if(selectedValue=="above"){
+          tableContainer = document.getElementById('tableContentAbove1')
+          tableId = 'tablecontainerAbove1'
+        }else if(selectedValue=="below"){
+           tableContainer = document.getElementById('tableContent1')
+           tableId = 'tablecontainer1'
+        }
+        
+        })
+
+
+        let addImageButton = document.getElementById('addImageToTableSection');
+        let addImageSelect = document.getElementById('tableSectionPreference');
+        addImageButton.addEventListener('click', () => {
+          let selectedValue = addImageSelect.value;
+          if(selectedValue=="above"){
+            tableContainer = document.getElementById('tableContentAbove1')
+            tableId = 'tablecontainerAbove1'
+          }else if(selectedValue=="below"){
+             tableContainer = document.getElementById('tableContent1')
+             tableId = 'tablecontainer1'
+          }
       
       })
 
@@ -5229,7 +5435,7 @@ function applyTableStyle(styleConfig, containerId) {
 
 // Function to toggle between styles for multiple containers
 function toggleTableStyles() {
-  const containerIds = ['tableContent-custom-user', 'trainee-evaluation-custom-user-template'];
+  const containerIds = ['tableContent-custom-user', 'trainee-evaluation-custom-user-template','tableContent-customAbove-user'];
 
   containerIds.forEach(containerId => {
     currentStyleIndexTable = (currentStyleIndexTable + 1) % tableStylesCss.length;
@@ -5307,6 +5513,19 @@ function updateTableContainerVisibility(tableContainer, tableId) {
           parentDiv.style.borderRadius = "8px";
           break;
 
+        case "tablecontainer-custom-user":
+          case "tablecontainer-customAbove-user":
+          parentDiv.style.height = "auto";
+          parentDiv.style.color = "black";
+          parentDiv.style.backgroundColor = "white";
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "solid 1px transparent";
+          parentDiv.style.borderRadius = "8px";
+          break;
+
         default:
           console.warn(`No predefined styles for ${tableId}`);
       }
@@ -5323,12 +5542,18 @@ function updateTableContainerVisibility(tableContainer, tableId) {
 
 // Attach event listener when adding a table section
 let addButton = document.getElementById("addTableSectionTrigger");
-let addSelect = document.getElementById("tableSectionPreference");
+// Select the add button using multiple IDs
+let addButtonIds = ["addTableSectionTrigger", "addTableSectionTriggerImage", "addTextForTableSpace"];
 
-addButton.addEventListener("click", () => {
-  setTimeout(() => {
-    updateTableContainerVisibility(tableContainer, tableId);
-  }, 100);
+addButtonIds.forEach((id) => {
+  let addButton = document.getElementById(id);
+  if (addButton) {
+    addButton.addEventListener("click", () => {
+      setTimeout(() => {
+        updateTableContainerVisibility(tableContainer, tableId);
+      }, 100);
+    });
+  }
 });
 
 
