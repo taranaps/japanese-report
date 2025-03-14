@@ -7,36 +7,53 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.0/fi
 // Upload the file to Firebase Storage
  
 async function uploadImageToFirebase(file) {
-    const storagePath = `Reports/${file.name}`; // Define the path in Firebase Storage
-    const fileRef = storageRef(storage, storagePath);
-    let imageUrl = "";
-
-    try {
-        // Upload the file to Firebase Storage
-        const snapshot = await uploadBytes(fileRef, file);
-        console.log("Uploaded a blob or file!");
-
-        // Get the download URL
-        imageUrl = await getDownloadURL(snapshot.ref);
-        console.log("File available at", imageUrl);
-
-        // Prepare metadata to store in Firestore
-        const metadata = {
-            imageUrl: imageUrl,
-            name: file.name,
-            size: file.size, // File size in bytes
-            type: file.type, // MIME type (e.g., "image/png")
-            uploadedAt: new Date().toISOString()
-        };
-
-        // Save the image URL and metadata to Firestore under the "Reports" collection
-        await addDoc(collection(db, "reports"), metadata);
-
-        console.log("Image URL and metadata added to Firestore.");
-    } catch (error) {
-        console.error("Error uploading file:", error);
+    if (!file) {
+      console.error("❌ No file selected.");
+      return;
     }
-
-    return imageUrl;
-}
+  
+    try {
+      // Show loading state (e.g., disable button, show spinner)
+      console.log("🚀 Uploading file...");
+      console.log("file name",file.name)
+  
+      // Generate unique filename
+      const timestamp = Date.now();
+      const filename = `${timestamp}${file.name}`;
+      const storagePath = `reportforHistory/${filename}`;
+      const fileRef = storageRef(storage, storagePath);
+      console.log("fileref",fileRef)
+  
+      // Upload the file
+      const snapshot = await uploadBytes(fileRef, file);
+      console.log("Uploaded a blob or file!");
+      console.log("snapshot",snapshot)
+  
+      // Get download URL
+      const imageUrl = await getDownloadURL(snapshot.ref);
+      console.log("🔗 File available at:", imageUrl);
+  
+      // Save metadata to Firestore
+      const metadata = {
+        imageUrl: imageUrl,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        uploadedAt: new Date().toISOString(),
+      };
+  
+      // Add to Firestore
+      await addDoc(collection(db, "reports"), metadata);
+      console.log("🔥 Metadata saved to Firestore.");
+  
+      // Hide loading state
+      console.log("✅ Upload completed successfully!");
+      return imageUrl;
+    } catch (error) {
+        console.error("Error Code:", error.code);
+        console.error("Error Message:", error.message);
+        console.error("Server Response:", error.serverResponse);
+        throw error;
+    }
+  }
 export default uploadImageToFirebase

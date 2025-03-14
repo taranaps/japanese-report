@@ -7,6 +7,7 @@
   outline: none;
   scroll-behavior: smooth;
   
+  
   /* font-weight: bold; */
 }
 html {
@@ -18,7 +19,20 @@ body {
   color: #4d4d4d;
   padding: 30px;
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  
 }
+body table {
+  font-size: 12px;
+}
+
+body table td {
+  font-size: 12px;
+}
+
+body table th {
+  font-size: 12px;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -2279,7 +2293,7 @@ text-align: center;
     font-size: 16px;
  
     margin-bottom: 15px;
-    /* margin-left: 300px; */
+    margin-left: 100px;
     width: fit-content;
     position: absolute;
     left: 42%;
@@ -2372,7 +2386,7 @@ text-align: center;
     padding: 6px;
     font-size: 16px;
     margin-bottom: 15px;
-    margin-left: 80px;
+    margin-left: 150px;
     text-align: center;
     line-height: auto; 
     left: 37%;
@@ -3179,7 +3193,7 @@ select:focus {
   margin-top: 20px;
 
 } */
-.tablecontainer2{
+/* .tablecontainer2{
   height: auto;
   color: black;
   background-color: white;
@@ -3190,7 +3204,20 @@ select:focus {
   border: solid 1px white;
   border-radius: 8px;
 
-}
+}*/
+
+/* .tablecontainer2 {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10px;
+  border: solid 1px white;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+} 
+
+
+
 .tablecontainer3{
   height: auto;
   color: black;
@@ -3225,7 +3252,7 @@ select:focus {
   border: solid 1px #dc143c;
   border-radius: 8px;
 
-}
+} */
 /* .table-options {
   background-color: #f4f4f4; 
   padding: 10px 15px;
@@ -3964,6 +3991,23 @@ table.custom-table td {
   top: 0;
   /* background: linear-gradient(180deg, #f8f9fa, #ffffff);  */
   z-index: 1;
+}
+
+.image-container-h2-table {
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  border: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+  width: 100%;
+  border-radius: 6px;
+  justify-content: center;
+  margin-top: 15px;
+  padding-top: 10px;
+
+
 }
 
 /* Scrollable content */
@@ -5270,14 +5314,15 @@ color: white;
   
 
 
-  padding: 10px;
+  /* padding: 10px; */
   /* background-color: #f4f4f4; */
   /* border: 1px solid #ddd; */
-  border-radius: 8px;
+  /* border-radius: 8px; */
   /* min-height: 400px; */
-  position: relative;
+  /* position: relative;
   margin: 20px auto;
-  margin-top: 20px;
+  margin-top: 20px; */
+  
 
 }
 
@@ -5430,7 +5475,7 @@ color: white;
 
 
 .chart-container {
-  margin-top: 20px;
+  /* margin-top: 10px; */
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -5498,3 +5543,226 @@ color: white;
 
 
 
+
+
+
+
+
+/* Common Styles */
+/* General Container Styling */
+#tableContent-custom-user {
+ 
+  /* padding: 40px;
+  min-height: 10px;
+  background: #f7fafc;
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow: hidden;  */
+  
+}
+
+/* Table Styling */
+table {
+  /* position: relative; */
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 15px auto;
+  z-index: 1;
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Style-Specific Rules */
+
+/* Pyramid Layout */
+.style-pyramid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+.style-pyramid table {
+  width: 80%;
+  transform: rotate(-45deg);
+  border: 2px solid #2c5282;
+  /* background-color: #e2e8f0; */
+}
+
+/* DNA Double Helix */
+.style-dna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+.style-dna table {
+  width: 90%;
+  border: 2px dashed #4299e1;
+  /* background-color: #ebf8ff; */
+}
+
+/* Technology Tree */
+.style-tech-tree {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+.style-tech-tree table {
+  border: 2px solid #805ad5;
+  /* background-color: #f6e05e; */
+}
+
+/* Subway Map Style */
+.style-subway {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.style-subway table {
+  border: 2px dashed #e53e3e;
+  /* background-color: #fff5f5; */
+}
+
+/* Architectural Blueprint */
+.style-blueprint {
+  background: #1a202c;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+.style-blueprint table {
+  border: 2px dotted #4299e1;
+  /* background-color: #edf2f7; */
+}
+
+/* Star Constellation */
+.style-constellation {
+  background: #2d3748;
+  position: relative;
+  gap: 40px;
+}
+.style-constellation table {
+  border: 1px dotted #ffffff;
+  /* background-color: transparent; */
+}
+
+/* Circuit Board */
+.style-circuit {
+  background: #1a202c;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.style-circuit table {
+  border: 2px solid #48bb78;
+  /* background-color: #d3e5d8; */
+}
+
+/* Mind Map Structure */
+.style-mindmap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+.style-mindmap table {
+  border: 2px solid #ffab00;
+  /* background-color: #fefcbf; */
+}
+
+/* Molecular Structure */
+.style-molecular {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+.style-molecular table {
+  border: 2px solid #ed64a6;
+  /* background-color: #fff5f7; */
+}
+
+/* Treemap Layout */
+.style-treemap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.style-treemap table {
+  border: 2px solid #00b5d8;
+  /* background-color: #e6fffa; */
+}
+
+/* Honeycomb Grid */
+.style-honeycomb {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+.style-honeycomb table {
+  border: 2px solid #f6ad55;
+  /* background-color: #fef3c7; */
+}
+
+/* Spiral Layout */
+.style-spiral {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+.style-spiral table {
+  border: 2px solid #63b3ed;
+  /* background-color: #ebf8ff; */
+}
+
+/* Staircase Layout */
+.style-stairs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+}
+.style-stairs table {
+  border: 2px solid #f6e05e;
+  /* background-color: #fefcbf; */
+}
+
+/* Radial Layout */
+.style-radial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+.style-radial table {
+  border: 2px solid #9f7aea;
+  /* background-color: #f3e8ff; */
+}
+
+/* Wave-Like Layout */
+.style-wave {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.style-wave table {
+  border: 2px solid #4fd1c5;
+  /* background-color: #e6fffa; */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .style-treemap {
+    grid-template-columns: 1fr;
+  }
+  .style-dna table {
+    width: 90%;
+    transform: none !important;
+  }
+  table {
+    max-width: 100%;
+  }
+}
