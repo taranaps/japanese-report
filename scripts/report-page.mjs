@@ -4097,89 +4097,159 @@ function createEmailCompatibleHTML(canvas) {
   // Generate data URL with high quality
   const imgData = canvas.toDataURL('image/jpeg', 0.95);
   
-  // Create HTML content with email-compatible styling
+  // Create HTML content with enhanced Outlook compatibility
   const htmlContent = `
       <!DOCTYPE html>
-      <html>
+      <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <!-- Outlook-specific meta tags -->
           <meta name="x-apple-disable-message-reformatting">
+          <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
           <!--[if mso]>
+          <noscript>
           <xml>
               <o:OfficeDocumentSettings>
+                  <o:AllowPNG/>
                   <o:PixelsPerInch>96</o:PixelsPerInch>
               </o:OfficeDocumentSettings>
           </xml>
+          </noscript>
           <![endif]-->
           <title>Report</title>
           <style>
-              /* Reset styles for email clients */
-              body, html, table, td, div, p, span {
-                  margin: 0;
-                  padding: 0;
-                  border: 0;
-                  font-size: 100%;
-                  font-family: Arial, sans-serif;
-                  line-height: 1.5;
-              }
-              
-              body {
-                  width: 100% !important;
-                  -webkit-text-size-adjust: 100%;
+              /* Reset styles */
+              body, div, table, td, p, a, span {
                   -ms-text-size-adjust: 100%;
-                  margin: 0;
-                  padding: 0;
+                  -webkit-text-size-adjust: 100%;
               }
               
-              /* Ensures image fills width in most email clients */
-              .report-image {
+              /* Outlook-specific fixes */
+              table, td {
+                  mso-table-lspace: 0pt !important;
+                  mso-table-rspace: 0pt !important;
+              }
+              
+              /* Prevent WebKit and Windows mobile changing default text sizes */
+              body {
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  width: 100% !important;
+              }
+              
+              /* Prevent iOS text size adjust after orientation change */
+              html {
                   width: 100%;
-                  max-width: 100%;
-                  height: auto;
-                  display: block;
-                  outline: none;
-                  text-decoration: none;
+              }
+              
+              /* Stop Outlook from adding extra spacing to tables */
+              table {
+                  border-spacing: 0 !important;
+                  border-collapse: collapse !important;
+                  table-layout: fixed !important;
+                  margin: 0 auto !important;
+              }
+              
+              /* Better rendering in Windows 10 Mail */
+              img {
                   -ms-interpolation-mode: bicubic;
               }
               
-              /* Outlook-specific width fix */
-              table, td {
-                  mso-table-lspace: 0pt;
-                  mso-table-rspace: 0pt;
+              /* Fix for Outlook image rendering */
+              .ExternalClass { width: 100%; }
+              .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+              #outlook a { padding: 0; }
+              
+              /* Hide for desktop */
+              .desktop-hidden {
+                  display: none !important;
+                  mso-hide: all !important;
+                  max-height: 0px !important;
+                  overflow: hidden !important;
               }
               
-              /* Table for email client compatibility */
-              .container-table {
-                  width: 100%;
-                  border-collapse: collapse;
-                  border-spacing: 0;
-                  padding: 0;
-                  margin: 0;
+              /* Outlook cell padding fix */
+              .ReadMsgBody { width: 100%; }
+              .ExternalClass { width: 100%; }
+              
+              /* Mobile-specific fixes */
+              @media screen and (max-width: 600px) {
+                  .fluid {
+                      width: 100% !important;
+                      max-width: 100% !important;
+                      height: auto !important;
+                  }
+                  .desktop-hidden {
+                      display: block !important;
+                      max-height: none !important;
+                  }
+                  .mobile-hidden {
+                      display: none !important;
+                  }
+                  .banner {
+                      width: 100% !important;
+                      height: auto !important;
+                  }
               }
           </style>
+          <!--[if mso]>
+          <style type="text/css">
+              body, table, td, a, span {font-family: Arial, sans-serif !important;}
+              .outlook-image-fix { width: ${canvas.width}px !important; }
+          </style>
+          <![endif]-->
       </head>
-      <body>
-          <!-- Table-based layout for Outlook compatibility -->
-          <table class="container-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+      <body style="margin:0; padding:0; background-color:#ffffff;">
+          <!-- Preheader text (hidden) -->
+          <div style="display:none; font-size:1px; color:#ffffff; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+              Report Image
+          </div>
+          
+          <!-- Outlook-specific table wrapper -->
+          <!--[if mso]>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                  <td align="center" valign="top">
-                      <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                          <tr>
-                              <td>
-                                  <!-- Image with width attribute for Outlook -->
-                                  <img src="${imgData}" alt="Report" class="report-image" width="${canvas.width}" style="width:100%; max-width:100%;" />
-                              </td>
-                          </tr>
-                      </table>
+                  <td>
+          <![endif]-->
+          
+          <!-- Content container -->
+          <div style="background-color:#ffffff; max-width:100%; margin:0 auto;">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; max-width:100%;">
+                  <tr>
+                      <td align="center" valign="top">
+                          <!-- Image table -->
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; max-width:100%;">
+                              <tr>
+                                  <td align="center" valign="top">
+                                      <!--[if mso]>
+                                      <table width="${canvas.width}" cellpadding="0" cellspacing="0" border="0">
+                                          <tr>
+                                              <td>
+                                                  <img src="${imgData}" width="${canvas.width}" style="width:${canvas.width}px;display:block;border:0;" alt="Report" class="outlook-image-fix" />
+                                              </td>
+                                          </tr>
+                                      </table>
+                                      <![endif]-->
+                                      <!--[if !mso]><!-->
+                                      <img src="${imgData}" alt="Report" style="width:100%; max-width:100%; display:block; border:0;" width="${canvas.width}" class="fluid"/>
+                                      <!--<![endif]-->
+                                  </td>
+                              </tr>
+                          </table>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+          
+          <!--[if mso]>
                   </td>
               </tr>
           </table>
+          <![endif]-->
           
-          <!-- Direct copy-paste instruction text -->
-          <div style="font-family: Arial, sans-serif; font-size: 11px; color: #666; text-align: center; margin-top: 10px; margin-bottom: 10px;">
+          <!-- Instructions -->
+          <div style="font-family:Arial, sans-serif; font-size:11px; color:#666666; text-align:center; margin-top:10px; margin-bottom:10px;">
               For best results when pasting into Outlook, right-click the image above and copy, then paste directly into your email.
           </div>
       </body>
