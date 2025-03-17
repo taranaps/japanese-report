@@ -1060,7 +1060,7 @@ async function generateSessionDurationChart(data, id, chartType) {
                     max: 250,
                     title: {
                         display: true,
-                        text: "Duration (Days)",
+                        text: "Duration (Hours )",
                         color: "#333",
                         font: { size: 12, weight: "bold" },
                     },
