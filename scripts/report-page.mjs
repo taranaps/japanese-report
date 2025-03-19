@@ -1648,7 +1648,7 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
                     </div>
            
             <div class="trainee-evaluation-template2">
-            <h3>Trainee Details</h3>
+            <h3>Evaluation Details</h3>
                 <div id="evaluation-table-${batchName}"></div>
             </div>
         `;
@@ -1987,7 +1987,7 @@ async function generateSessionChart(data, id, chartType) {
                         <div class="single-batch-template1-left">
                             <div class="single-batch-trainee-details-template1">
                                 <div class="single-batch-trainee-heading-template1" >
-                                    <p>Trainee Details</p>
+                                    <p>Evaluation Details</p>
                                 </div>
                                 <div class="single-batch-trainee-body-template1" id="single-batch-trainee-body-template1">
                                     <div id="single-batch-trainee-content-template1-${batchName}"></div>
@@ -2017,7 +2017,7 @@ async function generateSessionChart(data, id, chartType) {
                         </div>
                         <div class="single-batch-evaluation-details-template1">
                             <div class="single-batch-evaluation-heading-template1">
-                                <p>Trainee Details</p>
+                                <p>Evaluation Details</p>
                             </div>
                             <div class="single-batch-evaluation-body-template1">
                                 <div id="single-batch-evaluation-content-template1-${batchName}"></div>
@@ -2189,7 +2189,7 @@ async function generateSessionChart(data, id, chartType) {
             </div>
         </div>
         <div class="eval-table">
-            <div class="table-title">Trainee Details</div>
+            <div class="table-title">Evaluation Details</div>
             <div class="table-section">
                 <div id="evaluation-table-${batchName}" style="width:100%; padding-left:60px;"></div>
             </div>
@@ -2395,7 +2395,7 @@ async function batchwiseDataCustomTemplate(selectedBatch){
                           
                       
           <div class="trainee-evaluation-custom-template">
-            <h3>Trainee Details</h3>
+            <h3>Evaluation Details</h3>
             <div id="evaluation-table-custom-template"></div>
 
           </div>`;
@@ -2628,7 +2628,7 @@ async function populateBatchDataCustomTemplateUser(currentDate) {
                   </div>
          
           <div class="trainee-evaluation-custom-user-template">
-          <h3>Trainee Details</h3>
+          <h3>Evaluation Details</h3>
               <div id="evaluation-table-${batchName}"></div>
           </div>
       `;
@@ -2750,7 +2750,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                           
                       
           <div class="trainee-evaluation-custom-user-template">
-            <h3>Trainee Details</h3>
+            <h3>Evaluation Details</h3>
             <div id="evaluation-table-custom-user-template"></div>
 
           </div>`;
@@ -2915,7 +2915,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                     </div>
                     <div class="evaluation-template1">
                       <div class="evaluation-heading-template1" id="evaluation-heading-template1">
-                        <p>Trainee Details</p>
+                        <p>Evaluation Details</p>
                       </div>
                       <div class="evaluation-body-template1">
                         <div id="trainee-details-template1"></div>
@@ -2925,7 +2925,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
     bottomContainer.innerHTML = '';
     bottomContainer.innerHTML =`<div class="batch-evaluation-template1" id="batch-evaluation-template1">
                   <div class="batch-evaluation-heading-template1" id="batch-evaluation-heading-template1">
-                    <p>Trainee Details</p>
+                    <p>Evaluation Details</p>
                   </div>
                   <div class="batch-evaluation-body-template1">
                     <div id="evaluation-table-template1"></div>
@@ -3094,7 +3094,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                             
                         
 						<div class="trainee-evaluation-template2">
-							<h3>Trainee Details</h3>
+							<h3>Evaluation Details</h3>
 							<div id="evaluation-table-template2"></div>
 
 						</div>`;
@@ -3432,7 +3432,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                   </div>
                 </div>
                 <div class="trainee-evaluation-template5">
-                  <h2>Trainee Details</h2>
+                  <h2>Evaluation Details</h2>
                   <div id="evaluation-table-template5-${batchName}"></div>
                 </div>
               </div>
@@ -3490,7 +3490,7 @@ async function batchwiseDataCustomTemplateUser(selectedBatch){
                     </div>
              
                 <div class="trainee-evaluation-template5">
-                  <h2>Trainee Details</h2>
+                  <h2>Evaluation Details</h2>
                   <div id="evaluation-table-template5"></div>
                 </div>`;
     const backgroundColor = [
