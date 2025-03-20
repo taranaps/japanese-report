@@ -477,9 +477,11 @@ async function createEvaluationTable(data, id) {
   const tablePosition = document.getElementById(id);
   tablePosition.innerHTML = "";
   const table = document.createElement("table");
-  const headerRow = table.insertRow();
 
-  // Add the "SI No" column header
+  // Create the main header row
+  const headerRow = table.insertRow();
+  
+  // Add main headers for static columns
   ["SI No", "Trainee Name", "Department"].forEach((headerText) => {
       const th = document.createElement("th");
       th.textContent = headerText;
@@ -498,10 +500,28 @@ async function createEvaluationTable(data, id) {
 
   // Create headers for each valid evaluation
   const evaluationHeaders = Array.from(uniqueEvaluations);
+
+  // Add "Evaluation Details" as a merged header
+  const evaluationHeaderTh = document.createElement("th");
+  evaluationHeaderTh.textContent = "Evaluation Details";
+  evaluationHeaderTh.colSpan = evaluationHeaders.length; // Span across all evaluation headers
+  headerRow.appendChild(evaluationHeaderTh);
+
+  // Create the sub-header row
+  const subHeaderRow = table.insertRow();
+
+  // Add empty cells for static columns (SI No, Trainee Name, Department)
+  for (let i = 0; i < 3; i++) {
+      const th = document.createElement("th");
+      th.textContent = ""; // Empty to align with merged cells
+      subHeaderRow.appendChild(th);
+  }
+
+  // Add individual evaluation headers
   evaluationHeaders.forEach((header) => {
       const th = document.createElement("th");
       th.textContent = header;
-      headerRow.appendChild(th);
+      subHeaderRow.appendChild(th);
   });
 
   // Populate table rows
@@ -514,7 +534,6 @@ async function createEvaluationTable(data, id) {
       // Add the other standard columns
       row.insertCell().textContent = item.traineeName;
       row.insertCell().textContent = item.du;
-      // row.insertCell().textContent = item.avgAttendance;
 
       // Map valid evaluations to their scores
       const evaluationMap = {};
@@ -566,7 +585,7 @@ async function createEvaluationTable2(data, id) {
   });
 
   const evaluationDetailsCell = document.createElement("td");
-  evaluationDetailsCell.textContent = "Evaluation Details";
+  evaluationDetailsCell.textContent = "Evaluation Score";
   
   // Ensure text is exactly vertical and centered
   evaluationDetailsCell.style.writingMode = "sideways-lr"; // Rotate text 90° to face right
