@@ -4012,8 +4012,6 @@ document.addEventListener("imageReadyForUpload", function () {
 
 
  
-
-
 function captureAndDownload() {
   const element = selectedTemplate;
   if (!element) {
@@ -4096,160 +4094,136 @@ function captureAndDownload() {
 function createEmailCompatibleHTML(canvas) {
   // Generate data URL with high quality
   const imgData = canvas.toDataURL('image/jpeg', 0.95);
-  
-  // Create HTML content with enhanced Outlook compatibility
+
+  // Create HTML content with email-compatible styling for all Outlook versions
   const htmlContent = `
       <!DOCTYPE html>
-      <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+      <html>
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <!-- Outlook-specific meta tags -->
           <meta name="x-apple-disable-message-reformatting">
-          <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
           <!--[if mso]>
           <noscript>
           <xml>
               <o:OfficeDocumentSettings>
-                  <o:AllowPNG/>
                   <o:PixelsPerInch>96</o:PixelsPerInch>
+                  <o:AllowPNG/>
               </o:OfficeDocumentSettings>
           </xml>
           </noscript>
           <![endif]-->
           <title>Report</title>
           <style>
-              /* Reset styles */
-              body, div, table, td, p, a, span {
-                  -ms-text-size-adjust: 100%;
-                  -webkit-text-size-adjust: 100%;
+              /* Reset styles for email clients */
+              body, html, table, td, div, p, span {
+                  margin: 0;
+                  padding: 0;
+                  border: 0;
+                  font-size: 100%;
+                  font-family: Arial, sans-serif;
+                  line-height: 1.5;
               }
-              
-              /* Outlook-specific fixes */
-              table, td {
-                  mso-table-lspace: 0pt !important;
-                  mso-table-rspace: 0pt !important;
-              }
-              
-              /* Prevent WebKit and Windows mobile changing default text sizes */
               body {
-                  margin: 0 !important;
-                  padding: 0 !important;
                   width: 100% !important;
+                  -webkit-text-size-adjust: 100%;
+                  -ms-text-size-adjust: 100%;
+                  margin: 0;
+                  padding: 0;
               }
-              
-              /* Prevent iOS text size adjust after orientation change */
-              html {
-                  width: 100%;
-              }
-              
-              /* Stop Outlook from adding extra spacing to tables */
-              table {
-                  border-spacing: 0 !important;
-                  border-collapse: collapse !important;
-                  table-layout: fixed !important;
-                  margin: 0 auto !important;
-              }
-              
-              /* Better rendering in Windows 10 Mail */
-              img {
+              /* Ensures image fills width in most email clients */
+              img.report-image {
+                  width: 100% !important;
+                  max-width: 100% !important;
+                  height: auto !important;
+                  display: block !important;
+                  outline: none !important;
+                  text-decoration: none !important;
                   -ms-interpolation-mode: bicubic;
               }
-              
-              /* Fix for Outlook image rendering */
-              .ExternalClass { width: 100%; }
-              .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
-              #outlook a { padding: 0; }
-              
-              /* Hide for desktop */
-              .desktop-hidden {
-                  display: none !important;
-                  mso-hide: all !important;
-                  max-height: 0px !important;
-                  overflow: hidden !important;
+              /* Outlook-specific width fix */
+              table, td {
+                  mso-table-lspace: 0pt;
+                  mso-table-rspace: 0pt;
               }
-              
-              /* Outlook cell padding fix */
-              .ReadMsgBody { width: 100%; }
-              .ExternalClass { width: 100%; }
-              
-              /* Mobile-specific fixes */
-              @media screen and (max-width: 600px) {
-                  .fluid {
-                      width: 100% !important;
-                      max-width: 100% !important;
-                      height: auto !important;
-                  }
-                  .desktop-hidden {
-                      display: block !important;
-                      max-height: none !important;
-                  }
-                  .mobile-hidden {
-                      display: none !important;
-                  }
-                  .banner {
-                      width: 100% !important;
-                      height: auto !important;
-                  }
+              /* Table for email client compatibility */
+              .container-table {
+                  width: 100% !important;
+                  border-collapse: collapse;
+                  border-spacing: 0;
+                  padding: 0;
+                  margin: 0;
+              }
+              /* MSO VML fallback for Outlook */
+              .outlook-hack {
+                  width: 100% !important;
+                  max-width: 600px;
               }
           </style>
-          <!--[if mso]>
-          <style type="text/css">
-              body, table, td, a, span {font-family: Arial, sans-serif !important;}
-              .outlook-image-fix { width: ${canvas.width}px !important; }
-          </style>
-          <![endif]-->
       </head>
-      <body style="margin:0; padding:0; background-color:#ffffff;">
-          <!-- Preheader text (hidden) -->
-          <div style="display:none; font-size:1px; color:#ffffff; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
-              Report Image
-          </div>
-          
-          <!-- Outlook-specific table wrapper -->
-          <!--[if mso]>
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <body>
+          <!-- Table-based layout for Outlook compatibility -->
+          <table class="container-table" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100% !important;">
               <tr>
-                  <td>
-          <![endif]-->
-          
-          <!-- Content container -->
-          <div style="background-color:#ffffff; max-width:100%; margin:0 auto;">
-              <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; max-width:100%;">
-                  <tr>
-                      <td align="center" valign="top">
-                          <!-- Image table -->
-                          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; max-width:100%;">
-                              <tr>
-                                  <td align="center" valign="top">
-                                      <!--[if mso]>
-                                      <table width="${canvas.width}" cellpadding="0" cellspacing="0" border="0">
-                                          <tr>
-                                              <td>
-                                                  <img src="${imgData}" width="${canvas.width}" style="width:${canvas.width}px;display:block;border:0;" alt="Report" class="outlook-image-fix" />
+                  <td align="center" valign="top">
+                      <!-- Outlook 100% width wrapper -->
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100% !important;">
+                          <tr>
+                              <td align="center" valign="top">
+                                  <!--[if mso]>
+                                  <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                  <tr>
+                                  <td align="center" valign="top" width="600">
+                                  <![endif]-->
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; width: 100% !important;">
+                                      <tr>
+                                          <td align="center" valign="top" style="font-size: 0; padding: 0;">
+                                              <!--[if mso]>
+                                              <table border="0" cellspacing="0" cellpadding="0" width="600">
+                                              <tr>
+                                              <td width="600" valign="top">
+                                              <![endif]-->
+                                              <div style="display: inline-block; max-width: 600px; vertical-align: top; width: 100%;">
+                                                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                      <tr>
+                                                          <td valign="top">
+                                                              <!--[if mso]>
+                                                              <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width: 600px;">
+                                                              <v:fill type="frame" src="${imgData}" />
+                                                              <v:textbox style="mso-fit-shape-to-text: true" inset="0,0,0,0">
+                                                              <![endif]-->
+                                                              <img src="${imgData}" alt="Report" class="report-image" width="600" style="width: 100% !important; max-width: 100% !important; display: block; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: 0;" />
+                                                              <!--[if mso]>
+                                                              </v:textbox>
+                                                              </v:rect>
+                                                              <![endif]-->
+                                                          </td>
+                                                      </tr>
+                                                  </table>
+                                              </div>
+                                              <!--[if mso]>
                                               </td>
-                                          </tr>
-                                      </table>
-                                      <![endif]-->
-                                      <!--[if !mso]><!-->
-                                      <img src="${imgData}" alt="Report" style="width:100%; max-width:100%; display:block; border:0;" width="${canvas.width}" class="fluid"/>
-                                      <!--<![endif]-->
+                                              </tr>
+                                              </table>
+                                              <![endif]-->
+                                          </td>
+                                      </tr>
+                                  </table>
+                                  <!--[if mso]>
                                   </td>
-                              </tr>
-                          </table>
-                      </td>
-                  </tr>
-              </table>
-          </div>
-          
-          <!--[if mso]>
+                                  </tr>
+                                  </table>
+                                  <![endif]-->
+                              </td>
+                          </tr>
+                      </table>
                   </td>
               </tr>
           </table>
-          <![endif]-->
-          
-          <!-- Instructions -->
-          <div style="font-family:Arial, sans-serif; font-size:11px; color:#666666; text-align:center; margin-top:10px; margin-bottom:10px;">
+          <!-- Direct copy-paste instruction text -->
+          <div style="font-family: Arial, sans-serif; font-size: 11px; color: #666; text-align: center; margin-top: 10px; margin-bottom: 10px;">
               For best results when pasting into Outlook, right-click the image above and copy, then paste directly into your email.
           </div>
       </body>
@@ -4260,14 +4234,14 @@ function createEmailCompatibleHTML(canvas) {
   const imgLink = document.createElement('a');
   imgLink.href = imgData;
   imgLink.download = 'report.jpg';
-  
+
   // Create HTML download
   const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
   const htmlUrl = URL.createObjectURL(htmlBlob);
   const htmlLink = document.createElement('a');
   htmlLink.href = htmlUrl;
   htmlLink.download = 'report-for-email.html';
-  
+
   // Create a container for download options
   const downloadOptions = document.createElement('div');
   downloadOptions.style.position = 'fixed';
@@ -4279,14 +4253,14 @@ function createEmailCompatibleHTML(canvas) {
   downloadOptions.style.borderRadius = '5px';
   downloadOptions.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
   downloadOptions.style.zIndex = '9999';
-  
+
   // Add title
   const title = document.createElement('h3');
   title.textContent = 'Download Options';
   title.style.margin = '0 0 10px 0';
   title.style.fontSize = '14px';
   downloadOptions.appendChild(title);
-  
+
   // Add HTML option
   const htmlButton = document.createElement('button');
   htmlButton.textContent = 'Download HTML for Email';
@@ -4302,7 +4276,7 @@ function createEmailCompatibleHTML(canvas) {
       document.body.removeChild(downloadOptions);
   };
   downloadOptions.appendChild(htmlButton);
-  
+
   // Add Image option
   const imgButton = document.createElement('button');
   imgButton.textContent = 'Download Image Only';
@@ -4317,7 +4291,7 @@ function createEmailCompatibleHTML(canvas) {
       document.body.removeChild(downloadOptions);
   };
   downloadOptions.appendChild(imgButton);
-  
+
   // Add close button
   const closeButton = document.createElement('button');
   closeButton.textContent = 'Close';
@@ -4330,7 +4304,7 @@ function createEmailCompatibleHTML(canvas) {
       document.body.removeChild(downloadOptions);
   };
   downloadOptions.appendChild(closeButton);
-  
+
   // Add to document
   document.body.appendChild(downloadOptions);
 }
@@ -4385,6 +4359,424 @@ downloadButton.addEventListener('click', () => {
   }
 });
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Function to handle table-based image layout for Outlook
+function captureAndDownloadAsTable() {
+  // Show loading indicator
+  const loadingDiv = document.createElement('div');
+  loadingDiv.textContent = 'Processing Table Layout...';
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '20px';
+  loadingDiv.style.right = '20px';
+  loadingDiv.style.padding = '10px';
+  loadingDiv.style.background = '#f0f0f0';
+  loadingDiv.style.border = '1px solid #ccc';
+  loadingDiv.style.zIndex = '1000';
+  document.body.appendChild(loadingDiv);
+
+  // Get file input element
+  const fileInput = document.getElementById('imageInput');
+  if (!fileInput.files || fileInput.files.length === 0) {
+    alert('Please select image files first');
+    document.body.removeChild(loadingDiv);
+    return;
+  }
+
+  // Process selected files
+  processImageFiles(fileInput.files)
+    .then(processedImages => {
+      // Sort images by part number
+      const sortedImages = sortImagesByPart(processedImages);
+      
+      // Generate HTML content with table layout
+      const htmlContent = generateTableBasedHTML(sortedImages);
+      
+      // Create HTML download
+      const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+      const htmlUrl = URL.createObjectURL(htmlBlob);
+      const htmlLink = document.createElement('a');
+      htmlLink.href = htmlUrl;
+      htmlLink.download = 'report-table-layout.html';
+      
+      // Show download options
+      showDownloadOptions(htmlLink);
+      
+      // Remove loading indicator
+      document.body.removeChild(loadingDiv);
+    })
+    .catch(error => {
+      console.error('Error processing images:', error);
+      alert('Failed to process images. Check console for details.');
+      document.body.removeChild(loadingDiv);
+    });
+}
+
+// Process all image files
+function processImageFiles(files) {
+  return new Promise((resolve, reject) => {
+    const processedImages = [];
+    let processedCount = 0;
+    
+    // Convert FileList to Array for easier handling
+    const fileArray = Array.from(files);
+    
+    fileArray.forEach(file => {
+      // Check if file is an image
+      if (!file.type.match('image.*')) {
+        processedCount++;
+        if (processedCount === fileArray.length) {
+          resolve(processedImages);
+        }
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          // Extract part number from filename
+          const partMatch = file.name.match(/Japanese-Training-Report-part-(\d+)/);
+          const partNumber = partMatch ? parseInt(partMatch[1]) : 999; // Default high number if no match
+          
+          // Create canvas for image processing
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          
+          // Draw image
+          ctx.drawImage(img, 0, 0);
+          
+          // Apply sharpening
+          applyTableImageSharpening(ctx, img.width, img.height);
+          
+          // Get optimized data URL
+          const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+          
+          // Store processed image data
+          processedImages.push({
+            partNumber: partNumber,
+            dataUrl: optimizedDataUrl,
+            width: img.width,
+            height: img.height,
+            fileName: file.name
+          });
+          
+          // Check if all images are processed
+          processedCount++;
+          if (processedCount === fileArray.length) {
+            resolve(processedImages);
+          }
+        };
+        
+        img.onerror = function() {
+          console.error('Error loading image:', file.name);
+          processedCount++;
+          if (processedCount === fileArray.length) {
+            resolve(processedImages);
+          }
+        };
+        
+        img.src = e.target.result;
+      };
+      
+      reader.onerror = function() {
+        console.error('Error reading file:', file.name);
+        reject(new Error(`Failed to read file: ${file.name}`));
+      };
+      
+      reader.readAsDataURL(file);
+    });
+    
+    // Handle empty file list
+    if (fileArray.length === 0) {
+      reject(new Error('No files selected'));
+    }
+  });
+}
+
+// Sort images by part number
+function sortImagesByPart(images) {
+  return images.sort((a, b) => a.partNumber - b.partNumber);
+}
+
+// Apply sharpening to table images
+function applyTableImageSharpening(ctx, width, height) {
+  try {
+    // Get image data
+    const imgData = ctx.getImageData(0, 0, width, height);
+    const pixels = imgData.data;
+    const tempPixels = new Uint8ClampedArray(pixels);
+    
+    // Skip edge pixels to avoid out-of-bounds
+    for (let y = 1; y < height - 1; y++) {
+      for (let x = 1; x < width - 1; x++) {
+        const idx = (y * width + x) * 4;
+        
+        // Apply sharpening for RGB channels (skip alpha)
+        for (let c = 0; c < 3; c++) {
+          const currentPixel = tempPixels[idx + c];
+          const neighbors = [
+            tempPixels[idx - width * 4 + c], // top
+            tempPixels[idx - 4 + c],        // left
+            tempPixels[idx + 4 + c],        // right
+            tempPixels[idx + width * 4 + c]  // bottom
+          ];
+          
+          // Sharpening calculation: 5*current - sum(neighbors)
+          let sharpened = 5 * currentPixel - neighbors.reduce((a, b) => a + b, 0);
+          
+          // Clamp values to valid range
+          pixels[idx + c] = Math.min(255, Math.max(0, sharpened));
+        }
+      }
+    }
+    
+    // Put the modified pixels back
+    ctx.putImageData(imgData, 0, 0);
+  } catch (e) {
+    console.warn("Sharpening filter could not be applied:", e);
+    // Continue without sharpening if it fails
+  }
+}
+
+// Generate HTML with table layout for images
+function generateTableBasedHTML(images) {
+  // Create image HTML with Outlook-specific settings
+  let imagesHTML = '';
+  
+  images.forEach((image, index) => {
+    imagesHTML += `
+      <!-- Image Row ${index + 1} -->
+      <tr>
+        <td valign="top" align="center" style="padding:0; margin:0; font-size:0; line-height:0;">
+          <!-- VML for Outlook 2007-2016 -->
+          <!--[if mso]>
+          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;">
+            <v:fill type="frame" src="${image.dataUrl}" />
+            <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+          <![endif]-->
+          
+          <div style="font-size:0; line-height:0;">
+            <!-- Full-width table for Outlook Desktop -->
+            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse; border-spacing:0; mso-table-lspace:0pt; mso-table-rspace:0pt; table-layout:fixed;">
+              <tr>
+                <td style="padding:0; margin:0; font-size:0; line-height:0;">
+                  <img src="${image.dataUrl}" width="600" alt="" style="display:block; width:100%; height:auto; border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; margin:0; padding:0;" />
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+          <!--[if mso]>
+            </v:textbox>
+          </v:rect>
+          <![endif]-->
+        </td>
+      </tr>
+    `;
+  });
+  
+  // Create HTML with improved compatibility for all Outlook versions
+  return `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!--[if gte mso 9]>
+  <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+  </xml>
+  <![endif]-->
+  <title>Email Images</title>
+  <style type="text/css">
+    /* Reset styles */
+    #outlook a{padding:0;}
+    body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+    table,td{border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;}
+    img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic;}
+    p{margin:0;}
+    
+    /* Force Outlook to provide a "view in browser" menu link. */
+    #outlook a{padding:0;}
+    
+    /* Force Outlook to render at full width */
+    .ReadMsgBody{width:100%;}
+    .ExternalClass{width:100%;}
+    
+    /* Force Outlook.com to display emails at full width */
+    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div{line-height:100%;} 
+
+    /* Full width for Outlook on Windows */
+    body, table, td, p, a, li, blockquote{-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;}
+  </style>
+  <!--[if gte mso 9]>
+  <style type="text/css">
+    table {border-collapse:collapse;}
+  </style>
+  <![endif]-->
+</head>
+<body style="margin:0; padding:0; background-color:#ffffff; width:100% !important;">
+
+  <!-- Outlook 120 DPI Fix -->
+  <!--[if gte mso 9]>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td valign="top">
+  <![endif]-->
+
+  <!-- Main Container Table -->
+  <div style="max-width:600px; margin:0 auto;">
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="width:100%; border-collapse:collapse; table-layout:fixed;">
+      <tr>
+        <td align="center" valign="top" style="padding:0;">
+          <!-- Full Width Container -->
+          <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="width:100%; max-width:600px; border-collapse:collapse; table-layout:fixed;">
+            ${imagesHTML}
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Outlook 120 DPI Fix -->
+  <!--[if gte mso 9]>
+      </td>
+    </tr>
+  </table>
+  <![endif]-->
+
+  <!-- Copy/Paste Enhancement Script -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle right-click to select all images
+    document.addEventListener('contextmenu', function(e) {
+      if(e.target.tagName === 'IMG') {
+        const range = document.createRange();
+        range.selectNode(document.querySelector('table'));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+      }
+    }, true);
+  });
+  </script>
+
+</body>
+</html>`;
+}
+
+// Show download options (continued)
+function showDownloadOptions(htmlLink) {
+  // Create a container for download options
+  const downloadOptions = document.createElement('div');
+  downloadOptions.style.position = 'fixed';
+  downloadOptions.style.top = '20px';
+  downloadOptions.style.right = '20px';
+  downloadOptions.style.padding = '15px';
+  downloadOptions.style.background = '#f8f8f8';
+  downloadOptions.style.border = '1px solid #ddd';
+  downloadOptions.style.borderRadius = '5px';
+  downloadOptions.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+  downloadOptions.style.zIndex = '9999';
+  
+  // Add title
+  const title = document.createElement('h3');
+  title.textContent = 'Download Options';
+  title.style.margin = '0 0 10px 0';
+  title.style.fontSize = '14px';
+  downloadOptions.appendChild(title);
+  
+  // Add HTML option
+  const htmlButton = document.createElement('button');
+  htmlButton.textContent = 'Download Images for Email';
+  htmlButton.style.display = 'block';
+  htmlButton.style.width = '100%';
+  htmlButton.style.padding = '8px';
+  htmlButton.style.marginBottom = '8px';
+  htmlButton.style.cursor = 'pointer';
+  htmlButton.onclick = () => {
+    document.body.appendChild(htmlLink);
+    htmlLink.click();
+    document.body.removeChild(htmlLink);
+    document.body.removeChild(downloadOptions);
+  };
+  downloadOptions.appendChild(htmlButton);
+  
+  // Add copy instructions
+  const instructionsDiv = document.createElement('div');
+  instructionsDiv.style.fontSize = '12px';
+  instructionsDiv.style.margin = '8px 0';
+  instructionsDiv.style.padding = '8px';
+  instructionsDiv.style.backgroundColor = '#f0f0f0';
+  instructionsDiv.style.borderRadius = '3px';
+  instructionsDiv.innerHTML = '<strong>Instructions:</strong><br>1. Open the HTML file in a browser<br>2. Press Ctrl+A to select all<br>3. Press Ctrl+C to copy everything<br>4. In Outlook, press Ctrl+V to paste<br><br><strong>NEW: Right-click Copy Feature</strong><br>You can now right-click on any image and choose "Copy" to copy ALL images at once.<br><br>Images will automatically adjust to the exact width of your email body in all Outlook versions.';
+  downloadOptions.appendChild(instructionsDiv);
+  
+  // Add close button
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'Close';
+  closeButton.style.display = 'block';
+  closeButton.style.width = '100%';
+  closeButton.style.padding = '8px';
+  closeButton.style.marginTop = '8px';
+  closeButton.style.cursor = 'pointer';
+  closeButton.onclick = () => {
+    document.body.removeChild(downloadOptions);
+  };
+  downloadOptions.appendChild(closeButton);
+  
+  // Add to document
+  document.body.appendChild(downloadOptions);
+}
+
+// Add event listener for the download button
+let downloadButtonTable = document.getElementById('download-buttonTable');
+let downloadSelectTable = document.getElementById('downloadSelect');
+
+downloadButtonTable.addEventListener('click', () => {
+  let selectedValue = downloadSelectTable.value;
+  if (selectedValue === 'table') {
+    captureAndDownloadAsTable();
+  } 
+});
+// Optional: Add file input for selecting multiple image files
+// You can add this HTML element to your page:
+// <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
+
+
 
 

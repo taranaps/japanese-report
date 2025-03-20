@@ -317,6 +317,7 @@
                 <option value="png">PNG</option>
                 <option value="jpg">JPG</option>
                 <option value="html">HTML</option>
+                <option value="table">Table</option>
                 
               </select>
             </div>
@@ -324,11 +325,23 @@
             <div class="download-toolbar-action-buttons">
               <button id="cut-and-download" title="Cut and Download"><i class="fa-solid fa-scissors"></i></button>
               <button id="download-button" title="Download"><i class="fa-solid fa-download"></i></button>
+              <button id="download-buttonTable" title="Table Download"><i class="fa-duotone fa-solid fa-circle-down"></i></button>
               <button id="composeEmailButton" title="Share" onclick="openOutlookCompose()"><i
                   class="fa-solid fa-share-from-square"></i></button>
               <button id="save-button" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
               <input id="image-input" type="file" style="display: none;"><br><br>
+
+              
             </div>
+            <input type="file" id="imageInput" multiple accept="image/*" style="
+            padding: 6px;
+            border: 1px solid #cccccc;
+            border-radius: 0;
+            font-family: monospace;
+            color: #333333;
+            background-color: #f7f7f7;
+            margin: 5px 0;
+          ">
 
 
           </div>
