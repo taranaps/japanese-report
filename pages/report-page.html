@@ -50,6 +50,24 @@
         </div>
       </div>
       <div class="main-space">
+        <div id="custom-alert" class="alert-container">
+          <div class="alert-box">
+            <div class="alert-diagonal-split"></div>
+            <div class="alert-icon-container">
+              <div class="pulse-ring"></div>
+              <div class="alert-icon">!</div>
+            </div>
+            <div class="alert-content">
+              <h3>Attention</h3>
+              <p id="alert-message"></p>
+            </div>
+            <div class="alert-footer">
+              <button onclick="closeAlert()" class="alert-button">
+                <span>GOT IT</span>
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="toolbars">
           <div class="tabcontents activetab" id="template">
             <div class="select-batch">
@@ -325,7 +343,7 @@
             <div class="download-toolbar-action-buttons">
               <button id="cut-and-download" title="Cut and Download"><i class="fa-solid fa-scissors"></i></button>
               <button id="download-button" title="Download"><i class="fa-solid fa-download"></i></button>
-              <button id="download-buttonTable" title="Table Download"><i class="fa-duotone fa-solid fa-circle-down"></i></button>
+              <!-- <button id="download-buttonTable" title="Table Download"><i class="fa-duotone fa-solid fa-circle-down"></i></button> -->
               <button id="composeEmailButton" title="Share" onclick="openOutlookCompose()"><i
                   class="fa-solid fa-share-from-square"></i></button>
               <button id="save-button" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
@@ -815,7 +833,7 @@
                   <canvas id="levelChart" width="200" height="300"></canvas>
                 </div>
                 <div class="box-template2">
-                  <h3>Trainers</h3>
+                  <h3>Trainer</h3>
                   <!-- <div class="box-template2-trainer-name"> -->
                   <div id="trainer-name-template2"> </div>
                 </div>
@@ -1016,7 +1034,7 @@
                     <canvas id="batch-number-template3" width="200" height="230"></canvas>
                   </div>
                   <div class="batch-card">
-                    <div class="card-title">Trainers</div>
+                    <div class="card-title">Trainer</div>
                     <div class="trainers-template3" id="trainers-template3"></div>
                   </div>
                   <div class="batch-card">
@@ -1457,7 +1475,7 @@
 
                 <div class="second-box">
                   <div class="box-template5-5">
-                    <h2>Trainers</h2>
+                    <h2>Trainer</h2>
                     <div id="trainer-name-template5"></div>
 
                   </div>

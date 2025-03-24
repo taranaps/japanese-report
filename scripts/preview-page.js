@@ -49,6 +49,36 @@ function closeOnClickOutside(event) {
 //   themesContainer.classList.remove('show');
 // }
 
+function showAlert(message) {
+  document.getElementById('alert-message').textContent = message;
+  document.getElementById('custom-alert').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAlert() {
+  const alert = document.getElementById('custom-alert');
+  alert.style.opacity = '0';
+  alert.style.transition = 'opacity 0.3s ease';
+  
+  setTimeout(() => {
+    alert.style.display = 'none';
+    alert.style.opacity = '1';
+    document.body.style.overflow = 'auto';
+  }, 300);
+}
+
+// Close when clicking outside the alert box
+document.getElementById('custom-alert').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeAlert();
+  }
+});
+
+
+
+
+
+
 
 // Toggle the visibility of the themes container
 function toggleThemes() {
@@ -1493,7 +1523,8 @@ function updateDivsPerRow() {
   const divsPerRow = parseInt(document.getElementById("divsPerRow").value, 10);
 
   if (!divsPerRow || divsPerRow <= 0) {
-    alert("Please enter a valid number greater than 0");
+    // alert("Please enter a valid number greater than 0");
+    showAlert("Please enter a valid number greater than 0")
     return;
   }
 
@@ -2173,7 +2204,8 @@ cutAndDownload.addEventListener('click', () => {
 
 
 function errorMessage() {
-  alert("Please select a file format before downloading.");
+  // alert("Please select a file format before downloading.");
+  showAlert("Please select a file format before downloading.")
 
 }
 
@@ -2262,7 +2294,8 @@ function downloadPDF() {
 function CutAndDownloadJPG() {
   if (typeof html2canvas !== 'function') {
     console.error('html2canvas not loaded');
-    alert('Failed to capture image: Required library not loaded');
+    // alert('Failed to capture image: Required library not loaded');
+    showAlert('Failed to capture image: Required library not loaded')
     return;
   }
 
@@ -2292,7 +2325,8 @@ function CutAndDownloadJPG() {
   const element = document.getElementById(selectTemplate);
   if (!element) {
     console.error('Target element not found:', selectTemplate);
-    alert('Failed to capture image: Target element not found');
+    // alert('Failed to capture image: Target element not found');
+    showAlert('Failed to capture image: Target element not found');
     return;
   }
 
@@ -2378,17 +2412,42 @@ function CutAndDownloadJPG() {
 
   // **Show Loading Indicator**
   const loadingDiv = document.createElement('div');
+  loadingDiv.textContent = 'Processing JPG...';
   loadingDiv.style.position = 'fixed';
-  loadingDiv.style.top = '50%';
-  loadingDiv.style.left = '50%';
-  loadingDiv.style.transform = 'translate(-50%, -50%)';
-  loadingDiv.style.padding = '20px';
-  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
-  loadingDiv.style.color = 'white';
+  loadingDiv.style.top = '20px';
+  loadingDiv.style.right = '20px';
+  loadingDiv.style.padding = '12px 20px';
+  loadingDiv.style.background = '#f0f0f0'; // Light gray background
+  loadingDiv.style.color = '#333'; // Dark text for contrast
+  loadingDiv.style.fontSize = '14px';
+  loadingDiv.style.fontWeight = 'bold';
   loadingDiv.style.borderRadius = '8px';
-  loadingDiv.style.zIndex = '9999';
-  loadingDiv.textContent = 'Generating high-quality PNG...';
+  loadingDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+  loadingDiv.style.zIndex = '1000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.gap = '8px';
+  
+  const spinner = document.createElement('div');
+  spinner.style.width = '16px';
+  spinner.style.height = '16px';
+  spinner.style.border = '3px solid rgba(220, 20, 60, 0.3)'; // Crimson border with transparency
+  spinner.style.borderTop = '3px solid #dc143c'; // Crimson highlight
+  spinner.style.borderRadius = '50%';
+  spinner.style.animation = 'spin 1s linear infinite';
+  loadingDiv.appendChild(spinner);
+  
   document.body.appendChild(loadingDiv);
+  
+  // Add CSS for spinner animation
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerHTML = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`;
+  document.head.appendChild(styleSheet);
 
   preloadResources()
     .then(() => html2canvas(element, config))
@@ -2456,7 +2515,8 @@ function CutAndDownloadJPG() {
     })
     .catch((error) => {
       console.error('Error generating high-quality PNG:', error);
-      alert('Failed to capture image. Please try again.');
+      // alert('Failed to capture image. Please try again.');
+      showAlert('Failed to capture image. Please try again.');
       document.body.removeChild(loadingDiv);
     });
 
@@ -2466,7 +2526,8 @@ function CutAndDownloadJPG() {
 function CutAndDownloadPNG() {
   if (typeof html2canvas !== 'function') {
     console.error('html2canvas not loaded');
-    alert('Failed to capture image: Required library not loaded');
+    // alert('Failed to capture image: Required library not loaded');
+    showAlert('Failed to capture image: Required library not loaded');
     return;
   }
 
@@ -2492,7 +2553,8 @@ function CutAndDownloadPNG() {
   const element = document.getElementById(selectTemplate);
   if (!element) {
     console.error('Target element not found:', selectTemplate);
-    alert('Failed to capture image: Target element not found');
+    // alert('Failed to capture image: Target element not found');
+    showAlert('Failed to capture image: Target element not found');
     return;
   }
 
@@ -2578,17 +2640,42 @@ function CutAndDownloadPNG() {
 
   // **Show Loading Indicator**
   const loadingDiv = document.createElement('div');
+  loadingDiv.textContent = 'Processing PNG...';
   loadingDiv.style.position = 'fixed';
-  loadingDiv.style.top = '50%';
-  loadingDiv.style.left = '50%';
-  loadingDiv.style.transform = 'translate(-50%, -50%)';
-  loadingDiv.style.padding = '20px';
-  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
-  loadingDiv.style.color = 'white';
+  loadingDiv.style.top = '20px';
+  loadingDiv.style.right = '20px';
+  loadingDiv.style.padding = '12px 20px';
+  loadingDiv.style.background = '#f0f0f0'; // Light gray background
+  loadingDiv.style.color = '#333'; // Dark text for contrast
+  loadingDiv.style.fontSize = '14px';
+  loadingDiv.style.fontWeight = 'bold';
   loadingDiv.style.borderRadius = '8px';
-  loadingDiv.style.zIndex = '9999';
-  loadingDiv.textContent = 'Generating high-quality PNG...';
+  loadingDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+  loadingDiv.style.zIndex = '1000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.gap = '8px';
+  
+  const spinner = document.createElement('div');
+  spinner.style.width = '16px';
+  spinner.style.height = '16px';
+  spinner.style.border = '3px solid rgba(220, 20, 60, 0.3)'; // Crimson border with transparency
+  spinner.style.borderTop = '3px solid #dc143c'; // Crimson highlight
+  spinner.style.borderRadius = '50%';
+  spinner.style.animation = 'spin 1s linear infinite';
+  loadingDiv.appendChild(spinner);
+  
   document.body.appendChild(loadingDiv);
+  
+  // Add CSS for spinner animation
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerHTML = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`;
+  document.head.appendChild(styleSheet);
 
   preloadResources()
     .then(() => html2canvas(element, config))
@@ -2656,7 +2743,8 @@ function CutAndDownloadPNG() {
     })
     .catch((error) => {
       console.error('Error generating high-quality PNG:', error);
-      alert('Failed to capture image. Please try again.');
+      // alert('Failed to capture image. Please try again.');
+      showAlert('Failed to capture image. Please try again.');
       document.body.removeChild(loadingDiv);
     });
 
@@ -2667,14 +2755,16 @@ function downloadJPG() {
 
   if (typeof html2canvas !== 'function') {
     console.error('html2canvas not loaded');
-    alert('Failed to capture image: Required library not loaded');
+    // alert('Failed to capture image: Required library not loaded');
+    showAlert('Failed to capture image: Required library not loaded');
     return;
   }
 
   const element = document.getElementById(selectTemplate);
   if (!element) {
     console.error('Target element not found:', selectTemplate);
-    alert('Failed to capture image: Target element not found');
+    // alert('Failed to capture image: Target element not found');
+    showAlert('Failed to capture image: Target element not found')
     return;
   }
 
@@ -2758,17 +2848,42 @@ function downloadJPG() {
 
   // Add loading indicator
   const loadingDiv = document.createElement('div');
+  loadingDiv.textContent = 'Processing JPG...';
   loadingDiv.style.position = 'fixed';
-  loadingDiv.style.top = '50%';
-  loadingDiv.style.left = '50%';
-  loadingDiv.style.transform = 'translate(-50%, -50%)';
-  loadingDiv.style.padding = '20px';
-  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
-  loadingDiv.style.color = 'white';
+  loadingDiv.style.top = '20px';
+  loadingDiv.style.right = '20px';
+  loadingDiv.style.padding = '12px 20px';
+  loadingDiv.style.background = '#f0f0f0'; // Light gray background
+  loadingDiv.style.color = '#333'; // Dark text for contrast
+  loadingDiv.style.fontSize = '14px';
+  loadingDiv.style.fontWeight = 'bold';
   loadingDiv.style.borderRadius = '8px';
-  loadingDiv.style.zIndex = '9999';
-  loadingDiv.textContent = 'Generating high-quality image...';
+  loadingDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+  loadingDiv.style.zIndex = '1000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.gap = '8px';
+  
+  const spinner = document.createElement('div');
+  spinner.style.width = '16px';
+  spinner.style.height = '16px';
+  spinner.style.border = '3px solid rgba(220, 20, 60, 0.3)'; // Crimson border with transparency
+  spinner.style.borderTop = '3px solid #dc143c'; // Crimson highlight
+  spinner.style.borderRadius = '50%';
+  spinner.style.animation = 'spin 1s linear infinite';
+  loadingDiv.appendChild(spinner);
+  
   document.body.appendChild(loadingDiv);
+  
+  // Add CSS for spinner animation
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerHTML = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`;
+  document.head.appendChild(styleSheet);
 
   // Execute the export
   preloadResources()
@@ -2792,7 +2907,8 @@ function downloadJPG() {
     })
     .catch(error => {
       console.error('Error generating high-quality image:', error);
-      alert('Failed to capture image. Please try again.');
+      // alert('Failed to capture image. Please try again.');
+      showAlert('Failed to capture image. Please try again.');
       // Remove loading indicator on error
       document.body.removeChild(loadingDiv);
     });
@@ -2803,14 +2919,16 @@ function downloadPNG() {
 
   if (typeof html2canvas !== 'function') {
     console.error('html2canvas not loaded');
-    alert('Failed to capture image: Required library not loaded');
+    // alert('Failed to capture image: Required library not loaded');
+    showAlert('Failed to capture image: Required library not loaded');
     return;
   }
 
   const element = document.getElementById(selectTemplate);
   if (!element) {
     console.error('Target element not found:', selectTemplate);
-    alert('Failed to capture image: Target element not found');
+    // alert('Failed to capture image: Target element not found');
+    showAlert('Failed to capture image: Target element not found');
     return;
   }
 
@@ -2894,17 +3012,42 @@ function downloadPNG() {
 
   // Add loading indicator
   const loadingDiv = document.createElement('div');
+  loadingDiv.textContent = 'Processing PNG...';
   loadingDiv.style.position = 'fixed';
-  loadingDiv.style.top = '50%';
-  loadingDiv.style.left = '50%';
-  loadingDiv.style.transform = 'translate(-50%, -50%)';
-  loadingDiv.style.padding = '20px';
-  loadingDiv.style.background = 'rgba(0,0,0,0.7)';
-  loadingDiv.style.color = 'white';
+  loadingDiv.style.top = '20px';
+  loadingDiv.style.right = '20px';
+  loadingDiv.style.padding = '12px 20px';
+  loadingDiv.style.background = '#f0f0f0'; // Light gray background
+  loadingDiv.style.color = '#333'; // Dark text for contrast
+  loadingDiv.style.fontSize = '14px';
+  loadingDiv.style.fontWeight = 'bold';
   loadingDiv.style.borderRadius = '8px';
-  loadingDiv.style.zIndex = '9999';
-  loadingDiv.textContent = 'Generating high-quality image...';
+  loadingDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+  loadingDiv.style.zIndex = '1000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.gap = '8px';
+  
+  const spinner = document.createElement('div');
+  spinner.style.width = '16px';
+  spinner.style.height = '16px';
+  spinner.style.border = '3px solid rgba(220, 20, 60, 0.3)'; // Crimson border with transparency
+  spinner.style.borderTop = '3px solid #dc143c'; // Crimson highlight
+  spinner.style.borderRadius = '50%';
+  spinner.style.animation = 'spin 1s linear infinite';
+  loadingDiv.appendChild(spinner);
+  
   document.body.appendChild(loadingDiv);
+  
+  // Add CSS for spinner animation
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerHTML = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`;
+  document.head.appendChild(styleSheet);
 
   // Execute the export
   preloadResources()
@@ -2928,7 +3071,8 @@ function downloadPNG() {
     })
     .catch(error => {
       console.error('Error generating high-quality image:', error);
-      alert('Failed to capture image. Please try again.');
+      // alert('Failed to capture image. Please try again.');
+      showAlert('Failed to capture image. Please try again.');
       // Remove loading indicator on error
       document.body.removeChild(loadingDiv);
     });
@@ -2941,7 +3085,8 @@ function downloadHTML() {
   // Validate input
   if (!imageUrl || typeof imageUrl !== 'string') {
     console.error('Invalid image URL provided');
-    alert('Failed to generate HTML: Invalid image URL');
+    // alert('Failed to generate HTML: Invalid image URL');
+    showAlert('Failed to generate HTML: Invalid image URL');
     return;
   }
 
@@ -3006,7 +3151,8 @@ function downloadHTML() {
 
 downloadButton.addEventListener('click', () => {
   if (downloadSelect.value === '') {
-    alert("Please select a format before downloading.");
+    // alert("Please select a format before downloading.");
+    showAlert("Please select a format before downloading.");
   }
 });
 
@@ -3621,7 +3767,8 @@ function decreaseTextSize() {
       selectedCell.style.fontSize = (currentSize - 2) + 'px';
     }
   } else {
-    alert('Please select a cell to decrease text size.');
+    // alert('Please select a cell to decrease text size.');
+    showAlert('Please select a cell to decrease text size.');
   }
 }
 
@@ -3630,7 +3777,8 @@ function increaseIndent() {
     let currentIndent = parseInt(selectedCell.style.paddingLeft) || 0;
     selectedCell.style.paddingLeft = (currentIndent + 10) + 'px';
   } else {
-    alert('Please select a cell to indent.');
+    // alert('Please select a cell to indent.');
+    showAlert('Please select a cell to indent.')
   }
 }
 
@@ -3642,7 +3790,8 @@ function decreaseIndent() {
       selectedCell.style.paddingLeft = (currentIndent - 10) + 'px';
     }
   } else {
-    alert('Please select a cell to decrease indent.');
+    // alert('Please select a cell to decrease indent.');
+    showAlert('Please select a cell to decrease indent.');
   }
 }
 
@@ -3656,7 +3805,8 @@ function increaseTableSize() {
       cell.style.fontSize = (currentSize + 2) + 'px';
     }
   } else {
-    alert('Please select a table to increase text size.');
+    // alert('Please select a table to increase text size.');
+    showAlert('Please select a table to increase text size.');
   }
 }
 
@@ -3671,7 +3821,8 @@ function decreaseTableSize() {
       }
     }
   } else {
-    alert('Please select a table to decrease text size.');
+    // alert('Please select a table to decrease text size.');
+    showAlert('Please select a table to decrease text size.')
   }
 }
 
@@ -3825,7 +3976,8 @@ function mergeRowCells() {
       document.getElementById(endColumnIndex).value = '';
     }
   } else {
-    alert("Invalid row or column index");
+    // alert("Invalid row or column index");
+    showAlert("Invalid row or column index");
   }
 }
 
@@ -3874,7 +4026,8 @@ function mergeColumnCells() {
       document.getElementById(endrowIndex).value = '';
     }
   } else {
-    alert("Invalid row or column index.");
+    // alert("Invalid row or column index.");
+    showAlert("Invalid row or column index.")
   }
 }
 
@@ -3893,7 +4046,8 @@ function addRow() {
       cell.onclick = () => selectCell(cell, selectedTable);
     }
   } else {
-    alert('Please select a cell to insert a row below.');
+    // alert('Please select a cell to insert a row below.');
+    showAlert('Please select a cell to insert a row below.');
   }
 }
 
@@ -3910,7 +4064,8 @@ function addColumn() {
       newCell.onclick = () => selectCell(newCell, selectedTable);
     }
   } else {
-    alert('Please select a cell to insert a column to the right.');
+    // alert('Please select a cell to insert a column to the right.');
+    showAlert('Please select a cell to insert a column to the right.');
   }
 }
 
@@ -3929,7 +4084,8 @@ function setUniformSize() {
       }
     }
   } else {
-    alert("Please select a table by clicking a cell first.");
+    // alert("Please select a table by clicking a cell first.");
+    showAlert("Please select a table by clicking a cell first.");
   }
 }
 
@@ -3941,7 +4097,8 @@ function deleteTable() {
     selectedTable = null; // Reset the selected table
     document.getElementById(toolbarId).style.display = 'none'; // Hide the toolbar
   } else {
-    alert("Please select a table to delete.");
+    // alert("Please select a table to delete.");
+    showAlert("Please select a table to delete.");
   }
 }
 
@@ -3952,7 +4109,8 @@ function deleteCell() {
     selectedCell = null; // Reset the selected cell
     document.getElementById(toolbarId).style.display = 'none'; // Hide the toolbar
   } else {
-    alert("Please select a cell to delete.");
+    // alert("Please select a cell to delete.");
+    showAlert("Please select a cell to delete.");
   }
 }
 
@@ -4140,7 +4298,8 @@ function displayUploadedPhotos() {
       reader.readAsDataURL(imageFile);
     });
   } else {
-    alert("Please select one or more images first.");
+    // alert("Please select one or more images first.");
+    showAlert("Please select one or more images first.");
   }
 }
 
@@ -4245,7 +4404,8 @@ document.getElementById("save-button").addEventListener("click", async function 
 
   var wrapperDiv = document.getElementById(selectTemplate);
   if (!wrapperDiv) {
-      alert("Please Choose a Template");
+      // alert("Please Choose a Template");
+      showAlert("Please Choose a Template");
       return;
   }
 
@@ -4257,7 +4417,8 @@ document.getElementById("save-button").addEventListener("click", async function 
       document.dispatchEvent(new Event("imageReadyForUpload"));
   } catch (error) {
       console.error("Error during conversion:", error);
-      alert("Failed to capture image.");
+      // alert("Failed to capture image.");
+      showAlert("Failed to capture image.");
   }
 });
 
@@ -4265,7 +4426,8 @@ function convertElementToJPG(element) {
   return new Promise((resolve, reject) => {
       if (typeof html2canvas !== 'function') {
           console.error('html2canvas not loaded');
-          alert('Failed to capture image: Required library not loaded');
+          // alert('Failed to capture image: Required library not loaded');
+          showAlert('Failed to capture image: Required library not loaded');
           reject(new Error('html2canvas not loaded'));
           return;
       }
@@ -4334,7 +4496,8 @@ function convertElementToJPG(element) {
           })
           .catch(error => {
               console.error('Error generating image:', error);
-              alert('Failed to capture image. Please try again.');
+              // alert('Failed to capture image. Please try again.');
+              showAlert('Failed to capture image. Please try again.');
               reject(error);
           });
   });
