@@ -1,5 +1,5 @@
 import { db, storage } from "./firebaseConfig.mjs"; // Your Firebase config import
-import { collection, getDocs, getStorage, ref, deleteObject } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; // Firestore functions to retrieve documents
+import { collection, getDocs, getStorage, ref } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; // Firestore functions to retrieve documents
 
 // Global variables to hold selected image data
 document.addEventListener("DOMContentLoaded", async function () {
@@ -67,24 +67,24 @@ document.getElementById("copyUrlBtn").onclick = function() {
     });
 };
 
-document.getElementById("deleteTemplate").onclick = async function() {
-    try {
+// document.getElementById("deleteTemplate").onclick = async function() {
+//     try {
        
-            // Extract storage path from the image URL
-            const storagePath = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
+//             // Extract storage path from the image URL
+//             const storagePath = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
     
-            // Create a reference to the file in Firebase Storage
-            const storage = getStorage();
-            const imageRef = ref(storage, storagePath);
+//             // Create a reference to the file in Firebase Storage
+//             const storage = getStorage();
+//             const imageRef = ref(storage, storagePath);
     
-            // Delete the file
-            await deleteObject(imageRef);
-            alert("Image file successfully deleted from Firebase Storage!");
-        } catch (error) {
-            console.error("Error deleting image file:", error);
-            alert("Failed to delete the image file from Firebase Storage.");
-        }
-}
+//             // Delete the file
+//             await deleteObject(imageRef);
+//             alert("Image file successfully deleted from Firebase Storage!");
+//         } catch (error) {
+//             console.error("Error deleting image file:", error);
+//             alert("Failed to delete the image file from Firebase Storage.");
+//         }
+// }
 
 
 

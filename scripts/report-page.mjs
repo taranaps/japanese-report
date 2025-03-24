@@ -476,72 +476,114 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function createEvaluationTable(data, id) {
   const tablePosition = document.getElementById(id);
   tablePosition.innerHTML = "";
+  
   const table = document.createElement("table");
-  const headerRow = table.insertRow();
-
-  // Add the "SI No" column header
-  ["SI No", "Trainee Name", "Department"].forEach((headerText) => {
-      const th = document.createElement("th");
-      th.textContent = headerText;
-      headerRow.appendChild(th);
-  });
-
+  table.style.borderCollapse = "collapse";
+  
   // Collect unique evaluations without "N/A" names or scores
   const uniqueEvaluations = new Set();
   data.forEach((item) => {
-      item.evaluations.forEach((evaluation) => {
-          if (evaluation.evaluationName !== "" && evaluation.evaluationScore !== "N/A") {
-              uniqueEvaluations.add(evaluation.evaluationName);
-          }
-      });
+    item.evaluations.forEach((evaluation) => {
+      if (evaluation.evaluationName !== "" && evaluation.evaluationScore !== "N/A") {
+        uniqueEvaluations.add(evaluation.evaluationName);
+      }
+    });
   });
-
-  // Create headers for each valid evaluation
+  
   const evaluationHeaders = Array.from(uniqueEvaluations);
-  evaluationHeaders.forEach((header) => {
-      const th = document.createElement("th");
-      th.textContent = header;
-      headerRow.appendChild(th);
+  
+  // First header row
+  const headerRow1 = table.insertRow();
+  
+  // Add headers for SI No, Trainee Name, Department with rowspan=2
+  ["SI No", "Trainee Name", "Department"].forEach((headerText) => {
+    const th = document.createElement("th");
+    th.textContent = headerText;
+    th.rowSpan = 2; // This merges the cell vertically across two rows
+    th.style.padding = "8px";
+    th.style.border = "1px solid #ddd";
+    th.style.textAlign = "center";
+    th.style.verticalAlign = "middle";
+    headerRow1.appendChild(th);
   });
-
+  
+  // Add the merged "Evaluation Details" header
+  const evaluationDetailsHeader = document.createElement("th");
+  evaluationDetailsHeader.textContent = "Evaluation Details";
+  evaluationDetailsHeader.colSpan = evaluationHeaders.length;
+  evaluationDetailsHeader.style.padding = "8px";
+  evaluationDetailsHeader.style.border = "1px solid #ddd";
+  evaluationDetailsHeader.style.textAlign = "center";
+  headerRow1.appendChild(evaluationDetailsHeader);
+  
+  // Second header row for evaluation column names only
+  const headerRow2 = table.insertRow();
+  
+  // No need for empty cells for the first 3 columns since we used rowSpan=2 above
+  
+  // Add individual evaluation headers
+  evaluationHeaders.forEach((header) => {
+    const th = document.createElement("th");
+    th.textContent = header;
+    th.style.padding = "8px";
+    th.style.border = "1px solid #ddd";
+    th.style.textAlign = "center";
+    headerRow2.appendChild(th);
+  });
+  
   // Populate table rows
   data.forEach((item, index) => {
-      const row = table.insertRow();
-
-      // Add the serial number (index + 1) as the first cell
-      row.insertCell().textContent = index + 1;
-
-      // Add the other standard columns
-      row.insertCell().textContent = item.traineeName;
-      row.insertCell().textContent = item.du;
-      // row.insertCell().textContent = item.avgAttendance;
-
-      // Map valid evaluations to their scores
-      const evaluationMap = {};
-      item.evaluations.forEach((evaluation) => {
-          if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
-              evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
-          }
-      });
-
-      // Insert cells for each evaluation header, showing score or blank if missing
-      evaluationHeaders.forEach((header) => {
-          const cell = row.insertCell();
-          const score = evaluationMap[header] || "";
-
-          // Set cell background color to red if score is 'F'
-          if (score === 'F') {
-              cell.style.backgroundColor = "red";
-              cell.style.color = "white"; // Optional: set text color to white for better contrast
-          } else if (score.toLowerCase() === 'absent') {
-              cell.style.backgroundColor = "yellow";
-              cell.style.color = "black"; // Optional: set text color to black for contrast
-          }
-
-          cell.textContent = score;
-      });
+    const row = table.insertRow();
+    
+    // Add the serial number (index + 1) as the first cell
+    const cell1 = row.insertCell();
+    cell1.textContent = index + 1;
+    cell1.style.padding = "8px";
+    cell1.style.border = "1px solid #ddd";
+    cell1.style.textAlign = "center";
+    
+    // Add the other standard columns
+    const cell2 = row.insertCell();
+    cell2.textContent = item.traineeName;
+    cell2.style.padding = "8px";
+    cell2.style.border = "1px solid #ddd";
+    
+    const cell3 = row.insertCell();
+    cell3.textContent = item.du;
+    cell3.style.padding = "8px";
+    cell3.style.border = "1px solid #ddd";
+    cell3.style.textAlign = "center";
+    
+    // Map valid evaluations to their scores
+    const evaluationMap = {};
+    item.evaluations.forEach((evaluation) => {
+      if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
+        evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
+      }
+    });
+    
+    // Insert cells for each evaluation header, showing score or blank if missing
+    evaluationHeaders.forEach((header) => {
+      const cell = row.insertCell();
+      cell.style.padding = "8px";
+      cell.style.border = "1px solid #ddd";
+      cell.style.textAlign = "center";
+      const score = evaluationMap[header] || "";
+      
+      // Set cell background color to red if score is 'F'
+      if (score === 'F') {
+        cell.style.backgroundColor = "red";
+        cell.style.color = "white"; // Set text color to white for better contrast
+      } else if (score.toLowerCase() === 'absent') {
+        cell.style.backgroundColor = "yellow";
+        cell.style.color = "black"; // Set text color to black for contrast
+      }
+      
+      cell.textContent = score;
+    });
   });
-
+  
+  tablePosition.appendChild(table);
   return table;
 }
 
@@ -911,7 +953,8 @@ async function generateTraineePieChart(id, chartType = "line", backgroundColor =
         "Error fetching batch details from latest collection:",
         error
       );
-      alert("Failed to load batch details from the latest collection.");
+      // alert("Failed to load batch details from the latest collection.");
+      showAlert("Failed to load batch details from the latest collection.");
     }
   }
 
@@ -1184,7 +1227,8 @@ async function getBatchFromLatestCollection() {
         return batchDetails;
     } catch (error) {
         console.error("Error fetching batch details from latest collection:", error);
-        alert("Failed to load batch details from the latest collection.");
+        // alert("Failed to load batch details from the latest collection.");
+        showAlert("Failed to load batch details from the latest collection.");
     }
 }
 
@@ -1532,7 +1576,8 @@ async function initCertificationChart(chartElementId, backgroundColor, borderCol
         return traineeDetails; // Return the collected trainee details
     } catch (error) {
         console.error("Error fetching trainee details:", error);
-        alert("Failed to load trainee details.");
+        // alert("Failed to load trainee details.");
+        showAlert("Failed to load trainee details.");
         return [];
     }
 }
@@ -3944,7 +3989,8 @@ async function uploadImage() {
 
   if (!image) {
       console.error("No image found in input field!");
-      alert("No image available for upload.");
+      // alert("No image available for upload.");
+      showAlert("No image available for upload.");
       return;
   }
 
@@ -3955,7 +4001,8 @@ async function uploadImage() {
       console.log("Image uploaded successfully:", imageUrl);
   } catch (error) {
       console.error("Upload failed:", error);
-      alert("Image upload failed.");
+      // alert("Image upload failed.");
+      showAlert("Image upload failed.");
   }
 }
 
@@ -4020,14 +4067,43 @@ function captureAndDownload() {
   }
 
   const loadingDiv = document.createElement('div');
-  loadingDiv.textContent = 'Processing...';
+  loadingDiv.textContent = 'Processing HTML...';
   loadingDiv.style.position = 'fixed';
   loadingDiv.style.top = '20px';
   loadingDiv.style.right = '20px';
-  loadingDiv.style.padding = '10px';
-  loadingDiv.style.background = '#f0f0f0';
-  loadingDiv.style.border = '1px solid #ccc';
+  loadingDiv.style.padding = '12px 20px';
+  loadingDiv.style.background = '#f0f0f0'; // Light gray background
+  loadingDiv.style.color = '#333'; // Dark text for contrast
+  loadingDiv.style.fontSize = '14px';
+  loadingDiv.style.fontWeight = 'bold';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+  loadingDiv.style.zIndex = '1000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.gap = '8px';
+  
+  const spinner = document.createElement('div');
+  spinner.style.width = '16px';
+  spinner.style.height = '16px';
+  spinner.style.border = '3px solid rgba(220, 20, 60, 0.3)'; // Crimson border with transparency
+  spinner.style.borderTop = '3px solid #dc143c'; // Crimson highlight
+  spinner.style.borderRadius = '50%';
+  spinner.style.animation = 'spin 1s linear infinite';
+  loadingDiv.appendChild(spinner);
+  
   document.body.appendChild(loadingDiv);
+  
+  // Add CSS for spinner animation
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerHTML = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`;
+  document.head.appendChild(styleSheet);
+  
 
   // Calculate dimensions for high-quality capture
   const scaleFactor = 4; // High quality
@@ -4092,222 +4168,275 @@ function captureAndDownload() {
 }
 
 function createEmailCompatibleHTML(canvas) {
-  // Generate data URL with high quality
-  const imgData = canvas.toDataURL('image/jpeg', 0.95);
-
-  // Create HTML content with email-compatible styling for all Outlook versions
+  // Get the original canvas dimensions
+  const originalWidth = canvas.width;
+  const originalHeight = canvas.height;
+  
+  // Generate optimized JPEG (slightly lower quality for better compatibility)
+  const imgData = canvas.toDataURL('image/jpeg', 0.9);
+  
+  // Create HTML specifically optimized for Outlook's quirky rendering
   const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <!-- Outlook-specific meta tags -->
-          <meta name="x-apple-disable-message-reformatting">
-          <!--[if mso]>
-          <noscript>
-          <xml>
-              <o:OfficeDocumentSettings>
-                  <o:PixelsPerInch>96</o:PixelsPerInch>
-                  <o:AllowPNG/>
-              </o:OfficeDocumentSettings>
-          </xml>
-          </noscript>
-          <![endif]-->
-          <title>Report</title>
-          <style>
-              /* Reset styles for email clients */
-              body, html, table, td, div, p, span {
-                  margin: 0;
-                  padding: 0;
-                  border: 0;
-                  font-size: 100%;
-                  font-family: Arial, sans-serif;
-                  line-height: 1.5;
-              }
-              body {
-                  width: 100% !important;
-                  -webkit-text-size-adjust: 100%;
-                  -ms-text-size-adjust: 100%;
-                  margin: 0;
-                  padding: 0;
-              }
-              /* Ensures image fills width in most email clients */
-              img.report-image {
-                  width: 100% !important;
-                  max-width: 100% !important;
-                  height: auto !important;
-                  display: block !important;
-                  outline: none !important;
-                  text-decoration: none !important;
-                  -ms-interpolation-mode: bicubic;
-              }
-              /* Outlook-specific width fix */
-              table, td {
-                  mso-table-lspace: 0pt;
-                  mso-table-rspace: 0pt;
-              }
-              /* Table for email client compatibility */
-              .container-table {
-                  width: 100% !important;
-                  border-collapse: collapse;
-                  border-spacing: 0;
-                  padding: 0;
-                  margin: 0;
-              }
-              /* MSO VML fallback for Outlook */
-              .outlook-hack {
-                  width: 100% !important;
-                  max-width: 600px;
-              }
-          </style>
-      </head>
-      <body>
-          <!-- Table-based layout for Outlook compatibility -->
-          <table class="container-table" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100% !important;">
-              <tr>
-                  <td align="center" valign="top">
-                      <!-- Outlook 100% width wrapper -->
-                      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100% !important;">
-                          <tr>
-                              <td align="center" valign="top">
-                                  <!--[if mso]>
-                                  <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                                  <tr>
-                                  <td align="center" valign="top" width="600">
-                                  <![endif]-->
-                                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; width: 100% !important;">
-                                      <tr>
-                                          <td align="center" valign="top" style="font-size: 0; padding: 0;">
-                                              <!--[if mso]>
-                                              <table border="0" cellspacing="0" cellpadding="0" width="600">
-                                              <tr>
-                                              <td width="600" valign="top">
-                                              <![endif]-->
-                                              <div style="display: inline-block; max-width: 600px; vertical-align: top; width: 100%;">
-                                                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                      <tr>
-                                                          <td valign="top">
-                                                              <!--[if mso]>
-                                                              <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width: 600px;">
-                                                              <v:fill type="frame" src="${imgData}" />
-                                                              <v:textbox style="mso-fit-shape-to-text: true" inset="0,0,0,0">
-                                                              <![endif]-->
-                                                              <img src="${imgData}" alt="Report" class="report-image" width="600" style="width: 100% !important; max-width: 100% !important; display: block; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: 0;" />
-                                                              <!--[if mso]>
-                                                              </v:textbox>
-                                                              </v:rect>
-                                                              <![endif]-->
-                                                          </td>
-                                                      </tr>
-                                                  </table>
-                                              </div>
-                                              <!--[if mso]>
-                                              </td>
-                                              </tr>
-                                              </table>
-                                              <![endif]-->
-                                          </td>
-                                      </tr>
-                                  </table>
-                                  <!--[if mso]>
-                                  </td>
-                                  </tr>
-                                  </table>
-                                  <![endif]-->
-                              </td>
-                          </tr>
-                      </table>
-                  </td>
-              </tr>
-          </table>
-          <!-- Direct copy-paste instruction text -->
-          <div style="font-family: Arial, sans-serif; font-size: 11px; color: #666; text-align: center; margin-top: 10px; margin-bottom: 10px;">
-              For best results when pasting into Outlook, right-click the image above and copy, then paste directly into your email.
-          </div>
-      </body>
-      </html>
-  `;
-
-  // Create direct image download option
-  const imgLink = document.createElement('a');
-  imgLink.href = imgData;
-  imgLink.download = 'report.jpg';
+  <!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Report</title>
+    <style type="text/css">
+        /* Reset Styles */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            box-sizing: border-box;
+        }
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+        table, td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+            border-collapse: collapse !important;
+        }
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            display: block;
+        }
+        #outlook a {
+            padding: 0;
+        }
+        .ExternalClass {
+            width: 100%;
+        }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
+            line-height: 100%;
+        }
+    </style>
+</head>
+<body style="margin:0;padding:0;width:100% !important;background-color:#ffffff;" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+    <!-- MSO Wrapper -->
+    <!--[if mso]>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;">
+        <tr>
+            <td style="padding:0;">
+    <![endif]-->
+    
+    <!-- Main Container -->
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100% !important;margin:0;padding:0;border-spacing:0;border-collapse:collapse;">
+        <tr>
+            <td align="center" valign="top" style="padding:0;margin:0;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100% !important;margin:0;padding:0;border-spacing:0;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <td style="padding:0;margin:0;font-size:0;line-height:0;">
+                            <!-- Outlook VML -->
+                            <!--[if mso]>
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding:0;margin:0;">
+                                        <v:group xmlns:v="urn:schemas-microsoft-com:vml" coordsize="100,100" style="width:100%;position:relative;">
+                                            <v:rect fill="true" stroke="false" style="position:absolute;width:100%;height:auto;left:0;top:0;">
+                                                <v:fill type="frame" src="${imgData}" />
+                                            </v:rect>
+                                        </v:group>
+                                    </td>
+                                </tr>
+                            </table>
+                            <![endif]-->
+                            
+                            <!-- Standard Image (Non-Outlook) -->
+                            <!--[if !mso]><!-->
+                            <div style="font-size:0;line-height:0;">
+                                <img src="${imgData}" 
+                                     width="100%" 
+                                     style="width:100% !important;max-width:100% !important;min-width:100% !important;height:auto !important;display:block !important;margin:0 !important;padding:0 !important;border:0;outline:none;text-decoration:none;vertical-align:bottom;" 
+                                     alt="Report">
+                            </div>
+                            <!--<![endif]-->
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    <!--[if mso]>
+            </td>
+        </tr>
+    </table>
+    <![endif]-->
+</body>
+</html>
+  `.replace(/\>\s+\</g, '><');
 
   // Create HTML download
   const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
   const htmlUrl = URL.createObjectURL(htmlBlob);
   const htmlLink = document.createElement('a');
   htmlLink.href = htmlUrl;
-  htmlLink.download = 'report-for-email.html';
+  htmlLink.download = 'outlook-compatible-report.html';
 
-  // Create a container for download options
-  const downloadOptions = document.createElement('div');
-  downloadOptions.style.position = 'fixed';
-  downloadOptions.style.top = '20px';
-  downloadOptions.style.right = '20px';
-  downloadOptions.style.padding = '15px';
-  downloadOptions.style.background = '#f8f8f8';
-  downloadOptions.style.border = '1px solid #ddd';
-  downloadOptions.style.borderRadius = '5px';
-  downloadOptions.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-  downloadOptions.style.zIndex = '9999';
+  // Create direct image download option
+  const imgLink = document.createElement('a');
+  imgLink.href = imgData;
+  imgLink.download = 'report-image.jpg';
 
-  // Add title
-  const title = document.createElement('h3');
-  title.textContent = 'Download Options';
-  title.style.margin = '0 0 10px 0';
-  title.style.fontSize = '14px';
-  downloadOptions.appendChild(title);
+// Create a container for download options
+const downloadOptions = document.createElement('div');
+downloadOptions.style.position = 'fixed';
+downloadOptions.style.bottom = '20px';
+downloadOptions.style.right = '20px';
+downloadOptions.style.padding = '20px 25px';
+downloadOptions.style.background = 'white';
+downloadOptions.style.border = '1px solid #e0e0e0';
+downloadOptions.style.borderRadius = '12px';
+downloadOptions.style.boxShadow = '0 6px 16px rgba(0,0,0,0.12)';
+downloadOptions.style.zIndex = '9999';
+downloadOptions.style.width = '340px';
+downloadOptions.style.fontFamily = 'Arial, sans-serif';
+downloadOptions.style.transition = 'all 0.3s ease';
 
-  // Add HTML option
-  const htmlButton = document.createElement('button');
-  htmlButton.textContent = 'Download HTML for Email';
-  htmlButton.style.display = 'block';
-  htmlButton.style.width = '100%';
-  htmlButton.style.padding = '8px';
-  htmlButton.style.marginBottom = '8px';
-  htmlButton.style.cursor = 'pointer';
-  htmlButton.onclick = () => {
-      document.body.appendChild(htmlLink);
-      htmlLink.click();
-      document.body.removeChild(htmlLink);
-      document.body.removeChild(downloadOptions);
+// Add crimson accent bar at the top
+const accentBar = document.createElement('div');
+accentBar.style.position = 'absolute';
+accentBar.style.top = '0';
+accentBar.style.left = '0';
+accentBar.style.width = '100%';
+accentBar.style.height = '4px';
+accentBar.style.background = '#dc143c';
+accentBar.style.borderTopLeftRadius = '12px';
+accentBar.style.borderTopRightRadius = '12px';
+downloadOptions.appendChild(accentBar);
+
+// Add title with logo icon
+const titleContainer = document.createElement('div');
+titleContainer.style.display = 'flex';
+titleContainer.style.alignItems = 'center';
+titleContainer.style.marginBottom = '16px';
+titleContainer.style.paddingTop = '5px';
+
+// Logo/icon (using a simple download icon with your brand color)
+const iconSpan = document.createElement('span');
+iconSpan.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc143c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" y1="15" x2="12" y2="3"></line>
+  </svg>
+`;
+titleContainer.appendChild(iconSpan);
+
+// Title text
+const title = document.createElement('h3');
+title.textContent = 'Download Options';
+title.style.margin = '0 0 0 10px';
+title.style.fontSize = '17px';
+title.style.fontWeight = '600';
+title.style.color = '#333';
+titleContainer.appendChild(title);
+downloadOptions.appendChild(titleContainer);
+
+// Add instructions with improved formatting
+const instructions = document.createElement('div');
+instructions.innerHTML = `
+  <div style="padding: 12px 15px; background: #f7f7f7; border-radius: 8px; margin-bottom: 15px;">
+    <p style="font-size: 14px; margin: 0 0 12px 0; line-height: 1.5; color: #444;">
+      <strong style="color: #dc143c; font-size: 15px;">For Outlook Classic & Web:</strong>
+    </p>
+    <ol style="margin: 0; padding-left: 18px; font-size: 13px; color: #555; line-height: 1.6;">
+      <li>Download the HTML file</li>
+      <li>Open in a browser</li>
+      <li>Copy everything (<strong>Ctrl+A, Ctrl+C</strong>)</li>
+      <li>In Outlook, paste with <strong>"Keep Source Formatting"</strong></li>
+      <li><strong style="color: #dc143c;">Important:</strong> Send it from Outlook Classic Version</li>
+    </ol>
+  </div>
+`;
+downloadOptions.appendChild(instructions);
+
+// Create a reusable button function with improved styling
+const createButton = (text, onClick, isPrimary = false, marginTop = '10px') => {
+  const button = document.createElement('button');
+  button.textContent = text;
+  button.style.display = 'block';
+  button.style.width = '100%';
+  button.style.padding = '12px 0';
+  button.style.background = isPrimary ? '#dc143c' : 'white';
+  button.style.color = isPrimary ? 'white' : '#444';
+  button.style.border = isPrimary ? 'none' : '1px solid #d1d1d1';
+  button.style.borderRadius = '6px';
+  button.style.cursor = 'pointer';
+  button.style.transition = 'all 0.2s ease';
+  button.style.marginTop = marginTop;
+  button.style.fontWeight = isPrimary ? '600' : 'normal';
+  button.style.fontSize = '14px';
+  button.style.boxShadow = isPrimary ? '0 2px 6px rgba(220, 20, 60, 0.3)' : 'none';
+
+  button.onmouseover = () => {
+    if (isPrimary) {
+      button.style.background = '#c01236';
+      button.style.boxShadow = '0 3px 8px rgba(220, 20, 60, 0.4)';
+    } else {
+      button.style.background = '#f7f7f7';
+      button.style.borderColor = '#c4c4c4';
+    }
   };
-  downloadOptions.appendChild(htmlButton);
-
-  // Add Image option
-  const imgButton = document.createElement('button');
-  imgButton.textContent = 'Download Image Only';
-  imgButton.style.display = 'block';
-  imgButton.style.width = '100%';
-  imgButton.style.padding = '8px';
-  imgButton.style.cursor = 'pointer';
-  imgButton.onclick = () => {
-      document.body.appendChild(imgLink);
-      imgLink.click();
-      document.body.removeChild(imgLink);
-      document.body.removeChild(downloadOptions);
+  
+  button.onmouseout = () => {
+    if (isPrimary) {
+      button.style.background = '#dc143c';
+      button.style.boxShadow = '0 2px 6px rgba(220, 20, 60, 0.3)';
+    } else {
+      button.style.background = 'white';
+      button.style.borderColor = '#d1d1d1';
+    }
   };
-  downloadOptions.appendChild(imgButton);
 
-  // Add close button
-  const closeButton = document.createElement('button');
-  closeButton.textContent = 'Close';
-  closeButton.style.display = 'block';
-  closeButton.style.width = '100%';
-  closeButton.style.padding = '8px';
-  closeButton.style.marginTop = '8px';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = () => {
-      document.body.removeChild(downloadOptions);
-  };
-  downloadOptions.appendChild(closeButton);
+  button.onclick = onClick;
+  downloadOptions.appendChild(button);
+  return button;
+};
 
-  // Add to document
-  document.body.appendChild(downloadOptions);
+// Add HTML option button with primary styling
+createButton('Download As HTML', () => {
+  document.body.appendChild(htmlLink);
+  htmlLink.click();
+  document.body.removeChild(htmlLink);
+}, true);
+
+// Add Image option button
+createButton('Download Image Only', () => {
+  document.body.appendChild(imgLink);
+  imgLink.click();
+  document.body.removeChild(imgLink);
+}, false, '10px');
+
+// Add close button with secondary styling
+createButton('Close', () => {
+  document.body.removeChild(downloadOptions);
+}, false, '12px');
+
+// Add to document
+document.body.appendChild(downloadOptions);
+
 }
+
 
 // Function to apply sharpening to canvas context
 function applySharpening(ctx, width, height) {
@@ -4378,8 +4507,30 @@ downloadButton.addEventListener('click', () => {
 
 
 
+function showAlert(message) {
+  document.getElementById('alert-message').textContent = message;
+  document.getElementById('custom-alert').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
 
+function closeAlert() {
+  const alert = document.getElementById('custom-alert');
+  alert.style.opacity = '0';
+  alert.style.transition = 'opacity 0.3s ease';
+  
+  setTimeout(() => {
+    alert.style.display = 'none';
+    alert.style.opacity = '1';
+    document.body.style.overflow = 'auto';
+  }, 300);
+}
 
+// Close when clicking outside the alert box
+document.getElementById('custom-alert').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeAlert();
+  }
+});
 
 
 
@@ -4389,20 +4540,49 @@ downloadButton.addEventListener('click', () => {
 function captureAndDownloadAsTable() {
   // Show loading indicator
   const loadingDiv = document.createElement('div');
-  loadingDiv.textContent = 'Processing Table Layout...';
+  loadingDiv.textContent = 'Processing Table Format...';
   loadingDiv.style.position = 'fixed';
   loadingDiv.style.top = '20px';
   loadingDiv.style.right = '20px';
-  loadingDiv.style.padding = '10px';
-  loadingDiv.style.background = '#f0f0f0';
-  loadingDiv.style.border = '1px solid #ccc';
+  loadingDiv.style.padding = '12px 20px';
+  loadingDiv.style.background = '#f0f0f0'; // Light gray background
+  loadingDiv.style.color = '#333'; // Dark text for contrast
+  loadingDiv.style.fontSize = '14px';
+  loadingDiv.style.fontWeight = 'bold';
+  loadingDiv.style.borderRadius = '8px';
+  loadingDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
   loadingDiv.style.zIndex = '1000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.gap = '8px';
+  
+  const spinner = document.createElement('div');
+  spinner.style.width = '16px';
+  spinner.style.height = '16px';
+  spinner.style.border = '3px solid rgba(220, 20, 60, 0.3)'; // Crimson border with transparency
+  spinner.style.borderTop = '3px solid #dc143c'; // Crimson highlight
+  spinner.style.borderRadius = '50%';
+  spinner.style.animation = 'spin 1s linear infinite';
+  loadingDiv.appendChild(spinner);
+  
   document.body.appendChild(loadingDiv);
+  
+  // Add CSS for spinner animation
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerHTML = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`;
+  document.head.appendChild(styleSheet);
+  
 
   // Get file input element
   const fileInput = document.getElementById('imageInput');
   if (!fileInput.files || fileInput.files.length === 0) {
-    alert('Please select image files first');
+    // alert('Please select image files first');
+    showAlert('Please select image files first')
     document.body.removeChild(loadingDiv);
     return;
   }
@@ -4564,207 +4744,195 @@ function applyTableImageSharpening(ctx, width, height) {
     // Continue without sharpening if it fails
   }
 }
-
-// Generate HTML with table layout for images
+////////////////////////
 function generateTableBasedHTML(images) {
-  // Create image HTML with Outlook-specific settings
-  let imagesHTML = '';
-  
-  images.forEach((image, index) => {
-    imagesHTML += `
-      <!-- Image Row ${index + 1} -->
-      <tr>
-        <td valign="top" align="center" style="padding:0; margin:0; font-size:0; line-height:0;">
-          <!-- VML for Outlook 2007-2016 -->
-          <!--[if mso]>
-          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;">
-            <v:fill type="frame" src="${image.dataUrl}" />
-            <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
-          <![endif]-->
-          
-          <div style="font-size:0; line-height:0;">
-            <!-- Full-width table for Outlook Desktop -->
-            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse; border-spacing:0; mso-table-lspace:0pt; mso-table-rspace:0pt; table-layout:fixed;">
-              <tr>
-                <td style="padding:0; margin:0; font-size:0; line-height:0;">
-                  <img src="${image.dataUrl}" width="600" alt="" style="display:block; width:100%; height:auto; border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; margin:0; padding:0;" />
-                </td>
-              </tr>
-            </table>
-          </div>
-          
-          <!--[if mso]>
-            </v:textbox>
-          </v:rect>
-          <![endif]-->
-        </td>
-      </tr>
-    `;
-  });
-  
-  // Create HTML with improved compatibility for all Outlook versions
+  let allImagesHTML = images.map(image => `
+    <div style="display:block;font-size:0;line-height:0;margin:0;padding:0;width:100%">
+      <!--[if mso]>
+      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
+        <v:fill src="${image.dataUrl}" type="frame" />
+      </v:rect>
+      <![endif]-->
+      <img src="${image.dataUrl}" 
+           width="100%" 
+           alt=""
+           style="display:block;width:100%;max-width:100%;height:auto;
+                  margin:0;padding:0;border:0;outline:none;
+                  text-decoration:none;font-size:0;line-height:0;"
+           border="0" />
+    </div>
+  `).join('').replace(/\>\s+\</g, '><'); // Remove whitespace between containers
+
   return `
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!--[if gte mso 9]>
-  <xml>
-    <o:OfficeDocumentSettings>
-      <o:AllowPNG/>
-      <o:PixelsPerInch>96</o:PixelsPerInch>
-    </o:OfficeDocumentSettings>
-    <o:OfficeDocumentSettings>
-      <o:AllowPNG/>
-      <o:PixelsPerInch>96</o:PixelsPerInch>
-    </o:OfficeDocumentSettings>
-  </xml>
-  <![endif]-->
-  <title>Email Images</title>
-  <style type="text/css">
-    /* Reset styles */
-    #outlook a{padding:0;}
-    body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
-    table,td{border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;}
-    img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic;}
-    p{margin:0;}
-    
-    /* Force Outlook to provide a "view in browser" menu link. */
-    #outlook a{padding:0;}
-    
-    /* Force Outlook to render at full width */
-    .ReadMsgBody{width:100%;}
-    .ExternalClass{width:100%;}
-    
-    /* Force Outlook.com to display emails at full width */
-    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div{line-height:100%;} 
-
-    /* Full width for Outlook on Windows */
-    body, table, td, p, a, li, blockquote{-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Outlook Web Fixes */
+    .ExternalClass { width: 100%; display: block !important; }
+    div, img { border: 0 !important; margin: 0 !important; padding: 0 !important; line-height: 0 !important; font-size: 0 !important; }
+    table { border-collapse: collapse !important; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; }
   </style>
-  <!--[if gte mso 9]>
-  <style type="text/css">
-    table {border-collapse:collapse;}
-  </style>
-  <![endif]-->
 </head>
-<body style="margin:0; padding:0; background-color:#ffffff; width:100% !important;">
-
-  <!-- Outlook 120 DPI Fix -->
-  <!--[if gte mso 9]>
-  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+<body style="margin:0;padding:0;background:#fff">
+  <!--[if mso]>
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;">
     <tr>
-      <td valign="top">
+      <td>
   <![endif]-->
-
-  <!-- Main Container Table -->
-  <div style="max-width:600px; margin:0 auto;">
-    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="width:100%; border-collapse:collapse; table-layout:fixed;">
-      <tr>
-        <td align="center" valign="top" style="padding:0;">
-          <!-- Full Width Container -->
-          <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="width:100%; max-width:600px; border-collapse:collapse; table-layout:fixed;">
-            ${imagesHTML}
-          </table>
-        </td>
-      </tr>
-    </table>
+  <div style="width:100%;max-width:100%;margin:0;padding:0;font-size:0;line-height:0">
+    ${allImagesHTML}
   </div>
-
-  <!-- Outlook 120 DPI Fix -->
-  <!--[if gte mso 9]>
+  <!--[if mso]>
       </td>
     </tr>
   </table>
   <![endif]-->
-
-  <!-- Copy/Paste Enhancement Script -->
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Handle right-click to select all images
-    document.addEventListener('contextmenu', function(e) {
-      if(e.target.tagName === 'IMG') {
-        const range = document.createRange();
-        range.selectNode(document.querySelector('table'));
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-      }
-    }, true);
-  });
-  </script>
-
 </body>
-</html>`;
+</html>
+  `.replace(/\>\s+\</g, '><');
 }
-
 // Show download options (continued)
 function showDownloadOptions(htmlLink) {
   // Create a container for download options
+  // Create a container for download options
   const downloadOptions = document.createElement('div');
-  downloadOptions.style.position = 'fixed';
-  downloadOptions.style.top = '20px';
-  downloadOptions.style.right = '20px';
-  downloadOptions.style.padding = '15px';
-  downloadOptions.style.background = '#f8f8f8';
-  downloadOptions.style.border = '1px solid #ddd';
-  downloadOptions.style.borderRadius = '5px';
-  downloadOptions.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-  downloadOptions.style.zIndex = '9999';
+downloadOptions.style.position = 'fixed';
+downloadOptions.style.bottom = '20px';
+downloadOptions.style.right = '20px';
+downloadOptions.style.padding = '20px 25px';
+downloadOptions.style.background = 'white';
+downloadOptions.style.border = '1px solid #e0e0e0';
+downloadOptions.style.borderRadius = '12px';
+downloadOptions.style.boxShadow = '0 6px 16px rgba(0,0,0,0.12)';
+downloadOptions.style.zIndex = '9999';
+downloadOptions.style.width = '340px';
+downloadOptions.style.fontFamily = 'Arial, sans-serif';
+downloadOptions.style.transition = 'all 0.3s ease';
   
-  // Add title
+  // Add crimson accent bar at the top
+  const accentBar = document.createElement('div');
+  accentBar.style.position = 'absolute';
+  accentBar.style.top = '0';
+  accentBar.style.left = '0';
+  accentBar.style.width = '100%';
+  accentBar.style.height = '4px';
+  accentBar.style.background = '#dc143c';
+  accentBar.style.borderTopLeftRadius = '12px';
+  accentBar.style.borderTopRightRadius = '12px';
+  downloadOptions.appendChild(accentBar);
+  
+  // Add title with logo icon
+  const titleContainer = document.createElement('div');
+  titleContainer.style.display = 'flex';
+  titleContainer.style.alignItems = 'center';
+  titleContainer.style.marginBottom = '16px';
+  titleContainer.style.paddingTop = '5px';
+  
+  // Logo/icon (using a simple download icon with your brand color)
+  const iconSpan = document.createElement('span');
+  iconSpan.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc143c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+  `;
+  titleContainer.appendChild(iconSpan);
+  
+  // Title text
   const title = document.createElement('h3');
   title.textContent = 'Download Options';
-  title.style.margin = '0 0 10px 0';
-  title.style.fontSize = '14px';
-  downloadOptions.appendChild(title);
+  title.style.margin = '0 0 0 10px';
+  title.style.fontSize = '17px';
+  title.style.fontWeight = '600';
+  title.style.color = '#333';
+  titleContainer.appendChild(title);
+  downloadOptions.appendChild(titleContainer);
   
-  // Add HTML option
-  const htmlButton = document.createElement('button');
-  htmlButton.textContent = 'Download Images for Email';
-  htmlButton.style.display = 'block';
-  htmlButton.style.width = '100%';
-  htmlButton.style.padding = '8px';
-  htmlButton.style.marginBottom = '8px';
-  htmlButton.style.cursor = 'pointer';
-  htmlButton.onclick = () => {
+  // Add instructions with improved formatting
+  const instructionsDiv = document.createElement('div');
+  instructionsDiv.innerHTML = `
+    <div style="padding: 12px 15px; background: #f7f7f7; border-radius: 8px; margin-bottom: 15px;">
+      <p style="font-size: 14px; margin: 0 0 12px 0; line-height: 1.5; color: #444;">
+        <strong style="color: #dc143c; font-size: 15px;">For Outlook Classic & Web:</strong>
+      </p>
+      <ol style="margin: 0; padding-left: 18px; font-size: 13px; color: #555; line-height: 1.6;">
+        <li>Download the HTML file</li>
+        <li>Open in a browser</li>
+        <li>Copy everything (<strong>Ctrl+A, Ctrl+C</strong>)</li>
+        <li>In Outlook, paste with <strong>"Keep Source Formatting"</strong></li>
+        <li><strong style="color: #dc143c;">Important:</strong> Send it from Outlook Classic Version</li>
+      </ol>
+    </div>
+  `;
+  downloadOptions.appendChild(instructionsDiv);
+  
+  // Create a reusable button function with improved styling
+  const createButton = (text, onClick, isPrimary = false, marginTop = '10px') => {
+    const button = document.createElement('button');
+    button.textContent = text;
+    button.style.display = 'block';
+    button.style.width = '100%';
+    button.style.padding = '12px 0';
+    button.style.background = isPrimary ? '#dc143c' : 'white';
+    button.style.color = isPrimary ? 'white' : '#444';
+    button.style.border = isPrimary ? 'none' : '1px solid #d1d1d1';
+    button.style.borderRadius = '6px';
+    button.style.cursor = 'pointer';
+    button.style.transition = 'all 0.2s ease';
+    button.style.marginTop = marginTop;
+    button.style.fontWeight = isPrimary ? '600' : 'normal';
+    button.style.fontSize = '14px';
+    button.style.boxShadow = isPrimary ? '0 2px 6px rgba(220, 20, 60, 0.3)' : 'none';
+  
+    button.onmouseover = () => {
+      if (isPrimary) {
+        button.style.background = '#c01236';
+        button.style.boxShadow = '0 3px 8px rgba(220, 20, 60, 0.4)';
+      } else {
+        button.style.background = '#f7f7f7';
+        button.style.borderColor = '#c4c4c4';
+      }
+    };
+    
+    button.onmouseout = () => {
+      if (isPrimary) {
+        button.style.background = '#dc143c';
+        button.style.boxShadow = '0 2px 6px rgba(220, 20, 60, 0.3)';
+      } else {
+        button.style.background = 'white';
+        button.style.borderColor = '#d1d1d1';
+      }
+    };
+  
+    button.onclick = onClick;
+    downloadOptions.appendChild(button);
+    return button;
+  };
+  
+  // Add HTML option button with primary styling
+  createButton('Download Table Format', () => {
     document.body.appendChild(htmlLink);
     htmlLink.click();
     document.body.removeChild(htmlLink);
     document.body.removeChild(downloadOptions);
-  };
-  downloadOptions.appendChild(htmlButton);
+  }, true);
   
-  // Add copy instructions
-  const instructionsDiv = document.createElement('div');
-  instructionsDiv.style.fontSize = '12px';
-  instructionsDiv.style.margin = '8px 0';
-  instructionsDiv.style.padding = '8px';
-  instructionsDiv.style.backgroundColor = '#f0f0f0';
-  instructionsDiv.style.borderRadius = '3px';
-  instructionsDiv.innerHTML = '<strong>Instructions:</strong><br>1. Open the HTML file in a browser<br>2. Press Ctrl+A to select all<br>3. Press Ctrl+C to copy everything<br>4. In Outlook, press Ctrl+V to paste<br><br><strong>NEW: Right-click Copy Feature</strong><br>You can now right-click on any image and choose "Copy" to copy ALL images at once.<br><br>Images will automatically adjust to the exact width of your email body in all Outlook versions.';
-  downloadOptions.appendChild(instructionsDiv);
-  
-  // Add close button
-  const closeButton = document.createElement('button');
-  closeButton.textContent = 'Close';
-  closeButton.style.display = 'block';
-  closeButton.style.width = '100%';
-  closeButton.style.padding = '8px';
-  closeButton.style.marginTop = '8px';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = () => {
+  // Add close button with secondary styling
+  createButton('Close', () => {
     document.body.removeChild(downloadOptions);
-  };
-  downloadOptions.appendChild(closeButton);
+  }, false, '12px');
   
   // Add to document
   document.body.appendChild(downloadOptions);
+
 }
 
 // Add event listener for the download button
-let downloadButtonTable = document.getElementById('download-buttonTable');
+let downloadButtonTable = document.getElementById('download-button');
 let downloadSelectTable = document.getElementById('downloadSelect');
 
 downloadButtonTable.addEventListener('click', () => {
@@ -4773,6 +4941,10 @@ downloadButtonTable.addEventListener('click', () => {
     captureAndDownloadAsTable();
   } 
 });
+
+
+
+
 // Optional: Add file input for selecting multiple image files
 // You can add this HTML element to your page:
 // <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
