@@ -491,15 +491,17 @@ async function createEvaluationTable(data, id) {
   });
   
   const evaluationHeaders = Array.from(uniqueEvaluations);
+  const hasEvaluations = evaluationHeaders.length > 0;
   
   // First header row
   const headerRow1 = table.insertRow();
   
-  // Add headers for SI No, Trainee Name, Department with rowspan=2
+  // Add headers for SI No, Trainee Name, Department
   ["SI No", "Trainee Name", "Department"].forEach((headerText) => {
     const th = document.createElement("th");
     th.textContent = headerText;
-    th.rowSpan = 2; // This merges the cell vertically across two rows
+    // Only use rowspan if we have evaluations
+    th.rowSpan = hasEvaluations ? 2 : 1;
     th.style.padding = "8px";
     th.style.border = "1px solid #ddd";
     th.style.textAlign = "center";
@@ -507,29 +509,30 @@ async function createEvaluationTable(data, id) {
     headerRow1.appendChild(th);
   });
   
-  // Add the merged "Evaluation Details" header
-  const evaluationDetailsHeader = document.createElement("th");
-  evaluationDetailsHeader.textContent = "Evaluation Details";
-  evaluationDetailsHeader.colSpan = evaluationHeaders.length;
-  evaluationDetailsHeader.style.padding = "8px";
-  evaluationDetailsHeader.style.border = "1px solid #ddd";
-  evaluationDetailsHeader.style.textAlign = "center";
-  headerRow1.appendChild(evaluationDetailsHeader);
-  
-  // Second header row for evaluation column names only
-  const headerRow2 = table.insertRow();
-  
-  // No need for empty cells for the first 3 columns since we used rowSpan=2 above
-  
-  // Add individual evaluation headers
-  evaluationHeaders.forEach((header) => {
-    const th = document.createElement("th");
-    th.textContent = header;
-    th.style.padding = "8px";
-    th.style.border = "1px solid #ddd";
-    th.style.textAlign = "center";
-    headerRow2.appendChild(th);
-  });
+  // Only add the "Evaluation Details" header if there are evaluations
+  if (hasEvaluations) {
+    // Add the merged "Evaluation Details" header
+    const evaluationDetailsHeader = document.createElement("th");
+    evaluationDetailsHeader.textContent = "Evaluation Details";
+    evaluationDetailsHeader.colSpan = evaluationHeaders.length;
+    evaluationDetailsHeader.style.padding = "8px";
+    evaluationDetailsHeader.style.border = "1px solid #ddd";
+    evaluationDetailsHeader.style.textAlign = "center";
+    headerRow1.appendChild(evaluationDetailsHeader);
+    
+    // Second header row for evaluation column names only
+    const headerRow2 = table.insertRow();
+    
+    // Add individual evaluation headers
+    evaluationHeaders.forEach((header) => {
+      const th = document.createElement("th");
+      th.textContent = header;
+      th.style.padding = "8px";
+      th.style.border = "1px solid #ddd";
+      th.style.textAlign = "center";
+      headerRow2.appendChild(th);
+    });
+  }
   
   // Populate table rows
   data.forEach((item, index) => {
@@ -554,39 +557,41 @@ async function createEvaluationTable(data, id) {
     cell3.style.border = "1px solid #ddd";
     cell3.style.textAlign = "center";
     
-    // Map valid evaluations to their scores
-    const evaluationMap = {};
-    item.evaluations.forEach((evaluation) => {
-      if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
-        evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
-      }
-    });
-    
-    // Insert cells for each evaluation header, showing score or blank if missing
-    evaluationHeaders.forEach((header) => {
-      const cell = row.insertCell();
-      cell.style.padding = "8px";
-      cell.style.border = "1px solid #ddd";
-      cell.style.textAlign = "center";
-      const score = evaluationMap[header] || "";
+    // Only add evaluation cells if there are evaluations
+    if (hasEvaluations) {
+      // Map valid evaluations to their scores
+      const evaluationMap = {};
+      item.evaluations.forEach((evaluation) => {
+        if (evaluation.evaluationName !== "N/A" && evaluation.evaluationScore !== "N/A") {
+          evaluationMap[evaluation.evaluationName] = evaluation.evaluationScore;
+        }
+      });
       
-      // Set cell background color to red if score is 'F'
-      if (score === 'F') {
-        cell.style.backgroundColor = "red";
-        cell.style.color = "white"; // Set text color to white for better contrast
-      } else if (score.toLowerCase() === 'absent') {
-        cell.style.backgroundColor = "yellow";
-        cell.style.color = "black"; // Set text color to black for contrast
-      }
-      
-      cell.textContent = score;
-    });
+      // Insert cells for each evaluation header, showing score or blank if missing
+      evaluationHeaders.forEach((header) => {
+        const cell = row.insertCell();
+        cell.style.padding = "8px";
+        cell.style.border = "1px solid #ddd";
+        cell.style.textAlign = "center";
+        const score = evaluationMap[header] || "";
+        
+        // Set cell background color to red if score is 'F'
+        if (score === 'F') {
+          cell.style.backgroundColor = "red";
+          cell.style.color = "white"; // Set text color to white for better contrast
+        } else if (score.toLowerCase() === 'absent') {
+          cell.style.backgroundColor = "yellow";
+          cell.style.color = "black"; // Set text color to black for contrast
+        }
+        
+        cell.textContent = score;
+      });
+    }
   });
   
   tablePosition.appendChild(table);
   return table;
 }
-
 
 
 async function createEvaluationTable2(data, id) {
