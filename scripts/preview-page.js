@@ -1112,8 +1112,6 @@ function showDeleteButtons() {
   });
 }
 
-
-
 // Toggle the visibility of the Dynamic Table Side Pane
 function toggleDynamicTableSidePane() {
   const sidePane = document.getElementById("dynamicTableSidePane");
@@ -1203,21 +1201,20 @@ images.forEach((image) => {
     const selectedTemplate = document.getElementById(templateKey);
     if (selectedTemplate) {
       if (templateKey === "template1") {
-        console.log("selected template susccessfully")
+        console.log("selected template susccessfully");
       }
       if (templateKey === "template2") {
-        console.log("selected template susccessfully")
+        console.log("selected template susccessfully");
       }
       if (templateKey === "template3") {
-        console.log("selected template susccessfully")
+        console.log("selected template susccessfully");
       }
       if (templateKey === "template4") {
-        console.log("selected template susccessfully")
+        console.log("selected template susccessfully");
       }
 
       selectedTemplate.style.display = "block";
     }
-    
   });
 });
 
@@ -2205,6 +2202,7 @@ images.forEach((image) => {
           let selectedValue = addSelect.value;
           if (selectedValue == "above") {
             tableContainer = document.getElementById("tableContentAbove2");
+            console.log("table container is",tableContainer)
             tableId = "tablecontainerAbove2";
           } else if (selectedValue == "below") {
             tableContainer = document.getElementById("tableContent2");
@@ -2238,8 +2236,7 @@ images.forEach((image) => {
           }
         });
       } else if (templateKey === "template5") {
-        // tableContainer = document.getElementById('tableContent5')
-        // tableId = 'tablecontainer5'
+       
         toolbarId = "toolbar";
         mergeRowIndex = "mergeRowIndex";
         startColumnIndex = "startColumnIndex";
@@ -2290,6 +2287,335 @@ images.forEach((image) => {
           } else if (selectedValue == "below") {
             tableContainer = document.getElementById("tableContent5");
             tableId = "tablecontainer5";
+          }
+        });
+      }
+      else if (templateKey === "template10") {
+        toolbarId = "toolbar";
+        mergeRowIndex = "mergeRowIndex";
+        startColumnIndex = "startColumnIndex";
+        endColumnIndex = "endColumnIndex";
+        mergeColIndex = "mergeColIndex";
+        startrowIndex = "startRowIndex";
+        endrowIndex = "endRowIndex";
+        toolbar_text = "toolbar-text";
+        textColorPicker = "textColorPicker";
+        highlightColorPicker = "highlightColorPicker";
+        imageToolbar = "imageToolbar";
+        hideImage = "#tableContent img";
+        borderColorPicker = "borderColorPicker";
+
+        let addButton = document.getElementById("addtablesection");
+        let addSelect = document.getElementById("tableSectionPreference");
+        addButton.addEventListener("click", () => {
+          let selectedValue = addSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove10");
+            tableId = "tablecontainerAbove10";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent10");
+            tableId = "tablecontainer10";
+          }
+        });
+
+        let addTextButton = document.getElementById("addTextForTableSpace");
+        let addTextSelect = document.getElementById("tableSectionPreference");
+        addTextButton.addEventListener("click", () => {
+          let selectedValue = addTextSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove10");
+            tableId = "tablecontainerAbove10";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent10");
+            tableId = "tablecontainer10";
+          }
+        });
+
+        let addImageButton = document.getElementById("addImageToTableSection");
+        let addImageSelect = document.getElementById("tableSectionPreference");
+        addImageButton.addEventListener("click", () => {
+          let selectedValue = addImageSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove10");
+            tableId = "tablecontainerAbove10";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent10");
+            tableId = "tablecontainer10";
+          }
+        });
+      }
+
+      else if (templateKey === "template11") {
+        toolbarId = "toolbar";
+        mergeRowIndex = "mergeRowIndex";
+        startColumnIndex = "startColumnIndex";
+        endColumnIndex = "endColumnIndex";
+        mergeColIndex = "mergeColIndex";
+        startrowIndex = "startRowIndex";
+        endrowIndex = "endRowIndex";
+        toolbar_text = "toolbar-text";
+        textColorPicker = "textColorPicker";
+        highlightColorPicker = "highlightColorPicker";
+        imageToolbar = "imageToolbar";
+        hideImage = "#tableContent img";
+        borderColorPicker = "borderColorPicker";
+
+        let addButton = document.getElementById("addtablesection");
+        let addSelect = document.getElementById("tableSectionPreference");
+        addButton.addEventListener("click", () => {
+          let selectedValue = addSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove11");
+            tableId = "tablecontainerAbove11";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent11");
+            tableId = "tablecontainer11";
+          }
+        });
+
+        let addTextButton = document.getElementById("addTextForTableSpace");
+        let addTextSelect = document.getElementById("tableSectionPreference");
+        addTextButton.addEventListener("click", () => {
+          let selectedValue = addTextSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove11");
+            tableId = "tablecontainerAbove11";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent11");
+            tableId = "tablecontainer11";
+          }
+        });
+
+        let addImageButton = document.getElementById("addImageToTableSection");
+        let addImageSelect = document.getElementById("tableSectionPreference");
+        addImageButton.addEventListener("click", () => {
+          let selectedValue = addImageSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove11");
+            tableId = "tablecontainerAbove11";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent11");
+            tableId = "tablecontainer11";
+          }
+        });
+      }
+
+      else if (templateKey === "template12") {
+        toolbarId = "toolbar";
+        mergeRowIndex = "mergeRowIndex";
+        startColumnIndex = "startColumnIndex";
+        endColumnIndex = "endColumnIndex";
+        mergeColIndex = "mergeColIndex";
+        startrowIndex = "startRowIndex";
+        endrowIndex = "endRowIndex";
+        toolbar_text = "toolbar-text";
+        textColorPicker = "textColorPicker";
+        highlightColorPicker = "highlightColorPicker";
+        imageToolbar = "imageToolbar";
+        hideImage = "#tableContent img";
+        borderColorPicker = "borderColorPicker";
+
+        let addButton = document.getElementById("addtablesection");
+        let addSelect = document.getElementById("tableSectionPreference");
+        addButton.addEventListener("click", () => {
+          let selectedValue = addSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove12");
+            tableId = "tablecontainerAbove12";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent12");
+            tableId = "tablecontainer12";
+          }
+        });
+
+        let addTextButton = document.getElementById("addTextForTableSpace");
+        let addTextSelect = document.getElementById("tableSectionPreference");
+        addTextButton.addEventListener("click", () => {
+          let selectedValue = addTextSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove12");
+            tableId = "tablecontainerAbove12";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent11");
+            tableId = "tablecontainer12";
+          }
+        });
+
+        let addImageButton = document.getElementById("addImageToTableSection");
+        let addImageSelect = document.getElementById("tableSectionPreference");
+        addImageButton.addEventListener("click", () => {
+          let selectedValue = addImageSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove12");
+            tableId = "tablecontainerAbove12";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent12");
+            tableId = "tablecontainer12";
+          }
+        });
+      }
+
+      else if (templateKey === "template13") {
+        toolbarId = "toolbar";
+        mergeRowIndex = "mergeRowIndex";
+        startColumnIndex = "startColumnIndex";
+        endColumnIndex = "endColumnIndex";
+        mergeColIndex = "mergeColIndex";
+        startrowIndex = "startRowIndex";
+        endrowIndex = "endRowIndex";
+        toolbar_text = "toolbar-text";
+        textColorPicker = "textColorPicker";
+        highlightColorPicker = "highlightColorPicker";
+        imageToolbar = "imageToolbar";
+        hideImage = "#tableContent img";
+        borderColorPicker = "borderColorPicker";
+
+        let addButton = document.getElementById("addtablesection");
+        let addSelect = document.getElementById("tableSectionPreference");
+        addButton.addEventListener("click", () => {
+          let selectedValue = addSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove13");
+            tableId = "tablecontainerAbove13";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent13");
+            tableId = "tablecontainer13";
+          }
+        });
+
+        let addTextButton = document.getElementById("addTextForTableSpace");
+        let addTextSelect = document.getElementById("tableSectionPreference");
+        addTextButton.addEventListener("click", () => {
+          let selectedValue = addTextSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove13");
+            tableId = "tablecontainerAbove13";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent13");
+            tableId = "tablecontainer13";
+          }
+        });
+
+        let addImageButton = document.getElementById("addImageToTableSection");
+        let addImageSelect = document.getElementById("tableSectionPreference");
+        addImageButton.addEventListener("click", () => {
+          let selectedValue = addImageSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove13");
+            tableId = "tablecontainerAbove13";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent13");
+            tableId = "tablecontainer13";
+          }
+        });
+      }
+
+      else  if (templateKey === "template14") {
+        toolbarId = "toolbar";
+        mergeRowIndex = "mergeRowIndex";
+        startColumnIndex = "startColumnIndex";
+        endColumnIndex = "endColumnIndex";
+        mergeColIndex = "mergeColIndex";
+        startrowIndex = "startRowIndex";
+        endrowIndex = "endRowIndex";
+        toolbar_text = "toolbar-text";
+        textColorPicker = "textColorPicker";
+        highlightColorPicker = "highlightColorPicker";
+        imageToolbar = "imageToolbar";
+        hideImage = "#tableContent img";
+        borderColorPicker = "borderColorPicker";
+
+        let addButton = document.getElementById("addtablesection");
+        let addSelect = document.getElementById("tableSectionPreference");
+        addButton.addEventListener("click", () => {
+          let selectedValue = addSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove14");
+            tableId = "tablecontainerAbove14";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent14");
+            tableId = "tablecontainer14";
+          }
+        });
+
+        let addTextButton = document.getElementById("addTextForTableSpace");
+        let addTextSelect = document.getElementById("tableSectionPreference");
+        addTextButton.addEventListener("click", () => {
+          let selectedValue = addTextSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove14");
+            tableId = "tablecontainerAbove14";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent14");
+            tableId = "tablecontainer14";
+          }
+        });
+
+        let addImageButton = document.getElementById("addImageToTableSection");
+        let addImageSelect = document.getElementById("tableSectionPreference");
+        addImageButton.addEventListener("click", () => {
+          let selectedValue = addImageSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove14");
+            tableId = "tablecontainerAbove14";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent14");
+            tableId = "tablecontainer14";
+          }
+        });
+      }
+
+      else  if (templateKey === "template15") {
+        toolbarId = "toolbar";
+        mergeRowIndex = "mergeRowIndex";
+        startColumnIndex = "startColumnIndex";
+        endColumnIndex = "endColumnIndex";
+        mergeColIndex = "mergeColIndex";
+        startrowIndex = "startRowIndex";
+        endrowIndex = "endRowIndex";
+        toolbar_text = "toolbar-text";
+        textColorPicker = "textColorPicker";
+        highlightColorPicker = "highlightColorPicker";
+        imageToolbar = "imageToolbar";
+        hideImage = "#tableContent img";
+        borderColorPicker = "borderColorPicker";
+
+        let addButton = document.getElementById("addtablesection");
+        let addSelect = document.getElementById("tableSectionPreference");
+        addButton.addEventListener("click", () => {
+          let selectedValue = addSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove15");
+            tableId = "tablecontainerAbove15";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent15");
+            tableId = "tablecontainer15";
+          }
+        });
+
+        let addTextButton = document.getElementById("addTextForTableSpace");
+        let addTextSelect = document.getElementById("tableSectionPreference");
+        addTextButton.addEventListener("click", () => {
+          let selectedValue = addTextSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove15");
+            tableId = "tablecontainerAbove15";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent15");
+            tableId = "tablecontainer15";
+          }
+        });
+
+        let addImageButton = document.getElementById("addImageToTableSection");
+        let addImageSelect = document.getElementById("tableSectionPreference");
+        addImageButton.addEventListener("click", () => {
+          let selectedValue = addImageSelect.value;
+          if (selectedValue == "above") {
+            tableContainer = document.getElementById("tableContentAbove15");
+            tableId = "tablecontainerAbove15";
+          } else if (selectedValue == "below") {
+            tableContainer = document.getElementById("tableContent15");
+            tableId = "tablecontainer15";
           }
         });
       } else if (templateKey === "custom-div") {
@@ -4389,6 +4715,73 @@ function updateTableContainerVisibility(tableContainer, tableId) {
           parentDiv.style.transition = "all 0.3s ease-in-out";
           parentDiv.style.backgroundColor = "white";
           break;
+        case "tablecontainer10":
+        case "tablecontainerAbove10":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "solid 2px #f47464";
+          parentDiv.style.borderRadius = "8px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor = "white";
+          break;
+        case "tablecontainer11":
+        case "tablecontainerAbove11":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.borderLeft = "6px solid #2980b9  ";
+          parentDiv.style.borderRadius = "16px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor = "white";
+          break;
+
+        case "tablecontainer12":
+        case "tablecontainerAbove12":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "2px solid black";
+          parentDiv.style.borderRadius = "8px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor = "white";
+          break;
+
+        case "tablecontainer13":
+        case "tablecontainerAbove13":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.border = "2px solid #f06292"
+
+          parentDiv.style.borderRadius = "8px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor = "white";
+          break;
+        case "tablecontainer14":
+        case "tablecontainerAbove14":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+
+          parentDiv.style.borderRadius = "16px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor = "#e5e9f0";
+          break;
+        case "tablecontainer15":
+        case "tablecontainerAbove15":
+          parentDiv.style.width = "100%";
+          parentDiv.style.borderCollapse = "collapse";
+          parentDiv.style.margin = "20px auto";
+          parentDiv.style.padding = "10px";
+          parentDiv.style.transition = "all 0.3s ease-in-out";
+          parentDiv.style.backgroundColor = "white";
+          break;
 
         case "tablecontainer3":
         case "tablecontainerAbove3":
@@ -4423,7 +4816,7 @@ function updateTableContainerVisibility(tableContainer, tableId) {
           parentDiv.style.borderCollapse = "collapse";
           parentDiv.style.margin = "20px auto";
           parentDiv.style.padding = "10px";
-          parentDiv.style.border = "solid 1px #dc143c";
+          parentDiv.style.border = "solid 2px #dc143c";
           parentDiv.style.borderRadius = "8px";
           break;
 
