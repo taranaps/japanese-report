@@ -31,7 +31,8 @@
             <p class="tablinks activelink" onclick="opentab('template')" title="Template">
               <i class="fa-solid fa-layer-group"></i>
             </p>
-            <p class="tablinks" onclick="opentab('custom')" title="Custom Template"  style="display: none;" id="tabLinkCustom">
+            <p class="tablinks" onclick="opentab('custom')" title="Custom Template" style="display: none;"
+              id="tabLinkCustom">
               <i class="fa-solid fa-plus"></i>
             </p>
             <p class="tablinks" onclick="opentab('table')" title="Table">
@@ -257,7 +258,8 @@
 
           </div>
           <div class="tabcontents" id="image">
-            <button class="toolbars-button" onclick="toggleAddImagePopup()" id="addImageToTableSection">Add Image</button>
+            <button class="toolbars-button" onclick="toggleAddImagePopup()" id="addImageToTableSection">Add
+              Image</button>
             <div class="vertical-line"></div>
             <div class="toolbar-inner">
               <div class="toolbar-row">
@@ -336,7 +338,7 @@
                 <option value="jpg">JPG</option>
                 <option value="html">HTML</option>
                 <option value="table">Table</option>
-                
+
               </select>
             </div>
             <div class="vertical-line"></div>
@@ -349,7 +351,7 @@
               <button id="save-button" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
               <input id="image-input" type="file" style="display: none;"><br><br>
 
-              
+
             </div>
             <input type="file" id="imageInput" multiple accept="image/*" style="
             padding: 6px;
@@ -363,36 +365,36 @@
 
 
           </div>
-          <div class="tabcontents" id="custom" >
+          <div class="tabcontents" id="custom">
             <button class="toolbars-button" onclick="toggleHeadingsPane()">Table of Contents</button>
             <div class="vertical-line"></div>
             <button class="toolbars-button" onclick="toggleGraphsPane()">Chart View</button>
             <div class="vertical-line"></div>
             <button class="toolbars-button" onclick="toggleDynamicTableSidePane()"> Data Tables</button>
             <div class="vertical-line"></div>
-          
-                <button class="toolbars-button" id="changeColorButton">
-                  Color Palette
-                </button>
-                <div class="vertical-line"></div>
-                <button onclick="randomizeLayout()" class="toolbars-button"> Chart Layout</button>
-               
-                <button id="changeLayoutBtn" class="toolbars-button">Batch View
-                </button>
-                <div class="vertical-line"></div>
-                <button onclick="changeLayout('styleTable1')" class="toolbars-button">Table Compact View</button>
-                
-                <button onclick="changeLayout('styleTable2')" class="toolbars-button">Table Expanded View</button>
-                <div class="vertical-line"></div>
-                <button id="styleChangeButton" class="toolbars-button"> Design Palette</button>
+
+            <button class="toolbars-button" id="changeColorButton">
+              Color Palette
+            </button>
+            <div class="vertical-line"></div>
+            <button onclick="randomizeLayout()" class="toolbars-button"> Chart Layout</button>
+
+            <button id="changeLayoutBtn" class="toolbars-button">Batch View
+            </button>
+            <div class="vertical-line"></div>
+            <button onclick="changeLayout('styleTable1')" class="toolbars-button">Table Compact View</button>
+
+            <button onclick="changeLayout('styleTable2')" class="toolbars-button">Table Expanded View</button>
+            <div class="vertical-line"></div>
+            <button id="styleChangeButton" class="toolbars-button"> Design Palette</button>
 
 
-                <button class="toolbars-button" onclick="toggleView()">Table-Chart Switcher</button>
+            <button class="toolbars-button" onclick="toggleView()">Table-Chart Switcher</button>
 
-                <button class="toolbars-button" onclick=" toggleTableStyles()">Table Switcher</button>
+            <button class="toolbars-button" onclick=" toggleTableStyles()">Table Switcher</button>
 
-             
-           
+
+
           </div>
 
           <div class="image-container" id="templateContainer">
@@ -400,31 +402,63 @@
             <h2 class="image-container-h2">Template</h2>
 
             <div class="scrollable-content">
-            <div class="template-item">
-              <img src="../assets/images/template-two.png" alt="Template2" data-template="template2" />
-              <p>Template 1</p>
-            </div>
+              <div class="template-item">
+                <img src="../assets/images/template-two.png" alt="Template1" data-template="template2" />
+                <p>Template 1</p>
+              </div>
 
-            <div class="template-item">
-              <img src="../assets/images/template-one.png" alt="Template3" data-template="template3" />
-              <p>Template 2</p>
-            </div>
+              <div class="template-item">
+                <img src="../assets/images/template-one.png" alt="Template2" data-template="template3" />
+                <p>Template 2</p>
+              </div>
 
-            <div class="template-item">
-              <img src="../assets/images/template-five.png" alt="Template5" data-template="template5" />
-              <p>Template 3</p>
-            </div>
+              <div class="template-item">
+                <img src="../assets/images/template-five.png" alt="Template3" data-template="template5" />
+                <p>Template 3</p>
+              </div>
 
-            <div class="template-item">
-              <img src="../assets/images/Screenshot 2025-02-02 211420.png" alt="custom-div" data-template="custom-div" />
-              <p>Template 4</p>
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-02-02 211420.png" alt="Template4"
+                  data-template="custom-div" />
+                <p>Template 4</p>
+              </div>
+
+
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-04-12 151652.png" alt="Template5" data-template="template10" />
+                <p>Template 5</p>
+              </div>
+
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-04-12 161756.png" alt="Template6" data-template="template11" />
+                <p>Template 6</p>
+              </div>
+
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-04-12 205328.png" alt="Template7" data-template="template12" />
+                <p>Template 7</p>
+              </div>
+
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-04-12 214328.png" alt="Template8" data-template="template13" />
+                <p>Template 8</p>
+              </div>
+
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-04-12 214508.png" alt="Template9" data-template="template14" />
+                <p>Template 9</p>
+              </div>
+
+              <div class="template-item">
+                <img src="../assets/images/Screenshot 2025-04-12 214616.png" alt="Template10" data-template="template15" />
+                <p>Template 10</p>
+              </div>
+              <div class="template-item">
+                <img src="../assets/images/add-button-plus-icon-isolated-on-circle-line-background-vector.jpg"
+                  alt="custom-template-user" data-template="custom-template-user" id="toggleCustomImage" />
+                <p>Custom template</p>
+              </div>
             </div>
-            <div class="template-item">
-              <img src="../assets/images/add-button-plus-icon-isolated-on-circle-line-background-vector.jpg" alt="custom-template-user"
-                data-template="custom-template-user"   id="toggleCustomImage" />
-              <p>Custom template</p>
-            </div>
-          </div>
 
           </div>
 
@@ -450,7 +484,8 @@
             <div class="input-container-table">
               <label>Rows: <input type="number" id="rowCount" min="1" value="2"></label>
               <label>Columns: <input type="number" id="colCount" min="1" value="2"></label>
-              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button" id="addTableSectionTrigger">
+              <button onclick="createTable()" title="Create New Table" class="inside-popup-table-button"
+                id="addTableSectionTrigger">
                 Add Table</button>
             </div>
 
@@ -461,132 +496,130 @@
             <h3 class="image-container-h2">Add Image</h3>
             <div class="input-container">
               <input type="file" accept="image/*" id="uploadImage">
-              <button onclick="displayUploadedPhotos()" class="inside-popup-table-button" id="addTableSectionTriggerImage" >
+              <button onclick="displayUploadedPhotos()" class="inside-popup-table-button"
+                id="addTableSectionTriggerImage">
                 Add Image
               </button>
             </div>
           </div>
 
           <div class="side-pane" id="headingsPane">
-            <button class="close-button-side-pane" onclick="toggleHeadingsPane()"
-              >&#10005;</button>
+            <button class="close-button-side-pane" onclick="toggleHeadingsPane()">&#10005;</button>
             <h3 class="image-container-h2">Choose Heading</h3>
             <div class="scrollable-content">
-            <div class="heading-option" onclick="selectHeading('style1')">
-              <h1 class="style1">Japanese Language Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style2')">
-              <h1 class="style2">Japanese Language Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style3')">
-              <h1 class="style3">Japanese Language Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style4')">
-              <h1 class="style4">Japanese Language Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style5')">
-              <h1 class="style5">Japanese Language Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style6')">
-              <h1 class="style6">Japanese Language<br>Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style7')">
-              <h1 class="style7">Japanese Language<br>Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style8')">
-              <h1 class="style8">Japanese Language<br>Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style9')">
-              <h1 class="style9">Japanese Language<br>Training Report</h1>
-            </div>
-            <div class="heading-option" onclick="selectHeading('style10')">
-              <h1 class="style10">Japanese Language<br>Training Report</h1>
-            </div>
-
-
-            <div class="customization">
-              <h3 class="image-container-h2">Choose Style</h3>
-              <div class="form-group">
-                <label for="text-color" class="label">Text Color:</label>
-                <input type="color" id="text-color" class="input" onchange="updateHeadingStyle()">
+              <div class="heading-option" onclick="selectHeading('style1')">
+                <h1 class="style1">Japanese Language Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style2')">
+                <h1 class="style2">Japanese Language Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style3')">
+                <h1 class="style3">Japanese Language Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style4')">
+                <h1 class="style4">Japanese Language Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style5')">
+                <h1 class="style5">Japanese Language Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style6')">
+                <h1 class="style6">Japanese Language<br>Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style7')">
+                <h1 class="style7">Japanese Language<br>Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style8')">
+                <h1 class="style8">Japanese Language<br>Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style9')">
+                <h1 class="style9">Japanese Language<br>Training Report</h1>
+              </div>
+              <div class="heading-option" onclick="selectHeading('style10')">
+                <h1 class="style10">Japanese Language<br>Training Report</h1>
               </div>
 
-              <div class="form-group">
-                <label for="bg-color" class="label">Background Color:</label>
-                <input type="color" id="bg-color" class="input" onchange="updateHeadingStyle()">
-              </div>
 
-              <div class="form-group">
-                <label for="border-radius" class="label">Border Radius:</label>
-                <input type="number" id="border-radius" class="input" min="0" max="50" placeholder="Enter border radius"
-                  onchange="updateHeadingStyle()">
+              <div class="customization">
+                <h3 class="image-container-h2">Choose Style</h3>
+                <div class="form-group">
+                  <label for="text-color" class="label">Text Color:</label>
+                  <input type="color" id="text-color" class="input" onchange="updateHeadingStyle()">
+                </div>
+
+                <div class="form-group">
+                  <label for="bg-color" class="label">Background Color:</label>
+                  <input type="color" id="bg-color" class="input" onchange="updateHeadingStyle()">
+                </div>
+
+                <div class="form-group">
+                  <label for="border-radius" class="label">Border Radius:</label>
+                  <input type="number" id="border-radius" class="input" min="0" max="50"
+                    placeholder="Enter border radius" onchange="updateHeadingStyle()">
+                </div>
               </div>
-            </div>
             </div>
           </div>
           <div class="side-pane" id="graphsPane">
-            <button class="close-button-side-pane" onclick="toggleGraphsPane()"
-              >&#10005;</button>
+            <button class="close-button-side-pane" onclick="toggleGraphsPane()">&#10005;</button>
             <h3 class="image-container-h2">Choose Chart</h3>
             <div class="scrollable-content">
-            <div class="graph-options">
-              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
-                data-id="activeBatches">
-                <h3>Active Batches</h3>
-                <h1 id="number-custom-user"></h1>
-                <div id="batch-number-custom-user">Batches</div>
+              <div class="graph-options">
+                <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                  data-id="activeBatches">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-custom-user"></h1>
+                  <div id="batch-number-custom-user">Batches</div>
+                </div>
+                <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                  data-id="sessionsChart">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-custom-user" width="120" height="150"></canvas>
+                </div>
+                <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                  data-id="learnersChart">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-custom-user" width="100" height="120"></canvas>
+                </div>
+                <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                  data-id="batchDurationChart">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-custom-user" width="200" height="250"></canvas>
+                </div>
+                <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                  data-id="levelChart">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart-custom-user" width="200" height="300"></canvas>
+                </div>
+                <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
+                  data-id="trainerName">
+                  <h3>Trainer</h3>
+                  <div id="trainer-name-custom-user-template"></div>
+                </div>
               </div>
-              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
-                data-id="sessionsChart">
-                <h3>Total No. of Sessions</h3>
-                <canvas id="sessionsChart-custom-user" width="120" height="150"></canvas>
+              <div class="layout-controls" class="form-group">
+
+                <button onclick="hideDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Hide
+                  Delete Buttons</button>
+                <button onclick="showDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Show
+                  Delete Buttons</button>
               </div>
-              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
-                data-id="learnersChart">
-                <h3>Number of Learners</h3>
-                <canvas id="learnersChart-custom-user" width="100" height="120"></canvas>
-              </div>
-              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
-                data-id="batchDurationChart">
-                <h3>Total Batch Duration</h3>
-                <canvas id="batchDurationChart-custom-user" width="200" height="250"></canvas>
-              </div>
-              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
-                data-id="levelChart">
-                <h3>Current Learning Level</h3>
-                <canvas id="levelChart-custom-user" width="200" height="300"></canvas>
-              </div>
-              <div class="box-template-custom-user" draggable="true" ondragstart="dragStart(event)"
-                data-id="trainerName">
-                <h3>Trainer</h3>
-                <div id="trainer-name-custom-user-template"></div>
-              </div>
-            </div>
-            <div class="layout-controls" class="form-group">
-              
-              <button onclick="hideDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Hide
-                Delete Buttons</button>
-              <button onclick="showDeleteButtons()" class="inside-popup-table-button" style="margin-top: 10px;">Show
-                Delete Buttons</button>
             </div>
           </div>
-        </div>
 
           <div id="dynamicTableSidePane" class="side-pane">
-            <button class="close-button-side-pane" onclick="toggleDynamicTableSidePane()"
-             >&#10005;</button>
-            <h3 class="image-container-h2" >Choose Table</h3>
+            <button class="close-button-side-pane" onclick="toggleDynamicTableSidePane()">&#10005;</button>
+            <h3 class="image-container-h2">Choose Table</h3>
             <div class="scrollable-content">
               <h3 class="image-container-h2-table">Table Style 1</h3>
-              <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)" 
-              style="border-radius: 10px; height: 90%; width: 100%; background: linear-gradient(180deg, #f8f9fa, #ffffff);   padding: 20px;transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden;">
-         </div>
-         <h3 class="image-container-h2-table">Table Style 2</h3>
-         <div id="custom-dynamic-table-user2" data-id="2" class="source-div" onclick="moveContent(event)" 
-              style="border-radius: 10px;  height: 90%; width: 100%; background: linear-gradient(180deg, #f8f9fa, #ffffff);   padding: 20px;; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden;">
-         </div>
-         
-          </div>
+              <div id="custom-dynamic-table-user" data-id="1" class="source-div" onclick="moveContent(event)"
+                style="border-radius: 10px; height: 90%; width: 100%; background: linear-gradient(180deg, #f8f9fa, #ffffff);   padding: 20px;transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden;">
+              </div>
+              <h3 class="image-container-h2-table">Table Style 2</h3>
+              <div id="custom-dynamic-table-user2" data-id="2" class="source-div" onclick="moveContent(event)"
+                style="border-radius: 10px;  height: 90%; width: 100%; background: linear-gradient(180deg, #f8f9fa, #ffffff);   padding: 20px;; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow: hidden;">
+              </div>
+
+            </div>
 
 
           </div>
@@ -600,7 +633,7 @@
           </div>
 
 
-          
+
 
           <div class="template-two" id="template2" style="display: none">
 
@@ -619,7 +652,7 @@
                 <div class="box-template2">
                   <h3>Active Batches</h3>
                   <h1 id="number"></h1>
-                 
+
                   <div id="batch-number">Batches</div>
                 </div>
                 <div class="box-template2">
@@ -628,26 +661,26 @@
                 </div>
                 <div class="box-template2">
                   <h3>Number of Learners</h3>
-                  <canvas id="learnersChart" width="100" height="120"></canvas>
+                  <canvas id="learnersChart" width="100" height="100"></canvas>
                 </div>
 
                 <div class="box-template2">
                   <h3>Total Batch Duration</h3>
-                  <canvas id="batchDurationChart" width="200" height="250"></canvas>
+                  <canvas id="batchDurationChart" width="260" height="260"></canvas>
                 </div>
                 <div class="box-template2">
                   <h3>Current Learning Level</h3>
-                  <canvas id="levelChart" width="200" height="300"></canvas>
+                  <canvas id="levelChart" width="260" height="280"></canvas>
                 </div>
                 <div class="box-template2">
                   <h3>Trainer</h3>
-                  
+
                   <div id="trainer-name-template2"> </div>
                 </div>
-                
+
 
               </div>
-            
+
               <div id="batchwise-data-template2">
 
               </div>
@@ -665,15 +698,18 @@
           <!-- temp3 new -->
 
           <div class="template-three" id="template3" style="display: none">
-            <div class="report-container">
-              <h1 class="title">Japanese Training Report</h1>
+            <div class="container-template3" id="container-template3">
+              <div class="header-template3" id="header-template3">
+                <h1 class="title">Japanese Language Training Report</h1>
               <h3 id="subtitle"></h3>
+              </div>
+              
 
               <div class="tablecontainer3" id="tablecontainerAbove3">
                 <div id="tableContentAbove3"></div>
 
               </div>
-              <div class="batch-container-main">
+              
                 <div class="batch-container">
                   <div class="batch-card">
                     <div class="card-title">No. of Batches</div>
@@ -688,46 +724,45 @@
                   <div class="batch-card">
                     <div class="card-title">Current Learning Level</div>
                     <div class="bar-chart">
-                      <canvas id="current-level-template3" width="200" height="260"></canvas>
+                      <canvas id="current-level-template3" style="margin-top: 30px;" width="290" height="300"></canvas>
                       <div></div>
                     </div>
                   </div>
-                </div>
-
-                <div class="batch-container">
+               
                   <div class="batch-card">
                     <div class="card-title">No of Learners</div>
-                    <canvas class="card-content" id="card-content" width="150" height="200"></canvas>
+                    <canvas class="card-content" id="card-content" style="margin-top: 30px;" width="100" height="120"></canvas>
                   </div>
 
                   <div class="batch-card">
-                    <div class="card-title">Total Sessions</div>
+                    <div class="card-title">Total No. of Sessions</div>
 
-                    <canvas class="card-content" id="card-content-sessions" width="250" height="280">
+                    <canvas class="card-content" id="card-content-sessions" style="margin-top: 50px;" width="120" height="150">
 
                     </canvas>
                   </div>
 
                   <div class="batch-card">
                     <div class="card-title" id="card-title">Total Durations</div>
-                    <canvas class="card-content" id="card-content-duration" width="180" height="200"></canvas>
+                    <canvas class="card-content" id="card-content-duration" style="margin-right: 50px;" width="260" height="300"></canvas>
                   </div>
                 </div>
-              </div>
+           
               <div id="batchwise-data-template3">
-                
+
               </div>
-              
+
 
 
               <div class="tablecontainer3" id="tablecontainer3">
                 <div id="tableContent3"></div>
 
               </div>
-            </div>
+            
+          </div>
           </div>
 
-          
+
           <!-- end of temp3 -->
           <div class="template-four" id="template4" style="display: none;">
             <div class="t4top">
@@ -741,7 +776,7 @@
               </div>
             </div>
 
-            
+
 
             <div class="t4body">
               <div class="t4leftbody">
@@ -820,37 +855,37 @@
                 <div class="first-box">
                   <div class="box-template5-1">
                     <h2>Number of Learners</h2>
-                    <canvas id="learners-chart-template5" width="200" height="200"></canvas>
+                    <canvas id="learners-chart-template5" width="200" height="150"></canvas>
                   </div>
 
                   <div class="box-template5-2">
                     <h2>Current Learning Level</h2>
-                    <canvas id="levelChart-t5" height="250" width="200"></canvas>
+                    <canvas id="levelChart-t5" style="margin-left: 50px;" height="250" width="300"></canvas>
                   </div>
                 </div>
 
                 <div class="second-box">
-                  <div class="box-template5-5">
+                  <div class="box-template5-5" >
                     <h2>Trainer</h2>
-                    <div id="trainer-name-template5"></div>
+                    <div id="trainer-name-template5"  ></div>
 
                   </div>
                   <div class="box-template5-3">
                     <h2>Total Batch Duration</h2>
-                    <canvas id="batch-duration-chart-t5" width="250" height="180"></canvas>
+                    <canvas id="batch-duration-chart-t5" style="margin-top: 50px; margin-left: 80px;" width="230" height="170"></canvas>
                   </div>
                   <div class="box-template5-4">
                     <h2>Total No. of Sessions Till Date</h2>
-                    <canvas id="sessionsChart-t5" width="250" height="200"></canvas>
+                    <canvas id="sessionsChart-t5" style="margin-left: 80px;" width="120" height="80"></canvas>
                   </div>
                 </div>
 
               </div>
 
               <div id="batchwise-data-template5" class="break-point">
-                
+
               </div>
-              
+
 
 
 
@@ -880,7 +915,7 @@
                 <div class="box-custom-template">
                   <h3>Active Batches</h3>
                   <h1 id="number-custom"></h1>
-                
+
                   <div id="batch-number-custom">Batches</div>
                 </div>
                 <div class="box-custom-template">
@@ -889,23 +924,23 @@
                 </div>
                 <div class="box-custom-template">
                   <h3>Number of Learners</h3>
-                  <canvas id="learnersChart-custom" width="100" height="120"></canvas>
+                  <canvas id="learnersChart-custom" width="100" height="100"></canvas>
                 </div>
 
                 <div class="box-custom-template">
                   <h3>Total Batch Duration</h3>
-                  <canvas id="batchDurationChart-custom" width="200" height="250"></canvas>
+                  <canvas id="batchDurationChart-custom" style="margin-top: 30px;"  width="250" height="250"></canvas>
                 </div>
                 <div class="box-custom-template">
                   <h3>Current Learning Level</h3>
-                  <canvas id="levelChart-custom" width="200" height="300"></canvas>
+                  <canvas id="levelChart-custom" width="250" height="300"></canvas>
                 </div>
                 <div class="box-custom-template">
                   <h3>Trainer</h3>
-                 
+
                   <div id="trainer-name-custom-template"> </div>
                 </div>
-               
+
 
 
               </div>
@@ -918,10 +953,380 @@
 
               </div>
 
-              
+
             </div>
 
           </div>
+
+
+          <div class="template-ten" id="template10" style="display: none">
+
+            <div class="container-template-10" id="container-template-10">
+              <div class="header-template-10" id="header-template-10">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template-10-month"></h3>
+              </div>
+
+              <div class="tablecontainer10" id="tablecontainerAbove10">
+                <div id="tableContentAbove10"></div>
+
+              </div>
+
+              <div class="summary-template-10">
+                <div class="box-template-10">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-10"></h1>
+
+                  <div id="batch-number-10" style="color: #f47464;">Batches</div>
+                </div>
+                <div class="box-template-10">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-10" width="120" height="150"></canvas>
+                </div>
+                <div class="box-template-10">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-10" width="100" height="100"></canvas>
+                </div>
+
+                <div class="box-template-10">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-10"   width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-10">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart-10" style="margin-left: 30px;" width="200" height="250"></canvas>
+                </div>
+                <div class="box-template-10">
+                  <h3>Trainer</h3>
+
+                  <div id="trainer-name-template-10"> </div>
+                </div>
+
+
+              </div>
+
+              <div id="batchwise-data-template-10">
+
+              </div>
+
+
+
+              <div class="tablecontainer10" id="tablecontainer10">
+                <div id="tableContent10"></div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="template-eleven" id="template11" style="display: none">
+
+            <div class="container-template-11" id="container-template-11">
+              <div class="header-template-11" id="header-template-11">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template-11-month"></h3>
+              </div>
+
+              <div class="tablecontainer11" id="tablecontainerAbove11">
+                <div id="tableContentAbove11"></div>
+
+              </div>
+
+              <div class="summary-template-11">
+                <div class="box-template-11">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-11"></h1>
+
+                  <div id="batch-number-11" >Batches</div>
+                </div>
+                <div class="box-template-11">
+                  <h3>Trainer</h3>
+
+                  <div id="trainer-name-template-11"> </div>
+                </div>
+                <div class="box-template-11">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-11" width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-11">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-11" width="250" height="250"></canvas>
+                </div>
+
+                <div class="box-template-11">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-11" width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-11">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart-11" width="250" height="250"></canvas>
+                </div>
+                
+
+
+              </div>
+
+              <div id="batchwise-data-template-11">
+
+              </div>
+
+
+
+              <div class="tablecontainer11" id="tablecontainer11">
+                <div id="tableContent11"></div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="template-twelve" id="template12" style="display: none">
+
+            <div class="container-template-12" id="container-template-12">
+              <div class="header-template-12" id="header-template-12">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template-12-month"></h3>
+              </div>
+
+              <div class="tablecontainer12" id="tablecontainerAbove12">
+                <div id="tableContentAbove12"></div>
+
+              </div>
+
+              <div class="summary-template-12">
+                <div class="box-template-12">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-12"></h1>
+
+                  <div id="batch-number-12" >Batches</div>
+                </div>
+                <div class="box-template-12">
+                  <h3>Trainer</h3>
+
+                  <div id="trainer-name-template-12"> </div>
+                </div>
+                <div class="box-template-12">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-12" width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-12">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-12" width="250" height="250"></canvas>
+                </div>
+
+                <div class="box-template-12">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-12" width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-12">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart-12" width="250" height="250"></canvas>
+                </div>
+                
+
+
+              </div>
+
+              <div id="batchwise-data-template-12">
+
+              </div>
+
+
+
+              <div class="tablecontainer12" id="tablecontainer12">
+                <div id="tableContent12"></div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="template-thirteen" id="template13" style="display: none">
+
+            <div class="container-template-13" id="container-template-13">
+              <div class="header-template-13" id="header-template-13">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template-13-month"></h3>
+              </div>
+
+              <div class="tablecontainer13" id="tablecontainerAbove13">
+                <div id="tableContentAbove13"></div>
+
+              </div>
+
+              <div class="summary-template-13">
+                <div class="box-template-13">
+                  <h3>Active Batches</h3>
+                  <h1 id="number-13"></h1>
+
+                  <div id="batch-number-13" >Batches</div>
+                </div>
+                <div class="box-template-13">
+                  <h3>Trainer</h3>
+
+                  <div id="trainer-name-template-13"> </div>
+                </div>
+                <div class="box-template-13">
+                  <h3>Total No. of Sessions</h3>
+                  <canvas id="sessionsChart-13" width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-13">
+                  <h3>Number of Learners</h3>
+                  <canvas id="learnersChart-13" width="250" height="250"></canvas>
+                </div>
+
+                <div class="box-template-13">
+                  <h3>Total Batch Duration</h3>
+                  <canvas id="batchDurationChart-13" width="250" height="250"></canvas>
+                </div>
+                <div class="box-template-13">
+                  <h3>Current Learning Level</h3>
+                  <canvas id="levelChart-13" width="250" height="250"></canvas>
+                </div>
+                
+
+
+              </div>
+
+              <div id="batchwise-data-template-13">
+
+              </div>
+
+
+
+              <div class="tablecontainer13" id="tablecontainer13">
+                <div id="tableContent13"></div>
+
+              </div>
+            </div>
+
+          </div>
+
+          
+
+          <div class="template-fourteen" id="template14" style="display: none">
+
+            <div class="container-template-14" id="container-template-14">
+              <div class="header-template-14" id="header-template-14">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template-14-month"></h3>
+              </div>
+
+              <div class="tablecontainer14" id="tablecontainerAbove14">
+                <div id="tableContentAbove14"></div>
+              </div>
+            
+              <div class="summary-template-14 layout-flex-14">
+                <div class="left-column-14">
+                  <div class="box-template-14">
+                    <h3>Active Batches</h3>
+                    <h1 id="number-14"></h1>
+                    <div id="batch-number-14">Batches</div>
+                  </div>
+                  <div class="box-template-14">
+                    <h3>Trainer</h3>
+                    <div id="trainer-name-template-14"></div>
+                  </div>
+                </div>
+            
+                <div class="right-grid-14">
+                  <div class="box-template-14">
+                    <h3>Total Sessions</h3>
+                    <canvas id="sessionsChart-14" width="250" height="250"></canvas>
+                  </div>
+                  <div class="box-template-14">
+                    <h3>No.of Learners</h3>
+                    <canvas id="learnersChart-14" width="250" height="250"></canvas>
+                  </div>
+                  <div class="box-template-14">
+                    <h3>Batch Duration</h3>
+                    <canvas id="batchDurationChart-14" width="250" height="250"></canvas>
+                  </div>
+                  <div class="box-template-14">
+                    <h3>Learning Level</h3>
+                    <canvas id="levelChart-14" style="margin-left: 30px;" width="250" height="250"></canvas>
+                  </div>
+                </div>
+              </div>
+            
+              
+            
+              <div id="batchwise-data-template-14"></div>
+            
+              <div class="tablecontainer14" id="tablecontainer14">
+                <div id="tableContent14"></div>
+              </div>
+            </div>
+            
+            
+
+          </div>
+
+
+
+
+          <div class="template-fifteen" id="template15" style="display: none">
+
+            <div class="container-template-15" id="container-template-15">
+              <div class="header-template-15" id="header-template-15">
+                <h1>Japanese Language Training Report</h1>
+                <h3 id="template-15-month"></h3>
+              </div>
+              
+              <div class="book-layout">
+                <!-- Left Side -->
+                <div class="left-column">
+                  <div class="summary-template-15">
+                    <div class="box-template-15">
+                      <h3>Active Batches</h3>
+                      <h1 id="number-15"></h1>
+                      <div id="batch-number-15">Batches</div>
+                    </div>
+                    <div class="box-template-15">
+                      <h3>Trainer</h3>
+                      <div id="trainer-name-template-15"></div>
+                    </div>
+                    <div class="box-template-15">
+                      <h3>Total Sessions</h3>
+                      <canvas id="sessionsChart-15" width="250" height="250"></canvas>
+                    </div>
+                    <div class="box-template-15">
+                      <h3>No.of Learners</h3>
+                      <canvas id="learnersChart-15" width="250" height="250"></canvas>
+                    </div>
+                    <div class="box-template-15">
+                      <h3>Batch Duration</h3>
+                      <canvas id="batchDurationChart-15" width="250" height="250"></canvas>
+                    </div>
+                    <div class="box-template-15">
+                      <h3>Learning Level</h3>
+                      <canvas id="levelChart-15"  width="250" height="250"></canvas>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Right Side -->
+                <div class="right-column">
+                  <div class="tablecontainer15" id="tablecontainerAbove15">
+                    <div id="tableContentAbove15"></div>
+                  </div>
+                  
+                  <div id="batchwise-data-template-15"></div>
+                  
+                  <div class="tablecontainer15" id="tablecontainer15">
+                    <div id="tableContent15"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            
+            
+
+          </div>
+
 
           <div class="custom-template-user" id="custom-template-user" class="selected-container" style="display: none"
             ondragover="allowDrop(event)" ondrop="drop(event)">
@@ -933,18 +1338,18 @@
             <div id="custom-template-graph-container" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
             <div id="custom-template-table-container" ondragover="allowDropTable(event)" ondrop="dropTable(event)">
             </div>
-            <div id="chartDiv" class="chart-container" >
+            <div id="chartDiv" class="chart-container">
               <div id="chartGrid" class="chart-container"></div>
-           
-          </div>
+
+            </div>
 
             <div class="tablecontainer-custom-user" id="tablecontainer-custom-user">
               <div id="tableContent-custom-user"></div>
 
             </div>
-           
-            
-         
+
+
+
           </div>
 
         </div>
@@ -953,7 +1358,7 @@
       </div>
 
       </div>
-      
+
       </div>
 
   </main>
